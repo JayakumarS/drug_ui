@@ -11,7 +11,8 @@
         <div class="box-shadow">
           <div class="card">
             <div class="body">
-              <form class="m-4" [formGroup]="docForm">
+              <form class="m-2" [formGroup]="docForm">
+                <div class="col-xl-7" style="margin-left: 21%">
                 <div class="card">
                 <div class="row">
                     <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12" style="margin-left: 36%">
@@ -27,65 +28,27 @@
                 </div>
                 <br>
                 <div class="row">
-                  <div class="col-xl-4 col-lg-3 col-md-10 col-sm-10 " style="margin-left: 10px;">
+                  <div class="col-xl-3 col-lg-3 col-md-10 col-sm-10 " style="margin-left: 10px;">
                        
                   </div>
                     <div class="col-xl-1 col-lg-3 col-md-10 col-sm-10 " style="margin-left: 10px;">
                         <mat-radio-button>Date Range
                         </mat-radio-button>
                     </div>
-                    <div class="col-xl-1 col-lg-3 col-md-10 col-sm-10 " style="margin-left: 10px;">
+                    <div class="col-xl-2 col-lg-3 col-md-10 col-sm-10 " style="margin-left: 10px;">
                        
                     </div>
-                    <div class="col-xl-4 col-lg-3 col-md-10 col-sm-10 " style="margin-left: 10px;">
+                    <div class="col-xl-1 col-lg-3 col-md-10 col-sm-10 " style="margin-left: 10px;">
                         <mat-radio-button>Debit Memo No
                         </mat-radio-button>
                     </div>
                 </div>
                 <br>
-                <!-- <div class="row">
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12"  style="margin-left: 16%">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Start Date</mat-label>
-                          <input matInput [matDatepicker]="picker" formControlName="startDate">
-                          <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
-                          <mat-datepicker #picker></mat-datepicker>
-                        </mat-form-field>
-                    </div>
-                   
-                    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 "  style="margin-left: 16%">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                              <mat-select formControlName="debitMemoNo" required>
-                                <mat-option [value]="'1'">
-                                  OMG071316KK
-                                </mat-option>
-                              </mat-select>
-                        </mat-form-field>
-                    </div>
-                </div>
-                <div class="row">      
-                      <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12"  style="margin-left: 16%">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>End Date</mat-label>
-                          <input matInput [matDatepicker]="picker1" formControlName="endDate">
-                          <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
-                          <mat-datepicker #picker1></mat-datepicker>
-                        </mat-form-field>
-                      </div>
-                </div> -->
+               
                 <div class="row" style="overflow-x:auto;">
                   <div class="col-md-4" style="margin-left: 16%">
                       <div class="table-responsive-sm">
                           <table class="table table-bordered table-hover">
-                              <thead class="theadRow thead-light">
-                  <tr>
-                      <!-- <th style="text-align: center;"></th>
-                      <th style="text-align: center;">As Per College</th>
-                      <th style="text-align: center;"> As Per Inspector</th> -->
-  
-                 
-                  </tr>
-                              </thead>
                               <tbody>
                                   <tr style="text-align: center;">
                                       <td> <div class="col-xl-8 col-lg-3 col-md-12 col-sm-12" style="margin-left: 16%">
@@ -122,7 +85,7 @@
 </div>
                 <br>
                 <div class="row">      
-                    <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12"  style="margin-left: 16%">
+                    <div class="col-xl-5 col-lg-3 col-md-12 col-sm-12"  style="margin-left: 16%">
                         <mat-label>Choose Records to Display/Print</mat-label>
                     </div>
                 </div>
@@ -133,7 +96,7 @@
                   </div>
                   <div class="card col-xl-8">
                 <br>
-                    <div class="col-xl-8 col-lg-3 col-md-10 col-sm-10 " style="margin-left: 16px;">
+                    <div class="col-xl-12 col-lg-3 col-md-10 col-sm-10 " style="margin-left: 16px;">
                         <mat-radio-button>All
                         </mat-radio-button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                         <mat-radio-button>Returnable items only
@@ -144,7 +107,6 @@
                     <br>
                 </div>
               </div>
-            </div>
                 <div class="row"> 
                 <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 mb-3">
                 </div>
@@ -153,6 +115,8 @@
                     color="accent" style="margin-left: 36%;background-color: #34d034;">Ok</button>
                 </div>
                 </div>
+              </div>
+              </div>
               </form>
             </div>
           </div>

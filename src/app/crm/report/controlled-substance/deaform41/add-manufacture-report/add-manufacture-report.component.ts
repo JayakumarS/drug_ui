@@ -9,6 +9,7 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.model';
 import { MatDialog } from '@angular/material/dialog';
+import { ManufacturePopupComponent } from './manufacture-popup/manufacture-popup.component';
 @Component({
   selector: 'app-add-manufacture-report',
   templateUrl: './add-manufacture-report.component.html',
@@ -47,17 +48,17 @@ export class AddManufactureReportComponent implements OnInit {
   }
   onOk() {
     
-    // let tempDirection;
-    // if (localStorage.getItem("isRtl") === "true") {
-    //   tempDirection = "rtl";
-    // } else {
-    //   tempDirection = "ltr";  
-    // }
-    // const dialogRef = this.dialog.open(ManufacturePopupComponent, {
-    //   height: "450px",
-    //   width: "550px",
-    //   direction: tempDirection,
-    // });
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";  
+    }
+    const dialogRef = this.dialog.open(ManufacturePopupComponent, {
+      height: "450px",
+      width: "550px",
+      direction: tempDirection,
+    });
    
     
   }
