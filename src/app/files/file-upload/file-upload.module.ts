@@ -21,6 +21,7 @@ import { MatTableExporterModule } from "mat-table-exporter";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
+import {MatRadioModule} from '@angular/material/radio';
 
 import { FileUploadRoutingModule } from './file-upload-routing.module';
 import { AddFilesComponent } from './add-files/add-files.component';
@@ -57,6 +58,7 @@ import { ListFilesComponent } from './list-files/list-files.component';
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
+    MatRadioModule
   ]
 })
 export class FileUploadModule { }
