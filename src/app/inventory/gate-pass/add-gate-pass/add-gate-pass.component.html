@@ -1,0 +1,309 @@
+<section class="content">
+  <div class="content-block">
+    <div class="block-header">
+      <!-- breadcrumb -->
+      <app-breadcrumb [title]="''" [items]="['Inventory']" [active_item]="'Add Gate Pass'">
+      </app-breadcrumb>
+    </div>
+    <div class="row clearfix">
+      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <div class="card">
+            <div class="body">
+              <form class="m-4" [formGroup]="docForm">
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Organization Name</mat-label>
+                      <input matInput formControlName="organizationName">
+                      <mat-error *ngIf="docForm.get('organizationName').hasError('required')">
+                        Organization Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Manual Gate Pass Number</mat-label>
+                      <input matInput formControlName="manualGatePassNumber" required>
+                      <mat-error *ngIf="docForm.get('manualGatePassNumber').hasError('required')">
+                        Manual Gate Pass Number is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Person Name</mat-label>
+                      <input matInput formControlName="personName" required>
+                      <mat-error *ngIf="docForm.get('personName').hasError('required')">
+                        Person Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                 
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Gate Pass Date</mat-label>
+                      <input matInput [matDatepicker]="picker" formControlName="gatePassDate">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
+                    </mat-form-field>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Purchase Order</mat-label>
+                      <input matInput formControlName="purchaseOrder" required>
+                      <mat-error *ngIf="docForm.get('purchaseOrder').hasError('required')">
+                        Purchase Order is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Delivery Order No</mat-label>
+                      <input matInput formControlName="deliveryOrderNo">
+                      <mat-error *ngIf="docForm.get('deliveryOrderNo').hasError('required')">
+                        Delivery Order No is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Invoice No</mat-label>
+                      <input matInput formControlName="invoiceNo" required>
+                      <mat-error *ngIf="docForm.get('invoiceNo').hasError('required')">
+                        Invoice No is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Party</mat-label>
+                      <mat-select formControlName="party" required>
+                        <mat-option [value]="'1'">
+                          Paragon
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="docForm.get('party').hasError('required')">
+                        Party is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                </div>
+                
+                <div class="row">
+                 
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Mode Of Delivery</mat-label>
+                      <mat-select formControlName="modeOfDelivery" required>
+                        <mat-option [value]="'1'">
+                          Paragon
+                        </mat-option>
+                      </mat-select>
+                      <mat-error *ngIf="docForm.get('modeOfDelivery').hasError('required')">
+                        Mode Of Delivery is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Vendor</mat-label>
+                      <input matInput formControlName="vendor" required>
+                      <mat-error *ngIf="docForm.get('vendor').hasError('required')">
+                        Vendor is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Location</mat-label>
+                      <input matInput formControlName="location" required>
+                      <mat-error *ngIf="docForm.get('location').hasError('required')">
+                        Location is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-1 col-lg-3 col-md-10 col-sm-10 " style="margin-left: 10px;">
+                    <mat-radio-button>Type
+                    </mat-radio-button>
+                  </div>
+                  <div class="col-xl-1 col-lg-3 col-md-10 col-sm-10 ">
+                    <mat-radio-button>Outward
+                    </mat-radio-button>
+                  </div>
+                </div>
+                <div class="row">
+                  
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 ">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Address</mat-label>
+                      <textarea matInput formControlName="address"></textarea>
+                      <mat-error *ngIf="docForm.get('address').hasError('required')">
+                        Address is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Remarks/Reason</mat-label>
+                      <textarea matInput formControlName="reasonRemarks"></textarea>
+                    </mat-form-field>
+                  </div>
+                  
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12 ">
+                    <mat-checkbox ngInit="checked=true">Is Returnable</mat-checkbox>
+                  </div>
+                </div>
+                <br><br>
+
+                <!--  detail Row -->
+
+                <div style="overflow-x: auto;">
+                  <table id="dt_basic" class="table table-striped font-weight-bold " role="grid">
+                    <thead class="">
+                      <tr>
+                        <th></th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                width: 12%; border-radius: 0.05rem;">Out Item Name</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                width: 12%; border-radius: 0.05rem;">UOM</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                width: 12%;border-radius: 0.07rem;">Quantity</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                width: 12%;border-radius: 0.07rem;">Alternate UOM</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                 width: 12%; border-radius: 0.05rem;">Alternate Quantity</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                 width: 12%; border-radius: 0.05rem;">In Item Name</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                 width: 12%;border-radius: 0.07rem;">In Vendor UOM</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                 width: 12%;border-radius: 0.07rem;">Receiving Vendor Quantity</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                 width: 12%;border-radius: 0.07rem;">Comverted Purchase Quantity</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                  width: 12%; border-radius: 0.05rem;">Approximate Value</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                  width: 12%; border-radius: 0.05rem;">Description</th>
+                        <th class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                  width: 12%;border-radius: 0.07rem;">Action</th>
+
+                      </tr>
+                    </thead>
+
+                    <ng-container *ngFor="let gatePassdtlBean of docForm.get('gatePassdtlBean')['controls']; let i = index">
+                      <tbody [formGroup]="gatePassdtlBean" > 
+
+                      <tr>
+                        <td class="padding-both-side-2">
+                          <button mat-mini-fab color="warn" (click)="removeRow1(i)">
+                            <mat-icon class="col-white">delete</mat-icon>
+                          </button>
+                        </td>
+                        <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Out Item Name</mat-label>
+                            <input  matInput name ="outItemName{{i}}" formControlName = "outItemName" >
+                          </mat-form-field>
+                        </td>
+                        <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>UOM</mat-label>
+                            <input  matInput name ="uom{{i}}" formControlName = "uom" >
+                          </mat-form-field>
+                        </td>
+                        <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Quantity</mat-label>
+                            <input  matInput name ="quantity{{i}}" formControlName = "quantity" >
+                          </mat-form-field>
+                        </td>
+                        <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Alternate UOM</mat-label>
+                            <input  matInput name ="alternateUOM{{i}}" formControlName = "alternateUOM" >
+                          </mat-form-field>
+                        </td>
+                        <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Alternate Quantity</mat-label>
+                            <input  matInput name ="alternateQuantity{{i}}" formControlName = "alternateQuantity" >
+                          </mat-form-field>
+                        </td>
+
+                        <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>In Item Name</mat-label>
+                            <input matInput name ="inItemName{{i}}" formControlName = "inItemName" >
+                          </mat-form-field>
+                        </td>
+                        <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>In Vendor UOM</mat-label>
+                            <input  matInput name ="inVendorUOM{{i}}" formControlName = "inVendorUOM" >
+                          </mat-form-field>
+                        </td>
+                        <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Receiving Vendor Quantity</mat-label>
+                            <input  matInput name ="receivingVendorQty{{i}}" formControlName = "receivingVendorQty" >
+                          </mat-form-field>
+                        </td>
+                        <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Comverted Purchase Quantity</mat-label>
+                            <input  matInput name ="comvertePurchaseQty{{i}}" formControlName = "comvertePurchaseQty" >
+                          </mat-form-field>
+                        </td>
+                        <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Approximate Value</mat-label>
+                            <input  matInput name ="approximateValue{{i}}" formControlName = "approximateValue" >
+                          </mat-form-field>
+                        </td>
+
+                        <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Description</mat-label>
+                            <input  matInput name ="description{{i}}" formControlName = "description" >
+                          </mat-form-field>
+                        </td>
+                        <td class="padding-both-side-2">
+                          <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                            <mat-label>Action</mat-label>
+                            <input  matInput name ="action{{i}}" formControlName = "action" >
+                          </mat-form-field>
+                        </td>
+                      </tr>
+                    </tbody>
+                    </ng-container>
+                  </table>
+                </div>
+
+                <br><br>
+                <div>
+                  <button mat-mini-fab color="primary" (click)="addRow1()">
+                    <mat-icon class="col-white">add</mat-icon>
+                  </button>
+                </div>
+
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button (click)="onSubmit()" class="btn-space" mat-raised-button color="accent"
+                      style="margin-left: 36%;background-color: #34d034;">Save</button>
+                    <button color="primary" type="button" class="btn-space" (click)="reset()"
+                      mat-raised-button>Reset</button>
+                    <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

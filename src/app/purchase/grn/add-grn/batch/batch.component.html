@@ -1,0 +1,192 @@
+<div class="content-block">
+  <div class="row">
+     <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+       <div class="card">
+         <div class="body">
+           <div class="table-responsive">
+             <div class="materialTableHeader">
+               <div class="row">
+                 <div class="col-8">
+                   <ul class="header-buttons-left ms-0">
+                     <li class="dropdown">
+                       <h2><i class="fa fa-table"></i>&nbsp;Add GRN Batch Details</h2>
+                     </li>
+                   </ul>
+                 </div>
+               </div>
+             </div>
+           
+             <form class="m-4" [formGroup]="docForm">
+            
+                   <div role="content">
+                     <div class="widget-body no-padding">
+                    <table class="table table-striped table-bordered table-hover dataTable no-footer"
+                        role="grid" aria-describedby="dt_basic_info">
+                        <thead class="dataTables-Main-Head">
+                         <tr>
+                          <th class="width_1 table-heading text-center" style="margin-left: 25px;
+                          width: 11%; border-radius: 0.05rem;"><label
+                            class="i-checks m-b-none"> <input type="checkbox"
+                              ng-model="selectedAll" *ngIf="!edit">
+                              <i></i>
+                          </label></th>
+                          
+                          <th
+                           class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                           width: 12%; border-radius: 0.05rem;">Item Code</th>
+                          <th
+                           class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                           width: 12%; border-radius: 0.05rem;">Item Name</th>
+                           <th *ngIf= "itemBatch"
+                           class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                           width: 12%; border-radius: 0.05rem;">Batch No</th>
+                          <th
+                           class="text-center table-heading padding-both-side-2 width_7"  style="margin-left: 25px;
+                           width: 12%;border-radius: 0.07rem;">Batch Quantity</th>
+                           <th *ngIf= "itemMrp"
+                           class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                           width: 12%; border-radius: 0.05rem;">MRP</th>
+                           <th *ngIf = "itemExpDate"
+                           class="text-center table-heading padding-both-side-2 width_7" style="margin-left: 25px;
+                           width: 12%; border-radius: 0.05rem;">Expiry Date</th>
+                          <th *ngIf = "itemManufacture"
+                           class="text-center table-heading padding-both-side-2 width_7"  style="margin-left: 25px;
+                           width: 12%;border-radius: 0.07rem;">Manufacture Details</th>
+                         </tr>
+                        </thead>
+                        <ng-container *ngFor="let batchDetails of docForm.get('batchDetails')['controls']; let i = index">
+                          <tbody [formGroup]="batchDetails"> 
+                              <tr>
+                              <!-- <td class=" text-center">
+                               <label
+                               class="i-checks m-b-none"> <input type="checkbox"
+                               ng-model="row.tableId"> 
+                              </label></td> -->
+                             
+              
+                                <td class=" text-center" *ngIf="!edit">
+                                  <button mat-mini-fab color="warn" (click)="removeRow(i)">
+                                    <mat-icon class="col-white">delete</mat-icon>
+                                  </button>&nbsp;
+                                </td>
+              
+                                <td class=" text-center" *ngIf="edit">
+                                  &nbsp;
+                                </td>
+                
+                              <td class="padding-both-side-2">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>Item Code</mat-label>
+                                  <input matInput name ="batchItemCode{{i}}" formControlName = "batchItemId" [readonly]="true">
+                                  <input matInput name ="batchItemId{{i}}" formControlName = "batchItemId" [hidden]="true">
+                                  
+                                </mat-form-field>
+                               </td>
+                               
+                            
+                              <td class="padding-both-side-2">
+                                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                  <mat-label>Item Name</mat-label>
+                                  <input matInput name ="batchItemName{{i}}" formControlName = "batchItemName"  [readonly]="true">
+                                </mat-form-field>
+                              </td> 
+              
+                              <td class="padding-both-side-2" *ngIf= "itemBatch && !edit" >
+                                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                    <mat-label>Batch No</mat-label>
+                                    <input matInput name ="lotNo{{i}}" formControlName = "lotNo" >
+                                  </mat-form-field>
+                                </td> 
+                                <td class="padding-both-side-2" *ngIf= "itemBatch && edit" >
+                                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                    <mat-label>Batch No</mat-label>
+                                    <input matInput name ="lotNo{{i}}" formControlName = "lotNo" [readonly]="true">
+                                  </mat-form-field>
+                                </td> 
+                                  
+                             <td class="padding-both-side-2" *ngIf = "!edit">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Batch Quantity</mat-label>
+                                <input matInput name ="batchQty{{i}}" formControlName = "batchQty">
+                              </mat-form-field>
+                             </td>
+              
+                             <td class="padding-both-side-2" *ngIf = "edit">
+                              <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                <mat-label>Batch Quantity</mat-label>
+                                <input matInput name ="batchQty{{i}}" formControlName = "batchQty" [readonly]="true">
+                              </mat-form-field>
+                             </td>
+                              <td class="padding-both-side-2" *ngIf= "itemMrp && !edit" >
+                                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                    <mat-label>MRP</mat-label>
+                                    <input matInput name ="mrp{{i}}" formControlName = "mrp"  >
+                                  </mat-form-field>
+                              </td> 
+                              <td class="padding-both-side-2" *ngIf= "itemMrp && edit" >
+                                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                    <mat-label>MRP</mat-label>
+                                    <input matInput name ="mrp{{i}}" formControlName = "mrp" [readonly]="true" >
+                                  </mat-form-field>
+                              </td> 
+                                <td class="padding-both-side-2" *ngIf = "itemExpDate && !edit">
+                                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                    <mat-label>Expiry Date</mat-label>
+                                    <input matInput name ="expiryDate{{i}}" formControlName = "expiryDate"  >
+                                  </mat-form-field>
+                                </td> 
+                                <td class="padding-both-side-2" *ngIf = "itemExpDate && edit">
+                                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                    <mat-label>Expiry Date</mat-label>
+                                    <input matInput name ="expiryDate{{i}}" formControlName = "expiryDate" [readonly]="true" >
+                                  </mat-form-field>
+                                </td> 
+                                <td class="padding-both-side-2" *ngIf = "itemManufacture && !edit">
+                                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                    <mat-label>Manufacture Details</mat-label>
+                                    <input matInput name ="manufactureDef{{i}}" formControlName = "manufactureDef"  >
+                                  </mat-form-field>
+                                </td> 
+              
+                                <td class="padding-both-side-2" *ngIf = "itemManufacture && edit">
+                                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                                    <mat-label>Manufacture Details</mat-label>
+                                    <input matInput name ="manufactureDef{{i}}" formControlName = "manufactureDef" [readonly]="true" >
+                                  </mat-form-field>
+                                </td> 
+                                
+                              </tr>
+                          </tbody>
+                      </ng-container>
+                   </table>
+                      
+                                                             
+                     </div>
+                    </div>
+                    <div class="row" *ngIf = "!edit">
+                      <div>  
+                        <button mat-mini-fab color="primary" (click)="addRow()">
+                          <mat-icon class="col-white">add</mat-icon>
+                        </button>
+                      
+                  </div>
+                   </div> 
+                   <div class="row">
+                    <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
+                    <button  (click) = "saveBatchDetails()" class="btn-space" mat-raised-button *ngIf = "!edit" style="margin-left: 40%;"
+                    color="primary" >Submit</button>  
+                     <button color="warn" (click) = "onNoClick()" type="button" 
+                     mat-raised-button >Cancel</button>
+                   </div>
+                   </div>
+                 
+               </form>
+            
+         
+            
+           </div>
+         </div>
+       </div>
+     </div>
+   </div>
+ </div>
