@@ -18,6 +18,11 @@ const routes: Routes = [
     loadChildren: () =>
     import("./territory/territory.module").then((m) => m.TerritoryModule),
   },
+  {
+    path: "report",
+    loadChildren: () =>
+    import("./report/report.module").then((m) => m.ReportModule),
+  },
 ];
 
 @NgModule({

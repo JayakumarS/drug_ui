@@ -15,6 +15,7 @@ import { MatDialog } from '@angular/material/dialog';
   styleUrls: ['./manufacture-popup.component.sass']
 })
 export class ManufacturePopupComponent implements OnInit {
+
   docForm: FormGroup;
   hide3 = true;
   agree3 = false;
@@ -118,5 +119,6 @@ export class ManufacturePopupComponent implements OnInit {
 
   
 }
+
 
 
