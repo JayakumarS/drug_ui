@@ -12,15 +12,15 @@ const routes: Routes = [
     loadChildren: () =>
       import("./dEAForm41/dEAForm41.module").then((m) => m.DEAForm41Module),
    },
-  //  {
-  //   path: "inventoryReport",
-  //   canActivate: [AuthGuard],
-  //   data: {
-  //     role: Role.Admin,
-  //   },
-  //   loadChildren: () =>
-  //     import("./inventory-report/inventory-report.module").then((m) => m.InventoryReportModule),
-  //  }
+   {
+    path: "inventoryReport",
+    canActivate: [AuthGuard],
+    data: {
+      role: Role.Admin,
+    },
+    loadChildren: () =>
+      import("./inventory-report/inventory-report.module").then((m) => m.InventoryReportModule),
+   }
 ];
 
 @NgModule({
