@@ -20,6 +20,15 @@ const routes: Routes = [
     },
     loadChildren: () =>
       import("./inventory-report/inventory-report.module").then((m) => m.InventoryReportModule),
+   },
+   {
+    path: "managementReport",
+    canActivate: [AuthGuard],
+    data: {
+      role: Role.Admin,
+    },
+    loadChildren: () =>
+      import("./management-report/management-report.module").then((m) => m.ManagementReportModule),
    }
 ];
 
