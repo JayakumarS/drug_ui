@@ -11,7 +11,7 @@ const routes: Routes = [
     },
     loadChildren: () =>
       import("./controlled-substance/controlled-substance-routing.module").then((m) => m.ControlledSubstanceRoutingModule),
-  }
+  },
 ];
 
 @NgModule({

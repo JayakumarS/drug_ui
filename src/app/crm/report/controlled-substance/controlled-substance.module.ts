@@ -5,7 +5,9 @@ import { ControlledSubstanceRoutingModule } from './controlled-substance-routing
 
 
 @NgModule({
-  declarations: [],
+  declarations: [
+    
+  ],
   imports: [
     CommonModule,
     ControlledSubstanceRoutingModule

@@ -29,7 +29,35 @@ const routes: Routes = [
     },
     loadChildren: () =>
       import("./management-report/management-report.module").then((m) => m.ManagementReportModule),
-   }
+   },
+   {
+    path: "packingSlip",
+    canActivate: [AuthGuard],
+    data: {
+      role: Role.Admin,
+    },
+    loadChildren: () =>
+      import("./packing-slip/packing-slip.module").then((m) => m.PackingSlipModule),
+   },
+   {
+    path: "shippingLables",
+    canActivate: [AuthGuard],
+    data: {
+      role: Role.Admin,
+    },
+    loadChildren: () =>
+      import("./shipping-lables/shipping-lables.module").then((m) => m.ShippingLablesModule),
+   },
+   {
+    path: "others",
+    canActivate: [AuthGuard],
+    data: {
+      role: Role.Admin,
+    },
+    loadChildren: () =>
+      import("./others/others-routing.module").then((m) => m.OthersRoutingModule),
+   },
+   
 ];
 
 @NgModule({
