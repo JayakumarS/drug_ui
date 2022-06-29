@@ -1,0 +1,161 @@
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <br>
+        <app-breadcrumb [title]="'Packing Slips'" [items]="['Report']" [active_item]="'Packing Slips'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <div class="card"  style="width:100; height: 950px;">
+            <div class="body">
+              <form class="m-2" [formGroup]="packingForm">
+                <div class="col-xl-7" style="margin-left: 21%">
+                <div class="card">
+                <div class="row">
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12" style="margin-left: 8%">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>Company Name</mat-label>
+                              <mat-select formControlName="companyName" required>
+                                <mat-option [value]="'1'">
+                                  Omega Test
+                                </mat-option>
+                              </mat-select>
+                        </mat-form-field>
+                    </div>
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12" style="margin-left: 17%">
+                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                          <mat-label>Debit Memo No</mat-label>
+                              <mat-select formControlName="debitMemoNo" required>
+                                <mat-option [value]="'1'">
+                                    OMG071316KK
+                                </mat-option>
+                              </mat-select>
+                        </mat-form-field>
+                    </div>
+                </div>
+            <br>
+            <div class="row">      
+                <div class="col-xl-5 col-lg-3 col-md-12 col-sm-12"  style="margin-left: 8%">
+                    <mat-label>Lable Category to Print</mat-label>
+                </div>
+            </div>
+            <div class="row">
+                <div class="card col-xl-10 col-lg-3 col-md-12 col-sm-12"  style="margin-left: 8%">
+                    <br>
+                  <div class="col-xl-12 col-lg-3 col-md-10 col-sm-10 " style="margin-left: 35px;">
+                      <mat-radio-button>Manufacturer Packing Slip
+                      </mat-radio-button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                      <mat-radio-button>Schedule II
+                      </mat-radio-button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  </div>
+                  <br>
+              </div>
+            </div>
+            <br>
+            <div class="row clearfix">
+                <div class="card col-xl-10 col-lg-3 col-md-12 col-sm-12"  style="margin-left: 8%">
+                <div class="tableBody">
+                <div class="table-responsive">
+                  <table class="table text-center">
+                    <tbody>
+                      <tr>
+                        <td><mat-checkbox  ngInit="checked=true"></mat-checkbox></td>
+                        <td><b>Manufacture Name</b></td>
+                        <td><b>Street</b></td>
+                      </tr>
+                      <tr>
+                        <td><mat-checkbox  ngInit="checked=true"></mat-checkbox></td>
+                        <td>3M Consumer</td>
+                        <td>1555 Lovett Drive - Dock A</td>
+                      </tr>
+                      <tr>
+                          <td><mat-checkbox  ngInit="checked=true"></mat-checkbox></td>
+                          <td>3M Health Care</td>
+                          <td>1555 Lovett Drive - Dock A</td>
+                      </tr>
+                      <tr>
+                        <td><mat-checkbox  ngInit="checked=true"></mat-checkbox></td>
+                        <td>3M Health Care</td>
+                        <td>1555 Lovett Drive - Dock A</td>
+                      </tr>
+                      <tr>
+                        <td><mat-checkbox  ngInit="checked=true"></mat-checkbox></td>
+                        <td>3M Pharmaceuticals(Graceway)</td>
+                        <td>811 Mountain View Road</td>
+                      </tr>
+                      <tr>
+                        <td><mat-checkbox  ngInit="checked=true"></mat-checkbox></td>
+                        <td>A.Aarons (Bradley)</td>
+                        <td>6101 North 64th Street</td>
+                      </tr>
+                      <tr>
+                        <td><mat-checkbox  ngInit="checked=true"></mat-checkbox></td>
+                        <td>AAI Pharma</td>
+                        <td>2084-900 Lake Industrial Court</td>
+                      </tr>
+                      <tr>
+                        <td><mat-checkbox  ngInit="checked=true"></mat-checkbox></td>
+                        <td>Abbott Diabetes care</td>
+                        <td>2084-900 Lake Industrial Court</td>
+                      </tr>
+                      <tr>
+                        <td><mat-checkbox  ngInit="checked=true"></mat-checkbox></td>
+                        <td>Accord Healthcare Inc</td>
+                        <td>any</td>
+                      </tr>
+                      <tr>
+                        <td><mat-checkbox  ngInit="checked=true"></mat-checkbox></td>
+                        <td>Acella Pharmaceuticals Inc</td>
+                        <td>any</td>
+                      </tr>
+                      <tr>
+                        <td><mat-checkbox  ngInit="checked=true"></mat-checkbox></td>
+                        <td>Actavis Inc</td>
+                        <td>6101 North 64th Street</td>
+                      </tr>
+                      <tr>
+                        <td><mat-checkbox  ngInit="checked=true"></mat-checkbox></td>
+                        <td>Ajanta Pharma USA Inc</td>
+                        <td>any</td>
+                      </tr>
+                      <tr>
+                        <td><mat-checkbox  ngInit="checked=true"></mat-checkbox></td>
+                        <td>Akorn</td>
+                        <td>1925 West Field Court Suite 300</td>
+                      </tr>
+                      <tr>
+                        <td><mat-checkbox  ngInit="checked=true"></mat-checkbox></td>
+                        <td>Alcon Laboratories</td>
+                        <td>6500 Will Rogers Boulevard</td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </div>
+              </div>
+            
+        </div>
+    </div>   
+    <br> 
+                <div class="row"> 
+                <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 mb-3">
+                </div>
+                <div class="col-xl-2 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button *ngIf="!edit" (click) = "onOk()" class="btn-space" mat-raised-button
+                    color="accent" style="margin-left: 36%;background-color: #34d034;">Ok</button>
+                </div>
+                </div>
+              </div>
+              </div>
+              </form>
+            </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </div>
+  </section>
+  
+  
