@@ -16,8 +16,8 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Account</mat-label>
-                      <input matInput formControlName="country"  required>
-                      <mat-error *ngIf="docForm.get('country').hasError('required')">
+                      <input matInput formControlName="wholesalerAccount"  required>
+                      <mat-error *ngIf="docForm.get('wholesalerAccount').hasError('required')">
                         Account is required
                       </mat-error>
                     </mat-form-field>
@@ -25,8 +25,8 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Name</mat-label>
-                      <input matInput formControlName="city" required>
-                      <mat-error *ngIf="docForm.get('city').hasError('required')">
+                      <input matInput formControlName="wholesalerName" required>
+                      <mat-error *ngIf="docForm.get('wholesalerName').hasError('required')">
                         Name is required
                       </mat-error>
                     </mat-form-field>
@@ -34,8 +34,8 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Contact</mat-label>
-                      <input matInput formControlName="territory" required>
-                      <mat-error *ngIf="docForm.get('territory').hasError('required')">
+                      <input matInput formControlName="wholesalerContact" required>
+                      <mat-error *ngIf="docForm.get('wholesalerContact').hasError('required')">
                         Contact is required
                       </mat-error>
                     </mat-form-field>
@@ -46,8 +46,8 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Department</mat-label>
-                      <input matInput formControlName="salesPerson" required>
-                      <mat-error *ngIf="docForm.get('salesPerson').hasError('required')">
+                      <input matInput formControlName="wholesalerDepartment" required>
+                      <mat-error *ngIf="docForm.get('wholesalerDepartment').hasError('required')">
                         Sales Person is required
                       </mat-error>
                     </mat-form-field>
@@ -55,8 +55,8 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Street</mat-label>
-                      <input matInput formControlName="addressOfCus" required>
-                      <mat-error *ngIf="docForm.get('addressOfCus').hasError('required')">
+                      <input matInput formControlName="wholesalerStreet" required>
+                      <mat-error *ngIf="docForm.get('wholesalerStreet').hasError('required')">
                         Street is required
                       </mat-error>
                     </mat-form-field>
@@ -64,100 +64,41 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>City</mat-label>
-                      <input matInput formControlName="business" required>
-                      <mat-error *ngIf="docForm.get('business').hasError('required')">
-                        Nature of Business of Custumer Code is required
+                      <input matInput formControlName="wholesalerCity" required>
+                      <mat-error *ngIf="docForm.get('wholesalerCity').hasError('required')">
+                        City is required
                       </mat-error>
                     </mat-form-field>
                   </div>
                   
                 </div>
-                <!-- <div class="row">
+                <br>
+                <h6>Company Information</h6><hr>
+                <div class="row">
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>City</mat-label>
+                      <input matInput formControlName="companyCity" required>
+                      <mat-error *ngIf="docForm.get('companyCity').hasError('required')">
+                        City is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>State</mat-label>
-                      <input matInput formControlName="stp" required>
-                      <mat-error *ngIf="docForm.get('stp').hasError('required')">
+                      <input matInput formControlName="companyState" required>
+                      <mat-error *ngIf="docForm.get('companyState').hasError('required')">
                         State is required
                       </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Zipcode</mat-label>
-                      <input matInput formControlName="organisationName" required>
-                      <mat-error *ngIf="docForm.get('organisationName').hasError('required')">
-                        Name of the Organisation is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Phone No</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
-                        Phone is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  
-                </div> -->
-                <br>
-                <h6>Company Information</h6><hr>
-                <!-- <div class="row">
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Name</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
-                        Phone is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>D/B/A</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
-                        Phone is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Street</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
-                        Phone is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                </div> -->
-                <div class="row">
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>City</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
-                        Phone is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>State</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
-                        Phone is required
-                      </mat-error>
-                    </mat-form-field>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Pincode</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
-                        Phone is required
+                      <input matInput formControlName="companyPincode" required>
+                      <mat-error *ngIf="docForm.get('companyPincode').hasError('required')">
+                        Pincode is required
                       </mat-error>
                     </mat-form-field>
                   </div>
@@ -166,8 +107,8 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Phone</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
+                      <input matInput formControlName="companyPhone" required>
+                      <mat-error *ngIf="docForm.get('companyPhone').hasError('required')">
                         Phone is required
                       </mat-error>
                     </mat-form-field>
@@ -175,18 +116,18 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Fax</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
-                        Phone is required
+                      <input matInput formControlName="companyFax" required>
+                      <mat-error *ngIf="docForm.get('companyFax').hasError('required')">
+                        Fax is required
                       </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Contact</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
-                        Phone is required
+                      <input matInput formControlName="companyContact" required>
+                      <mat-error *ngIf="docForm.get('companyContact').hasError('required')">
+                        Contact is required
                       </mat-error>
                     </mat-form-field>
                   </div>
@@ -195,55 +136,46 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Email ID</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
-                        Phone is required
+                      <input matInput formControlName="companyEmailID" required>
+                      <mat-error *ngIf="docForm.get('companyEmailID').hasError('required')">
+                       EmailID is required
                       </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Facility Type</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
-                        Phone is required
+                      <input matInput formControlName="companyFacilityType" required>
+                      <mat-error *ngIf="docForm.get('companyFacilityType').hasError('required')">
+                        FacilityType is required
                       </mat-error>
                     </mat-form-field>
                   </div>
                 </div>
-                <div class="row col-md-12">
-                  <div class="col-md-3">
-                    <mat-label>Authorized Classes: </mat-label>
+                <div class="row">
+                  <mat-label>Authorized Classes </mat-label>
 
-                  </div>
-
-                  <div class="col-md-1" style="margin-left:9px;">
-                    <mat-checkbox  ngInit="checked=true">2</mat-checkbox>
-                  </div> 
-                  <div class="col-md-1" style="margin-left:9px;">
-                    <mat-checkbox  ngInit="checked=true">2N</mat-checkbox>
-                  </div> 
-                  <div class="col-md-1" style="margin-left:9px;">
-                    <mat-checkbox  ngInit="checked=true">3</mat-checkbox>
-                  </div> 
-                  <div class="col-md-1 " style="margin-left:9px;">
-                    <mat-checkbox  ngInit="checked=true">3N</mat-checkbox>
-                  </div> 
-                  <div class="col-md-1" style="margin-left:9px;">
-                    <mat-checkbox  ngInit="checked=true">4</mat-checkbox>
-                  </div> 
-                  <div class="col-md-1 " style="margin-left:9px;">
-                    <mat-checkbox  ngInit="checked=true">5</mat-checkbox>
-                  </div> 
+                  <div class="col-md-12">              
+                  <form class="m-4" [formGroup]="companyAuthorizedClassesForm">      
+                  <section class="example-section">
+                    <p><mat-checkbox formControlName="companyAuthorizedClasses2">2</mat-checkbox></p>
+                    <p style="margin-left:12px;"><mat-checkbox formControlName="companyAuthorizedClasses2N">2N</mat-checkbox></p>
+                    <p style="margin-left:12px;"><mat-checkbox formControlName="companyAuthorizedClasses3">3</mat-checkbox></p>
+                    <p style="margin-left:12px;"><mat-checkbox formControlName="companyAuthorizedClasses3N">3N</mat-checkbox></p>
+                    <p style="margin-left:12px;"><mat-checkbox formControlName="companyAuthorizedClasses4">4</mat-checkbox></p>
+                    <p style="margin-left:12px;"><mat-checkbox formControlName="companyAuthorizedClasses5">5</mat-checkbox></p>
+                </section>
+                </form>
                 </div>
+              </div>
                 <br>
                 <h6>DEA Information</h6><hr>
                 <div class="row">
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Number</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
+                      <input matInput formControlName="defNumber" required>
+                      <mat-error *ngIf="docForm.get('defNumber').hasError('required')">
                         Number is required
                       </mat-error>
                     </mat-form-field>
@@ -251,9 +183,9 @@
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Expiration Date</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
-                        Phone is required
+                      <input matInput formControlName="defExpirationDate" required>
+                      <mat-error *ngIf="docForm.get('defExpirationDate').hasError('required')">
+                        Expiration Date is required
                       </mat-error>
                     </mat-form-field>
                   </div>
@@ -263,32 +195,36 @@
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Name</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
+                      <input matInput formControlName="issuesCreditsName" required>
+                      <mat-error *ngIf="docForm.get('issuesCreditsName').hasError('required')">
                         Name is required
                       </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                    <mat-label>Auto Fill</mat-label>
-                      <mat-checkbox formControlName="zipCode"  ngInit="checked=true" required>3N</mat-checkbox>
+                    <mat-label>Auto Fill </mat-label>
+                    <div class="col-md-12">                    
+                    <section class="example-section">
+                      <p><mat-checkbox value="issuesCreditsAutoFill"  formControlName="issuesCreditsAutoFill">3N</mat-checkbox></p>
+                  </section>
                   </div>
+                </div>
                 </div>
                 <div class="row">
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Street</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
-                        Name is required
+                      <input matInput formControlName="issuesCreditsStreet" required>
+                      <mat-error *ngIf="docForm.get('issuesCreditsStreet').hasError('required')">
+                        Street is required
                       </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>City</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
+                      <input matInput formControlName="issuesCreditsCity" required>
+                      <mat-error *ngIf="docForm.get('issuesCreditsCity').hasError('required')">
                         City is required
                       </mat-error>
                     </mat-form-field>
@@ -298,8 +234,8 @@
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>State</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
+                      <input matInput formControlName="issuesCreditsState" required>
+                      <mat-error *ngIf="docForm.get('issuesCreditsState').hasError('required')">
                         State is required
                       </mat-error>
                     </mat-form-field>
@@ -307,8 +243,8 @@
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Zipcode</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
+                      <input matInput formControlName="issuesCreditsZipCode" required>
+                      <mat-error *ngIf="docForm.get('issuesCreditsZipCode').hasError('required')">
                         Zipcode is required
                       </mat-error>
                     </mat-form-field>
@@ -318,8 +254,8 @@
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Phone</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
+                      <input matInput formControlName="issuesCreditsPhone" required>
+                      <mat-error *ngIf="docForm.get('issuesCreditsPhone').hasError('required')">
                         Phone is required
                       </mat-error>
                     </mat-form-field>
@@ -327,42 +263,40 @@
                 </div>
                 <h6>General Information</h6><hr>
                 <div class="row">
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                    <mat-radio-button>WAC </mat-radio-button>
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                    <mat-radio-button>AWP Less </mat-radio-button>
-                    <input  formControlName="zipCode" ><label>%</label>
-                   
-                  </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
-                    <mat-radio-button>My Price</mat-radio-button>
-                  </div>
+                  <mat-radio-group formControlName="generalInfroWacAwapMyprice">
+                    <mat-radio-button value="1">WAC</mat-radio-button>
+                    <mat-radio-button  value="2">AWP Less</mat-radio-button>
+                    <mat-radio-button  value="3">My Price</mat-radio-button>
+                  </mat-radio-group>
                 </div>
+                <br>
+                <br>
                 <h6>My Wholesaler Will</h6><hr>
+
                 <div class="row">
-                  <div >
-                    <mat-radio-button>Accept returns according to manufacturer policy</mat-radio-button>
-                  </div>
-                  <div >
-                    <mat-radio-button>Not accept returns</mat-radio-button>
-                  </div>
-                  <div >
-                    <mat-radio-button>Not accept returns for outdated over  </mat-radio-button>
-                    <input  formControlName="zipCode" ><label>months</label>
-                    
-                  </div>
+                  <mat-radio-group formControlName="myWholesalerPolicyType">
+                    <mat-radio-button value="1">Accept returns according to manufacturer policy</mat-radio-button>
+                    <mat-radio-button  value="2"> Not accept returns for outdated over  </mat-radio-button>
+                    <input  formControlName="myWholesalerPolicy2Type" ><label>months</label>
+                    <mat-radio-button  value="3">Not accept returns</mat-radio-button>
+                  </mat-radio-group>
                 </div>
-                <h6>My Wholesaler Will</h6><hr>
+                <br>
+                <br>
+              
+                <h6>CPP options</h6><hr>
+                
                 <div class="row">
-                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
-                    <mat-checkbox  ngInit="checked=true" required>CPP</mat-checkbox>
+                  <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
+                    <mat-radio-group formControlName="myWholesalerCpp">
+                      <mat-radio-button value="true">CPP</mat-radio-button>
+                    </mat-radio-group>
                   </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Service Rate</mat-label>
-                      <input matInput formControlName="zipCode" required><mat-label>%</mat-label>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
+                      <input matInput formControlName="cppServiceRate" required><mat-label>%</mat-label>
+                      <mat-error *ngIf="docForm.get('cppServiceRate').hasError('required')">
                         Service Rate is required
                       </mat-error>
                     </mat-form-field>
@@ -370,8 +304,8 @@
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>C II Shipping $</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
+                      <input matInput formControlName="cppShippingRate" required>
+                      <mat-error *ngIf="docForm.get('cppShippingRate').hasError('required')">
                         C II Shipping is required
                       </mat-error>
                     </mat-form-field>
@@ -379,8 +313,8 @@
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>No of Checks</mat-label>
-                      <input matInput formControlName="zipCode" required>
-                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
+                      <input matInput formControlName="cppNoOfChecks" required>
+                      <mat-error *ngIf="docForm.get('cppNoOfChecks').hasError('required')">
                         No of Checks is required
                       </mat-error>
                     </mat-form-field>

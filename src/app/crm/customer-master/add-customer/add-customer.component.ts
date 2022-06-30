@@ -15,6 +15,7 @@ import { CustomerMaster } from '../customer-master.model';
   styleUrls: ['./add-customer.component.sass']
 })
 export class AddCustomerComponent implements OnInit {
+  companyAuthorizedClassesForm: FormGroup;
 
   docForm: FormGroup;
   hide3 = true;
@@ -29,47 +30,54 @@ export class AddCustomerComponent implements OnInit {
     private customerMasterService:CustomerMasterService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
-      // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-      country: ["", [Validators.required]],
-      city: ["", [Validators.required]],
-      territory: ["", [Validators.required]],
-      salesPerson: ["", [Validators.required]],
-      addressOfCus: ["", [Validators.required]],
-      business: ["", [Validators.required]],
-      stp: ["", [Validators.required]],
-      organisationName: ["", [Validators.required]],
-      zipCode:["", [Validators.required]],
-      shortName: ["", [Validators.required]],
-      cusWebsite: ["", [Validators.required]],
-      companyRegn: ["", [Validators.required]],
-      keyName: ["", [Validators.required]],
-      keyNumber: ["", [Validators.required]],
-      transactionGST: ["", [Validators.required]],
-      vatNumber: ["", [Validators.required]],
-      panNumber: ["", [Validators.required]],
-      paymentCenter:["", [Validators.required]],
-      creditLimit: ["", [Validators.required]],
-      creditUsd: ["", [Validators.required]],
-      creditDays: ["", [Validators.required]],
-      keymail: [
-        "",
-        [Validators.required, Validators.email, Validators.minLength(5)],
-      ],
-      notificationMail: [
-        "",
-        [Validators.required, Validators.email, Validators.minLength(5)],
-      ],
-      invoiceMail: [
-        "",
-        [Validators.required, Validators.email, Validators.minLength(5)],
-      ],
-      creditAgreement: [""],
-      designation:[""],
-      kycDoc:[""],
-      exemptionDoc:[""],
-      nonGstDoc:[""],
-      cusCode: [""]
+wholesalerAccount:["", [Validators.required]],
+wholesalerName:["", [Validators.required]],
+wholesalerContact:["", [Validators.required]],
+wholesalerDepartment:["", [Validators.required]],
+wholesalerStreet:["", [Validators.required]],
+wholesalerCity:["", [Validators.required]],
+
+companyCity:["", [Validators.required]],
+companyState:["", [Validators.required]],
+companyPincode:["", [Validators.required]],
+companyPhone:["", [Validators.required]],
+companyFax:["", [Validators.required]],
+companyContact:["", [Validators.required]],
+companyEmailID:["", [Validators.required]],
+companyFacilityType:["", [Validators.required]],
+companyAuthorizedClasses:["", [Validators.required]],
+
+defNumber:["", [Validators.required]],
+defExpirationDate:["", [Validators.required]],
+
+issuesCreditsName:["", [Validators.required]],
+issuesCreditsAutoFill:["", [Validators.required]],
+issuesCreditsStreet:["", [Validators.required]],
+issuesCreditsCity:["", [Validators.required]],
+issuesCreditsState:["", [Validators.required]],
+issuesCreditsZipCode:["", [Validators.required]],
+issuesCreditsPhone:["", [Validators.required]],
+
+generalInfroWacAwapMyprice:["", [Validators.required]],
+
+
+myWholesalerPolicyType:["", [Validators.required]],
+myWholesalerPolicy2Type:[""],
+myWholesalerCpp:["false", [Validators.required]],
+cppServiceRate:["", [Validators.required]],
+cppShippingRate:["", [Validators.required]],
+cppNoOfChecks:["", [Validators.required]],
     });
+
+    this.companyAuthorizedClassesForm = this.fb.group({
+      companyAuthorizedClasses2: false,
+      companyAuthorizedClasses2N: false,
+      companyAuthorizedClasses3: false,
+      companyAuthorizedClasses3N: false,
+      companyAuthorizedClasses4: false,
+      companyAuthorizedClasses5: false,
+    });
+
   }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -82,6 +90,8 @@ export class AddCustomerComponent implements OnInit {
      });
   }
   onSubmit() {
+    
+if (this.docForm.valid) {
     this.customerMaster = this.docForm.value;
     console.log(this.customerMaster);
     this.customerMasterService.addCustomerMaster(this.customerMaster);
@@ -93,39 +103,39 @@ export class AddCustomerComponent implements OnInit {
     );
     this.router.navigate(['/crm/customerMaster/listCustomer']);
   }
-
+  }
   fetchDetails(cusCode: any): void {
     this.httpService.get(this.customerMasterService.editCustomermaster+"?customer="+cusCode).subscribe((res: any)=> {
       console.log(cusCode);
 
-      this.docForm.patchValue({
-        'cusCode': res.customerMasterBean.cusCode,
-        'keyName': res.customerMasterBean.keyName,
-        'country': res.customerMasterBean.country,
-        'city': res.customerMasterBean.city,
-        'territory': res.customerMasterBean.territory,
-        'salesPerson': res.customerMasterBean.salesPerson,
-        'addressOfCus': res.customerMasterBean.addressOfCus,
-        'business': res.customerMasterBean.business,
-        'stp': res.customerMasterBean.stp,
-        'organisationName': res.customerMasterBean.organisationName,
-        'zipCode': res.customerMasterBean.zipCode,
-        'shortName': res.customerMasterBean.shortName,
-        'cusWebsite': res.customerMasterBean.cusWebsite,
-        'companyRegn': res.customerMasterBean.companyRegn,
-        'keyNumber': res.customerMasterBean.keyNumber,
-        'keymail': res.customerMasterBean.keymail,
-        'transactionGST': res.customerMasterBean.transactionGST,
-        'vatNumber': res.customerMasterBean.vatNumber,
-        'panNumber': res.customerMasterBean.panNumber,
-        'notificationMail': res.customerMasterBean.notificationMail,
-        'invoiceMail': res.customerMasterBean.invoiceMail,
-        'paymentCenter': res.customerMasterBean.paymentCenter,
-        'creditLimit': res.customerMasterBean.creditLimit,
-        'creditUsd': res.customerMasterBean.creditUsd,
-        'creditDays': res.customerMasterBean.creditDays,
+      // this.docForm.patchValue({
+      //   'cusCode': res.customerMasterBean.cusCode,
+      //   'keyName': res.customerMasterBean.keyName,
+      //   'country': res.customerMasterBean.country,
+      //   'city': res.customerMasterBean.city,
+      //   'territory': res.customerMasterBean.territory,
+      //   'salesPerson': res.customerMasterBean.salesPerson,
+      //   'addressOfCus': res.customerMasterBean.addressOfCus,
+      //   'business': res.customerMasterBean.business,
+      //   'stp': res.customerMasterBean.stp,
+      //   'organisationName': res.customerMasterBean.organisationName,
+      //   'zipCode': res.customerMasterBean.zipCode,
+      //   'shortName': res.customerMasterBean.shortName,
+      //   'cusWebsite': res.customerMasterBean.cusWebsite,
+      //   'companyRegn': res.customerMasterBean.companyRegn,
+      //   'keyNumber': res.customerMasterBean.keyNumber,
+      //   'keymail': res.customerMasterBean.keymail,
+      //   'transactionGST': res.customerMasterBean.transactionGST,
+      //   'vatNumber': res.customerMasterBean.vatNumber,
+      //   'panNumber': res.customerMasterBean.panNumber,
+      //   'notificationMail': res.customerMasterBean.notificationMail,
+      //   'invoiceMail': res.customerMasterBean.invoiceMail,
+      //   'paymentCenter': res.customerMasterBean.paymentCenter,
+      //   'creditLimit': res.customerMasterBean.creditLimit,
+      //   'creditUsd': res.customerMasterBean.creditUsd,
+      //   'creditDays': res.customerMasterBean.creditDays,
      
-     })
+     //})
       },
       (err: HttpErrorResponse) => {
          // error code here
