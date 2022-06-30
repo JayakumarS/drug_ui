@@ -30,8 +30,6 @@ export class AddInventoryReportComponent implements OnInit {
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.inventoryForm = this.fb.group({
       companyName: ["", [Validators.required]],
-      startDate: ["", [Validators.required]],
-      endDate: ["", [Validators.required]],
       debitMemoNo: ["", [Validators.required]],
       controlledSubstance: ["", [Validators.required]],
     });

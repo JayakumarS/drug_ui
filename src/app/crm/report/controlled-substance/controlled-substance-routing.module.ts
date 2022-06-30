@@ -57,6 +57,15 @@ const routes: Routes = [
     loadChildren: () =>
       import("./others/others-routing.module").then((m) => m.OthersRoutingModule),
    },
+   {
+    path: "manufacturerReport",
+    canActivate: [AuthGuard],
+    data: {
+      role: Role.Admin,
+    },
+    loadChildren: () =>
+      import("./manufacture/manufacture.module").then((m) => m.ManufactureModule),
+   },
    
 ];
 
