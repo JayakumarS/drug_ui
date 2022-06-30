@@ -108,7 +108,7 @@ export class MatnestedmenuComponent {
 
 navItems: NavItem[];
 ngOnInit(){
-    this.authService.getFormPropertyMenu(this.tokenStorage.getUserId()).subscribe(
+    this.authService.getFormPropertyMenu(this.tokenStorage.getDefaultRoleId()).subscribe(
       data => { 
         console.log(data);
        this.navItems = data.moduleLevelList; 

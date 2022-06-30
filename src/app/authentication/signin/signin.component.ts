@@ -86,6 +86,7 @@ export class SigninComponent
                 this.tokenStorage.saveUsername(data.username);
                 this.tokenStorage.saveAuthorities(data.roles);
                 this.tokenStorage.saveUserId(data.email);
+                this.tokenStorage.saveDefaultRoleId(data.defaultRoleId);
                 this.loading = false;               
                 this.router.navigate(["/admin/dashboard/main"]);
               }, 1000);

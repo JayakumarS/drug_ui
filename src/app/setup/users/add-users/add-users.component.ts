@@ -86,7 +86,7 @@ export class AddUsersComponent  implements OnInit  {
       console.log(data);
         if(data.success){
           alert("Record Added");
-          this.router.navigate(['/setup/roles/listRoles']);
+          this.router.navigate(['/setup/users/listUsers']);
         }else{
           
         }
