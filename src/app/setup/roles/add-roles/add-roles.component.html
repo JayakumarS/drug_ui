@@ -33,11 +33,11 @@
                 <br>
                 <div class="row">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
-                    <button *ngIf!="edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+                    <button (click) = "onSubmit()" class="btn-space" mat-raised-button
                       style="margin-left: 38%; color: aliceblue; background-color: green;">Submit</button>
 
-                      <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button 
-                      style="margin-left: 38%; color: aliceblue; background-color: green;">Update</button>
+                      <!-- <button *ngIf ="edit" (click) = "update()" class="btn-space" mat-raised-button 
+                      style="margin-left: 38%; color: aliceblue; background-color: green;">Update</button> -->
 
                     <button color="warn" (click) = "onCancel()" type="button" mat-raised-button >Cancel</button>
                   </div>
