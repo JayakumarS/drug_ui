@@ -18,6 +18,16 @@ const routes: Routes = [
     path: "rolerights",
     loadChildren: () =>
       import("./role-rights/role-rights.module").then((m) => m.RoleRightsModule),
+  },
+  {
+    path: "wholesaler",
+    loadChildren: () =>
+      import("./wholesaler/wholesaler.module").then((m) => m.WholesalerModule),
+  },
+  {
+    path: "drugInfo",
+    loadChildren: () =>
+      import("./drug-info/drug-info.module").then((m) => m.DrugInfoModule),
   }
 ];
 
