@@ -9,7 +9,6 @@ import {serverLocations} from './serverLocations'
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import {NavItem} from 'src/app/layout/matdynamicmenu/nav-items';
 import { map } from "rxjs/operators";
-import { AddEmployeeComponent } from "src/app/admin/employees/add-employee/add-employee.component";
 
 
 const httpOptions = {
@@ -52,7 +51,7 @@ public currentUser: Observable<User>;
           this.userObj['token'] = user.accessToken;
           this.userObj['roles'] = user.roles;
           this.userObj["img"] = "assets/images/user/admin.jpg"
-
+          this.userObj["defaultRoleId"] = user.defaultRoleId;
           this.currentUserSubject.next(this.userObj);
           return user;
         })
@@ -74,7 +73,7 @@ public currentUser: Observable<User>;
 
   getFormPropertyMenu(userId: string){
    // return this.http.post<NavItem>(this.getFormPropertyMenuUrl, userInfo);
-    return this.httpService.get<NavItem>(this.getFormPropertyMenuUrl + '?userId=' + userId);
+    return this.httpService.get<NavItem>(this.getFormPropertyMenuUrl + '?roleId=' + userId);
   }
 
   cusMaster(cusMasterData : any){

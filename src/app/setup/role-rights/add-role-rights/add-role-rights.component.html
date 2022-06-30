@@ -1,0 +1,60 @@
+
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Create Role Rights'" [items]="['Setup']" [active_item]="'Create Role Rights'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+          <div class="card ">
+            <div class="body">
+              <form class="m-4" [formGroup]="docForm" (ngSubmit)="onSubmit()">
+                <div class="row" style="margin-left: 193px;">
+                  <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Roles</mat-label>
+    
+                        <mat-select formControlName="roles" >
+                          <mat-option *ngFor="let title of roleList" [value]="title.id">
+                            {{title.text}}
+                          </mat-option>
+                        </mat-select>
+                      </mat-form-field>
+                  </div>
+                </div>
+                <div class="row" style="margin-left: 193px;">
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3" >
+                        
+                          <mat-label>Forms</mat-label>
+                          <ng-multiselect-dropdown formControlName="remarks" 
+                                    [placeholder]="'custom placeholder'"
+                                    [settings]="dropdownSettings"
+                                    [data]="dropdownList"
+                                    [(ngModel)]="selectedItems"
+                                    (onSelect)="onItemSelect($event)"
+                                    (onSelectAll)="onSelectAll($event)">
+                           </ng-multiselect-dropdown>
+                        
+                      </div>
+                </div>
+                <br>
+                <div class="row">
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button (click) = "onSubmit()" class="btn-space" mat-raised-button
+                      style="margin-left: 38%; color: aliceblue; background-color: green;">Submit</button>
+
+                      <!-- <button *ngIf ="edit" (click) = "update()" class="btn-space" mat-raised-button 
+                      style="margin-left: 38%; color: aliceblue; background-color: green;">Update</button> -->
+
+                    <button color="warn" (click) = "onCancel()" type="button" mat-raised-button >Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
