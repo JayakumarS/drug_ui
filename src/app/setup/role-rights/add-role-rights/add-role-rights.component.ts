@@ -34,24 +34,32 @@ export class AddRoleRightsComponent implements OnInit{
   }
   onSubmit() {
     console.log("Form Role Value", this.docForm.value);
-
-    this.httpService.post<any>(this.roleRightsService.saveUrl, this.docForm.value).subscribe(data => {
-      console.log(data);
-        if(data.success){
-          this.showNotification(
-            "snackbar-success",
-            "Menu Updated",
-            "bottom",
-            "center"
-          );
+    if(this.docForm.valid){
+      this.httpService.post<any>(this.roleRightsService.saveUrl, this.docForm.value).subscribe(data => {
+        console.log(data);
+          if(data.success){
+            this.showNotification(
+              "snackbar-success",
+              "Menu Updated",
+              "bottom",
+              "center"
+            );
+            
+          }else{
+            
+          }
+        },
+        (err: HttpErrorResponse) => {
           
-        }else{
-          
-        }
-      },
-      (err: HttpErrorResponse) => {
-        
-    });
+      });
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill all the required details!",
+        "top",
+        "right");
+    }
+    
 
   }
   roleBasedFormList(roleId){
