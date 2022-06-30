@@ -23,12 +23,13 @@ export class AddRoleRightsComponent implements OnInit{
   dropdownList = [];
   selectedItems = [];
   dropdownSettings:IDropdownSettings;
+  roleId1=0;
   constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,
     private roleRightsService:RoleRightsService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
-      roleName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-      remarks: [""]
+      roleId: ["", [Validators.required]],
+      formList: [""]
     });
   }
   onSubmit() {
@@ -37,8 +38,13 @@ export class AddRoleRightsComponent implements OnInit{
     this.httpService.post<any>(this.roleRightsService.saveUrl, this.docForm.value).subscribe(data => {
       console.log(data);
         if(data.success){
-          alert("Record Added");
-          window.history.back();
+          this.showNotification(
+            "snackbar-success",
+            "Menu Updated",
+            "bottom",
+            "center"
+          );
+          
         }else{
           
         }
@@ -48,23 +54,25 @@ export class AddRoleRightsComponent implements OnInit{
     });
 
   }
+  roleBasedFormList(roleId){
+    this.getFornmList(roleId);
+  }
+  showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, "", {
+      duration: 3000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
 
   onCancel(){
     window.history.back();
   }
   ngOnInit(): void {
     
-    this.dropdownList = [
-      { item_id: 1, item_text: 'Mumbai' },
-      { item_id: 2, item_text: 'Bangaluru' },
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' },
-      { item_id: 5, item_text: 'New Delhi' }
-    ];
-    this.selectedItems = [
-      { item_id: 3, item_text: 'Pune' },
-      { item_id: 4, item_text: 'Navsari' }
-    ];
+    
+    this.getFornmList(this.roleId1);
     this.dropdownSettings = {
       singleSelection: false,
       idField: 'item_id',
@@ -94,18 +102,38 @@ export class AddRoleRightsComponent implements OnInit{
     console.log(items);
   }
 
-   fetchDetails(id: any): void {
-    this.httpService.get(this.roleRightsService.editUrl+"?id="+id).subscribe((res: any)=> {
-      console.log(id);
+  getFornmList(roleIds){
+    if(roleIds!=0){
+      this.httpService.get<any>(this.roleRightsService.roleFormUrl+"?roleId="+0).subscribe(
+        (data) => {
+          this.dropdownList = data.formList;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
+      this.httpService.get<any>(this.roleRightsService.roleFormUrl+"?roleId="+roleIds).subscribe(
+        (data) => {
+          this.selectedItems = data.formList;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
+    }else{
+      this.httpService.get<any>(this.roleRightsService.roleFormUrl+"?roleId="+roleIds).subscribe(
+        (data) => {
+          this.dropdownList = data.formList;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
+    }
+    
 
-      this.docForm.patchValue({
-        'roleName': res.rolesMasterBean.roleName,
-        'remarks': res.rolesMasterBean.remarks
-     })
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );
   }
+  
+
+
 }

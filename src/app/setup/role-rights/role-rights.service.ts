@@ -28,14 +28,16 @@ export class RoleRightsService extends UnsubscribeOnDestroyAdapter{
   constructor(private httpClient: HttpClient,private serverUrl:serverLocations,private httpService:HttpServiceService) {
     super();
   }
-  public getListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/rolesRights/getList`;
-  public saveUrl = `${this.serverUrl.apiServerAddress}api/auth/app/rolesRights/save`;
-  public editUrl = `${this.serverUrl.apiServerAddress}api/auth/app/rolesRights/edit`;
-  public updateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/rolesRights/update`;
-  public deleteUrl = `${this.serverUrl.apiServerAddress}api/auth/app/rolesRights/delete`;
-  public addFiles = `${this.serverUrl.apiServerAddress}api/auth/app/rolesRights/uploadFile`;
+  public getListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/roleRights/getList`;
+  public saveUrl = `${this.serverUrl.apiServerAddress}api/auth/app/roleRights/save`;
+  public editUrl = `${this.serverUrl.apiServerAddress}api/auth/app/roleRights/edit`;
+  public updateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/roleRights/update`;
+  public deleteUrl = `${this.serverUrl.apiServerAddress}api/auth/app/roleRights/delete`;
+  public addFiles = `${this.serverUrl.apiServerAddress}api/auth/app/roleRights/uploadFile`;
   public roleListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/getRoleList`;
-  
+  public roleFormUrl = `${this.serverUrl.apiServerAddress}api/auth/app/roleRights/getFormList`;
+
+
   get data(): RoleRights[] {
     return this.dataChange.value;
   }
