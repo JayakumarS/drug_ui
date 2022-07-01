@@ -5,7 +5,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpErrorResponse } from "@angular/common/http";
 import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.model';
-import { DeaformService } from '../../dEAForm41/deaform.service';
+import { DeaformService } from '../../deaform41/deaform.service'; 
 import { PackingFormService } from '../packingSlip-service';
 import { PackingFormBean } from '../packingSlip-result-bean';
 @Component({

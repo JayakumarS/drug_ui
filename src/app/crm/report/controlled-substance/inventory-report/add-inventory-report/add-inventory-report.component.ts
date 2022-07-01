@@ -7,8 +7,8 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpErrorResponse  } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialog } from '@angular/material/dialog';
-import { DeaformService } from '../../dEAForm41/deaform.service';
-import { DEAFormBean } from '../../dEAForm41/deaform-result-bean';
+import { DeaformService } from '../../deaform41/deaform.service'; 
+import { DEAFormBean } from '../../deaform41/deaform-result-bean'; 
 @Component({
   selector: 'app-add-inventory-report',
   templateUrl: './add-inventory-report.component.html',

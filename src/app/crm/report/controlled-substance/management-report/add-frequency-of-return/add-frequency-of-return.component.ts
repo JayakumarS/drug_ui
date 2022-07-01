@@ -10,7 +10,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.model';
 import { ManagementFormBean } from '../management-result-bean';
 import { ManagementFormService } from '../management-service';
-import { DeaformService } from '../../dEAForm41/deaform.service';
+import { DeaformService } from '../../deaform41/deaform.service'; 
 @Component({
   selector: 'app-add-frequency-of-return',
   templateUrl: './add-frequency-of-return.component.html',

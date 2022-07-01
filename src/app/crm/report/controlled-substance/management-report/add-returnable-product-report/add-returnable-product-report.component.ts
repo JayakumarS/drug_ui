@@ -8,7 +8,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.model';
-import { DeaformService } from '../../dEAForm41/deaform.service';
+import { DeaformService } from '../../deaform41/deaform.service'; 
 import { ManagementFormService } from '../management-service';
 import { ManagementFormBean } from '../management-result-bean';
 @Component({
