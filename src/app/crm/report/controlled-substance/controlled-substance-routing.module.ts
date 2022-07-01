@@ -1,3 +1,4 @@
+import { DEAForm41Module } from './deaform41/deaform41.module';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { AuthGuard } from 'src/app/core/guard/auth.guard';
@@ -10,7 +11,7 @@ const routes: Routes = [
       role: Role.Admin,
     },
     loadChildren: () =>
-      import("./dEAForm41/dEAForm41.module").then((m) => m.DEAForm41Module),
+      import("./deaform41/deaform41.module").then((m) => m.DEAForm41Module),
    },
    {
     path: "inventoryReport",
