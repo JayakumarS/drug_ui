@@ -34,6 +34,7 @@ export class RolesService extends UnsubscribeOnDestroyAdapter{
   public updateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/rolesMaster/update`;
   public deleteUrl = `${this.serverUrl.apiServerAddress}api/auth/app/rolesMaster/delete`;
   public addFiles = `${this.serverUrl.apiServerAddress}api/auth/app/rolesMaster/uploadFile`;
+  public deleteRolesUrl = `${this.serverUrl.apiServerAddress}api/auth/app/rolesMaster/delete`;
 
   get data(): RolesMaster[] {
     return this.dataChange.value;
@@ -54,6 +55,16 @@ export class RolesService extends UnsubscribeOnDestroyAdapter{
             console.log(error.name + " " + error.message);
           }
         );
+  }
+
+  deleteRoles(commodityCode: any): void {
+    this.httpService.get(this.deleteRolesUrl + "?deleteRole=" + commodityCode).subscribe(data => {
+      console.log(commodityCode);
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
   }
   
   customerMasterUpdate(customerMaster: RolesMaster): void {

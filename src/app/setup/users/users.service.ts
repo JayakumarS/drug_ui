@@ -30,9 +30,9 @@ export class UsersService extends UnsubscribeOnDestroyAdapter{
   }
   private getListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/getList`;
   public saveUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/save`;
-  public editCustomermaster = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/edit`;
+  public editUsers = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/edit`;
   public updateCustomermaster = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/update`;
-  private deleteCustomermaster = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/delete`;
+  private deleteUsersUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/delete`;
   public roleListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/getRoleList`;
   public addUserFiles = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/uploadFile`;
   public customerList = `${this.serverUrl.apiServerAddress}api/auth/app/fileUpload/getCustomerList`;
@@ -57,6 +57,18 @@ export class UsersService extends UnsubscribeOnDestroyAdapter{
           }
         );
   }
+
+  deleteUsers(deleteUser: any): void {
+    this.httpService.get(this.deleteUsersUrl + "?deleteUser=" + deleteUser).subscribe(data => {
+      console.log(deleteUser);
+    },
+      (err: HttpErrorResponse) => {
+        // error code here
+      }
+    );
+  }
+
+
   addCustomerMaster(customerMaster: UsersMaster): void {
     this.dialogData = customerMaster;
     this.httpService.post<UsersMaster>(this.saveUrl, customerMaster).subscribe(data => {
@@ -79,14 +91,14 @@ export class UsersService extends UnsubscribeOnDestroyAdapter{
     });
   }
 
-  customerMasterDelete(cusCode: any): void {
-    this.httpService.get(this.deleteCustomermaster+"?customer="+cusCode).subscribe(data => {
-      console.log(cusCode);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );
-  }
+  // customerMasterDelete(cusCode: any): void {
+  //   this.httpService.get(this.deleteCustomermaster+"?customer="+cusCode).subscribe(data => {
+  //     console.log(cusCode);
+  //     },
+  //     (err: HttpErrorResponse) => {
+  //        // error code here
+  //     }
+  //   );
+  // }
 
 }
