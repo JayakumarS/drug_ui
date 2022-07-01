@@ -186,7 +186,7 @@ if (this.docForm.valid) {
     this.router.navigate(['/crm/customerMaster/listCustomer']);
    }
    autoFillClick(){
-    
+
     this.docForm.patchValue({
       'issuesCreditsStreet': this.docForm.value.companyStreet,
       'issuesCreditsCity': this.docForm.value.companyCity,
@@ -196,6 +196,24 @@ if (this.docForm.valid) {
    })
 
    }
+
+
+
+   keyPressName(event: any) {
+    const pattern = /[A-Z,a-z 0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  keyPressNumber(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
    showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 3000,

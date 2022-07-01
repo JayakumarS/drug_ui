@@ -96,7 +96,7 @@ export class ListCustomerComponent extends UnsubscribeOnDestroyAdapter implement
   }
 
   deleteItem(row){ 
-    this.id = row.cusCode;
+    this.id = row.companyCode;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
