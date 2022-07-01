@@ -32,9 +32,9 @@ export class AddFilesComponent implements OnInit {
     private fileUploadService:FileUploadService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
-      customer: ["", [Validators.required]],
+      companyCode: ["", [Validators.required]],
       uploadFile: [""],
-      fileUploadUrl:[""]
+      reportUrl:[""]
     });
   }
   ngOnInit(): void {
@@ -80,8 +80,8 @@ export class AddFilesComponent implements OnInit {
       console.log(cusCode);
 
       this.docForm.patchValue({
-        'customer': res.customerMasterBean.customer,
-        'fileUploadUrl': res.customerMasterBean.fileUploadUrl
+        'companyCode': res.customerMasterBean.companyCode,
+        'reportUrl': res.customerMasterBean.reportUrl
      })
       },
       (err: HttpErrorResponse) => {
@@ -138,7 +138,7 @@ getFileDetails(event) {
       console.log(data);
       if(data.success){
         this.docForm.patchValue({
-          'fileUploadUrl': data.filePath     
+          'reportUrl': data.filePath     
          
        })
       }else{

@@ -1,9 +1,9 @@
 import { formatDate } from "@angular/common";
 export class FileUploadMaster {
   id: number;
-  customer:string;
+  companyCode:string;
   uploadFile:string;
-  fileUploadUrl:string;
+  reportUrl:string;
   constructor(fileUploadMaster) {
     {
       this.id = fileUploadMaster.id || this.getRandomID();

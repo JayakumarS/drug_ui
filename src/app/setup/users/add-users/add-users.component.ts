@@ -19,6 +19,7 @@ export class AddUsersComponent  implements OnInit  {
   hide3 = true;
   agree3 = false;
   roleList:[];
+  companyList:[];
   constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,
     private usersService:UsersService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
@@ -33,7 +34,7 @@ export class AddUsersComponent  implements OnInit  {
       uploadImg: [""],
       roles: ["", [Validators.required]],
       fileUploadUrl:[""],
-
+      companyCode:["", [Validators.required]],
     });
   }
   uploadFile(event){
@@ -111,6 +112,14 @@ export class AddUsersComponent  implements OnInit  {
     this.httpService.get<UsersResultBean>(this.usersService.roleListUrl).subscribe(
       (data) => {
         this.roleList = data.roleList;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+    this.httpService.get<any>(this.usersService.customerList).subscribe(
+      (data) => {
+        this.companyList = data.customerList;
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);

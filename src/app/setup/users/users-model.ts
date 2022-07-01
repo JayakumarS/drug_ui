@@ -11,4 +11,5 @@ export class UsersMaster{
     roles:string;
     fileUploadUrl:string;
     roleText:string;
+    companyCode:string;
 }
