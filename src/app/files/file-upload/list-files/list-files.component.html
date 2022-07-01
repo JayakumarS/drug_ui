@@ -51,7 +51,7 @@
                   </ng-container>
                   <ng-container matColumnDef="reportUrl">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">File Url</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.reportUrl.split('/').pop()}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"><a href="{{filePath}}{{row.reportUrl}}">{{filePath}}{{row.reportUrl}}</a> </mat-cell>
                   </ng-container>
                  
                   <!-- actions -->

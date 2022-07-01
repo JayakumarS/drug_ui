@@ -34,6 +34,7 @@ export class ListFilesComponent extends UnsubscribeOnDestroyAdapter implements O
   index: number;
   id: number;
   customerMaster: FileUploadMaster | null;
+  filePath:any;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -62,6 +63,7 @@ export class ListFilesComponent extends UnsubscribeOnDestroyAdapter implements O
     } else {
       localStorage.removeItem('foo') 
     }
+    this.filePath = this.serverUrl.apiServerAddress;
   }
 
   refresh(){
