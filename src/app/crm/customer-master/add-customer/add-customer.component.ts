@@ -103,41 +103,54 @@ if (this.docForm.valid) {
       "bottom",
       "center"
     );
-   // this.router.navigate(['/crm/customerMaster/listCustomer']);
+    this.router.navigate(['/crm/customerMaster/listCustomer']);
   }
   }
   fetchDetails(cusCode: any): void {
     this.httpService.get(this.customerMasterService.editCustomermaster+"?customer="+cusCode).subscribe((res: any)=> {
       console.log(cusCode);
 
-      // this.docForm.patchValue({
-      //   'cusCode': res.customerMasterBean.cusCode,
-      //   'keyName': res.customerMasterBean.keyName,
-      //   'country': res.customerMasterBean.country,
-      //   'city': res.customerMasterBean.city,
-      //   'territory': res.customerMasterBean.territory,
-      //   'salesPerson': res.customerMasterBean.salesPerson,
-      //   'addressOfCus': res.customerMasterBean.addressOfCus,
-      //   'business': res.customerMasterBean.business,
-      //   'stp': res.customerMasterBean.stp,
-      //   'organisationName': res.customerMasterBean.organisationName,
-      //   'zipCode': res.customerMasterBean.zipCode,
-      //   'shortName': res.customerMasterBean.shortName,
-      //   'cusWebsite': res.customerMasterBean.cusWebsite,
-      //   'companyRegn': res.customerMasterBean.companyRegn,
-      //   'keyNumber': res.customerMasterBean.keyNumber,
-      //   'keymail': res.customerMasterBean.keymail,
-      //   'transactionGST': res.customerMasterBean.transactionGST,
-      //   'vatNumber': res.customerMasterBean.vatNumber,
-      //   'panNumber': res.customerMasterBean.panNumber,
-      //   'notificationMail': res.customerMasterBean.notificationMail,
-      //   'invoiceMail': res.customerMasterBean.invoiceMail,
-      //   'paymentCenter': res.customerMasterBean.paymentCenter,
-      //   'creditLimit': res.customerMasterBean.creditLimit,
-      //   'creditUsd': res.customerMasterBean.creditUsd,
-      //   'creditDays': res.customerMasterBean.creditDays,
-     
-     //})
+      this.docForm.patchValue({
+        'wholesalerAccount':res.customerMasterBean.wholesalerAccount,
+        'wholesalerName':res.customerMasterBean.wholesalerName,
+        'wholesalerContact': res.customerMasterBean.wholesalerContact,
+        'wholesalerDepartment': res.customerMasterBean.wholesalerDepartment,
+        'wholesalerStreet': res.customerMasterBean.wholesalerStreet,
+        'wholesalerCity': res.customerMasterBean.wholesalerCity,
+        
+        'companyName': res.customerMasterBean.companyName,
+        'companyDba': res.customerMasterBean.companyDba,
+        'companyStreet': res.customerMasterBean.companyStreet,
+        'companyCity': res.customerMasterBean.companyCity,
+        'companyState': res.customerMasterBean.companyState,
+        'companyPincode': res.customerMasterBean.companyPincode,
+        'companyPhone': res.customerMasterBean.companyPhone,
+        'companyFax': res.customerMasterBean.companyFax,
+        'companyContact': res.customerMasterBean.companyContact,
+        'companyEmailID': res.customerMasterBean.companyEmailID,
+        'companyFacilityType': res.customerMasterBean.companyFacilityType,
+        
+        'defNumber': res.customerMasterBean.defNumber,
+        'defExpirationDate': res.customerMasterBean.defExpirationDate,
+        
+        'issuesCreditsName': res.customerMasterBean.issuesCreditsName,
+        
+        'issuesCreditsStreet': res.customerMasterBean.issuesCreditsStreet,
+        'issuesCreditsCity': res.customerMasterBean.issuesCreditsCity,
+        'issuesCreditsState': res.customerMasterBean.issuesCreditsState,
+        'issuesCreditsZipCode': res.customerMasterBean.issuesCreditsZipCode,
+        'issuesCreditsPhone': res.customerMasterBean.issuesCreditsPhone,
+        
+        'generalInfroWacAwapMyprice': res.customerMasterBean.generalInfroWacAwapMyprice,
+        'generalInfroWacAwapPer':res.customerMasterBean.generalInfroWacAwapPer,
+        
+        'myWholesalerPolicyType': res.customerMasterBean.myWholesalerPolicyType,
+        'myWholesalerPolicyMonths':res.customerMasterBean.myWholesalerPolicyMonths,
+        'myWholesalerCpp': res.customerMasterBean.myWholesalerCpp,
+        'cppServiceRate': res.customerMasterBean.cppServiceRate,
+        'cppShippingRate': res.customerMasterBean.cppShippingRate,
+        'cppNoOfChecks': res.customerMasterBean.cppNoOfChecks
+     })
       },
       (err: HttpErrorResponse) => {
          // error code here
@@ -172,7 +185,17 @@ if (this.docForm.valid) {
   onCancel(){
     this.router.navigate(['/crm/customerMaster/listCustomer']);
    }
+   autoFillClick(){
+    
+    this.docForm.patchValue({
+      'issuesCreditsStreet': this.docForm.value.companyStreet,
+      'issuesCreditsCity': this.docForm.value.companyCity,
+      'issuesCreditsState': this.docForm.value.companyState,
+      'issuesCreditsZipCode': this.docForm.value.companyPincode,
+      'issuesCreditsPhone': this.docForm.value.companyPhone,     
+   })
 
+   }
    showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 3000,

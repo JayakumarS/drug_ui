@@ -13,6 +13,14 @@ export class CustomerMaster {
   zipCode:string;
   addressOfCus: string;
   organisationName: string;
+
+  //new added by gokul
+  companyCode: string;
+  companyName: string;
+  companyEmailID: string;
+  companyState: string;
+  companyCity: string;
+
   constructor(customerMaster) {
     {
       this.id = customerMaster.id || this.getRandomID();
@@ -28,6 +36,12 @@ export class CustomerMaster {
       this.zipCode = customerMaster.zipCode || "";
       this.addressOfCus = customerMaster.addressOfCus || "";
       this.organisationName = customerMaster.organisationName || "";
+
+      this.companyCode = customerMaster.companyCode || "";
+      this.companyName = customerMaster.companyName || "";
+      this.companyEmailID = customerMaster.companyEmailID || "";
+      this.companyState = customerMaster.companyState || "";
+      this.companyCity = customerMaster.companyCity || "";
     }
   }
   public getRandomID(): string {
