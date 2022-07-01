@@ -45,17 +45,17 @@
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                   #exporter="matTableExporter">
                   
-                  <ng-container matColumnDef="customer">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Customer Code</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.customer}}</mat-cell>
+                  <ng-container matColumnDef="companyCode">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Company</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyCode}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="fileUploadUrl">
+                  <ng-container matColumnDef="reportUrl">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">File Url</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.fileUploadUrl}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"><a href="{{filePath}}{{row.reportUrl}}">{{filePath}}{{row.reportUrl}}</a> </mat-cell>
                   </ng-container>
                  
                   <!-- actions -->
-                  <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
+                  <!-- <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
                     <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
                     <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
                       <button mat-icon-button color="accent" (click)="$event.stopPropagation()" 
@@ -67,7 +67,7 @@
                         <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
                       </button>
                     </mat-cell>
-                  </ng-container>
+                  </ng-container> -->
   
   
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>

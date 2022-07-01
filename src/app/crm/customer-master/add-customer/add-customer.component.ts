@@ -37,6 +37,9 @@ wholesalerDepartment:["", [Validators.required]],
 wholesalerStreet:["", [Validators.required]],
 wholesalerCity:["", [Validators.required]],
 
+companyName:["", [Validators.required]],
+companyDba:["", [Validators.required]],
+companyStreet:["", [Validators.required]],
 companyCity:["", [Validators.required]],
 companyState:["", [Validators.required]],
 companyPincode:["", [Validators.required]],
@@ -45,13 +48,12 @@ companyFax:["", [Validators.required]],
 companyContact:["", [Validators.required]],
 companyEmailID:["", [Validators.required]],
 companyFacilityType:["", [Validators.required]],
-companyAuthorizedClasses:["", [Validators.required]],
 
 defNumber:["", [Validators.required]],
 defExpirationDate:["", [Validators.required]],
 
 issuesCreditsName:["", [Validators.required]],
-issuesCreditsAutoFill:["", [Validators.required]],
+
 issuesCreditsStreet:["", [Validators.required]],
 issuesCreditsCity:["", [Validators.required]],
 issuesCreditsState:["", [Validators.required]],
@@ -59,10 +61,10 @@ issuesCreditsZipCode:["", [Validators.required]],
 issuesCreditsPhone:["", [Validators.required]],
 
 generalInfroWacAwapMyprice:["", [Validators.required]],
-
+generalInfroWacAwapPer:[""],
 
 myWholesalerPolicyType:["", [Validators.required]],
-myWholesalerPolicy2Type:[""],
+myWholesalerPolicyMonths:[""],
 myWholesalerCpp:["false", [Validators.required]],
 cppServiceRate:["", [Validators.required]],
 cppShippingRate:["", [Validators.required]],
@@ -108,34 +110,47 @@ if (this.docForm.valid) {
     this.httpService.get(this.customerMasterService.editCustomermaster+"?customer="+cusCode).subscribe((res: any)=> {
       console.log(cusCode);
 
-      // this.docForm.patchValue({
-      //   'cusCode': res.customerMasterBean.cusCode,
-      //   'keyName': res.customerMasterBean.keyName,
-      //   'country': res.customerMasterBean.country,
-      //   'city': res.customerMasterBean.city,
-      //   'territory': res.customerMasterBean.territory,
-      //   'salesPerson': res.customerMasterBean.salesPerson,
-      //   'addressOfCus': res.customerMasterBean.addressOfCus,
-      //   'business': res.customerMasterBean.business,
-      //   'stp': res.customerMasterBean.stp,
-      //   'organisationName': res.customerMasterBean.organisationName,
-      //   'zipCode': res.customerMasterBean.zipCode,
-      //   'shortName': res.customerMasterBean.shortName,
-      //   'cusWebsite': res.customerMasterBean.cusWebsite,
-      //   'companyRegn': res.customerMasterBean.companyRegn,
-      //   'keyNumber': res.customerMasterBean.keyNumber,
-      //   'keymail': res.customerMasterBean.keymail,
-      //   'transactionGST': res.customerMasterBean.transactionGST,
-      //   'vatNumber': res.customerMasterBean.vatNumber,
-      //   'panNumber': res.customerMasterBean.panNumber,
-      //   'notificationMail': res.customerMasterBean.notificationMail,
-      //   'invoiceMail': res.customerMasterBean.invoiceMail,
-      //   'paymentCenter': res.customerMasterBean.paymentCenter,
-      //   'creditLimit': res.customerMasterBean.creditLimit,
-      //   'creditUsd': res.customerMasterBean.creditUsd,
-      //   'creditDays': res.customerMasterBean.creditDays,
-     
-     //})
+      this.docForm.patchValue({
+        'wholesalerAccount':res.customerMasterBean.wholesalerAccount,
+        'wholesalerName':res.customerMasterBean.wholesalerName,
+        'wholesalerContact': res.customerMasterBean.wholesalerContact,
+        'wholesalerDepartment': res.customerMasterBean.wholesalerDepartment,
+        'wholesalerStreet': res.customerMasterBean.wholesalerStreet,
+        'wholesalerCity': res.customerMasterBean.wholesalerCity,
+        
+        'companyName': res.customerMasterBean.companyName,
+        'companyDba': res.customerMasterBean.companyDba,
+        'companyStreet': res.customerMasterBean.companyStreet,
+        'companyCity': res.customerMasterBean.companyCity,
+        'companyState': res.customerMasterBean.companyState,
+        'companyPincode': res.customerMasterBean.companyPincode,
+        'companyPhone': res.customerMasterBean.companyPhone,
+        'companyFax': res.customerMasterBean.companyFax,
+        'companyContact': res.customerMasterBean.companyContact,
+        'companyEmailID': res.customerMasterBean.companyEmailID,
+        'companyFacilityType': res.customerMasterBean.companyFacilityType,
+        
+        'defNumber': res.customerMasterBean.defNumber,
+        'defExpirationDate': res.customerMasterBean.defExpirationDate,
+        
+        'issuesCreditsName': res.customerMasterBean.issuesCreditsName,
+        
+        'issuesCreditsStreet': res.customerMasterBean.issuesCreditsStreet,
+        'issuesCreditsCity': res.customerMasterBean.issuesCreditsCity,
+        'issuesCreditsState': res.customerMasterBean.issuesCreditsState,
+        'issuesCreditsZipCode': res.customerMasterBean.issuesCreditsZipCode,
+        'issuesCreditsPhone': res.customerMasterBean.issuesCreditsPhone,
+        
+        'generalInfroWacAwapMyprice': res.customerMasterBean.generalInfroWacAwapMyprice,
+        'generalInfroWacAwapPer':res.customerMasterBean.generalInfroWacAwapPer,
+        
+        'myWholesalerPolicyType': res.customerMasterBean.myWholesalerPolicyType,
+        'myWholesalerPolicyMonths':res.customerMasterBean.myWholesalerPolicyMonths,
+        'myWholesalerCpp': res.customerMasterBean.myWholesalerCpp,
+        'cppServiceRate': res.customerMasterBean.cppServiceRate,
+        'cppShippingRate': res.customerMasterBean.cppShippingRate,
+        'cppNoOfChecks': res.customerMasterBean.cppNoOfChecks
+     })
       },
       (err: HttpErrorResponse) => {
          // error code here
@@ -170,6 +185,34 @@ if (this.docForm.valid) {
   onCancel(){
     this.router.navigate(['/crm/customerMaster/listCustomer']);
    }
+   autoFillClick(){
+
+    this.docForm.patchValue({
+      'issuesCreditsStreet': this.docForm.value.companyStreet,
+      'issuesCreditsCity': this.docForm.value.companyCity,
+      'issuesCreditsState': this.docForm.value.companyState,
+      'issuesCreditsZipCode': this.docForm.value.companyPincode,
+      'issuesCreditsPhone': this.docForm.value.companyPhone,     
+   })
+
+   }
+
+
+
+   keyPressName(event: any) {
+    const pattern = /[A-Z,a-z 0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  keyPressNumber(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
 
    showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {

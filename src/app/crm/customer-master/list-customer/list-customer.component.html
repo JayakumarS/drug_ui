@@ -45,37 +45,26 @@
               <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                 #exporter="matTableExporter">
                 
-                <ng-container matColumnDef="zipCode">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.zipCode}}
+                <ng-container matColumnDef="companyName">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyName}}
                   </mat-cell>
                 </ng-container>
 
-                <ng-container matColumnDef="cusCode">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header> DEA No</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.cusCode}}</mat-cell>
+                <ng-container matColumnDef="companyEmailID">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header>Email ID</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyEmailID}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="name">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">Address</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.name}}</mat-cell>
+                <ng-container matColumnDef="companyState">
+                  <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">State</mat-header-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyState}}</mat-cell>
                 </ng-container>
                 
-                <ng-container matColumnDef="addressOfCus">
+                <ng-container matColumnDef="companyCity">
                   <mat-header-cell *matHeaderCellDef mat-sort-header>City</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.addressOfCus}}</mat-cell>
+                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyCity}}</mat-cell>
                 </ng-container>
-                <ng-container matColumnDef="organisationName">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.organisationName}}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="organisationName1">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Zipcode</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.organisationName}}</mat-cell>
-                </ng-container>
-                <ng-container matColumnDef="organisationName2">
-                  <mat-header-cell *matHeaderCellDef mat-sort-header>Phone No</mat-header-cell>
-                  <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.organisationName}}</mat-cell>
-                </ng-container>
+              
                
                 <!-- actions -->
                 <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">

@@ -18,7 +18,7 @@ export class DeleteCustomerComponent {
     this.dialogRef.close();
   }
 confirmDelete(): void {
-  this.customerMasterService.customerMasterDelete(this.data.cusCode);
+  this.customerMasterService.customerMasterDelete(this.data.companyCode);
 }
 
 }

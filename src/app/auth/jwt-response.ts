@@ -7,4 +7,5 @@ export class JwtResponse {
     message:string;
     email:string;
     defaultRoleId: any;
+    defaultRole: string;
 }

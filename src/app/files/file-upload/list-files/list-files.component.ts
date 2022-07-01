@@ -23,9 +23,9 @@ import { Router } from '@angular/router';
 })
 export class ListFilesComponent extends UnsubscribeOnDestroyAdapter implements OnInit  {
   displayedColumns = [
-    "cusCode",
-    "name",
-    "actions",
+    "companyCode",
+    "reportUrl",
+    //"actions",
   ];
 
   dataSource: ExampleDataSource | null;
@@ -34,6 +34,7 @@ export class ListFilesComponent extends UnsubscribeOnDestroyAdapter implements O
   index: number;
   id: number;
   customerMaster: FileUploadMaster | null;
+  filePath:any;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -62,6 +63,7 @@ export class ListFilesComponent extends UnsubscribeOnDestroyAdapter implements O
     } else {
       localStorage.removeItem('foo') 
     }
+    this.filePath = this.serverUrl.apiServerAddress;
   }
 
   refresh(){
@@ -157,8 +159,8 @@ export class ExampleDataSource extends DataSource<FileUploadMaster> {
           .slice()
           .filter((customerMaster: FileUploadMaster) => {
             const searchStr = (
-              customerMaster.customer +
-              customerMaster.fileUploadUrl 
+              customerMaster.companyCode +
+              customerMaster.reportUrl 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -184,11 +186,11 @@ export class ExampleDataSource extends DataSource<FileUploadMaster> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "customer":
-          [propertyA, propertyB] = [a.customer, b.customer];
+        case "companyCode":
+          [propertyA, propertyB] = [a.companyCode, b.companyCode];
           break;
-        case "fileUploadUrl":
-          [propertyA, propertyB] = [a.fileUploadUrl, b.fileUploadUrl];
+        case "reportUrl":
+          [propertyA, propertyB] = [a.reportUrl, b.reportUrl];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

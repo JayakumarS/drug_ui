@@ -5,7 +5,7 @@ import { ListWholesalerComponent } from './list-wholesaler/list-wholesaler.compo
 
 const routes: Routes = [
   {
-    path: "AddWholesaler",
+    path: "AddWholesaler/:id",
     component: AddWholesalerComponent,
   },
   {

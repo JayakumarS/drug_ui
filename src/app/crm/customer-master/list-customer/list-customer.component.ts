@@ -24,15 +24,13 @@ import { DeleteCustomerComponent } from './delete-customer/delete-customer.compo
 })
 export class ListCustomerComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
-   // "select",
-   "zipCode", 
-   "cusCode",
-    "name",
-    "addressOfCus",
-    "organisationName",
-    "organisationName1",
-    "organisationName2",
-    "actions",
+
+    "companyName",
+    "companyEmailID",
+    
+    "companyCity", 
+   "companyState",
+   "actions"
   ];
 
   dataSource: ExampleDataSource | null;
@@ -94,11 +92,11 @@ export class ListCustomerComponent extends UnsubscribeOnDestroyAdapter implement
 
 
   editCall(row) {
-    this.router.navigate(['/crm/customerMaster/addCustomer/'+ row.cusCode]);
+    this.router.navigate(['/crm/customerMaster/addCustomer/'+ row.companyCode]);
   }
 
   deleteItem(row){ 
-    this.id = row.cusCode;
+    this.id = row.companyCode;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
@@ -189,12 +187,10 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
           .slice()
           .filter((customerMaster: CustomerMaster) => {
             const searchStr = (
-              customerMaster.name +
-              customerMaster.department +
-              customerMaster.role +
-              customerMaster.degree +
-              customerMaster.email +
-              customerMaster.mobile
+              customerMaster.companyName +
+              customerMaster.companyEmailID +
+              customerMaster.companyState +
+              customerMaster.companyCity 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -220,23 +216,17 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "id":
-          [propertyA, propertyB] = [a.id, b.id];
+        case "companyName":
+          [propertyA, propertyB] = [a.companyName, b.companyName];
           break;
-        case "name":
-          [propertyA, propertyB] = [a.name, b.name];
+        case "companyEmailID":
+          [propertyA, propertyB] = [a.companyEmailID, b.companyEmailID];
           break;
-        case "email":
-          [propertyA, propertyB] = [a.email, b.email];
+        case "companyState":
+          [propertyA, propertyB] = [a.companyState, b.companyState];
           break;
-        case "date":
-          [propertyA, propertyB] = [a.date, b.date];
-          break;
-        case "time":
-          [propertyA, propertyB] = [a.department, b.department];
-          break;
-        case "mobile":
-          [propertyA, propertyB] = [a.mobile, b.mobile];
+        case "companyCity":
+          [propertyA, propertyB] = [a.companyCity, b.companyCity];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

@@ -5,7 +5,7 @@ import { ListDrugInfoComponent } from './list-drug-info/list-drug-info.component
 
 const routes: Routes = [
   {
-    path: "AddDrugInfo",
+    path: "AddDrugInfo/:id",
     component: AddDrugInfoComponent,
   },
   {

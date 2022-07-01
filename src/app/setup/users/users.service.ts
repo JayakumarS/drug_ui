@@ -35,7 +35,8 @@ export class UsersService extends UnsubscribeOnDestroyAdapter{
   private deleteCustomermaster = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/delete`;
   public roleListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/getRoleList`;
   public addUserFiles = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/uploadFile`;
-
+  public customerList = `${this.serverUrl.apiServerAddress}api/auth/app/fileUpload/getCustomerList`;
+  
   get data(): UsersMaster[] {
     return this.dataChange.value;
   }
