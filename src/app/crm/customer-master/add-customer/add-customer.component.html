@@ -77,6 +77,33 @@
                 <div class="row">
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Name</mat-label>
+                      <input matInput formControlName="companyName" required>
+                      <mat-error *ngIf="docForm.get('companyName').hasError('required')">
+                        Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>D/B/A</mat-label>
+                      <input matInput formControlName="companyDba" required>
+                      <mat-error *ngIf="docForm.get('companyDba').hasError('required')">
+                        D/B/A is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Street</mat-label>
+                      <input matInput formControlName="companyStreet" required>
+                      <mat-error *ngIf="docForm.get('companyStreet').hasError('required')">
+                        Street is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>City</mat-label>
                       <input matInput formControlName="companyCity" required>
                       <mat-error *ngIf="docForm.get('companyCity').hasError('required')">
@@ -84,6 +111,8 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
+                </div>
+                <div class="row">
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>State</mat-label>
@@ -102,8 +131,7 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-                </div>
-                <div class="row">
+                
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Phone</mat-label>
@@ -113,6 +141,8 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
+                </div>
+                <div class="row">
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Fax</mat-label>
@@ -131,8 +161,6 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-                </div>
-                <div class="row">
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Email ID</mat-label>
@@ -142,6 +170,9 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
+                </div>
+                <div class="row">
+                 
                   <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Facility Type</mat-label>
@@ -180,13 +211,21 @@
                       </mat-error>
                     </mat-form-field>
                   </div>
-                  <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
+                  <!-- <div class="col-xl-4 col-lg-4 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Expiration Date</mat-label>
                       <input matInput formControlName="defExpirationDate" required>
                       <mat-error *ngIf="docForm.get('defExpirationDate').hasError('required')">
                         Expiration Date is required
                       </mat-error>
+                    </mat-form-field>
+                  </div> -->
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Cheque Date</mat-label>
+                      <input matInput [matDatepicker]="picker" formControlName="defExpirationDate">
+                      <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                      <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                   </div>
                 </div>
@@ -202,10 +241,10 @@
                     </mat-form-field>
                   </div>
                   <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
-                    <mat-label>Auto Fill </mat-label>
+                    <mat-label> </mat-label>
                     <div class="col-md-12">                    
                     <section class="example-section">
-                      <p><mat-checkbox value="issuesCreditsAutoFill"  formControlName="issuesCreditsAutoFill">3N</mat-checkbox></p>
+                      <p><mat-checkbox>Auto Fill</mat-checkbox></p>
                   </section>
                   </div>
                 </div>
@@ -264,9 +303,10 @@
                 <h6>General Information</h6><hr>
                 <div class="row">
                   <mat-radio-group formControlName="generalInfroWacAwapMyprice">
-                    <mat-radio-button value="1">WAC</mat-radio-button>
-                    <mat-radio-button  value="2">AWP Less</mat-radio-button>
-                    <mat-radio-button  value="3">My Price</mat-radio-button>
+                    <mat-radio-button value="WAC">WAC</mat-radio-button>
+                    <mat-radio-button  value="AWP">AWP Less</mat-radio-button>
+                    <input  formControlName="myWholesalerPolicy2Type" ><label>months</label>
+                    <mat-radio-button  value="MyPrice">My Price</mat-radio-button>
                   </mat-radio-group>
                 </div>
                 <br>

@@ -37,6 +37,9 @@ wholesalerDepartment:["", [Validators.required]],
 wholesalerStreet:["", [Validators.required]],
 wholesalerCity:["", [Validators.required]],
 
+companyName:["", [Validators.required]],
+companyDba:["", [Validators.required]],
+companyStreet:["", [Validators.required]],
 companyCity:["", [Validators.required]],
 companyState:["", [Validators.required]],
 companyPincode:["", [Validators.required]],
@@ -45,13 +48,12 @@ companyFax:["", [Validators.required]],
 companyContact:["", [Validators.required]],
 companyEmailID:["", [Validators.required]],
 companyFacilityType:["", [Validators.required]],
-companyAuthorizedClasses:["", [Validators.required]],
 
 defNumber:["", [Validators.required]],
 defExpirationDate:["", [Validators.required]],
 
 issuesCreditsName:["", [Validators.required]],
-issuesCreditsAutoFill:["", [Validators.required]],
+
 issuesCreditsStreet:["", [Validators.required]],
 issuesCreditsCity:["", [Validators.required]],
 issuesCreditsState:["", [Validators.required]],
@@ -59,10 +61,10 @@ issuesCreditsZipCode:["", [Validators.required]],
 issuesCreditsPhone:["", [Validators.required]],
 
 generalInfroWacAwapMyprice:["", [Validators.required]],
-
+generalInfroWacAwapPer:[""],
 
 myWholesalerPolicyType:["", [Validators.required]],
-myWholesalerPolicy2Type:[""],
+myWholesalerPolicyMonths:[""],
 myWholesalerCpp:["false", [Validators.required]],
 cppServiceRate:["", [Validators.required]],
 cppShippingRate:["", [Validators.required]],
@@ -101,7 +103,7 @@ if (this.docForm.valid) {
       "bottom",
       "center"
     );
-    this.router.navigate(['/crm/customerMaster/listCustomer']);
+   // this.router.navigate(['/crm/customerMaster/listCustomer']);
   }
   }
   fetchDetails(cusCode: any): void {
