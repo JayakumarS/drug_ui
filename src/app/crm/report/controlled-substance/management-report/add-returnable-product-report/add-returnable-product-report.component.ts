@@ -8,6 +8,9 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.model';
+import { DeaformService } from '../../dEAForm41/deaform.service';
+import { ManagementFormService } from '../management-service';
+import { ManagementFormBean } from '../management-result-bean';
 @Component({
   selector: 'app-add-returnable-product-report',
   templateUrl: './add-returnable-product-report.component.html',
@@ -16,15 +19,10 @@ import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.mode
 export class AddReturnableProductReportComponent implements OnInit {
 
   managementForm: FormGroup;
-  hide3 = true;
-  agree3 = false;
-  dataarray=[];
-  cusMasterData =[];
-  customerMaster:CustomerMaster;
-  detailRowData = new DetailRowComponent;
-  requestId: number;
-  edit: boolean=false;
-  constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,
+  companyNameList: any;
+  exampleDatabase: ManagementFormService | null;
+  
+  constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,public deaformService:DeaformService,
     private customerMasterService:CustomerMasterService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.managementForm = this.fb.group({
@@ -33,73 +31,20 @@ export class AddReturnableProductReportComponent implements OnInit {
       controlledSubstance: ["", [Validators.required]],
     });
   }
-  ngOnInit(): void {
-    this.route.params.subscribe(params => {
-      if(params.id!=undefined && params.id!=0){
-       this.requestId = params.id;
-       this.edit=true;
-       this.fetchDetails(this.requestId) ;
-      }
-     });
-  }
+ 
   onOk() {
     
   }
 
-  fetchDetails(cusCode: any): void {
-    this.httpService.get(this.customerMasterService.editCustomermaster+"?customer="+cusCode).subscribe((res: any)=> {
-      console.log(cusCode);
-
-      this.managementForm.patchValue({
-        'companyName': res.companyMasterBean.companyName,
-        'startDate': res.customerMasterBean.startDate,
-        'endDate': res.customerMasterBean.endDate,
-        'debitMemoNo': res.customerMasterBean.debitMemoNo,
-        'controlledSubstance': res.customerMasterBean.ControlledSubstance,
-        
-     
-     })
+  ngOnInit() {
+    this.httpService.get<ManagementFormBean>(this.deaformService.companyNameUrl).subscribe(
+      (data) => {
+        this.companyNameList = data.companyNameList;
       },
-      (err: HttpErrorResponse) => {
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
       }
     );
-  }
-
-  update(){
-
-    this.customerMaster = this.managementForm.value;
-    this.customerMasterService.customerMasterUpdate(this.customerMaster);
-    this.showNotification(
-      "snackbar-success",
-      "Edit Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-    this.router.navigate(['/crm/customerMaster/listCustomer']);
-
-  }
-
-  reset(){}
-
-  addRow(){
-    this.detailRowData=new DetailRowComponent()
-    this.dataarray.push(this.detailRowData)
-
-  }
-  removeRow(index){
-    this.dataarray.splice(index, 1);
-  }
-  onCancel(){
-    this.router.navigate(['/crm/customerMaster/listCustomer']);
-   }
-
-   showNotification(colorName, text, placementFrom, placementAlign) {
-    this.snackBar.open(text, "", {
-      duration: 3000,
-      verticalPosition: placementFrom,
-      horizontalPosition: placementAlign,
-      panelClass: colorName,
-    });
   }
 }
 
