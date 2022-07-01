@@ -44,8 +44,8 @@ export class SigninComponent
 
   ngOnInit() {
     this.authForm = this.formBuilder.group({
-      username: ["vijay", Validators.required],
-      password: ["paragon@01", Validators.required],
+      username: ["", Validators.required],
+      password: ["", Validators.required],
     });
   }
   get f() {
@@ -86,6 +86,8 @@ export class SigninComponent
                 this.tokenStorage.saveUsername(data.username);
                 this.tokenStorage.saveAuthorities(data.roles);
                 this.tokenStorage.saveUserId(data.email);
+                this.tokenStorage.saveDefaultRoleId(data.defaultRoleId);
+                this.tokenStorage.saveDefaultRole(data.defaultRole);
                 this.loading = false;               
                 this.router.navigate(["/admin/dashboard/main"]);
               }, 1000);

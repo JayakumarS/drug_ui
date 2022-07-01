@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { DetailRowComponent } from 'src/app/crm/customer-master/detail-row/detail-row.component';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -24,17 +24,21 @@ export class AddPackingSlipComponent implements OnInit {
   detailRowData = new DetailRowComponent;
   requestId: number;
   edit: boolean=false;
+  allSelected: any;
+  userTypeFilters: any;
+
+ 
+
   constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,
     private customerMasterService:CustomerMasterService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.packingForm = this.fb.group({
       companyName: ["", [Validators.required]],
-      startDate: ["", [Validators.required]],
-      endDate: ["", [Validators.required]],
       debitMemoNo: ["", [Validators.required]],
       controlledSubstance: ["", [Validators.required]],
       onlyItem: ["", [Validators.required]],
       itemsReturned: ["", [Validators.required]],
+      manufactureName: ["", [Validators.required]],
     });
   }
   ngOnInit(): void {
@@ -43,6 +47,26 @@ export class AddPackingSlipComponent implements OnInit {
        this.requestId = params.id;
        this.edit=true;
        this.fetchDetails(this.requestId) ;
+       this.toggleAllSelection();
+       this.packingForm = this.fb.group({
+        userType: new FormControl('')
+      });
+      
+      const userTypeFilters = [
+        {
+          key: 1, value: 'Value 1',
+        },
+        {
+          key: 2, value: 'Value 2',
+        },
+        {
+          key: 3, value: 'Value 3',
+        },
+        {
+          key: 4, value: 'Value 4',
+        }
+      ]
+      
       }
      });
   }
@@ -61,7 +85,8 @@ export class AddPackingSlipComponent implements OnInit {
         'debitMemoNo': res.customerMasterBean.debitMemoNo,
         'controlledSubstance': res.customerMasterBean.ControlledSubstance,
         'onlyItem': res.customerMasterBean.onlyItem,
-        'itemsReturned': res.customerMasterBean.onlyItem,
+        'itemsReturned': res.customerMasterBean.itemsReturned,
+        'manufactureName': res.customerMasterBean.manufactureName,
      })
       },
       (err: HttpErrorResponse) => {
@@ -105,6 +130,16 @@ export class AddPackingSlipComponent implements OnInit {
       panelClass: colorName,
     });
   }
+
+
+toggleAllSelection() {
+  if (this.allSelected.selected) {
+    this.packingForm.controls.userType
+    .patchValue([...this.userTypeFilters.map(item => item.key), 0]);
+  } else {
+    this.packingForm.controls.userType.patchValue([]);
+  }
+}
 }
 
 

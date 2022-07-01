@@ -35,6 +35,7 @@ export class HeaderComponent
   defaultFlag: string;
   isOpenSidebar: boolean;
   userName:string; 
+  roleName:string;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -108,7 +109,7 @@ export class HeaderComponent
     this.config = this.configService.configData;
     const userRole = this.authService.currentUserValue.role;
     this.userImg = this.authService.currentUserValue.img;
-
+    this.roleName = this.token.getDefaultRole();
     this.userName = this.token.getUsername();
     if (userRole === "Admin") {
       this.homePage = "admin/dashboard/main";

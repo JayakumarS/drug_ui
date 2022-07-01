@@ -4,6 +4,8 @@ const TOKEN_KEY = 'AuthToken';
 const USERNAME_KEY = 'AuthUsername';
 const AUTHORITIES_KEY = 'AuthAuthorities';
 const AUTHUSERID_KEY = 'AuthUserId';
+const AUTHDEFAULTROLEID_KEY = 'AuthDefaultRoleId';
+const AUTHDEFAULTROLE_KEY = 'AuthDefaultRole';
 
 @Injectable({
   providedIn: 'root'
@@ -57,5 +59,23 @@ public getUserId(): string {
     }
 
     return this.roles;
+  }
+
+  public saveDefaultRoleId(defaultRoleId: string) {
+    window.sessionStorage.removeItem(AUTHDEFAULTROLEID_KEY);
+    window.sessionStorage.setItem(AUTHDEFAULTROLEID_KEY, defaultRoleId);
+  }
+
+  public getDefaultRoleId(): string {
+    return sessionStorage.getItem(AUTHDEFAULTROLEID_KEY);
+  }
+
+  public saveDefaultRole(defaultRole: string) {
+    window.sessionStorage.removeItem(AUTHDEFAULTROLE_KEY);
+    window.sessionStorage.setItem(AUTHDEFAULTROLE_KEY, defaultRole);
+  }
+
+  public getDefaultRole(): string {
+    return sessionStorage.getItem(AUTHDEFAULTROLE_KEY);
   }
 }

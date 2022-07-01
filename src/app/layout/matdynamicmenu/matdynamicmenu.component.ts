@@ -69,7 +69,7 @@ export class MatdynamicmenuComponent implements OnInit{
 navItems: NavItem[];
 test : string;
 ngOnInit(){
-    this.authService.getFormPropertyMenu(this.tokenStorage.getUserId()).subscribe(
+    this.authService.getFormPropertyMenu(this.tokenStorage.getDefaultRoleId()).subscribe(
       data => { 
         console.log(data);
        this.navItems = data.moduleLevelList; 

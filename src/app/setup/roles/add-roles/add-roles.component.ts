@@ -35,7 +35,11 @@ export class AddRolesComponent implements OnInit{
     this.httpService.post<RolesResultBean>(this.rolesService.saveUrl, this.docForm.value).subscribe(data => {
       console.log(data);
         if(data.success){
-          alert("Record Added");
+          this.showNotification(
+            "snackbar-success",
+            "Role Added.",
+            "top",
+            "right");
           this.router.navigate(['/setup/roles/listRoles']);
         }else{
           
@@ -46,7 +50,14 @@ export class AddRolesComponent implements OnInit{
     });
 
   }
-
+  showNotification(colorName, text, placementFrom, placementAlign) {
+    this.snackBar.open(text, "", {
+      duration: 2000,
+      verticalPosition: placementFrom,
+      horizontalPosition: placementAlign,
+      panelClass: colorName,
+    });
+  }
   onCancel(){
     this.router.navigate(['/setup/roles/listRoles']);
   }

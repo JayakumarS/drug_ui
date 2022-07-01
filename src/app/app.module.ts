@@ -82,7 +82,8 @@ export function createTranslateLoader(http: HttpClient): any {
         CoreModule,
         SharedModule,
         MatToolbarModule,
-        MatMenuModule,
+        MatMenuModule
+        
     ],
     providers: [
         { provide: LocationStrategy, useClass: HashLocationStrategy },

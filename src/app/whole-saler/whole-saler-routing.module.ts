@@ -4,12 +4,12 @@ import { ListWholesalerComponent } from './list-wholesaler/list-wholesaler.compo
 import { AddWholesalerComponent } from './add-wholesaler/add-wholesaler.component';
 
 const routes: Routes = [
-  {
-    path: "listWholesaler",component: ListWholesalerComponent,
-  },
-  {
-    path: "addWholesaler/:id",component: AddWholesalerComponent,
-  }
+  // {
+  //   path: "listWholesaler",component: ListWholesalerComponent,
+  // },
+  // {
+  //   path: "addWholesaler/:id",component: AddWholesalerComponent,
+  // }
 ];
 
 @NgModule({

@@ -144,24 +144,24 @@ const routes: Routes = [
         (m) => m.AuthenticationModule
       ),
   },
-  {
-    path: "wholeSaler",
-    canActivate: [AuthGuard],
-    data: {
-      role: Role.Admin,
-    },
-    loadChildren: () =>
-      import("./whole-saler/whole-saler.module").then((m) => m.WholeSalerModule),
-  },
-  {
-    path: "drugInfo",
-    canActivate: [AuthGuard],
-    data: {
-      role: Role.Admin,
-    },
-    loadChildren: () =>
-      import("./drug-info/drug-info.module").then((m) => m.DrugInfoModule),
-  },
+  // {
+  //   path: "wholeSaler",
+  //   canActivate: [AuthGuard],
+  //   data: {
+  //     role: Role.Admin,
+  //   },
+  //   loadChildren: () =>
+  //     import("./whole-saler/whole-saler.module").then((m) => m.WholeSalerModule),
+  // },
+  // {
+  //   path: "drugInfo",
+  //   canActivate: [AuthGuard],
+  //   data: {
+  //     role: Role.Admin,
+  //   },
+  //   loadChildren: () =>
+  //     import("./drug-info/drug-info.module").then((m) => m.DrugInfoModule),
+  // },
   // {
   //   path: "purchase",
   //   canActivate: [AuthGuard],
