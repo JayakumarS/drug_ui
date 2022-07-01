@@ -85,7 +85,12 @@ export class AddUsersComponent  implements OnInit  {
     this.httpService.post<UsersResultBean>(this.usersService.saveUrl, this.docForm.value).subscribe(data => {
       console.log(data);
         if(data.success){
-          alert("Record Added");
+          this.showNotification(
+            "snackbar-success",
+            "User Added",
+            "bottom",
+            "center"
+          );
           this.router.navigate(['/setup/users/listUsers']);
         }else{
           
