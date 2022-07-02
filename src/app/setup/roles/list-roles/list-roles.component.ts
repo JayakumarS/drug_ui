@@ -1,3 +1,4 @@
+import { DeleteRolesComponent } from './delete-roles/delete-roles.component';
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
@@ -15,7 +16,6 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import { RolesService } from './../roles.service';
 import { RolesMaster } from './../roles-model';
-
 @Component({
   selector: 'app-list-roles',
   templateUrl: './list-roles.component.html',
@@ -90,14 +90,40 @@ export class ListRolesComponent extends UnsubscribeOnDestroyAdapter implements O
     this.router.navigate(['/setup/roles/addRoles/'+ row.roleId]);
   }
 
-  deleteItem(row){ 
-    this.id = row.cusCode;
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
+  deleteItem(i: number,row){ 
+    this.index = i;
+     this.id = row.commodityCode;
+     let tempDirection;
+     if (localStorage.getItem("isRtl") === "true") {
+       tempDirection = "rtl";
+     } else {
+       tempDirection = "ltr";
+     }
+     const dialogRef = this.dialog.open(DeleteRolesComponent, {
+       height: "270px",
+       width: "400px",
+       data: row,
+       direction: tempDirection,
+     });
+     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+       
+       this.loadData();
+        //  this.showNotification(
+        //    "snackbar-success",
+        //    "Delete Record Successfully...!!!",
+        //    "bottom",
+        //    "center"
+        //  );
+       
+       // else{
+       //   this.showNotification(
+       //     "snackbar-danger",
+       //     "Error in Delete....",
+       //     "bottom",
+       //     "center"
+       //   );
+       // }
+     });
     
 
   }

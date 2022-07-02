@@ -27,12 +27,14 @@ import {MatRadioModule} from '@angular/material/radio';
 import { UsersRoutingModule } from './users-routing.module';
 import { ListUsersComponent } from './list-users/list-users.component';
 import { AddUsersComponent } from './add-users/add-users.component';
+import { DeleteUsersComponent } from './list-users/delete-users/delete-users.component';
 
 
 @NgModule({
   declarations: [
     ListUsersComponent,
-    AddUsersComponent
+    AddUsersComponent,
+    DeleteUsersComponent
   ],
   imports: [
     CommonModule,

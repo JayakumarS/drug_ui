@@ -26,12 +26,14 @@ import { SharedModule } from "src/app/shared/shared.module";
 import { RolesRoutingModule } from './roles-routing.module';
 import { AddRolesComponent } from './add-roles/add-roles.component';
 import { ListRolesComponent } from './list-roles/list-roles.component';
+import { DeleteRolesComponent } from './list-roles/delete-roles/delete-roles.component';
 
 
 @NgModule({
   declarations: [
     AddRolesComponent,
-    ListRolesComponent
+    ListRolesComponent,
+    DeleteRolesComponent,
   ],
   imports: [
     CommonModule,

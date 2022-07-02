@@ -1,3 +1,4 @@
+import { DeleteUsersComponent } from './delete-users/delete-users.component';
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
@@ -91,17 +92,43 @@ export class ListUsersComponent extends UnsubscribeOnDestroyAdapter implements O
 
 
   editCall(row) {
-    this.router.navigate(['/setup/users/addUsers/'+ row.cusCode]);
+    this.router.navigate(['/setup/users/addUsers/'+ row.empId]);
   }
 
-  deleteItem(row){ 
-    this.id = row.cusCode;
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
+  deleteItem(i: number,row){ 
+    this.index = i;
+     this.id = row.commodityCode;
+     let tempDirection;
+     if (localStorage.getItem("isRtl") === "true") {
+       tempDirection = "rtl";
+     } else {
+       tempDirection = "ltr";
+     }
+     const dialogRef = this.dialog.open(DeleteUsersComponent, {
+       height: "270px",
+       width: "400px",
+       data: row,
+       direction: tempDirection,
+     });
+     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+       
+       this.loadData();
+        //  this.showNotification(
+        //    "snackbar-success",
+        //    "Delete Record Successfully...!!!",
+        //    "bottom",
+        //    "center"
+        //  );
+       
+       // else{
+       //   this.showNotification(
+       //     "snackbar-danger",
+       //     "Error in Delete....",
+       //     "bottom",
+       //     "center"
+       //   );
+       // }
+     });
     
 
   }

@@ -16,6 +16,8 @@ import { UsersService } from './../users.service';
 })
 export class AddUsersComponent  implements OnInit  {
   docForm: FormGroup;
+  edit: boolean=false;
+  requestId: number;
   hide3 = true;
   agree3 = false;
   roleList:[];
@@ -109,6 +111,15 @@ export class AddUsersComponent  implements OnInit  {
   }
 
   ngOnInit() {
+    this.route.params.subscribe(params => {
+      if(params.id!=undefined && params.id!=0){
+       this.requestId = params.id;
+       this.edit=true;
+       //For User login Editable mode
+       this.fetchDetails(this.requestId) ;
+      }
+     });
+
     this.httpService.get<UsersResultBean>(this.usersService.roleListUrl).subscribe(
       (data) => {
         this.roleList = data.roleList;
@@ -125,6 +136,34 @@ export class AddUsersComponent  implements OnInit  {
         console.log(error.name + " " + error.message);
       }
     );
+  }
+
+  fetchDetails(empId: any): void {
+    this.httpService.get(this.usersService.editUsers+"?usersId="+empId).subscribe((res: any)=> {
+      console.log(empId);
+
+      this.docForm.patchValue({
+        'newUserName': res.usersMasterBean.newUserName,
+        'firstName': res.usersMasterBean.firstName,
+        'lastName': res.usersMasterBean.lastName,
+        'mobileNo': res.usersMasterBean.mobileNo,
+        'emailId': res.usersMasterBean.emailId,
+        'uploadImg' : res.usersMasterBean.uploadImg,
+        'roles': res.usersMasterBean.roles,
+        
+     })
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
+    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
+      console.log(id);
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );*/
   }
   
 }
