@@ -112,7 +112,7 @@ if (this.docForm.valid) {
       "bottom",
       "center"
     );
-   // this.router.navigate(['/crm/customerMaster/listCustomer']);
+    this.router.navigate(['/crm/customerMaster/listCustomer']);
   }
   }
   fetchDetails(cusCode: any): void {
