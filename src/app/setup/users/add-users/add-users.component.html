@@ -10,7 +10,7 @@
         <div class="card ">
           <div class="body">
             <form class="m-4" [formGroup]="docForm">
-              <div class="row" *ngIf="!edit">
+              <div style="margin-left: 15%;" class="row" *ngIf="!edit">
                 <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>User Name</mat-label>
@@ -35,8 +35,14 @@
                     </mat-error>
                   </mat-form-field>
                 </div> 
-                
                 <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>Password</mat-label>
+                    <input matInput formControlName="newPassword" type="password" required autocomplete="new-password">
+                  </mat-form-field>
+                </div>
+                
+                <!-- <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>Company</mat-label>
 
@@ -50,27 +56,55 @@
                       Company is required
                     </mat-error>
                   </mat-form-field>
-                </div>
+                </div> -->
                 
                 
               </div>
-              <div class="row">
-                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Password</mat-label>
-                    <input matInput formControlName="newPassword" type="password" required autocomplete="new-password">
-                  </mat-form-field>
-                </div>
+              <div style="margin-left: 15%;" class="row" *ngIf="!edit">
+                
                 <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>Confirm Password</mat-label>
                     <input matInput formControlName="confirmPassword" type="password" required>
                   </mat-form-field>
                 </div>
-<<<<<<< Updated upstream
-=======
+                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>First Name </mat-label>
+                    <input matInput formControlName="firstName" required>
+                    <mat-error *ngIf="docForm.get('firstName').hasError('required')">
+                      First Name is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" required>
+                    <mat-error *ngIf="docForm.get('lastName').hasError('required')">
+                      Last Name is required
+                    </mat-error>
+                  </mat-form-field>
+                </div> 
+                
               </div>
-              <div class="row" *ngIf="edit">
+              <div style="margin-left: 15%;" class="row" *ngIf="!edit">
+                
+                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>Email Id</mat-label>
+                    <input matInput formControlName="emailId" required>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>Phone Mobile</mat-label>
+                    <input matInput formControlName="mobileNo" required>
+                  </mat-form-field>
+                </div>
+                
+              </div>
+              <div style="margin-left: 15%;" class="row" *ngIf="edit">
                 <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>User Name</mat-label>
@@ -95,27 +129,21 @@
                     </mat-error>
                   </mat-form-field>
                 </div> 
-                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
+                <!-- <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>First Name </mat-label>
-                    <input matInput formControlName="firstName" required>
-                    <mat-error *ngIf="docForm.get('firstName').hasError('required')">
-                      First Name is required
+                    <mat-label>Company</mat-label>
+
+                    <mat-select formControlName="companyCode" >
+                      <mat-option *ngFor="let title of companyList" [value]="title.id">
+                        {{title.text}}
+                      </mat-option>
+                    </mat-select>
+
+                    <mat-error *ngIf="docForm.get('companyCode').hasError('required')">
+                      Company is required
                     </mat-error>
                   </mat-form-field>
-                </div>
-                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Last Name</mat-label>
-                    <input matInput formControlName="lastName" required>
-                    <mat-error *ngIf="docForm.get('lastName').hasError('required')">
-                      Last Name is required
-                    </mat-error>
-                  </mat-form-field>
-                </div> 
-              </div>
-              <div class="row" *ngIf="!edit">
->>>>>>> Stashed changes
+                </div> -->
                 <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>First Name </mat-label>
@@ -126,13 +154,18 @@
                   </mat-form-field>
                 </div>
                 
+
+              </div>
+              
                
                 <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                   <mat-label><b>Upload Photo</b></mat-label>
                   <app-file-upload formControlName="uploadImg" (change)="uploadFile($event)"></app-file-upload>
                 </div> -->
-              </div>
-              <div class="row">
+             
+              
+
+              <div style="margin-left: 15%;" class="row" *ngIf="edit">
                 <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>Last Name</mat-label>
@@ -154,29 +187,12 @@
                     <input matInput formControlName="mobileNo" required>
                   </mat-form-field>
                 </div>
-              </div>
-<<<<<<< Updated upstream
-=======
-              <div class="row" *ngIf="edit">
-                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Email Id</mat-label>
-                    <input matInput formControlName="emailId" required>
-                  </mat-form-field>
-                </div>
-                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Phone Mobile</mat-label>
-                    <input matInput formControlName="mobileNo" required>
-                  </mat-form-field>
-                </div>
                 <!-- <div class="col-xl-6 col-lg-6 col-md-12 col-sm-12">
                   <mat-label><b>Upload Photo</b></mat-label>
                   <app-file-upload formControlName="uploadImg" (change)="uploadFile($event)"></app-file-upload>
                 </div> -->
               </div>
-              
->>>>>>> Stashed changes
+
               <br>
               <div class="row">
                 <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
