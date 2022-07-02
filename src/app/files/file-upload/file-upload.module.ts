@@ -26,12 +26,14 @@ import {MatRadioModule} from '@angular/material/radio';
 import { FileUploadRoutingModule } from './file-upload-routing.module';
 import { AddFilesComponent } from './add-files/add-files.component';
 import { ListFilesComponent } from './list-files/list-files.component';
+import { CustomerListFilesComponent } from './customer-list-files/customer-list-files.component';
 
 
 @NgModule({
   declarations: [
     AddFilesComponent,
-    ListFilesComponent
+    ListFilesComponent,
+    CustomerListFilesComponent
   ],
   imports: [
     CommonModule,

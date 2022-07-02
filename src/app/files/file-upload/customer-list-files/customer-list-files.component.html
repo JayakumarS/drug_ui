@@ -20,14 +20,7 @@
                           <input placeholder="Search" type="text" #filter class="browser-default search-field"
                             aria-label="Search box">
                         </li>
-                        <li>
-                          <div class="m-l-10" matTooltip="ADD">
-                            <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
-                            <button mat-mini-fab color="primary"  [routerLink]="'/files/fileUpload/addFiles/0'" >
-                              <mat-icon class="col-white">add</mat-icon>
-                            </button>
-                          </div>
-                        </li>
+                        
                       </ul>
                     </div>
                     <div class="col-4">
@@ -51,7 +44,7 @@
                   </ng-container>
                   <ng-container matColumnDef="reportUrl">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">File Url</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"><a href="{{filePath}}{{row.reportUrl}}"  target="_blank">{{row.reportUrl.split("/").pop()}}</a> </mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"><a href="{{filePath}}{{row.reportUrl}}" target="_blank" download="test.jpg">{{row.reportUrl.split("/").pop()}}</a> </mat-cell>
                   </ng-container>
                  
                   <!-- actions -->
