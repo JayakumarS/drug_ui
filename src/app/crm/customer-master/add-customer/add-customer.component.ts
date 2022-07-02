@@ -47,6 +47,10 @@ companyPhone:["", [Validators.required]],
 companyFax:["", [Validators.required]],
 companyContact:["", [Validators.required]],
 companyEmailID:["", [Validators.required]],
+
+authorizedClasses:[""],
+
+
 companyFacilityType:["", [Validators.required]],
 
 defNumber:["", [Validators.required]],
@@ -94,8 +98,13 @@ cppNoOfChecks:["", [Validators.required]],
   onSubmit() {
     
 if (this.docForm.valid) {
+  this.docForm.patchValue({
+    'authorizedClasses': this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses4+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses5
+  });
+
     this.customerMaster = this.docForm.value;
     console.log(this.customerMaster);
+    
     this.customerMasterService.addCustomerMaster(this.customerMaster);
     this.showNotification(
       "snackbar-success",
@@ -103,7 +112,7 @@ if (this.docForm.valid) {
       "bottom",
       "center"
     );
-    this.router.navigate(['/crm/customerMaster/listCustomer']);
+   // this.router.navigate(['/crm/customerMaster/listCustomer']);
   }
   }
   fetchDetails(cusCode: any): void {
@@ -144,13 +153,25 @@ if (this.docForm.valid) {
         'generalInfroWacAwapMyprice': res.customerMasterBean.generalInfroWacAwapMyprice,
         'generalInfroWacAwapPer':res.customerMasterBean.generalInfroWacAwapPer,
         
-        'myWholesalerPolicyType': res.customerMasterBean.myWholesalerPolicyType,
+        'myWholesalerPolicyType': res.customerMasterBean.myWholesalerPolicyType.toString(),
         'myWholesalerPolicyMonths':res.customerMasterBean.myWholesalerPolicyMonths,
-        'myWholesalerCpp': res.customerMasterBean.myWholesalerCpp,
+        'myWholesalerCpp': res.customerMasterBean.myWholesalerCpp.toString(),
         'cppServiceRate': res.customerMasterBean.cppServiceRate,
         'cppShippingRate': res.customerMasterBean.cppShippingRate,
         'cppNoOfChecks': res.customerMasterBean.cppNoOfChecks
      })
+
+ var companyAuthorizedSplitedList=res.customerMasterBean.authorizedClasses.split(',');
+
+     this.companyAuthorizedClassesForm.patchValue({
+      'companyAuthorizedClasses2': this.getBoolean(companyAuthorizedSplitedList[0]),
+      'companyAuthorizedClasses2N': this.getBoolean(companyAuthorizedSplitedList[1]),
+      'companyAuthorizedClasses3': this.getBoolean(companyAuthorizedSplitedList[2]),
+      'companyAuthorizedClasses3N': this.getBoolean(companyAuthorizedSplitedList[3]),
+      'companyAuthorizedClasses4': this.getBoolean(companyAuthorizedSplitedList[4]),
+      'companyAuthorizedClasses5': this.getBoolean(companyAuthorizedSplitedList[5]),  
+   })
+
       },
       (err: HttpErrorResponse) => {
          // error code here
@@ -158,7 +179,11 @@ if (this.docForm.valid) {
     );
   }
 
+  
   update(){
+    this.docForm.patchValue({
+      'authorizedClasses': this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses4+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses5
+    });
 
     this.customerMaster = this.docForm.value;
     this.customerMasterService.customerMasterUpdate(this.customerMaster);
@@ -206,7 +231,15 @@ if (this.docForm.valid) {
       event.preventDefault();
     }
   }
-  keyPressNumber(event: any) {
+  keyPressNumberDouble(event: any) {
+    const pattern = /[0-9.]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberInt(event: any) {
     const pattern = /[0-9]/;
     const inputChar = String.fromCharCode(event.charCode);
     if (event.keyCode != 8 && !pattern.test(inputChar)) {
@@ -222,4 +255,19 @@ if (this.docForm.valid) {
       panelClass: colorName,
     });
   }
+
+  getBoolean(value){
+    switch(value){
+         case true:
+         case "true":
+         case 1:
+         case "1":
+         case "on":
+         case "yes":
+             return true;
+         default: 
+             return false;
+     }
+    }
+
 }
