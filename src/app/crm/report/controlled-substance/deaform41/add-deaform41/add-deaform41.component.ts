@@ -9,8 +9,6 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.model'; 
 import { DEAFormBean } from '../deaform-result-bean';
 import { DeaformService } from '../deaform.service';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-add-deaform41',

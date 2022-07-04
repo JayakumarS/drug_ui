@@ -86,10 +86,13 @@
                     <br>
                 </div>
          
-                <div class="col-md-12" style="margin-left: 54%;">
+                <div class="col-md-12" style="margin-left: 83%;">
                     <button (click) = "onOk()" class="btn-space" mat-raised-button
-                    color="accent" style="margin-left: 36%;background-color: #34d034;">Search</button>
+                    color="accent" style="background-color: #34d034;">Search</button>
+                    <button (click) = "print()" class="btn-space" mat-raised-button
+                    color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button>
                 </div>
+                
                 <br>
                 </div>
               </div>
@@ -101,63 +104,54 @@
 
 
 
-            <div id="deaFormPrint">
+            <div id="scheduleIIPrint">
               <div class="row" style="overflow-x:auto;">
                 <div class="col-md-12">
                     <div class="table-responsive-sm">
                         <table class="table table-bordered table-hover">
-                            <thead class="theadRow thead-light">
+                            <thead class="theadRow thead-light" style="font-size: 80%;">
                                 <tr>
                                   <th style="text-align: center;">Return Name: Sample 1<br> Created: 6/29/2022</th>
                                   <th style="text-align: center;">Sample Company <br><br> <b>Schedule 2 Report</b></th>
-                                  <th style="text-align: center;">Debit Memo: Debit Memo</th>
+                                  <th style="text-align: center;">Debit Memo: OMG071316KK</th>
                                 </tr>
                             </thead>
                             </table>
                             <table class="table table-bordered table-hover">
-                            <thead class="theadRow thead-light">
+                            <thead class="theadRow thead-light" style="font-size: 80%;">
                               <tr>
-                                <th style="text-align: center;">NDC/UPC</th>
-                                <th style="text-align: center;">Description</th>
-                                <th style="text-align: center;">Cont #</th>
-                                <th style="text-align: center;">Strength</th>
-                                <th style="text-align: center;">Lot #</th>
-                                <th style="text-align: center;">Exp Date</th>
-                                <th style="text-align: center;">Pkg Size</th>
-                                <th style="text-align: center;">Full Qty</th>
-                                <th style="text-align: center;">Partial Qty</th>
+                                <th style="text-align: center;"><b>NDC/UPC</b></th>
+                                <th style="text-align: center;"><b>Description</b></th>
+                                <th style="text-align: center;"><b>Cont#</b></th>
+                                <th style="text-align: center;"><b>Strength</b></th>
+                                <th style="text-align: center;"><b>Lot#</b></th>
+                                <th style="text-align: center;"><b>Exp Date</b></th>
+                                <th style="text-align: center;"><b>Pkg Size</b></th>
+                                <th style="text-align: center;"><b>Full Qty</b></th>
+                                <th style="text-align: center;"><b>Partial Qty</b></th>
                               </tr>
                           </thead>
-                          </table>
-                          </div>
-                          </div>
-                          </div>
-                            <div class="row">
-                              <div class="col-md-12" style="text-align: center;">
-                                <mat-label><b><U>Returnable</U></b></mat-label>
-                            </div>
-                            </div> 
-                            <div class="row">
-                            <div class="col-md-2">
-                              <mat-form-field  appearance="outline"  style="text-align: center;">
-                                Dollars
-                                <input matInput formControlName="onlyItem" required>
-                              </mat-form-field>
-                            </div>
-                          </div>
-                            <div class="row" style="overflow-x:auto;">
-                              <div class="col-md-12">
-                                  <div class="table-responsive-sm">
-                                      <table class="table table-bordered table-hover">
-                                        <tbody style="font-size: 80%;">
+                          <thead>
+                            <tr>
+                              <td style="text-align:center;font-size: 80%;"colspan="9"><b><u>Non Returnable</u></b></td>
+                            </tr>
+                          </thead>
+                          <thead>
+                            <tr>
+                              <td colspan="9" style="font-size: 80%;"><b>Camber Pharmaceuticals.Inc</b></td>
+                            </tr>
+                          </thead> 
+                          <tbody style="font-size: 80%;">
                                           <tr>
-                                            <td style="text-align: center;">LORAZEPAM, TAB</td>
-                                            <td style="text-align: center;">1</td>
-                                            <td style="text-align: center;">60.00 EA</td>
-                                            <td style="text-align: center;">1MG</td>
-                                            <th style="text-align: center;" ></th>
-                                            <th style="text-align: center;" ></th>
-                                            <th style="text-align: center;" ></th>
+                                            <td style="text-align: center;">31722-0952-01</td>
+                                            <td style="text-align: center;">METHYLPHENIDATE HCL <br> (Partial packages of this product are non-returnable)</td>
+                                            <td style="text-align: center;">2</td>
+                                            <td style="text-align: center;">18 MG</td>
+                                            <th style="text-align: center;">YEFGJK</th>
+                                            <th style="text-align: center;">5/2022</th>
+                                            <th style="text-align: center;">100 EA</th>
+                                            <th style="text-align: center;"></th>
+                                            <th style="text-align: center;">80.00 EA</th>
                                           </tr>
                                           </tbody> 
                                       </table>

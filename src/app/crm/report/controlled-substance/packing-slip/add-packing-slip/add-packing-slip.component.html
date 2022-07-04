@@ -7,18 +7,18 @@
         </app-breadcrumb>
       </div>
       <div class="row clearfix ">
-        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="col-xl-12">
         <div class="box-shadow">
-          <div class="card" style="width:100; height: 690px;">
+          <div class="card" style="width:100; height: 100%;">
             <div class="body">
               <form class="m-2" [formGroup]="packingForm">
                 <div class="col-xl-12" >
-                <div class="card" style="width:100; height: 240px;">
-                  <div class="row" style="margin-left: 95px;">
-                    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12" >
+                <div class="card" style="width:100; height: 10%;">
+                  <div class="row" style="margin-left: 5%;">
+                    <div class="col-xl-2" >
                       <mat-label>Company Name :</mat-label>
                      </div>
-                     <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12" >
+                     <div class="col-xl-3">
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>Company Name</mat-label>
                               <mat-select formControlName="companyName" required>
@@ -29,10 +29,10 @@
                         </mat-form-field>
                     </div>
                    
-                    <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12"  style="margin-left: 99px;">
+                    <div class="col-xl-2"  style="margin-left: 5%;">
                          <mat-label>Debit Memo No : </mat-label>
                     </div>
-                    <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                    <div class="col-xl-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-label>Debit Memo No</mat-label>
                         <mat-select formControlName="debitMemoNo" required>
@@ -44,19 +44,19 @@
                     </div>
                 </div>
             <div class="row">      
-                <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12"  style="margin-left: 6%">
+                <div class="col-xl-2"  style="margin-left: 5%">
                     <mat-label>Lable Category to Print :</mat-label>
                 </div>
             </div>
             <div class="row">
-                <div class="card col-xl-2 col-lg-3 col-md-12 col-sm-12"  style="height: 100px;margin-left: 23%">
+                <div class="card col-xl-2"  style="height: 100%;width: 21%; margin-left: 23%">
                     <br>
-                  <div class="col-xl-3 col-lg-3 col-md-10 col-sm-10 " style="margin-left: 50px;">
+                  <div class="col-xl-3" style="margin-left: 5%;">
                       <mat-radio-button>Manufacturer Packing Slip 
                       </mat-radio-button>
                   </div>
                   <br>
-                  <div class="col-xl-3 col-lg-3 col-md-10 col-sm-10 " style="margin-left: 50px;">
+                  <div class="col-xl-3" style="margin-left: 5%;">
                     <mat-radio-button>Schedule II
                     </mat-radio-button>
                       
@@ -65,7 +65,7 @@
               </div>
            
            
-              <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12" style="margin-left: 464px;">
+              <div class="col-xl-3" style="margin-left: 21%;">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                 <mat-select placeholder="Manufacturer Name" formControlName="Manufacture Name" multiple>
                   <mat-option *ngFor="let filters of userTypeFilters" [value]="filters.key">
@@ -87,15 +87,146 @@
               </mat-select>
               </mat-form-field>
             </div>
-                <div class="col-xl-5 col-lg-12 col-md-12 col-sm-12 mb-3" style="margin-left: 1360px;">
-                    <button *ngIf="!edit" (click) = "onOk()" class="btn-space" mat-raised-button
-                    color="accent" style="margin-left: 36%;background-color: #34d034;">Search</button>
-                </div>
+            <div class="col-md-12" style="margin-left: 84%;">
+              <button (click) = "onOk()" class="btn-space" mat-raised-button
+              color="accent" style="background-color: #34d034;">Search</button>
+              <button (click) = "print()" class="btn-space" mat-raised-button
+              color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button>
+          </div>
+          <br>
                 </div>
               </div>
             </div>
               </form>
             </div>
+            <div id="packingSlipPrint">
+              <div class="row" style="overflow-x:auto;">
+                <div class="col-md-12">
+                    <div class="table-responsive-sm">
+                        <table class="table table-bordered table-hover">
+                            <thead class="theadRow thead-light" style="font-size: 80%;">
+                                <tr>
+                                  <th style="text-align: center;">Return Name: Sample 1<br> Created: 6/29/2022</th>
+                                  <th class="card" style="text-align: center;"><b><U>Manufacturer Packing Slip</U></b><br><b>Return To: Ajanta Pharma USA Inc</b></th>
+                                  <th style="text-align: center;">Debit Memo: OMG071316KK</th>
+                                </tr>
+                            </thead>
+                            <thead class="theadRow thead-light" style="font-size: 80%;">
+                              <tr>
+                                <th style="text-align: center;">Account</th>
+                                <th style="text-align: center;">Issue Credit To</th>
+                                <th style="text-align: center;">Wholesaler</th>
+                              </tr>
+                          </thead>
+                          <tbody style="font-size: 80%;">
+                            <td>Sample Company <br>
+                              2535 First Avenue <br>
+                              Suite 101 <br>
+                              Chicago, IL 60634-5678
+                            </td> 
+                            <td>Sample Company <br>
+                              2535 First Avenue <br>
+                              Suite 101 <br>
+                              Chicago, IL 60634-5678
+                            </td>
+                            <td>Wholesaler <br>
+                              123 Main Street <br>
+                              Building 205 <br>
+                              Chicago, IL 60641-1234
+                            </td>
+                          </tbody> 
+                          <tbody style="font-size: 80%;">
+                            <td>
+                              <b>Phone:</b>(312) 555-5544 <b>Fax:</b>(312) 555-5533 <br>
+                              <b>Contact:</b>Tom Smith <br>
+                              <b>DEA#</b> AB1234563 <b>Exp. Date:</b>12/31/2004 <br>
+                              <b>Authorized Classes:</b> 2 2N 3 3N 4 5 <br>
+                              <b>State License #:</b> 54873-21
+                            </td> 
+                            <td>
+                              
+                            </td>
+                            <td>
+                              <b>Account #:</b> 357159
+                            </td>
+                          </tbody> 
+                          </table>
+                            <table class="table table-bordered table-hover">
+                            <thead class="theadRow thead-light" style="font-size: 80%;">
+                              <tr>
+                                <th style="text-align: center;"><b>NDC/UPC</b></th>
+                                <th style="text-align: center;"><b>Description</b></th>
+                                <th style="text-align: center;"><b>Cont#</b></th>
+                                <th style="text-align: center;"><b>Strength</b></th>
+                                <th style="text-align: center;"><b>Lot#</b></th>
+                                <th style="text-align: center;"><b>Exp Date</b></th>
+                                <th style="text-align: center;"><b>Pkg Size</b></th>
+                                <th style="text-align: center;"><b>Full Qty</b></th>
+                                <th style="text-align: center;"><b>Partial Qty</b></th>
+                                <th style="text-align: center;"><b>Price</b></th>
+                                <th style="text-align: center;"><b>Est Value</b></th>
+                              </tr>
+                          </thead>
+                         
+                          <thead >
+                            <tr>
+                              <td colspan="9" style="font-size: 80%;"><b>Ajanta Pharma USA Inc</b></td>
+                            </tr>
+                          </thead> 
+                          <tbody style="font-size: 80%;">
+                                          <tr>
+                                            <td style="text-align: center;">27241-0161-01</td>
+                                            <td style="text-align: center;">CAPTOPRIL<br> (Partial packages of this product are non-returnable)</td>
+                                            <td style="text-align: center;">0</td>
+                                            <td style="text-align: center;">25 MG</td>
+                                            <th style="text-align: center;">-</th>
+                                            <th style="text-align: center;">6/22</th>
+                                            <th style="text-align: center;">100 EA</th>
+                                            <th style="text-align: center;">1</th>
+                                            <th style="text-align: center;"></th>
+                                            <th style="text-align: center;">33.43</th>
+                                            <th style="text-align: center;">33.43</th>
+                                          </tr>
+                                          <tr>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td></td>
+                                            <td>Ajanta Pharma USA Inc to issue a check for:</td>
+                                            <td>33.43</td>
+                                          </tr>
+                                          </tbody> 
+                                          <thead>
+                                            <tr>
+                                              <td style="text-align:center;font-size: 80%;"colspan="11"><b>Return Instructions</b></td>
+                                            </tr>
+                                          </thead>
+                                      </table>
+                                      <div class="row" style="margin-left: 2%;font-size: 80%;">
+                                        <div class="col-md-12">
+                                          1. You are required to fax your Direct Return invoice to (877)546-9068 and Stericycle
+                                          Pharmaceutical Services will fax you back an authorization form with an RA#
+                                          (Return Authorization).<br>
+                                         2. When you receive the authorization form, simply attach your Direct Return invoice
+                                          to that form and enclose with your returns. Include the authorization number on the
+                                          outside of your shipping carton.<br>
+                                         3. Properly package and insure all goods.<br>
+                                         4. Return the products prepaid to:<br>
+                                          Stericycle Direct Return-Georgia<br>
+                                          2084-900 Lake Industrial Court<br>
+                                          Conyers, GA 30013<br>
+                                         *. Questions may be directed to Customer Service at (800)777-6565.
+                                         </div>
+                                      </div>
+                                        </div>
+                                        </div>
+                                        </div>
+                          </div>
         </div>
         </div>
       </div>

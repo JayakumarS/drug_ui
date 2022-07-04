@@ -9,16 +9,16 @@
     <div class="row clearfix ">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
       <div class="box-shadow">
-        <div class="card" style="width:100; height: 680px;">
+        <div class="card" style="width:100; height: 80%;">
           <div class="body">
             <form class="m-2" [formGroup]="docForm">
-              <div class="col-xl-12">
-                <div class="card" style="width:100; height: 268px;">
-                  <div class="row" style="margin-left: 95px;">
-                  <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12" >
+              <div class="col-md-12">
+                <div class="card" style="width:100%; height: 10%;">
+                  <div class="row" style="margin-left: 5%;">
+                  <div class="col-md-2" >
                     <mat-label>Company Name :</mat-label>
                    </div>
-                   <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12" >
+                   <div class="col-md-3" >
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-label>Company Name</mat-label>
                             <mat-select formControlName="companyName" required>
@@ -29,10 +29,10 @@
                       </mat-form-field>
                   </div>
                  
-                  <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12"  style="margin-left: 15px;">
+                  <div class="col-md-2"  style="margin-left: 5%;">
                        <mat-label>Debit Memo No : </mat-label>
                   </div>
-                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                  <div class="col-md-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Debit Memo No</mat-label>
                       <mat-select formControlName="debitMemoNo" required>
@@ -45,11 +45,11 @@
               </div>
             
              
-              <div class="row"  style="margin-left: 78px;">
-                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12"  style="margin-left: 15px;">
+              <div class="row"  style="margin-left: 5%;">
+                <div class="col-md-2">
                   <mat-label>Start Date : </mat-label>
                </div>
-                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>Start Date</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="startDate">
@@ -57,10 +57,10 @@
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
               </div>
-              <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12" style="margin-left: 9px;">
+              <div class="col-md-2" style="margin-left: 5%;">
                 <mat-label>End Date : </mat-label>
              </div>
-              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="col-md-3">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-label>End Date</mat-label>
                   <input matInput [matDatepicker]="picker1" formControlName="endDate">
@@ -69,13 +69,13 @@
                 </mat-form-field>
               </div> 
               </div>     
-              <div class="row">    
-                  <div class="col-xl-2 col-lg-3 col-md-12 col-sm-12" style="margin-left: 106px;">
+              <div class="row"  style="margin-left: 5%;">    
+                  <div class="col-md-3">
                       <mat-label>Choose Records to Display/Print :</mat-label>
                   </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <div class="card col-xl-7">
+                <div class="card col-md-6">
               <br>
-                  <div class="col-xl-12 col-lg-3 col-md-10 col-sm-10" style="margin-left: 89px;">
+                  <div class="col-md-12" style="margin-left: 5%;">
                       <mat-radio-button>All
                       </mat-radio-button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <mat-radio-button>Returnable items only
@@ -85,20 +85,80 @@
                   </div>
                   <br>
               </div>
-            <!-- </div>
-              <div class="row"> 
-              <div class="col-xl-10 col-lg-12 col-md-12 col-sm-12 mb-3">
-              </div> -->
-              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3" style="margin-left: 1000px;">
+       
+              <div class="col-md-12" style="margin-left: 83%;">
                   <button (click) = "onOk()" class="btn-space" mat-raised-button
-                  color="accent" style="margin-left: 36%;background-color: #34d034;">Search</button>
+                  color="accent" style="background-color: #34d034;">Search</button>
+                  <button (click) = "print()" class="btn-space" mat-raised-button
+                  color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button>
               </div>
+              
+              <br>
               </div>
             </div>
             </div>
             </form>
           </div>
-        </div>
+       
+        <div id="scheduleIIIPrint">
+          <div class="row" style="overflow-x:auto;">
+            <div class="col-md-12">
+                <div class="table-responsive-sm">
+                    <table class="table table-bordered table-hover">
+                        <thead class="theadRow thead-light" style="font-size: 80%;">
+                            <tr>
+                              <th style="text-align: center;">Return Name: Sample 1<br> Created: 6/29/2022</th>
+                              <th style="text-align: center;">Sample Company <br><br> <b>Schedule 3, 4, 5 Report
+                              </b></th>
+                              <th style="text-align: center;">Debit Memo: OMG071316KK</th>
+                            </tr>
+                        </thead>
+                        </table>
+                        <table class="table table-bordered table-hover">
+                        <thead class="theadRow thead-light" style="font-size: 80%;">
+                          <tr>
+                            <th style="text-align: center;"><b>NDC/UPC</b></th>
+                            <th style="text-align: center;"><b>Description</b></th>
+                            <th style="text-align: center;"><b>Cont#</b></th>
+                            <th style="text-align: center;"><b>Strength</b></th>
+                            <th style="text-align: center;"><b>Lot#</b></th>
+                            <th style="text-align: center;"><b>Exp Date</b></th>
+                            <th style="text-align: center;"><b>Pkg Size</b></th>
+                            <th style="text-align: center;"><b>Full Qty</b></th>
+                            <th style="text-align: center;"><b>Partial Qty</b></th>
+                          </tr>
+                      </thead>
+                      <thead>
+                        <tr>
+                          <td style="text-align:center;font-size: 80%;" colspan="9"><b><u>Non Returnable</u></b></td>
+                        </tr>
+                      </thead>
+                      <thead>
+                        <tr>
+                          <td colspan="9" style="font-size: 80%;"><b>Sandoz</b></td>
+                        </tr>
+                      </thead> 
+                       
+                      <tbody style="font-size: 80%;">
+                                      <tr>
+                                        <td style="text-align: center;">00781-5377-01 </td>
+                                        <td style="text-align: center;">LORAZEPAM <br> (Partial packages of this product are non-returnable)</td>
+                                        <td style="text-align: center;">4</td>
+                                        <td style="text-align: center;">1MG</td>
+                                        <th style="text-align: center;">DJKFH</th>
+                                        <th style="text-align: center;">1/2022</th>
+                                        <th style="text-align: center;">100 EA</th>
+                                        <th style="text-align: center;"></th>
+                                        <th style="text-align: center;">60.00 EA</th>
+                                      </tr>
+                                      </tbody> 
+                                  </table>
+                                     
+                                    </div>
+                                    </div>
+                                    </div>
+                      </div>
+                    </div>
       </div>
       </div>
     </div>
