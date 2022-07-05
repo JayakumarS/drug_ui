@@ -5,6 +5,8 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpErrorResponse } from "@angular/common/http";
 import { DeaformService } from '../deaform.service';
 import { DEAFormBean } from '../deaform-result-bean';
+import { InventoryformService } from '../../inventory-report/inventory-service';
+import { InventoryFormBean } from '../../inventory-report/inventory-result-bean';
 0
 @Component({
   selector: 'app-addschedule-iii',
@@ -16,10 +18,11 @@ export class AddscheduleIIIComponent implements OnInit {
   docForm: FormGroup;
   companyNameList: any;
   exampleDatabase: DeaformService | null;
+  memoListDetails: any;
 
   
   constructor(private fb: FormBuilder,public router: Router,public deaformService:DeaformService
-    ,public route: ActivatedRoute,  private httpService: HttpServiceService)
+    ,public route: ActivatedRoute,private inventoryformService:InventoryformService,  private httpService: HttpServiceService)
      {
     this.docForm = this.fb.group({
       companyName: ["", [Validators.required]],
@@ -43,6 +46,17 @@ export class AddscheduleIIIComponent implements OnInit {
       }
     );
   }
+
+  getMemoList() {
+      this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
+        (data) => {
+          this.memoListDetails = data.memoList;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
+    }
 
   print() {
     let newWin;

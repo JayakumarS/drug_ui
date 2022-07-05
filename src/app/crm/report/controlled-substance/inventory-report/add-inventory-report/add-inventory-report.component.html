@@ -87,10 +87,10 @@
                   <div class="table-responsive-sm">
                       <table class="table table-bordered table-hover">
                           <thead class="theadRow thead-light" style="font-size: 80%;">
-                              <tr>
-                                <th style="text-align: center;">Return Name: Sample 1<br> Created: 6/29/2022</th>
-                                <th style="text-align: center;">Sample Company <br><br> <b>Inventory Report</b></th>
-                                <th style="text-align: center;">Debit Memo: OMG071316KK</th>
+                            <tr *ngFor="let memoReport of memoListDetails;">
+                                <th style="text-align: center;">Return Name: {{memoReport.name}}<br> Created: {{memoReport.date}}</th>
+                                <th style="text-align: center;">{{memoReport.text}} <br><br> <b>Inventory Report</b></th>
+                                <th style="text-align: center;">Debit Memo: {{memoReport.no}}</th>
                               </tr>
                           </thead>
                           </table>
@@ -99,12 +99,9 @@
                             <tr>
                                 <th style="text-align: center;"><b>NDC/UPC</b></th>
                                 <th style="text-align: center;"><b>Description</b></th>
-                                <th style="text-align: center;"><b>Cont#</b></th>
                                 <th style="text-align: center;"><b>Strength</b></th>
                                 <th style="text-align: center;"><b>Dsg</b></th>
                                 <th style="text-align: center;"><b>Returnable</b></th>
-                                <th style="text-align: center;"><b>Lot#</b></th>
-                                <th style="text-align: center;"><b>Exp Date</b></th>
                                 <th style="text-align: center;"><b>Pkg Size</b></th>
                                 <th style="text-align: center;"><b>Full Qty</b></th>
                                 <th style="text-align: center;"><b>Partial Qty</b></th>

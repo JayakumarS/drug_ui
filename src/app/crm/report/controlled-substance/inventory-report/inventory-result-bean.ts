@@ -6,4 +6,5 @@ export class InventoryFormBean{
     inventoryFormBean:InventoryForm;
     inventoryForm: [];
     companyNameList:[];
+    memoList:[];
 }

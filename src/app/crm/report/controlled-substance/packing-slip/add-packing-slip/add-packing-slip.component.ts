@@ -8,6 +8,8 @@ import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.mode
 import { DeaformService } from '../../deaform41/deaform.service'; 
 import { PackingFormService } from '../packingSlip-service';
 import { PackingFormBean } from '../packingSlip-result-bean';
+import { InventoryFormBean } from '../../inventory-report/inventory-result-bean';
+import { InventoryformService } from '../../inventory-report/inventory-service';
 @Component({
   selector: 'app-add-packing-slip',
   templateUrl: './add-packing-slip.component.html',
@@ -28,8 +30,9 @@ export class AddPackingSlipComponent implements OnInit {
   userTypeFilters: any;
   companyNameList: any;
   exampleDatabase: PackingFormService | null;
+  memoListDetails: any;
 
-  constructor(private fb: FormBuilder,public router: Router,
+  constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService,
    private httpService: HttpServiceService,public deaformService:DeaformService
    ,public route: ActivatedRoute) {
     this.packingForm = this.fb.group({
@@ -79,10 +82,6 @@ export class AddPackingSlipComponent implements OnInit {
     
   }
 
-  
-
-  
-
 toggleAllSelection() {
   if (this.allSelected.selected) {
     this.packingForm.controls.userType
@@ -91,6 +90,18 @@ toggleAllSelection() {
     this.packingForm.controls.userType.patchValue([]);
   }
 }
+
+getMemoList() {
+  this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
+    (data) => {
+      this.memoListDetails = data.memoList;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  );
+}
+
 
 print() {
   let newWin;

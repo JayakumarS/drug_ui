@@ -26,11 +26,11 @@ import { AddDEAForm41Component } from './add-deaform41/add-deaform41.component';
 import { AddscheduleIIComponent } from './addschedule-ii/addschedule-ii.component';
 import { AddscheduleIIIComponent } from './addschedule-iii/addschedule-iii.component';
 import { AddFutureDatedComponent } from './add-future-dated/add-future-dated.component';
-import { AddManufactureReportComponent } from './add-manufacture-report/add-manufacture-report.component';
-import { AddPackagingReportComponent } from './add-packaging-report/add-packaging-report.component';
+// import { AddManufactureReportComponent } from './add-manufacture-report/add-manufacture-report.component';
+// import { AddPackagingReportComponent } from './add-packaging-report/add-packaging-report.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { MatCheckboxModule } from '@angular/material/checkbox';
-import { ManufacturePopupComponent } from './add-manufacture-report/manufacture-popup/manufacture-popup.component';
+// import { ManufacturePopupComponent } from './add-manufacture-report/manufacture-popup/manufacture-popup.component';
 
 
 @NgModule({
@@ -39,9 +39,9 @@ import { ManufacturePopupComponent } from './add-manufacture-report/manufacture-
     AddscheduleIIComponent,
     AddscheduleIIIComponent,
     AddFutureDatedComponent,
-    AddManufactureReportComponent,
-    AddPackagingReportComponent,
-    ManufacturePopupComponent,
+    // AddManufactureReportComponent,
+    // AddPackagingReportComponent,
+    // ManufacturePopupComponent,
     
   ],
   imports: [

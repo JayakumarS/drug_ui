@@ -105,10 +105,10 @@
                     <div class="table-responsive-sm">
                         <table class="table table-bordered table-hover">
                             <thead class="theadRow thead-light" style="font-size: 80%;">
-                                <tr>
-                                  <th style="text-align: center;">Return Name: Sample 1<br> Created: 6/29/2022</th>
+                              <tr *ngFor="let memoReport of memoListDetails;">
+                                <th style="text-align: center;">Return Name:{{memoReport.name}}<br> Created:{{memoReport.date}}</th>
                                   <th class="card" style="text-align: center;"><b><U>Manufacturer Packing Slip</U></b><br><b>Return To: Ajanta Pharma USA Inc</b></th>
-                                  <th style="text-align: center;">Debit Memo: OMG071316KK</th>
+                                  <th style="text-align: center;">Debit Memo:{{memoReport.no}}</th>
                                 </tr>
                             </thead>
                             <thead class="theadRow thead-light" style="font-size: 80%;">

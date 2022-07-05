@@ -2,27 +2,29 @@ import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomerMasterService } from 'src/app/crm/customer-master/customer-master.service'; 
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpErrorResponse  } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { MatDialog } from '@angular/material/dialog';
 import { DeaformService } from '../../deaform41/deaform.service'; 
 import { DEAFormBean } from '../../deaform41/deaform-result-bean'; 
+import { InventoryFormBean } from '../inventory-result-bean';
+import { InventoryformService } from '../inventory-service';
 @Component({
   selector: 'app-add-inventory-report',
   templateUrl: './add-inventory-report.component.html',
   styleUrls: ['./add-inventory-report.component.sass']
 })
 export class AddInventoryReportComponent implements OnInit {
-
+ 
   inventoryForm: FormGroup;
   companyNameList: any;
+  memoListDetails: any;
   exampleDatabase: DeaformService | null;
 
-  constructor(private fb: FormBuilder,public dialog: MatDialog,private authService: AuthService,public router: Router,
-    private customerMasterService:CustomerMasterService,private httpService: HttpServiceService,public deaformService:DeaformService
-    ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
+  constructor(private fb: FormBuilder,public dialog: MatDialog,public router: Router,
+    private inventoryformService:InventoryformService,private httpService: HttpServiceService,public deaformService:DeaformService
+    ,public route: ActivatedRoute) {
     this.inventoryForm = this.fb.group({
       companyName: ["", [Validators.required]],
       debitMemoNo: ["", [Validators.required]],
@@ -38,7 +40,20 @@ export class AddInventoryReportComponent implements OnInit {
         console.log(error.name + " " + error.message);
       }
     );
+    this.getMemoList();
   }
+
+  getMemoList() {
+      this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
+        (data) => {
+          this.memoListDetails = data.memoList;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
+    }
+
   onOk() {
     
   }

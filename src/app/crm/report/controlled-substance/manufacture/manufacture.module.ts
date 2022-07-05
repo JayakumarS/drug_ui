@@ -25,11 +25,13 @@ import { SharedModule } from "src/app/shared/shared.module";
 import {MatRadioModule} from '@angular/material/radio';
 import { ManufactureRoutingModule } from './manufacture-routing.module';
 import { AddManufactureReportComponent } from './add-manufacture-report/add-manufacture-report.component';
+import { ManufacturePopupComponent } from './manufacture-popup/manufacture-popup.component';
 
 
 @NgModule({
   declarations: [
-    AddManufactureReportComponent
+    AddManufactureReportComponent,
+    ManufacturePopupComponent
   ],
   imports: [
     CommonModule,
