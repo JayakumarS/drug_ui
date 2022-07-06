@@ -11,6 +11,8 @@ import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.mode
 import { DeaformService } from '../../deaform41/deaform.service'; 
 import { ManagementFormService } from '../management-service';
 import { ManagementFormBean } from '../management-result-bean';
+import { MatDialog } from '@angular/material/dialog';
+import { CalculatorReturnableComponent } from './calculator-returnable/calculator-returnable.component';
 @Component({
   selector: 'app-add-returnable-product-report',
   templateUrl: './add-returnable-product-report.component.html',
@@ -23,8 +25,8 @@ export class AddReturnableProductReportComponent implements OnInit {
   exampleDatabase: ManagementFormService | null;
   
   constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,public deaformService:DeaformService,
-    private customerMasterService:CustomerMasterService,private httpService: HttpServiceService
-    ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
+    private customerMasterService:CustomerMasterService,private httpService: HttpServiceService,
+    public dialog: MatDialog,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.managementForm = this.fb.group({
       companyName: ["", [Validators.required]],
       debitMemoNo: ["", [Validators.required]],
@@ -48,6 +50,17 @@ export class AddReturnableProductReportComponent implements OnInit {
       }
     );
   }
+
+  calculator(){
+
+    const dialogRef = this.dialog.open(CalculatorReturnableComponent, {
+      height: "430px",
+      width: "390px",
+  
+    });
+    
+  }
+
 }
 
 

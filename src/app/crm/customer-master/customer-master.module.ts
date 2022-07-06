@@ -27,13 +27,15 @@ import { CustomerMasterRoutingModule } from './customer-master-routing.module';
 import { AddCustomerComponent } from './add-customer/add-customer.component';
 import { ListCustomerComponent } from './list-customer/list-customer.component';
 import { DeleteCustomerComponent } from './list-customer/delete-customer/delete-customer.component';
+import { CalculatorCustomerComponent } from './list-customer/calculator-customer/calculator-customer.component';
 
 
 @NgModule({
   declarations: [
     AddCustomerComponent,
     ListCustomerComponent,
-    DeleteCustomerComponent
+    DeleteCustomerComponent,
+    CalculatorCustomerComponent
   ],
   imports: [
     CommonModule,

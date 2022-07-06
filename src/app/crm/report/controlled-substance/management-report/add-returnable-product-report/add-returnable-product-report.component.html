@@ -9,16 +9,16 @@
     <div class="row clearfix ">
       <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
       <div class="box-shadow">
-        <div class="card" style="width:100; height: 690px;">
+        <div class="card" style="width:100; height: 80%;">
           <div class="body">
             <form class="m-1" [formGroup]="managementForm">
               <div class="col-xl-12" >
-              <div class="card" style="width:100; height: 180px;">
-              <div class="row" style="margin-left: 95px;">
-                  <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12" >
+              <div class="card" style="width:100; height: 83%;">
+              <div class="row" style="margin-left: 5%;">
+                  <div class="col-xl-2">
                     <mat-label>Company Name :</mat-label>
                    </div>
-                   <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12" >
+                   <div class="col-xl-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-label>Company Name</mat-label>
                             <mat-select formControlName="companyName" required>
@@ -29,10 +29,10 @@
                       </mat-form-field>
                   </div>
                  
-                  <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12"  style="margin-left: 15px;">
+                  <div class="col-xl-2"  style="margin-left:5%;">
                        <mat-label>Debit Memo No : </mat-label>
                   </div>
-                  <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12">
+                  <div class="col-xl-3">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Debit Memo No</mat-label>
                       <mat-select formControlName="debitMemoNo" required>
@@ -43,13 +43,12 @@
                     </mat-form-field>
                   </div>
               </div>
-            
-            
-               <div class="row"  style="margin-left: 78px;">
-                <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12"  style="margin-left: 15px;">
+            <br>
+               <div class="row"  style="margin-left:5%;">
+                <div class="col-xl-2">
                   <mat-label>Start Date : </mat-label>
                </div>
-                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                <div class="col-xl-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>Start Date</mat-label>
                     <input matInput [matDatepicker]="picker" formControlName="startDate">
@@ -57,10 +56,10 @@
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
               </div>
-              <div class="col-xl-2 col-lg-6 col-md-12 col-sm-12" style="margin-left: 9px;">
+              <div class="col-xl-2" style="margin-left: 5%;">
                 <mat-label>End Date : </mat-label>
              </div>
-              <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+              <div class="col-xl-3">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-label>End Date</mat-label>
                   <input matInput [matDatepicker]="picker1" formControlName="endDate">
@@ -69,13 +68,24 @@
                 </mat-form-field>
               </div> 
               </div>
-
-<div class="row"  style="margin-left: 1250px;">
-              <div class="col-xl-2 col-lg-12 col-md-12 col-sm-12 mb-3" style="margin-left: 340px;">
+              <br><br>
+            <!-- <div class="row"  style="margin-left: 5%;">
+              <div class="col-xl-2" style="margin-left: 12%;">
                   <button (click) = "onOk()" class="btn-space" mat-raised-button
-                  color="accent" style="margin-left: 36%;background-color: #34d034;">Search</button>
+                  color="accent" style="background-color: #34d034;">Search</button>
+                  <button (click) = "calculator()" class="btn-space" mat-raised-button
+                  color="accent" style="background-color: #34d034;">Calculator</button>  
+                </div>
+            </div> -->
+            <div class="row" style="margin-left: 60%;">
+              <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                <button (click) = "onOk()" class="btn-space" mat-raised-button
+                  style="margin-left: 38%; color: aliceblue; background-color: green;">Search</button>
+                <button color="warn" (click) = "calculator()" style="color: aliceblue; background-color: green;"
+                type="button" mat-raised-button >Calculator</button>
               </div>
             </div>
+            <br>
               </div>
             </div>
             </form>

@@ -16,6 +16,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import { DeleteCustomerComponent } from './delete-customer/delete-customer.component';
+import { CalculatorCustomerComponent } from './calculator-customer/calculator-customer.component';
 
 @Component({
   selector: 'app-list-customer',
@@ -129,6 +130,35 @@ export class ListCustomerComponent extends UnsubscribeOnDestroyAdapter implement
       // }
     });
 
+  }
+
+  calculator(){
+
+    const dialogRef = this.dialog.open(CalculatorCustomerComponent, {
+      height: "430px",
+      width: "390px",
+  
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      
+      // this.loadData();
+      //   this.showNotification(
+      //     "snackbar-success",
+      //     "Delete Record Successfully...!!!",
+      //     "bottom",
+      //     "center"
+      //   );
+      
+      // else{
+      //   this.showNotification(
+      //     "snackbar-danger",
+      //     "Error in Delete....",
+      //     "bottom",
+      //     "center"
+      //   );
+      // }
+    });
+    
   }
 
   showNotification(colorName, text, placementFrom, placementAlign) {

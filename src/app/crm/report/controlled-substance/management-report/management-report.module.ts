@@ -27,6 +27,7 @@ import { AddNonReturnableProductReportComponent } from './add-non-returnable-pro
 import { AddReturnableProductReportComponent } from './add-returnable-product-report/add-returnable-product-report.component';
 import { AddFrequencyOfReturnComponent } from './add-frequency-of-return/add-frequency-of-return.component';
 import { AddReconcilliationReportComponent } from './add-reconcilliation-report/add-reconcilliation-report.component';
+import { CalculatorReturnableComponent } from './add-returnable-product-report/calculator-returnable/calculator-returnable.component';
 
 
 @NgModule({
@@ -34,7 +35,8 @@ import { AddReconcilliationReportComponent } from './add-reconcilliation-report/
     AddNonReturnableProductReportComponent,
     AddReturnableProductReportComponent,
     AddFrequencyOfReturnComponent,
-    AddReconcilliationReportComponent
+    AddReconcilliationReportComponent,
+    CalculatorReturnableComponent
   ],
   imports: [
     CommonModule,
