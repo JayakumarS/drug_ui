@@ -38,6 +38,7 @@ export class AddWholesalerComponent implements OnInit {
        department: ["", [Validators.required]],
       street: ["", [Validators.required]],
       city: ["", [Validators.required]],
+      state: ["", [Validators.required]],
       zipCode:["", [Validators.required]],
       phoneNo: ["", [Validators.required]],
       tollFreeNo: ["", [Validators.required]],
