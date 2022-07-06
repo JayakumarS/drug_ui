@@ -24,6 +24,8 @@ export class AddFutureDatedComponent implements OnInit {
       companyName: ["", [Validators.required]],
       debitMemoNo: ["", [Validators.required]],
       controlledSubstance: ["", [Validators.required]],
+      startDate:"",
+      endDate:"",
     });
   }
  

@@ -26,6 +26,8 @@ export class AddDEAForm41Component implements OnInit {
       companyName: ["", [Validators.required]],
       debitMemoNo: ["", [Validators.required]],
       controlledSubstance: ["", [Validators.required]],
+      startDate:"",
+      endDate:"",
     });
   }
 

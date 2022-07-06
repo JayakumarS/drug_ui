@@ -7,6 +7,8 @@ import { DeaformService } from '../deaform.service';
 import { DEAFormBean } from '../deaform-result-bean';
 import { InventoryformService } from '../../inventory-report/inventory-service';
 import { InventoryFormBean } from '../../inventory-report/inventory-result-bean';
+import { PackingFormService } from '../../packing-slip/packingSlip-service';
+import { PackingFormBean } from '../../packing-slip/packingSlip-result-bean';
 
 @Component({
   selector: 'app-addschedule-ii',
@@ -19,14 +21,17 @@ export class AddscheduleIIComponent implements OnInit {
   companyNameList: any;
   exampleDatabase: DeaformService | null;
   memoListDetails: any;
+  memoInfoList: any;
 
   constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService,
-    private httpService: HttpServiceService,public deaformService:DeaformService
-    ,public route: ActivatedRoute) {
+    private httpService: HttpServiceService,public deaformService:DeaformService,private packingFormService:PackingFormService,
+    public route: ActivatedRoute) {
     this.docForm = this.fb.group({
       companyName: ["", [Validators.required]],
       debitMemoNo: ["", [Validators.required]],
       controlledSubstance: ["", [Validators.required]],
+      startDate:"",
+      endDate:"",
     });
   }
  
@@ -43,6 +48,8 @@ export class AddscheduleIIComponent implements OnInit {
         console.log(error.name + " " + error.message);
       }
     );
+    this.getMemoList();
+    this.getMemoInfo();
   }
 
   getMemoList() {
@@ -56,6 +63,16 @@ export class AddscheduleIIComponent implements OnInit {
       );
     }
 
+    getMemoInfo() {
+      this.httpService.get<PackingFormBean>(this.packingFormService.memoDetailsUrl).subscribe(
+        (data) => {
+          this.memoInfoList = data.memoDetails;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
+    }
 
   print() {
     let newWin;

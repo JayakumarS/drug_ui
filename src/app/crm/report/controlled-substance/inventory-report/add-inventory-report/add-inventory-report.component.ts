@@ -10,6 +10,8 @@ import { DeaformService } from '../../deaform41/deaform.service';
 import { DEAFormBean } from '../../deaform41/deaform-result-bean'; 
 import { InventoryFormBean } from '../inventory-result-bean';
 import { InventoryformService } from '../inventory-service';
+import { PackingFormService } from '../../packing-slip/packingSlip-service';
+import { PackingFormBean } from '../../packing-slip/packingSlip-result-bean';
 @Component({
   selector: 'app-add-inventory-report',
   templateUrl: './add-inventory-report.component.html',
@@ -21,14 +23,17 @@ export class AddInventoryReportComponent implements OnInit {
   companyNameList: any;
   memoListDetails: any;
   exampleDatabase: DeaformService | null;
+  memoInfoList: any;
 
-  constructor(private fb: FormBuilder,public dialog: MatDialog,public router: Router,
+  constructor(private fb: FormBuilder,public dialog: MatDialog,public router: Router, private packingFormService:PackingFormService,
     private inventoryformService:InventoryformService,private httpService: HttpServiceService,public deaformService:DeaformService
     ,public route: ActivatedRoute) {
     this.inventoryForm = this.fb.group({
       companyName: ["", [Validators.required]],
       debitMemoNo: ["", [Validators.required]],
       controlledSubstance: ["", [Validators.required]],
+      startDate:"",
+      endDate:"",
     });
   }
   ngOnInit() {
@@ -41,12 +46,24 @@ export class AddInventoryReportComponent implements OnInit {
       }
     );
     this.getMemoList();
+    this.getMemoInfo();
   }
 
   getMemoList() {
       this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
         (data) => {
           this.memoListDetails = data.memoList;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
+    }
+
+    getMemoInfo() {
+      this.httpService.get<PackingFormBean>(this.packingFormService.memoDetailsUrl).subscribe(
+        (data) => {
+          this.memoInfoList = data.memoDetails;
         },
         (error: HttpErrorResponse) => {
           console.log(error.name + " " + error.message);

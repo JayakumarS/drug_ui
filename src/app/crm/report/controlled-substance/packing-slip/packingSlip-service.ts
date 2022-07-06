@@ -27,6 +27,8 @@ export class PackingFormService extends UnsubscribeOnDestroyAdapter{
   }
 
   public companyNameUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getCompanyNameList`;
+  public memoDetailsUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/returnMemo/getMemoDetails`;
+
 
   get data(): PackingForm[] {
     return this.dataChange.value;

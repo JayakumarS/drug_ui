@@ -32,6 +32,8 @@ export class AddFrequencyOfReturnComponent implements OnInit {
       controlledSubstance: ["", [Validators.required]],
       onlyItem: ["", [Validators.required]],
       itemsReturned: ["", [Validators.required]],
+      startDate:"",
+      endDate:"",
     });
   }
   ngOnInit() {

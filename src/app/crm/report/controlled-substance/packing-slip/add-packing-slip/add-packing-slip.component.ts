@@ -31,17 +31,17 @@ export class AddPackingSlipComponent implements OnInit {
   companyNameList: any;
   exampleDatabase: PackingFormService | null;
   memoListDetails: any;
-
-  constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService,
+  memoInfoList: any;
+  
+  constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService, private packingFormService:PackingFormService,
    private httpService: HttpServiceService,public deaformService:DeaformService
    ,public route: ActivatedRoute) {
     this.packingForm = this.fb.group({
       companyName: ["", [Validators.required]],
       debitMemoNo: ["", [Validators.required]],
-      controlledSubstance: ["", [Validators.required]],
-      onlyItem: ["", [Validators.required]],
-      itemsReturned: ["", [Validators.required]],
       manufactureName: ["", [Validators.required]],
+      startDate:"",
+      endDate:"",
     });
   }
 
@@ -77,17 +77,20 @@ export class AddPackingSlipComponent implements OnInit {
       
       
      });
+     this.getMemoList();
+     this.getMemoInfo();
   }
   onOk() {
     
   }
+  
 
 toggleAllSelection() {
-  if (this.allSelected.selected) {
+  if (this.allSelected) {
     this.packingForm.controls.userType
     .patchValue([...this.userTypeFilters.map(item => item.key), 0]);
   } else {
-    this.packingForm.controls.userType.patchValue([]);
+    this.packingForm.controls.userType;
   }
 }
 
@@ -95,6 +98,17 @@ getMemoList() {
   this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
     (data) => {
       this.memoListDetails = data.memoList;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+  );
+}
+
+getMemoInfo() {
+  this.httpService.get<PackingFormBean>(this.packingFormService.memoDetailsUrl).subscribe(
+    (data) => {
+      this.memoInfoList = data.memoDetails;
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);

@@ -139,19 +139,19 @@
                       </thead> 
                        
                       <tbody style="font-size: 80%;">
-                                      <tr>
-                                        <td style="text-align: center;">00781-5377-01 </td>
-                                        <td style="text-align: center;">LORAZEPAM <br> (Partial packages of this product are non-returnable)</td>
-                                        <td style="text-align: center;">4</td>
-                                        <td style="text-align: center;">1MG</td>
-                                        <th style="text-align: center;">DJKFH</th>
-                                        <th style="text-align: center;">1/2022</th>
-                                        <th style="text-align: center;">100 EA</th>
-                                        <th style="text-align: center;"></th>
-                                        <th style="text-align: center;">60.00 EA</th>
-                                      </tr>
-                                      </tbody> 
-                                  </table>
+                        <tr *ngFor="let memoInfo of memoInfoList;">
+                          <td style="text-align: center;">{{memoInfo.ndcupcCode}}</td>
+                          <td style="text-align: center;">HYDROMET<br> (Partial packages of this product are non-returnable)</td>
+                          <td style="text-align: center;">2</td>
+                          <td style="text-align: center;">1.5 MG/5 ML-5 M</td>
+                          <th style="text-align: center;">{{memoInfo.lotNo}}</th>
+                          <th style="text-align: center;">{{memoInfo.expDate}}</th>
+                          <th style="text-align: center;">480 ML</th>
+                          <th style="text-align: center;">-</th>
+                          <th style="text-align: center;">2</th>
+                        </tr>
+                        </tbody> 
+                      </table>
                                      
                                     </div>
                                     </div>
