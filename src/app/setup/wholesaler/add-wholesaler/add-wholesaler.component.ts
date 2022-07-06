@@ -1,3 +1,5 @@
+import { WholesalerMaster } from './../wholesaler-model';
+import { WholesalerService } from './../wholesaler.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DetailRowComponent } from 'src/app/crm/customer-master/detail-row/detail-row.component';
@@ -6,8 +8,8 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { CustomerMaster} from 'src/app/crm/customer-master/customer-master.model';
-import { CustomerMasterService } from 'src/app/crm/customer-master/customer-master.service';
+
+
 @Component({
   selector: 'app-add-wholesaler',
   templateUrl: './add-wholesaler.component.html',
@@ -21,12 +23,12 @@ export class AddWholesalerComponent implements OnInit {
   agree3 = false;
   dataarray=[];
   cusMasterData =[];
-  customerMaster:CustomerMaster;
+  wholesalerMaster:WholesalerMaster;
   detailRowData = new DetailRowComponent;
   requestId: number;
   edit: boolean=false;
   constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,
-    private customerMasterService:CustomerMasterService,private httpService: HttpServiceService
+    private wholesalerService:WholesalerService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
       // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
@@ -38,6 +40,7 @@ export class AddWholesalerComponent implements OnInit {
        department: ["", [Validators.required]],
       street: ["", [Validators.required]],
       city: ["", [Validators.required]],
+      state: ["", [Validators.required]],
       zipCode:["", [Validators.required]],
       phoneNo: ["", [Validators.required]],
       tollFreeNo: ["", [Validators.required]],
@@ -57,36 +60,39 @@ export class AddWholesalerComponent implements OnInit {
      });
   }
   onSubmit() {
-    this.customerMaster = this.docForm.value;
-    console.log(this.customerMaster);
-    this.customerMasterService.addCustomerMaster(this.customerMaster);
+  if (this.docForm.valid) {
+    this.wholesalerMaster = this.docForm.value;
+    console.log(this.wholesalerMaster);
+    this.wholesalerService.addWholesalerMaster(this.wholesalerMaster);
     this.showNotification(
       "snackbar-success",
       "Add Record Successfully...!!!",
       "bottom",
       "center"
     );
-    this.router.navigate(['/setup/wholesaler/ListWholesaler']);
+   // this.router.navigate(['/setup/wholesaler/ListWholesaler']);
   }
+}
 
   fetchDetails(cusCode: any): void {
-    this.httpService.get(this.customerMasterService.editCustomermaster+"?customer="+cusCode).subscribe((res: any)=> {
+    this.httpService.get(this.wholesalerService.editWholesalerMaster+"?customer="+cusCode).subscribe((res: any)=> {
       console.log(cusCode);
 
       this.docForm.patchValue({
-        'policyCode': res.customerMasterBean.policyCode,
-        'wholesalerName': res.customerMasterBean.wholesalerName,
-        'expiryPacket': res.customerMasterBean.expiryPacket,
-        ' emailID': res.customerMasterBean. emailID,
-        ' allowOverride': res.customerMasterBean. allowOverride,
-        ' department': res.customerMasterBean. department,
-        'street': res.customerMasterBean.street,
-        'city': res.customerMasterBean.city,
-        'zipCode': res.customerMasterBean.zipCode,
-        'phoneNo': res.customerMasterBean.phoneNo,
-        'tollFreeNo': res.customerMasterBean.tollFreeNo,
-        'fax': res.customerMasterBean.fax,
-        'contact': res.customerMasterBean.contact,
+        'policyCode': res.wholesalerMasterBeanBean.policyCode,
+        'wholesalerName': res.wholesalerMasterBeanBean.wholesalerName,
+        'expiryPacket': res.wholesalerMasterBeanBean.expiryPacket,
+        ' emailID': res.wholesalerMasterBeanBean. emailID,
+        ' allowOverride': res.wholesalerMasterBeanBean. allowOverride,
+        ' department': res.wholesalerMasterBeanBean. department,
+        'street': res.wholesalerMasterBeanBean.street,
+        'city': res.wholesalerMasterBeanBean.city,
+        'state': res.wholesalerMasterBeanBean.state,
+        'zipCode': res.wholesalerMasterBeanBean.zipCode,
+        'phoneNo': res.wholesalerMasterBeanBean.phoneNo,
+        'tollFreeNo': res.wholesalerMasterBeanBean.tollFreeNo,
+        'fax': res.wholesalerMasterBeanBean.fax,
+        'contact': res.wholesalerMasterBeanBean.contact,
 
      
      })
@@ -99,8 +105,8 @@ export class AddWholesalerComponent implements OnInit {
 
   update(){
 
-    this.customerMaster = this.docForm.value;
-    this.customerMasterService.customerMasterUpdate(this.customerMaster);
+    this.wholesalerMaster = this.docForm.value;
+    this.wholesalerService.WholesalerMasterUpdate(this.wholesalerMaster);
     this.showNotification(
       "snackbar-success",
       "Edit Record Successfully...!!!",
