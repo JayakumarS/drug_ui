@@ -47,7 +47,7 @@ export class SigninComponent
     this.authForm = this.formBuilder.group({
       username: ["", Validators.required],
       password: ["", Validators.required],
-      loginOtpNo: [""]
+      otpValue: [""]
     });
   }
   get f() {
@@ -75,7 +75,7 @@ export class SigninComponent
     } else {
 
       this.loginInfo = new AuthLoginInfo(
-      this.f.username.value, this.f.password.value);
+      this.f.username.value, this.f.password.value,this.f.otpValue.value);
 
 
       this.authService.attemptAuth(this.loginInfo).subscribe(
@@ -115,34 +115,42 @@ export class SigninComponent
         }
       );
 
-      // this.subs.sink = this.authService
-      //   .login(this.f.username.value, this.f.password.value)
-      //   .subscribe(
-      //     (res) => {
-      //       if (res) {
-      //         setTimeout(() => {
-      //           const role = this.authService.currentUserValue.role;
-      //           if (role === Role.All || role === Role.Admin) {
-      //             this.router.navigate(["/admin/dashboard/main"]);
-      //           } else if (role === Role.Employee) {
-      //             this.router.navigate(["/employee/dashboard"]);
-      //           } else if (role === Role.Client) {
-      //             this.router.navigate(["/client/dashboard"]);
-      //           } else {
-      //             this.router.navigate(["/authentication/signin"]);
-      //           }
-      //           this.loading = false;
-      //         }, 1000);
-      //       } else {
-      //         this.error = "Invalid Login";
-      //       }
-      //     },
-      //     (error) => {
-      //       this.error = error;
-      //       this.submitted = false;
-      //       this.loading = false;
-      //     }
-      //   );
     }
+  }
+
+  verifyOtp(){
+    this.loginInfo = new AuthLoginInfo(
+      this.f.username.value, this.f.password.value,this.f.otpValue.value);
+    console.log(this.loginInfo);
+    this.authService.attemptOtpValidation(this.loginInfo).subscribe(
+      data => {        
+
+        if (data) {
+              if(data.success){
+                  setTimeout(() => {
+                this.loading = false; 
+
+               this.router.navigate(["/admin/dashboard/main"]);
+              }, 1000);
+              }else{
+                  this.submitted = false;
+                  this.loading = false;
+                  this.error = data.message;
+                console.log(data.message); 
+              }
+              
+            } else {
+              this.error = "Invalid OTP";
+            }
+        
+      },
+        error => {
+            this.submitted = false;
+            this.loading = false;
+            this.error = "Server Down!!!";
+            console.log(error); 
+            
+        }
+      );
   }
 }

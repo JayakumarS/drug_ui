@@ -31,9 +31,9 @@
               <div *ngIf="login" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Enter OTP</mat-label>
-                  <input matInput formControlName="loginOtpNo" />
+                  <input matInput formControlName="otpValue" />
                   <mat-icon matSuffix>face</mat-icon>
-                  <mat-error *ngIf="authForm.get('loginOtpNo').hasError('required')">
+                  <mat-error *ngIf="authForm.get('otpValue').hasError('required')">
                     OTP is required
                   </mat-error>
                 </mat-form-field>
@@ -71,7 +71,7 @@
                 <button *ngIf="!login" mat-raised-button color="primary" style="background-color: #353b64;color: aliceblue;"   [class.auth-spinner]="loading" [disabled]="loading"
                 (click)="onSubmit()" class="auth-form-btn" [disabled]="!authForm.valid " type="submit">Login</button>
                 <button *ngIf="login" mat-raised-button color="primary" style="background-color: #353b64;color: aliceblue;"   [class.auth-spinner]="loading" [disabled]="loading"
-                  class="auth-form-btn" [disabled]="!authForm.valid " type="submit">Verify OTP</button>
+                (click)="verifyOtp()" class="auth-form-btn" [disabled]="!authForm.valid " type="submit">Verify OTP</button>
               </div>
             </div>
           </form>

@@ -35,7 +35,7 @@ public currentUser: Observable<User>;
   getUserName = `${this.serverURL.apiServerAddress}api/auth/getUserName`;
   getFormPropertyMenuUrl = `${this.serverURL.apiServerAddress}api/auth/formProperty/getFormProperty`;
   insertCusMaster = `${this.serverURL.apiServerAddress}api/customerMaster/save`;
-  // insertSalesEntry = `${this.serverURL.apiServerAddress}api/salesCallEntry/save`;
+  validateOtpUrl =  `${this.serverURL.apiServerAddress}api/auth/validateOtp`;
 
   attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
     return  this.http
@@ -84,5 +84,8 @@ public currentUser: Observable<User>;
   //   return this.http.post(this.insertSalesEntry,salesEntryData, httpOptions);
   // }
 
+  attemptOtpValidation(otpInfo: AuthLoginInfo): Observable<any> {
+    return  this.http.post<any>(this.validateOtpUrl, otpInfo);
+  }
 }
 
