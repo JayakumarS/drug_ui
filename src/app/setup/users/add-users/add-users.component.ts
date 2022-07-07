@@ -8,7 +8,8 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { UsersService } from './../users.service';
-
+import { PasswordStrengthValidator } from './../../../shared/passwordPolicy';
+import { MustMatch } from './../../../shared/mustMatch';
 @Component({
   selector: 'app-add-users',
   templateUrl: './add-users.component.html',
@@ -30,15 +31,25 @@ export class AddUsersComponent  implements OnInit  {
       firstName: ["", [Validators.required]],
       lastName: [""],
       mobileNo: ["", [Validators.required]],
-      newPassword: ["", [Validators.required]],
+      newPassword: ["", Validators.compose([Validators.required, PasswordStrengthValidator, Validators.minLength(6)])],
       confirmPassword: ["", [Validators.required]],
       emailId: [ "",[Validators.required, Validators.email, Validators.minLength(5)],],
       uploadImg: [""],
       roles: ["", [Validators.required]],
       fileUploadUrl:[""],
       companyCode:["", [Validators.required]],
+    }, {
+      validator: MustMatch('newPassword', 'confirmPassword')
     });
   }
+
+  keyPresshas(event: any) {
+    // debugger;
+     if (event.keyCode == 35) {
+       event.preventDefault();
+     }
+   }
+
   uploadFile(event){
 
   var docfile = event.target.files[0];
@@ -84,25 +95,34 @@ export class AddUsersComponent  implements OnInit  {
 
   onSubmit() {
     console.log("Form Value", this.docForm.value);
-
-    this.httpService.post<UsersResultBean>(this.usersService.saveUrl, this.docForm.value).subscribe(data => {
-      console.log(data);
-        if(data.success){
-          this.showNotification(
-            "snackbar-success",
-            "User Added",
-            "bottom",
-            "center"
-          );
-          this.router.navigate(['/setup/users/listUsers']);
-        }else{
+    if(this.docForm.valid){
+      this.httpService.post<UsersResultBean>(this.usersService.saveUrl, this.docForm.value).subscribe(data => {
+        console.log(data);
+          if(data.success){
+            this.showNotification(
+              "snackbar-success",
+              "User Added",
+              "top",
+              "right"
+            );
+            this.router.navigate(['/setup/users/listUsers']);
+          }else{
+            
+          }
+        },
+        (err: HttpErrorResponse) => {
           
-        }
-      },
-      (err: HttpErrorResponse) => {
-        
+      }
+      );
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill required details.",
+        "top",
+        "right"
+      );
     }
-    );
+    
 
   }
 
