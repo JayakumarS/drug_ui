@@ -29,6 +29,7 @@ export class SigninComponent
   roles: string[] = [];
   userName : string ='';
    userObj = {};
+   login:boolean=false;
    private currentUserSubject: BehaviorSubject<User>;
   private loginInfo: AuthLoginInfo;
   constructor(
@@ -46,6 +47,7 @@ export class SigninComponent
     this.authForm = this.formBuilder.group({
       username: ["", Validators.required],
       password: ["", Validators.required],
+      loginOtpNo: [""]
     });
   }
   get f() {
@@ -88,8 +90,9 @@ export class SigninComponent
                 this.tokenStorage.saveUserId(data.email);
                 this.tokenStorage.saveDefaultRoleId(data.defaultRoleId);
                 this.tokenStorage.saveDefaultRole(data.defaultRole);
-                this.loading = false;               
-                this.router.navigate(["/admin/dashboard/main"]);
+                this.loading = false;  
+                this.login=true;             
+        //        this.router.navigate(["/admin/dashboard/main"]);
               }, 1000);
               }else{
                  this.submitted = false;
