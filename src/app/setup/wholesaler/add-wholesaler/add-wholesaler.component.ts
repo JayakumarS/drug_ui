@@ -31,12 +31,12 @@ export class AddWholesalerComponent implements OnInit {
     private wholesalerService:WholesalerService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
-      // first: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
+      wholesalerCode: [""],
       policyCode: ["", [Validators.required]],
       wholesalerName: ["", [Validators.required]],
       expiryPacket: ["", [Validators.required]],
        emailID: ["", [Validators.required]],
-       allowOverride: ["", [Validators.required]],
+       allowOverride: [""],
        department: ["", [Validators.required]],
       street: ["", [Validators.required]],
       city: ["", [Validators.required]],
@@ -45,7 +45,7 @@ export class AddWholesalerComponent implements OnInit {
       phoneNo: ["", [Validators.required]],
       tollFreeNo: ["", [Validators.required]],
       fax: ["", [Validators.required]],
-      contact: ["", [Validators.required]],
+      phone: ["", [Validators.required]],
      
     });
   }
@@ -74,25 +74,26 @@ export class AddWholesalerComponent implements OnInit {
   }
 }
 
-  fetchDetails(cusCode: any): void {
-    this.httpService.get(this.wholesalerService.editWholesalerMaster+"?customer="+cusCode).subscribe((res: any)=> {
-      console.log(cusCode);
+  fetchDetails(whoCode: any): void {
+    this.httpService.get(this.wholesalerService.editWholesalerMaster+"?wholesalerId="+whoCode).subscribe((res: any)=> {
+    
 
       this.docForm.patchValue({
-        'policyCode': res.wholesalerMasterBeanBean.policyCode,
-        'wholesalerName': res.wholesalerMasterBeanBean.wholesalerName,
-        'expiryPacket': res.wholesalerMasterBeanBean.expiryPacket,
-        ' emailID': res.wholesalerMasterBeanBean. emailID,
-        ' allowOverride': res.wholesalerMasterBeanBean. allowOverride,
-        ' department': res.wholesalerMasterBeanBean. department,
-        'street': res.wholesalerMasterBeanBean.street,
-        'city': res.wholesalerMasterBeanBean.city,
-        'state': res.wholesalerMasterBeanBean.state,
-        'zipCode': res.wholesalerMasterBeanBean.zipCode,
-        'phoneNo': res.wholesalerMasterBeanBean.phoneNo,
-        'tollFreeNo': res.wholesalerMasterBeanBean.tollFreeNo,
-        'fax': res.wholesalerMasterBeanBean.fax,
-        'contact': res.wholesalerMasterBeanBean.contact,
+        'wholesalerCode': res.wholesalerMasterBean.wholesalerCode,
+        'policyCode': res.wholesalerMasterBean.policyCode,
+        'wholesalerName': res.wholesalerMasterBean.wholesalerName,
+        'expiryPacket': res.wholesalerMasterBean.expiryPacket,
+        'emailID': res.wholesalerMasterBean.emailID,
+        'allowOverride': res.wholesalerMasterBean.allowOverride,
+        'department': res.wholesalerMasterBean. department,
+        'street': res.wholesalerMasterBean.street,
+        'city': res.wholesalerMasterBean.city,
+        'state': res.wholesalerMasterBean.state,
+        'zipCode': res.wholesalerMasterBean.zipCode,
+        'phoneNo': res.wholesalerMasterBean.phoneNo,
+        'tollFreeNo': res.wholesalerMasterBean.tollFreeNo,
+        'fax': res.wholesalerMasterBean.fax,
+        'phone': res.wholesalerMasterBean.phone,
 
      
      })
@@ -139,4 +140,29 @@ export class AddWholesalerComponent implements OnInit {
       panelClass: colorName,
     });
   }
+
+
+  keyPressName(event: any) {
+    const pattern = /[A-Z,a-z 0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  keyPressNumberDouble(event: any) {
+    const pattern = /[0-9.]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
+  keyPressNumberInt(event: any) {
+    const pattern = /[0-9]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+  
 }
