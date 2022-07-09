@@ -28,7 +28,18 @@ const routes: Routes = [
     path: "drugInfo",
     loadChildren: () =>
       import("./drug-info/drug-info.module").then((m) => m.DrugInfoModule),
+  },
+  {
+    path: "manufacturerMaster",
+    loadChildren: () =>
+      import("./manufacturer-master/manufacturer-master.module").then((m) => m.ManufacturerMasterModule),
+  },
+  {
+    path: "druginfoMaster",
+    loadChildren: () =>
+      import("./druginfo-master/druginfo-master.module").then((m) => m.DruginfoMasterModule),
   }
+
 ];
 
 @NgModule({
