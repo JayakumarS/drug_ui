@@ -1,7 +1,7 @@
-import { CustomerMasterService } from 'src/app/crm/customer-master/customer-master.service';
+import { WholesalerService } from './../wholesaler.service';
+import { WholesalerMaster } from './../wholesaler-model';
 import { DeleteCustomerComponent } from 'src/app/crm/customer-master/list-customer/delete-customer/delete-customer.component';
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { CustomerMaster} from 'src/app/crm/customer-master/customer-master.model';
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
@@ -26,23 +26,24 @@ import { Router } from '@angular/router';
 export class ListWholesalerComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
    // "select",
-    "wholesaler",
+    "wholesalerName",
+    "emailID",
+    "department",
     "city",
     "state",
-   
     "actions",
   ];
 
   dataSource: ExampleDataSource | null;
-  exampleDatabase: CustomerMasterService | null;
-  selection = new SelectionModel<CustomerMaster>(true, []);
+  exampleDatabase: WholesalerService | null;
+  selection = new SelectionModel<WholesalerMaster>(true, []);
   index: number;
   id: number;
-  customerMaster: CustomerMaster | null;
+  wholesalerMaster: WholesalerMaster | null;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public customerMasterService: CustomerMasterService,
+    public wholesalerService: WholesalerService,
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
@@ -74,7 +75,7 @@ export class ListWholesalerComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 
   public loadData() {
-    this.exampleDatabase = new CustomerMasterService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new WholesalerService(this.httpClient,this.serverUrl,this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -92,11 +93,11 @@ export class ListWholesalerComponent extends UnsubscribeOnDestroyAdapter impleme
 
 
   editCall(row) {
-    this.router.navigate(['/setup/wholesaler/AddWholesaler/'+ row.cusCode]);
+    this.router.navigate(['/setup/wholesaler/AddWholesaler/'+ row.wholesalerCode]);
   }
 
   deleteItem(row){ 
-    this.id = row.cusCode;
+    this.id = row.wholesalerCode;
     let tempDirection;
     if (localStorage.getItem("isRtl") === "true") {
       tempDirection = "rtl";
@@ -141,7 +142,7 @@ export class ListWholesalerComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 
 // context menu
-  onContextMenu(event: MouseEvent, item: CustomerMaster) {
+  onContextMenu(event: MouseEvent, item: WholesalerMaster) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
     this.contextMenuPosition.y = event.clientY + "px";
@@ -151,7 +152,7 @@ export class ListWholesalerComponent extends UnsubscribeOnDestroyAdapter impleme
   }
 }
 
-export class ExampleDataSource extends DataSource<CustomerMaster> {
+export class ExampleDataSource extends DataSource<WholesalerMaster> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value;
@@ -159,10 +160,10 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: CustomerMaster[] = [];
-  renderedData: CustomerMaster[] = [];
+  filteredData: WholesalerMaster[] = [];
+  renderedData: WholesalerMaster[] = [];
   constructor(
-    public exampleDatabase: CustomerMasterService,
+    public exampleDatabase: WholesalerService,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {
@@ -171,7 +172,7 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<CustomerMaster[]> {
+  connect(): Observable<WholesalerMaster[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -185,14 +186,13 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((customerMaster: CustomerMaster) => {
+          .filter((wholesalerMaster: WholesalerMaster) => {
             const searchStr = (
-              customerMaster.name +
-              customerMaster.department +
-              customerMaster.role +
-              customerMaster.degree +
-              customerMaster.email +
-              customerMaster.mobile
+              wholesalerMaster.wholesalerName +
+              wholesalerMaster.emailID +
+              wholesalerMaster.department +
+              wholesalerMaster.city +
+              wholesalerMaster.state 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -210,7 +210,7 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
   }
   disconnect() {}
   /** Returns a sorted copy of the database data. */
-  sortData(data: CustomerMaster[]): CustomerMaster[] {
+  sortData(data: WholesalerMaster[]): WholesalerMaster[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }
@@ -218,23 +218,20 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "id":
-          [propertyA, propertyB] = [a.id, b.id];
+        case "wholesalerName":
+          [propertyA, propertyB] = [a.wholesalerName, b.wholesalerName];
           break;
-        case "name":
-          [propertyA, propertyB] = [a.name, b.name];
+        case "emailID":
+          [propertyA, propertyB] = [a.emailID, b.emailID];
           break;
-        case "email":
-          [propertyA, propertyB] = [a.email, b.email];
-          break;
-        case "date":
-          [propertyA, propertyB] = [a.date, b.date];
-          break;
-        case "time":
+        case "department":
           [propertyA, propertyB] = [a.department, b.department];
           break;
-        case "mobile":
-          [propertyA, propertyB] = [a.mobile, b.mobile];
+        case "city":
+          [propertyA, propertyB] = [a.city, b.city];
+          break;
+        case "state":
+          [propertyA, propertyB] = [a.state, b.state];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

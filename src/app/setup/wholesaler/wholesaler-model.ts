@@ -1,4 +1,5 @@
 export class WholesalerMaster{
+    wholesalerCode: string;
     policyCode: string;
     wholesalerName: string;
     expiryPacket: string;
@@ -12,5 +13,5 @@ export class WholesalerMaster{
     phoneNo: string;
     tollFreeNo: string;
     fax: string;
-    contact: string;
+    phone: string;
 }
