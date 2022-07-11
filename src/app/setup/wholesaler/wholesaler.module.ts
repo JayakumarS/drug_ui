@@ -26,12 +26,14 @@ import { AddWholesalerComponent } from './add-wholesaler/add-wholesaler.componen
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
 import { ListWholesalerComponent } from './list-wholesaler/list-wholesaler.component';
+import { DeleteWholesalerMasterComponent } from './list-wholesaler/delete-wholesaler-master/delete-wholesaler-master.component';
 
 
 @NgModule({
   declarations: [
     AddWholesalerComponent,
-    ListWholesalerComponent
+    ListWholesalerComponent,
+    DeleteWholesalerMasterComponent
   ],
   imports: [
     FormsModule,

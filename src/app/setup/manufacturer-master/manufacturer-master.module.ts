@@ -27,12 +27,14 @@ import {MatRadioModule} from '@angular/material/radio';
 import { ManufacturerMasterRoutingModule } from './manufacturer-master-routing.module';
 import { AddManufacturermasterComponent } from './add-manufacturermaster/add-manufacturermaster.component';
 import { ListManufacturermasterComponent } from './list-manufacturermaster/list-manufacturermaster.component';
+import { DeleteManufacturerMasterComponent } from './list-manufacturermaster/delete-manufacturer-master/delete-manufacturer-master.component';
 
 
 @NgModule({
   declarations: [
     AddManufacturermasterComponent,
-    ListManufacturermasterComponent
+    ListManufacturermasterComponent,
+    DeleteManufacturerMasterComponent
   ],
   imports: [
     FormsModule,

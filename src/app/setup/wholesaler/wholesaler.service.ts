@@ -78,9 +78,9 @@ export class WholesalerService extends UnsubscribeOnDestroyAdapter{
     });
   }
 
-  WholesalerMasterDelete(cusCode: any): void {
-    this.httpService.get(this.deleteWholesalerMaster+"?customer="+cusCode).subscribe(data => {
-      console.log(cusCode);
+  WholesalerMasterDelete(wholesalerId: any): void {
+    this.httpService.get(this.deleteWholesalerMaster+"?wholesalerId="+wholesalerId).subscribe(data => {
+      console.log(wholesalerId);
       },
       (err: HttpErrorResponse) => {
          // error code here

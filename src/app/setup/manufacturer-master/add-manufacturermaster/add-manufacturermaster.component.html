@@ -15,7 +15,7 @@
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Name</mat-label>
-                      <input matInput formControlName="manufacturerName"   maxlength="20" (keypress)="keyPressName($event)" required>
+                      <input matInput formControlName="manufacturerName"   maxlength="40" (keypress)="keyPressName($event)" required>
                       <mat-error *ngIf="docForm.get('manufacturerName').hasError('required')">
                         Name is required
                       </mat-error>
@@ -24,7 +24,7 @@
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Link To</mat-label>
-                      <input matInput formControlName="linkTo"   maxlength="20" (keypress)="keyPressName($event)" required>
+                      <input matInput formControlName="linkTo"   maxlength="15" (keypress)="keyPressName($event)" required>
                       <mat-error *ngIf="docForm.get('linkTo').hasError('required')">
                         Link To is required
                       </mat-error>
@@ -33,7 +33,7 @@
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Bill To</mat-label>
-                      <input matInput formControlName="billTo"  maxlength="40" (keypress)="keyPressName($event)" required>
+                      <input matInput formControlName="billTo"  maxlength="15" (keypress)="keyPressName($event)" required>
                       <mat-error *ngIf="docForm.get('billTo').hasError('required')">
                         Bill To is required
                       </mat-error>
@@ -42,7 +42,7 @@
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                       <mat-label>Return Service</mat-label>
-                      <input matInput formControlName="returnService"  maxlength="40" (keypress)="keyPressName($event)" required>
+                      <input matInput formControlName="returnService"  maxlength="15" (keypress)="keyPressName($event)" required>
                       <mat-error *ngIf="docForm.get('returnService').hasError('required')">
                         Return Service is required
                       </mat-error>

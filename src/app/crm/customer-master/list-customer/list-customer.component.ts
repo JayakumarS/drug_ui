@@ -62,12 +62,12 @@ export class ListCustomerComponent extends UnsubscribeOnDestroyAdapter implement
   ngOnInit(): void {
     this.loadData();
 
-    if (!localStorage.getItem('foo')) { 
-      localStorage.setItem('foo', 'no reload') 
-      location.reload() 
-    } else {
-      localStorage.removeItem('foo') 
-    }
+    // if (!localStorage.getItem('foo')) { 
+    //   localStorage.setItem('foo', 'no reload') 
+    //   location.reload() 
+    // } else {
+    //   localStorage.removeItem('foo') 
+    // }
   }
 
   refresh(){

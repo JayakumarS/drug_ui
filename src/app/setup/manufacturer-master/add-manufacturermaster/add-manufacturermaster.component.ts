@@ -71,7 +71,7 @@ export class AddManufacturermasterComponent implements OnInit {
       "bottom",
       "center"
     );
-   // this.router.navigate(['/setup/wholesaler/ListWholesaler']);
+    this.router.navigate(['/setup/wholesaler/ListWholesaler']);
   }
 }
 
@@ -105,7 +105,7 @@ export class AddManufacturermasterComponent implements OnInit {
   }
 
   update(){
-
+    if (this.docForm.valid) {
     this.manufacturerMaster = this.docForm.value;
     this.manufacturerService.manufacturerMasterUpdate(this.manufacturerMaster);
     this.showNotification(
@@ -117,7 +117,8 @@ export class AddManufacturermasterComponent implements OnInit {
     this.router.navigate(['/setup/manufacturer/listManufacturermaster']);
 
   }
-
+  }
+  
   reset(){}
 
   addRow(){

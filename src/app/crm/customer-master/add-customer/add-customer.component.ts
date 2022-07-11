@@ -201,6 +201,7 @@ if (this.docForm.valid) {
 
   
   update(){
+    if (this.docForm.valid) {
     this.docForm.patchValue({
       'authorizedClasses': this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses4+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses5
     });
@@ -216,7 +217,7 @@ if (this.docForm.valid) {
     this.router.navigate(['/crm/customerMaster/listCustomer']);
 
   }
-
+  }
   reset(){}
 
   addRow(){

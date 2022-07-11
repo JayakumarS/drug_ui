@@ -1,6 +1,6 @@
+import { DeleteWholesalerMasterComponent } from './delete-wholesaler-master/delete-wholesaler-master.component';
 import { WholesalerService } from './../wholesaler.service';
 import { WholesalerMaster } from './../wholesaler-model';
-import { DeleteCustomerComponent } from 'src/app/crm/customer-master/list-customer/delete-customer/delete-customer.component';
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
@@ -62,12 +62,12 @@ export class ListWholesalerComponent extends UnsubscribeOnDestroyAdapter impleme
   ngOnInit(): void {
     this.loadData();
 
-    if (!localStorage.getItem('foo')) { 
-      localStorage.setItem('foo', 'no reload') 
-      location.reload() 
-    } else {
-      localStorage.removeItem('foo') 
-    }
+    // if (!localStorage.getItem('foo')) { 
+    //   localStorage.setItem('foo', 'no reload') 
+    //   location.reload() 
+    // } else {
+    //   localStorage.removeItem('foo') 
+    // }
   }
 
   refresh(){
@@ -104,7 +104,7 @@ export class ListWholesalerComponent extends UnsubscribeOnDestroyAdapter impleme
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(DeleteCustomerComponent, {
+    const dialogRef = this.dialog.open(DeleteWholesalerMasterComponent, {
       height: "270px",
       width: "400px",
       data: row,

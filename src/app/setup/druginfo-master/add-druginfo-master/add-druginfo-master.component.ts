@@ -1,3 +1,4 @@
+import { DrugInfoMasterResultBean } from './../druginfo-result-bean';
 import { DrugInfoMaster } from './../druginfo-model';
 import { DruginfoService } from './../druginfo.service';
 import { Component, OnInit } from '@angular/core';
@@ -20,7 +21,7 @@ export class AddDruginfoMasterComponent implements OnInit {
   hide3 = true;
   agree3 = false;
   dataarray=[];
-  cusMasterData =[];
+  manufacturerList=[];
   drugInfoMaster:DrugInfoMaster;
   detailRowData = new DetailRowComponent;
   requestId: number;
@@ -39,17 +40,33 @@ export class AddDruginfoMasterComponent implements OnInit {
       packageSize: ["", [Validators.required]],
       rxOtc: ["", [Validators.required]],
       unitPerPackage:["", [Validators.required]],
-      unitDose: ["false", [Validators.required]],
+      unitDose: [""],
       dosage: ["", [Validators.required]],
       unitOfMeasure: ["", [Validators.required]],
-      hazardous: ["false", [Validators.required]],
+      hazardous: [""],
       awp: ["", [Validators.required]],
       wap: ["", [Validators.required]],
       myPrice: ["", [Validators.required]],
            
     });
+
+    this.docForm.patchValue({
+      'unitDose': false,
+      'hazardous': false,
+   })
+
   }
   ngOnInit(): void {
+
+    this.httpService.get<DrugInfoMasterResultBean>(this.druginfoService.getManufacturerList).subscribe(
+      (data) => {
+        this.manufacturerList = data.manufacturerList;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+      );
+
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -60,6 +77,7 @@ export class AddDruginfoMasterComponent implements OnInit {
      });
   }
   onSubmit() {
+    if (this.docForm.valid) {
     this.drugInfoMaster = this.docForm.value;
     console.log(this.drugInfoMaster);
     this.druginfoService.adddrugInfoMaster(this.drugInfoMaster);
@@ -69,9 +87,9 @@ export class AddDruginfoMasterComponent implements OnInit {
       "bottom",
       "center"
     );
-    //this.router.navigate(['/setup/druginfoMaster/listDruginfoMaster']);
+    this.router.navigate(['/setup/druginfoMaster/listDruginfoMaster']);
   }
-
+  }
   fetchDetails(ndcupc: any): void {
     this.httpService.get(this.druginfoService.editdrugInfoMaster+"?drugInfoId="+ndcupc).subscribe((res: any)=> {
       console.log(ndcupc);
@@ -86,15 +104,18 @@ export class AddDruginfoMasterComponent implements OnInit {
         'packageSize': res.drugInfoMasterBean.packageSize,
         'rxOtc': res.drugInfoMasterBean.rxOtc,
         'unitPerPackage': res.drugInfoMasterBean.unitPerPackage,
-        'unitDose': res.drugInfoMasterBean.unitDose,
+        'unitDose': this.getBoolean(res.drugInfoMasterBean.unitDose),
         'dosage': res.drugInfoMasterBean.dosage,
         'unitOfMeasure': res.drugInfoMasterBean.unitOfMeasure,
-        'hazardous': res.drugInfoMasterBean.hazardous,
+        'hazardous': this.getBoolean(res.drugInfoMasterBean.hazardous),
 'awp': res.drugInfoMasterBean.awp,
 'wap': res.drugInfoMasterBean.wap,
 'myPrice': res.drugInfoMasterBean.myPrice,
      
      })
+
+     
+
       },
       (err: HttpErrorResponse) => {
          // error code here
@@ -103,7 +124,7 @@ export class AddDruginfoMasterComponent implements OnInit {
   }
 
   update(){
-
+    if (this.docForm.valid) {
     this.drugInfoMaster = this.docForm.value;
     this.druginfoService.drugInfoMasterUpdate(this.drugInfoMaster);
     this.showNotification(
@@ -113,7 +134,7 @@ export class AddDruginfoMasterComponent implements OnInit {
       "center"
     );
     this.router.navigate(['/setup/druginfoMaster/listDruginfoMaster']);
-
+    }
   }
 
   reset(){}
@@ -138,4 +159,43 @@ export class AddDruginfoMasterComponent implements OnInit {
       panelClass: colorName,
     });
   }
+
+
+  getBoolean(value){
+    switch(value){
+         case true:
+         case "true":
+         case 1:
+         case "1":
+         case "on":
+         case "yes":
+          case "t":
+             return true;
+         default: 
+             return false;
+     }
+    }
+
+    keyPressName(event: any) {
+      const pattern = /[A-Z,a-z 0-9]/;
+      const inputChar = String.fromCharCode(event.charCode);
+      if (event.keyCode != 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+      }
+    }
+    keyPressNumberDouble(event: any) {
+      const pattern = /[0-9.]/;
+      const inputChar = String.fromCharCode(event.charCode);
+      if (event.keyCode != 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+      }
+    }
+  
+    keyPressNumberInt(event: any) {
+      const pattern = /[0-9]/;
+      const inputChar = String.fromCharCode(event.charCode);
+      if (event.keyCode != 8 && !pattern.test(inputChar)) {
+        event.preventDefault();
+      }
+    }
 }

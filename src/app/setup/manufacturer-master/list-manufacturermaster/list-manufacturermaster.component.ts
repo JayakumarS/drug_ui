@@ -1,6 +1,6 @@
+import { DeleteManufacturerMasterComponent } from './delete-manufacturer-master/delete-manufacturer-master.component';
 import { ManufacturerService } from './../manufacturer.service';
 import { ManufacturerMaster } from './../manufacturer-model';
-import { DeleteCustomerComponent } from 'src/app/crm/customer-master/list-customer/delete-customer/delete-customer.component';
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
@@ -62,12 +62,12 @@ export class ListManufacturermasterComponent extends UnsubscribeOnDestroyAdapter
   ngOnInit(): void {
     this.loadData();
 
-    if (!localStorage.getItem('foo')) { 
-      localStorage.setItem('foo', 'no reload') 
-      location.reload() 
-    } else {
-      localStorage.removeItem('foo') 
-    }
+    // if (!localStorage.getItem('foo')) { 
+    //   localStorage.setItem('foo', 'no reload') 
+    //   location.reload() 
+    // } else {
+    //   localStorage.removeItem('foo') 
+    // }
   }
 
   refresh(){
@@ -104,7 +104,7 @@ export class ListManufacturermasterComponent extends UnsubscribeOnDestroyAdapter
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(DeleteCustomerComponent, {
+    const dialogRef = this.dialog.open(DeleteManufacturerMasterComponent, {
       height: "270px",
       width: "400px",
       data: row,
