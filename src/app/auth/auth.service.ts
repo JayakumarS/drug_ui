@@ -36,7 +36,8 @@ public currentUser: Observable<User>;
   getFormPropertyMenuUrl = `${this.serverURL.apiServerAddress}api/auth/formProperty/getFormProperty`;
   insertCusMaster = `${this.serverURL.apiServerAddress}api/customerMaster/save`;
   validateOtpUrl =  `${this.serverURL.apiServerAddress}api/auth/validateOtp`;
-
+  resendOtpUrl =  `${this.serverURL.apiServerAddress}api/auth/resendOtpvalidate`;
+  
   attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
     return  this.http
       .post<JwtResponse>(this.loginUrl, credentials)
@@ -86,6 +87,10 @@ public currentUser: Observable<User>;
 
   attemptOtpValidation(otpInfo: AuthLoginInfo): Observable<any> {
     return  this.http.post<any>(this.validateOtpUrl, otpInfo);
+  }
+
+  resendOtp(otpInfo: AuthLoginInfo): Observable<any> {
+    return  this.http.post<any>(this.resendOtpUrl, otpInfo);
   }
 }
 

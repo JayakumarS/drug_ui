@@ -97,12 +97,15 @@ export class SigninComponent
               }else{
                  this.submitted = false;
                   this.loading = false;
-                  this.error = "Invalid Login";
+                  this.error = data.message;
                 console.log(data.message); 
               }
               
             } else {
+              this.submitted = false;
+              this.loading = false;
               this.error = "Invalid Login";
+            console.log(data.message);
             }
         
       },
@@ -153,4 +156,26 @@ export class SigninComponent
         }
       );
   }
+
+  resendOtpNo(){
+    this.loginInfo = new AuthLoginInfo(
+      this.f.username.value, this.f.password.value,this.f.otpValue.value);
+    console.log(this.loginInfo);
+    this.login=true;
+    this.authService.resendOtp(this.loginInfo).subscribe(
+      data => {        
+       if(data) {
+            if(!data.success){
+              setTimeout(() => {
+                this.submitted = false;
+                this.loading = false;
+                this.error = data.message;
+          }, 1000);
+          }
+       }
+      },
+        
+      );
+  }
+
 }

@@ -24,6 +24,7 @@ import { MatMenuModule } from '@angular/material/menu';
 import { MatdynamicmenuComponent } from "./layout/matdynamicmenu/matdynamicmenu.component";
 import { MatdynamicsubmenuComponent } from "./layout/matdynamicmenu/matdynamicsubmenu/matdynamicsubmenu.component";
 import { MatnestedmenuComponent } from "./layout/matnestedmenu/matnestedmenu.component";
+import { MatDialogModule } from "@angular/material/dialog";
 
 
 import {
@@ -39,6 +40,7 @@ import {
   HTTP_INTERCEPTORS,
   HttpClient,
 } from "@angular/common/http";
+import { FormsModule,ReactiveFormsModule } from "@angular/forms";
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
   suppressScrollX: true,
@@ -71,6 +73,9 @@ export function createTranslateLoader(http: HttpClient): any {
         HttpClientModule,
         PerfectScrollbarModule,
         ClickOutsideModule,
+        MatDialogModule,
+        ReactiveFormsModule,
+        FormsModule,
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,

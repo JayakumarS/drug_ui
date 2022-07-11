@@ -6,6 +6,7 @@ import {
   OnInit,
   Renderer2,
   AfterViewInit,
+  ViewChild,
 } from "@angular/core";
 import { Router } from "@angular/router";
 import { ConfigService } from "src/app/config/config.service";
@@ -14,6 +15,9 @@ import { LanguageService } from "src/app/core/service/language.service";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { AppService } from 'src/app/app.service';
+import { FormBuilder, FormGroup } from "@angular/forms";
+import { MatDialog } from "@angular/material/dialog";
+import { PasswordChangePopUpComponent } from "./password-change-pop-up/password-change-pop-up.component";
 const document: any = window.document;
 
 @Component({
@@ -25,6 +29,8 @@ export class HeaderComponent
   extends UnsubscribeOnDestroyAdapter
   implements OnInit, AfterViewInit
 {
+  @ViewChild('openModal') openBtn: ElementRef<HTMLElement>;
+
   public config: any = {};
   userImg: string;
   homePage: string;
@@ -36,6 +42,7 @@ export class HeaderComponent
   isOpenSidebar: boolean;
   userName:string; 
   roleName:string;
+  changePasswordForm: FormGroup;
   constructor(
     @Inject(DOCUMENT) private document: Document,
     private renderer: Renderer2,
@@ -45,7 +52,10 @@ export class HeaderComponent
     private router: Router,
     public languageService: LanguageService,
     private app:AppService,
-    private token: TokenStorageService
+    private token: TokenStorageService,
+    public fb: FormBuilder,
+    public dialog: MatDialog
+    
   ) {
     super();
   }
@@ -131,6 +141,11 @@ export class HeaderComponent
     } else {
       this.flagvalue = val.map((element) => element.flag);
     }
+    this.changePasswordForm = this.fb.group({
+      oldPwd: ['' ],
+      newPwd: [''],
+      confirmNewPwd: ['']
+    })
   }
 
   ngAfterViewInit() {
@@ -245,6 +260,24 @@ export class HeaderComponent
     this.app.SetName('');
       localStorage.removeItem("currentUser");
     this.router.navigate(['/authentication/signin']);
+
+  }
+
+  passwordChange(){
+    const dialogRef = this.dialog.open(PasswordChangePopUpComponent, {
+      height: "400px",
+      width: "490px",
+  
+    });
+  }
+
+  updatePassword() {
+    
+        this.openBtn.nativeElement.click();
+      
+  }
+
+  reset(){
 
   }
 

@@ -15,6 +15,7 @@
           </div>
           <h2 *ngIf="!login" class="login-title">Sign in</h2>
           <h2 *ngIf="login" class="login-title">Enter Your OTP Number</h2>
+          <p *ngIf="login">Please Check your email to know your OTP No</p>
           <!-- <form class="validate-form" [formGroup]="authForm" (ngSubmit)="onSubmit()"> -->
           <form class="validate-form" [formGroup]="authForm">
             <div class="row">
@@ -38,6 +39,7 @@
                   </mat-error>
                 </mat-form-field>
               </div>
+            <a *ngIf="login" href="#" style="text-decoration: none; text-align:right ;" (click)="resendOtpNo()">Didn't receive OTP resend ?</a>
             </div>
             <div class="row">
               <div *ngIf="!login" class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
