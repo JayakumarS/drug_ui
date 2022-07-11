@@ -25,12 +25,7 @@ const routes: Routes = [
       import("./wholesaler/wholesaler.module").then((m) => m.WholesalerModule),
   },
   {
-    path: "drugInfo",
-    loadChildren: () =>
-      import("./drug-info/drug-info.module").then((m) => m.DrugInfoModule),
-  },
-  {
-    path: "manufacturerMaster",
+    path: "manufacturer",
     loadChildren: () =>
       import("./manufacturer-master/manufacturer-master.module").then((m) => m.ManufacturerMasterModule),
   },

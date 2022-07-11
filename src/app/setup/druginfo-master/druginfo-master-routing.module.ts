@@ -5,10 +5,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: "listDruginfoMasterComponent",
+    path: "listDruginfoMaster",
     component: ListDruginfoMasterComponent,
   },{
-    path: "addDruginfoMasterComponent/:id",
+    path: "addDruginfoMaster/:id",
     component: AddDruginfoMasterComponent,
   }
 ];

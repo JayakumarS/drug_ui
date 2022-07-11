@@ -6,10 +6,10 @@ import { RouterModule, Routes } from '@angular/router';
 
 const routes: Routes = [
   {
-    path: "listManufacturermasterComponent",
+    path: "listManufacturermaster",
     component: ListManufacturermasterComponent,
   },{
-    path: "addManufacturermasterComponent/:id",
+    path: "addManufacturermaster/:id",
     component: AddManufacturermasterComponent,
   }
 ];

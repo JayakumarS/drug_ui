@@ -1,1 +1,176 @@
-<p>add-manufacturermaster works!</p>
+<section class="content">
+    <div class="content-block">
+      <div class="block-header">
+        <!-- breadcrumb -->
+        <app-breadcrumb [title]="'Add Manufacturer'" [items]="['Manufacturer']" [active_item]="'Add Manufacturer'">
+        </app-breadcrumb>
+      </div>
+      <div class="row clearfix ">
+        <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+        <div class="box-shadow">
+          <div class="card">
+            <div class="body">
+              <form class="m-4" [formGroup]="docForm">
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Name</mat-label>
+                      <input matInput formControlName="manufacturerName"   maxlength="20" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('manufacturerName').hasError('required')">
+                        Name is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Link To</mat-label>
+                      <input matInput formControlName="linkTo"   maxlength="20" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('linkTo').hasError('required')">
+                        Link To is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Bill To</mat-label>
+                      <input matInput formControlName="billTo"  maxlength="40" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('billTo').hasError('required')">
+                        Bill To is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Return Service</mat-label>
+                      <input matInput formControlName="returnService"  maxlength="40" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('returnService').hasError('required')">
+                        Return Service is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                 
+                  
+                </div>
+           
+                <div class="row">
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> Contact </mat-label>
+                      <input matInput formControlName="contact"  maxlength="30" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('contact').hasError('required')">
+                        Contact is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Email ID</mat-label>
+                      <input matInput formControlName="emailId"  maxlength="40" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('emailId').hasError('required')">
+                        Email ID is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Department</mat-label>
+                      <input matInput formControlName="departmentName"  maxlength="30" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('departmentName').hasError('required')">
+                        Department is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Street</mat-label>
+                      <input matInput formControlName="streetName"  maxlength="30" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('streetName').hasError('required')">
+                        Street is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                 
+                </div>
+                <div class="row">
+                  
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> City </mat-label>
+                      <input matInput formControlName="cityName"  maxlength="25" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('cityName').hasError('required')">
+                        City is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                 
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> State </mat-label>
+                      <input matInput formControlName="stateName"  maxlength="25" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('stateName').hasError('required')">
+                        State is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label> Zip Code </mat-label>
+                      <input matInput formControlName="zipCode"  maxlength="5" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('zipCode').hasError('required')">
+                        Zip Code is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                  <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Phone no.</mat-label>
+                      <input matInput formControlName="phoneNo"  maxlength="15" (keypress)="keyPressName($event)" required>
+                      <mat-error *ngIf="docForm.get('phoneNo').hasError('required')">
+                        Phone no. is required
+                      </mat-error>
+                    </mat-form-field>
+                  </div>
+                 
+                </div>
+              
+                <div class="row">
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>Toll-free no.</mat-label>
+                    <input matInput formControlName="tollFreeNo"  maxlength="15" (keypress)="keyPressName($event)" required>
+                    <mat-error *ngIf="docForm.get('tollFreeNo').hasError('required')">
+                      Toll-free no. is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+                <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label> Fax </mat-label>
+                    <input matInput formControlName="fax"  maxlength="15" (keypress)="keyPressName($event)" required>
+                    <mat-error *ngIf="docForm.get('fax').hasError('required')">
+                      Fax is required
+                    </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+                <div class="row"> 
+                  <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
+                    <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
+                    color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                    <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
+                    color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+                      <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
+                    <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
+                  </div>
+                </div>
+              </form>
+            </div>
+          </div>
+        </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
