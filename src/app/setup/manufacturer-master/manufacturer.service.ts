@@ -79,9 +79,9 @@ export class ManufacturerService extends UnsubscribeOnDestroyAdapter {
     });
   }
 
-  manufacturerMasterDelete(cusCode: any): void {
-    this.httpService.get(this.deletemanufacturerMaster+"?customer="+cusCode).subscribe(data => {
-      console.log(cusCode);
+  manufacturerMasterDelete(manufacturerId: any): void {
+    this.httpService.get(this.deletemanufacturerMaster+"?manufacturerId="+manufacturerId).subscribe(data => {
+      //console.log(manufacturerId);
       },
       (err: HttpErrorResponse) => {
          // error code here

@@ -1,6 +1,6 @@
+import { DeleteDrugInfoMasterComponent } from './delete-drug-info-master/delete-drug-info-master.component';
 import { DrugInfoMaster } from './../druginfo-model';
 import { DruginfoService } from './../druginfo.service';
-import { DeleteCustomerComponent } from 'src/app/crm/customer-master/list-customer/delete-customer/delete-customer.component';
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
@@ -61,12 +61,12 @@ export class ListDruginfoMasterComponent extends UnsubscribeOnDestroyAdapter imp
   ngOnInit(): void {
     this.loadData();
 
-    if (!localStorage.getItem('foo')) { 
-      localStorage.setItem('foo', 'no reload') 
-      location.reload() 
-    } else {
-      localStorage.removeItem('foo') 
-    }
+    // if (!localStorage.getItem('foo')) { 
+    //   localStorage.setItem('foo', 'no reload') 
+    //   location.reload() 
+    // } else {
+    //   localStorage.removeItem('foo') 
+    // }
   }
 
   refresh(){
@@ -103,7 +103,7 @@ export class ListDruginfoMasterComponent extends UnsubscribeOnDestroyAdapter imp
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(DeleteCustomerComponent, {
+    const dialogRef = this.dialog.open(DeleteDrugInfoMasterComponent, {
       height: "270px",
       width: "400px",
       data: row,

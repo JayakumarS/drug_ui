@@ -70,7 +70,7 @@ export class AddWholesalerComponent implements OnInit {
       "bottom",
       "center"
     );
-   // this.router.navigate(['/setup/wholesaler/ListWholesaler']);
+    this.router.navigate(['/setup/wholesaler/ListWholesaler']);
   }
 }
 
@@ -105,7 +105,7 @@ export class AddWholesalerComponent implements OnInit {
   }
 
   update(){
-
+    if (this.docForm.valid) {
     this.wholesalerMaster = this.docForm.value;
     this.wholesalerService.WholesalerMasterUpdate(this.wholesalerMaster);
     this.showNotification(
@@ -115,7 +115,7 @@ export class AddWholesalerComponent implements OnInit {
       "center"
     );
     this.router.navigate(['/setup/wholesaler/ListWholesaler']);
-
+    }
   }
 
   reset(){}

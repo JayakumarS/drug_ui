@@ -27,12 +27,14 @@ import {MatRadioModule} from '@angular/material/radio';
 import { DruginfoMasterRoutingModule } from './druginfo-master-routing.module';
 import { AddDruginfoMasterComponent } from './add-druginfo-master/add-druginfo-master.component';
 import { ListDruginfoMasterComponent } from './list-druginfo-master/list-druginfo-master.component';
+import { DeleteDrugInfoMasterComponent } from './list-druginfo-master/delete-drug-info-master/delete-drug-info-master.component';
 
 
 @NgModule({
   declarations: [
     AddDruginfoMasterComponent,
-    ListDruginfoMasterComponent
+    ListDruginfoMasterComponent,
+    DeleteDrugInfoMasterComponent,
   ],
   imports: [
     FormsModule,

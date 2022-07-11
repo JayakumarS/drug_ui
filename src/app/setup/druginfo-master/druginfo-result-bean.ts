@@ -4,4 +4,5 @@ export class DrugInfoMasterResultBean{
     success: boolean;
     drugInfoMaster: DrugInfoMaster;
     listDrugInfoMasterBean: [];
+    manufacturerList: [];
 }

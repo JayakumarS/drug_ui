@@ -33,8 +33,8 @@ export class DruginfoService  extends UnsubscribeOnDestroyAdapter {
   private savedrugInfoMaster = `${this.serverUrl.apiServerAddress}api/auth/app/drugInfoMaster/save`;
   public editdrugInfoMaster = `${this.serverUrl.apiServerAddress}api/auth/app/drugInfoMaster/edit`;
   public updatedrugInfoMaster = `${this.serverUrl.apiServerAddress}api/auth/app/drugInfoMaster/update`;
-  private deletedrugInfoMaster = `${this.serverUrl.apiServerAddress}api/auth/app/drugInfoMaster/delete`;
-
+  public deletedrugInfoMaster = `${this.serverUrl.apiServerAddress}api/auth/app/drugInfoMaster/delete`;
+  public getManufacturerList = `${this.serverUrl.apiServerAddress}api/auth/app/drugInfoMaster/getManufacturerList`;
 
   get data(): DrugInfoMaster[] {
     return this.dataChange.value;
@@ -78,9 +78,9 @@ export class DruginfoService  extends UnsubscribeOnDestroyAdapter {
     });
   }
 
-  drugInfoMasterDelete(cusCode: any): void {
-    this.httpService.get(this.deletedrugInfoMaster+"?customer="+cusCode).subscribe(data => {
-      console.log(cusCode);
+  drugInfoMasterDelete(drugInfoId: any): void {
+    this.httpService.get(this.deletedrugInfoMaster+"?drugInfoId="+drugInfoId).subscribe(data => {
+      console.log(drugInfoId);
       },
       (err: HttpErrorResponse) => {
          // error code here
@@ -88,4 +88,5 @@ export class DruginfoService  extends UnsubscribeOnDestroyAdapter {
     );
   }
 
+  
 }
