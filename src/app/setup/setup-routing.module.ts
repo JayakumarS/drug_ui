@@ -33,6 +33,11 @@ const routes: Routes = [
     path: "druginfoMaster",
     loadChildren: () =>
       import("./druginfo-master/druginfo-master.module").then((m) => m.DruginfoMasterModule),
+  },
+  {
+    path: "companyMaster",
+    loadChildren: () =>
+      import("./company-master/company-master.module").then((m) => m.CompanyMasterModule),
   }
 
 ];
