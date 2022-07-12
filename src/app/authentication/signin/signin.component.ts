@@ -28,8 +28,11 @@ export class SigninComponent
   errorMessage = '';
   roles: string[] = [];
   userName : string ='';
-   userObj = {};
-   login:boolean=false;
+  userObj = {};
+  login:boolean=false;
+  // For OTP countdown
+  timeLeft: number = 300;
+  interval;
    private currentUserSubject: BehaviorSubject<User>;
   private loginInfo: AuthLoginInfo;
   constructor(
@@ -91,7 +94,8 @@ export class SigninComponent
                 this.tokenStorage.saveDefaultRoleId(data.defaultRoleId);
                 this.tokenStorage.saveDefaultRole(data.defaultRole);
                 this.loading = false;  
-                this.login=true;             
+                this.login=true; 
+                this.startTimer();            
         //        this.router.navigate(["/admin/dashboard/main"]);
               }, 1000);
               }else{
@@ -162,6 +166,8 @@ export class SigninComponent
       this.f.username.value, this.f.password.value,this.f.otpValue.value);
     console.log(this.loginInfo);
     this.login=true;
+    // resetting the time as 300s
+    this.timeLeft=300;
     this.authService.resendOtp(this.loginInfo).subscribe(
       data => {        
        if(data) {
@@ -176,6 +182,21 @@ export class SigninComponent
       },
         
       );
+  }
+
+  //OTP Countdown
+  startTimer() {
+    this.interval = setInterval(() => {
+      if(this.timeLeft > 0) {
+        this.timeLeft--;
+      } else{
+        // this.timeLeft = 300;
+      }
+    },1000)
+  }
+
+  pauseTimer() {
+    clearInterval(this.interval);
   }
 
 }

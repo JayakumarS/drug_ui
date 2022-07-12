@@ -39,7 +39,10 @@
                   </mat-error>
                 </mat-form-field>
               </div>
-            <a *ngIf="login" href="#" style="text-decoration: none; text-align:right ;" (click)="resendOtpNo()">Didn't receive OTP resend ?</a>
+              <div class="row">
+              <p *ngIf="login" class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2" style="color: red;">{{timeLeft}} Seconds Left....!!</p>
+              <a class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2" *ngIf="login" href="#" style="text-decoration: none; text-align:right ;" (click)="resendOtpNo()">Didn't receive OTP resend ?</a>
+              </div>
             </div>
             <div class="row">
               <div *ngIf="!login" class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
