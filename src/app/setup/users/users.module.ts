@@ -23,18 +23,19 @@ import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import {MatRadioModule} from '@angular/material/radio';
 
-
 import { UsersRoutingModule } from './users-routing.module';
 import { ListUsersComponent } from './list-users/list-users.component';
 import { AddUsersComponent } from './add-users/add-users.component';
 import { DeleteUsersComponent } from './list-users/delete-users/delete-users.component';
+import { ChangePasswordPopUpComponent } from './change-password-pop-up/change-password-pop-up.component';
 
 
 @NgModule({
   declarations: [
     ListUsersComponent,
     AddUsersComponent,
-    DeleteUsersComponent
+    DeleteUsersComponent,
+    ChangePasswordPopUpComponent
   ],
   imports: [
     CommonModule,
@@ -61,7 +62,7 @@ import { DeleteUsersComponent } from './list-users/delete-users/delete-users.com
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
-    MatRadioModule
+    MatRadioModule,
   ]
 })
 export class UsersModule { }

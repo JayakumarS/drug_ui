@@ -63,6 +63,7 @@
     "ngx-mask": "^13.1.15",
     "ngx-perfect-scrollbar": "^10.1.1",
     "ngx-spinner": "^11.0.1",
+    "ngx-toastr": "^15.0.0",
     "rxjs": "^7.5.5",
     "subsink": "^1.0.2",
     "sweetalert2": "^11.4.19",

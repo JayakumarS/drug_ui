@@ -24,7 +24,6 @@ import { MatTooltipModule } from "@angular/material/tooltip";
 import { MatTableExporterModule } from "mat-table-exporter";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
-import { PasswordChangePopUpComponent } from './header/password-change-pop-up/password-change-pop-up.component';
 
 @NgModule({
   imports: [CommonModule, NgbModule, MatTabsModule, MatMenuModule,
@@ -51,7 +50,6 @@ import { PasswordChangePopUpComponent } from './header/password-change-pop-up/pa
   ],
   declarations: [
     MatdynamicsubmenuComponent,
-    PasswordChangePopUpComponent,
   ],
 })
 export class LayoutModule {}

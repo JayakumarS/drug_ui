@@ -13,13 +13,14 @@
             
             <img src="assets/images/omega_logo.jpg" alt="Drug logo" style="width: 50%; margin-left: 27%;">
           </div>
-          <h2 *ngIf="!login" class="login-title">Sign in</h2>
+          <h2 *ngIf="!login && !forgot" class="login-title">Sign in</h2>
           <h2 *ngIf="login" class="login-title">Enter Your OTP Number</h2>
-          <p *ngIf="login">Please Check your email to know your OTP No</p>
+          <h2 *ngIf="forgot" class="login-title">Change Your Password</h2>
+          <p *ngIf="login">Please Check your registered email to know your OTP No</p>
           <!-- <form class="validate-form" [formGroup]="authForm" (ngSubmit)="onSubmit()"> -->
           <form class="validate-form" [formGroup]="authForm">
             <div class="row">
-              <div *ngIf="!login" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+              <div *ngIf="!login && !forgot" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Username</mat-label>
                   <input matInput formControlName="username" />
@@ -39,13 +40,23 @@
                   </mat-error>
                 </mat-form-field>
               </div>
+              <div *ngIf="forgot" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
+                <mat-form-field class="example-full-width" appearance="outline">
+                  <mat-label>User Name/Email Id</mat-label>
+                  <input matInput formControlName="userNameEmailId" />
+                  <mat-icon matSuffix>face</mat-icon>
+                  <mat-error *ngIf="authForm.get('userNameEmailId').hasError('required')">
+                    User Name/Email Id is required
+                  </mat-error>
+                </mat-form-field>
+              </div>
               <div class="row">
               <p *ngIf="login" class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2" style="color: red;">{{timeLeft}} Seconds Left....!!</p>
               <a class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2" *ngIf="login" href="#" style="text-decoration: none; text-align:right ;" (click)="resendOtpNo()">Didn't receive OTP resend ?</a>
               </div>
             </div>
             <div class="row">
-              <div *ngIf="!login" class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
+              <div *ngIf="!login && !forgot" class="col-xl-12col-lg-12 col-md-12 col-sm-12 mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
                   <mat-label>Password</mat-label>
                   <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
@@ -60,7 +71,7 @@
               </div>
             </div>
             <div class="d-flex justify-content-between align-items-center mb-5">
-              <div *ngIf="!login" class="form-check">
+              <div *ngIf="!login && !forgot" class="form-check">
                 <label class="form-check-label">
                   <input class="form-check-input" type="checkbox" value=""> Remember me
                   <span class="form-check-sign">
@@ -68,22 +79,25 @@
                   </span>
                 </label>
               </div>
-      
+              <div class="form-check">
+                <a class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2" *ngIf="!forgot && !login" href="#" style="text-decoration: none; text-align:right ;" (click)="forgotpassword()">Forgotten Password?</a>
+              </div>
+              <a class="col-xl-6 col-lg-6 col-md-6 col-sm-6 mb-2" *ngIf="forgot" href="#" style="text-decoration: none; text-align:right;" (click)="backToSignInPage()">back to sign in page</a>
             </div>
             <div *ngIf="error" class="alert alert-danger mt-3 mb-0 alertColor">{{error}}</div>
             <div class="container-auth-form-btn">
               <div style="text-align:center">
-                <button *ngIf="!login" mat-raised-button color="primary" style="background-color: #353b64;color: aliceblue;"   [class.auth-spinner]="loading" [disabled]="loading"
+                <button *ngIf="!login && !forgot" mat-raised-button color="primary" style="background-color: #353b64;color: aliceblue;"   [class.auth-spinner]="loading" [disabled]="loading"
                 (click)="onSubmit()" class="auth-form-btn" [disabled]="!authForm.valid " type="submit">Login</button>
                 <button *ngIf="login" mat-raised-button color="primary" style="background-color: #353b64;color: aliceblue;"   [class.auth-spinner]="loading" [disabled]="loading"
                 (click)="verifyOtp()" class="auth-form-btn" [disabled]="!authForm.valid " type="submit">Verify OTP</button>
+                <button *ngIf="forgot" mat-raised-button color="primary" style="background-color: #353b64;color: aliceblue;"   [class.auth-spinner]="loading" [disabled]="loading"
+                (click)="forgottPasswordButton()" class="auth-form-btn"  type="submit">Submit</button>
               </div>
             </div>
           </form>
-         
         </div>
       </div>
     </div>
-
   </div>
 </div>

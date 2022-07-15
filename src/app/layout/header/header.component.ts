@@ -17,7 +17,7 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { AppService } from 'src/app/app.service';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
-import { PasswordChangePopUpComponent } from "./password-change-pop-up/password-change-pop-up.component";
+import { ChangePasswordPopUpComponent } from "src/app/setup/users/change-password-pop-up/change-password-pop-up.component";
 const document: any = window.document;
 
 @Component({
@@ -264,9 +264,9 @@ export class HeaderComponent
   }
 
   passwordChange(){
-    const dialogRef = this.dialog.open(PasswordChangePopUpComponent, {
-      height: "400px",
-      width: "490px",
+    const dialogRef = this.dialog.open(ChangePasswordPopUpComponent, {
+      height: "550px",
+      width: "465px",
   
     });
   }
