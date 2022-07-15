@@ -1,6 +1,7 @@
+import { DeleteCompanyMasterComponent } from './delete-company-master/delete-company-master.component';
+import { CompanyMaster } from './../company-model';
+import { CompanyMasterService } from './../company-master.service';
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { CustomerMasterService } from 'src/app/crm/customer-master/customer-master.service'; 
-import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.model';
 import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
@@ -15,8 +16,6 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
-import { DeleteCustomerComponent } from 'src/app/crm/customer-master/list-customer/delete-customer/delete-customer.component'; 
-import { CalculatorCustomerComponent } from 'src/app/crm/customer-master/list-customer/calculator-customer/calculator-customer.component'; 
 
 @Component({
   selector: 'app-list-company-master',
@@ -25,25 +24,23 @@ import { CalculatorCustomerComponent } from 'src/app/crm/customer-master/list-cu
 })
 export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
-
     "companyName",
     "companyEmailID",
-    
     "companyCity", 
-   "companyState",
-   "actions"
+    "companyState",
+    "actions"
   ];
 
   dataSource: ExampleDataSource | null;
-  exampleDatabase: CustomerMasterService | null;
-  selection = new SelectionModel<CustomerMaster>(true, []);
+  exampleDatabase: CompanyMasterService | null;
+  selection = new SelectionModel<CompanyMaster>(true, []);
   index: number;
   id: number;
-  customerMaster: CustomerMaster | null;
+  companyMaster: CompanyMaster | null;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public customerMasterService: CustomerMasterService,
+    public companyMasterService: CompanyMasterService,
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
@@ -75,7 +72,7 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
   }
 
   public loadData() {
-    this.exampleDatabase = new CustomerMasterService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new CompanyMasterService(this.httpClient,this.serverUrl,this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -93,7 +90,7 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
 
 
   editCall(row) {
-    this.router.navigate(['/crm/customerMaster/addCustomer/'+ row.companyCode]);
+    this.router.navigate(['/setup/companyMaster/addCompanyMaster/'+ row.companyCode]);
   }
 
   deleteItem(row){ 
@@ -104,7 +101,7 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
     } else {
       tempDirection = "ltr";
     }
-    const dialogRef = this.dialog.open(DeleteCustomerComponent, {
+    const dialogRef = this.dialog.open(DeleteCompanyMasterComponent, {
       height: "270px",
       width: "400px",
       data: row,
@@ -132,34 +129,23 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
 
   }
 
-  calculator(){
 
-    const dialogRef = this.dialog.open(CalculatorCustomerComponent, {
-      height: "430px",
-      width: "390px",
-  
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
-      // this.loadData();
-      //   this.showNotification(
-      //     "snackbar-success",
-      //     "Delete Record Successfully...!!!",
-      //     "bottom",
-      //     "center"
-      //   );
-      
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
-    });
-    
+  returnMemo(){
+
   }
+
+  // calculator(){
+
+  //   const dialogRef = this.dialog.open(CalculatorCustomerComponent, {
+  //     height: "430px",
+  //     width: "390px",
+  
+  //   });
+  //   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+  
+  //   });
+    
+  // }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
@@ -171,7 +157,7 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
   }
 
 // context menu
-  onContextMenu(event: MouseEvent, item: CustomerMaster) {
+  onContextMenu(event: MouseEvent, item: CompanyMaster) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
     this.contextMenuPosition.y = event.clientY + "px";
@@ -181,7 +167,7 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
   }
 }
 
-export class ExampleDataSource extends DataSource<CustomerMaster> {
+export class ExampleDataSource extends DataSource<CompanyMaster> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value;
@@ -189,10 +175,10 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: CustomerMaster[] = [];
-  renderedData: CustomerMaster[] = [];
+  filteredData: CompanyMaster[] = [];
+  renderedData: CompanyMaster[] = [];
   constructor(
-    public exampleDatabase: CustomerMasterService,
+    public exampleDatabase: CompanyMasterService,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {
@@ -201,7 +187,7 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<CustomerMaster[]> {
+  connect(): Observable<CompanyMaster[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -209,18 +195,18 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
       this.filterChange,
       this.paginator.page,
     ];
-    this.exampleDatabase.getAllCustomers();
+    this.exampleDatabase.getAllCompany();
     return merge(...displayDataChanges).pipe(
       map(() => {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((customerMaster: CustomerMaster) => {
+          .filter((companyMaster: CompanyMaster) => {
             const searchStr = (
-              customerMaster.companyName +
-              customerMaster.companyEmailID +
-              customerMaster.companyState +
-              customerMaster.companyCity 
+              companyMaster.companyName +
+              companyMaster.companyEmailID +
+              companyMaster.companyState +
+              companyMaster.companyCity 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -238,7 +224,7 @@ export class ExampleDataSource extends DataSource<CustomerMaster> {
   }
   disconnect() {}
   /** Returns a sorted copy of the database data. */
-  sortData(data: CustomerMaster[]): CustomerMaster[] {
+  sortData(data: CompanyMaster[]): CompanyMaster[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }

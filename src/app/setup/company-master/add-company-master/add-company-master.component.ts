@@ -3,11 +3,11 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DetailRowComponent } from 'src/app/crm/customer-master/detail-row/detail-row.component';
 import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CustomerMasterService } from 'src/app/crm/customer-master/customer-master.service'; 
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.model';
+import { CompanyMasterService } from './../company-master.service';
+import { CompanyMaster } from './../company-model';
 
 @Component({
   selector: 'app-add-company-master',
@@ -22,12 +22,12 @@ export class AddCompanyMasterComponent implements OnInit {
   agree3 = false;
   dataarray=[];
   cusMasterData =[];
-  customerMaster:CustomerMaster;
+  companyMaster:CompanyMaster;
   detailRowData = new DetailRowComponent;
   requestId: number;
   edit: boolean=false;
   constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,
-    private customerMasterService:CustomerMasterService,private httpService: HttpServiceService
+    private companyMasterService:CompanyMasterService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
       wholesalerCode: [""],
@@ -112,76 +112,76 @@ if (this.docForm.valid) {
     'authorizedClasses': this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses4+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses5
   });
 
-    this.customerMaster = this.docForm.value;
-    console.log(this.customerMaster);
+    this.companyMaster = this.docForm.value;
+    console.log(this.companyMaster);
     
-    this.customerMasterService.addCustomerMaster(this.customerMaster);
+    this.companyMasterService.addCompanyMaster(this.companyMaster);
     this.showNotification(
       "snackbar-success",
       "Add Record Successfully...!!!",
       "bottom",
       "center"
     );
-    this.router.navigate(['/crm/customerMaster/listCustomer']);
+    this.router.navigate(['/setup/companyMaster/listCompanyMaster']);
   }
   }
   fetchDetails(cusCode: any): void {
-    this.httpService.get(this.customerMasterService.editCustomermaster+"?customer="+cusCode).subscribe((res: any)=> {
+    this.httpService.get(this.companyMasterService.editCompanyMaster+"?company="+cusCode).subscribe((res: any)=> {
       console.log(cusCode);
 
       this.docForm.patchValue({
-        'wholesalerCode' : res.customerMasterBean.wholesalerCode,
-        'wholesalerPolicyCode' : res.customerMasterBean.wholesalerPolicyCode,
-        'wholesalerName' : res.customerMasterBean.wholesalerName,
-        'wholesalerExpiryPacket' : res.customerMasterBean.wholesalerExpiryPacket,
-        'wholesalerEmailID' : res.customerMasterBean.wholesalerEmailID,
-        'wholesalerAllowOverride' : res.customerMasterBean.wholesalerAllowOverride,
-        'wholesalerDepartment' : res.customerMasterBean.wholesalerDepartment,
-        'wholesalerStreet' : res.customerMasterBean.wholesalerStreet,
-        'wholesalerCity' : res.customerMasterBean.wholesalerCity,
-        'wholesalerState' : res.customerMasterBean.wholesalerState,
-        'wholesalerZipCode' : res.customerMasterBean.wholesalerZipCode,
-        'wholesalerPhoneNo' : res.customerMasterBean.wholesalerPhoneNo,
-        'wholesalerTollFreeNo' : res.customerMasterBean.wholesalerTollFreeNo,
-        'wholesalerFax' : res.customerMasterBean.wholesalerFax,
-        'wholesalerPhone' : res.customerMasterBean.wholesalerPhone,
+        'wholesalerCode' : res.companyMaster.wholesalerCode,
+        'wholesalerPolicyCode' : res.companyMaster.wholesalerPolicyCode,
+        'wholesalerName' : res.companyMaster.wholesalerName,
+        'wholesalerExpiryPacket' : res.companyMaster.wholesalerExpiryPacket,
+        'wholesalerEmailID' : res.companyMaster.wholesalerEmailID,
+        'wholesalerAllowOverride' : res.companyMaster.wholesalerAllowOverride,
+        'wholesalerDepartment' : res.companyMaster.wholesalerDepartment,
+        'wholesalerStreet' : res.companyMaster.wholesalerStreet,
+        'wholesalerCity' : res.companyMaster.wholesalerCity,
+        'wholesalerState' : res.companyMaster.wholesalerState,
+        'wholesalerZipCode' : res.companyMaster.wholesalerZipCode,
+        'wholesalerPhoneNo' : res.companyMaster.wholesalerPhoneNo,
+        'wholesalerTollFreeNo' : res.companyMaster.wholesalerTollFreeNo,
+        'wholesalerFax' : res.companyMaster.wholesalerFax,
+        'wholesalerPhone' : res.companyMaster.wholesalerPhone,
         
-        'companyCode': res.customerMasterBean.companyCode,
-        'companyName': res.customerMasterBean.companyName,
-        'companyDba': res.customerMasterBean.companyDba,
-        'companyStreet': res.customerMasterBean.companyStreet,
-        'companyCity': res.customerMasterBean.companyCity,
-        'companyState': res.customerMasterBean.companyState,
-        'companyPincode': res.customerMasterBean.companyPincode,
-        'companyPhone': res.customerMasterBean.companyPhone,
-        'companyFax': res.customerMasterBean.companyFax,
-        'companyContact': res.customerMasterBean.companyContact,
-        'companyEmailID': res.customerMasterBean.companyEmailID,
-        'companyFacilityType': res.customerMasterBean.companyFacilityType,
+        'companyCode': res.companyMaster.companyCode,
+        'companyName': res.companyMaster.companyName,
+        'companyDba': res.companyMaster.companyDba,
+        'companyStreet': res.companyMaster.companyStreet,
+        'companyCity': res.companyMaster.companyCity,
+        'companyState': res.companyMaster.companyState,
+        'companyPincode': res.companyMaster.companyPincode,
+        'companyPhone': res.companyMaster.companyPhone,
+        'companyFax': res.companyMaster.companyFax,
+        'companyContact': res.companyMaster.companyContact,
+        'companyEmailID': res.companyMaster.companyEmailID,
+        'companyFacilityType': res.companyMaster.companyFacilityType,
         
-        'defNumber': res.customerMasterBean.defNumber,
-        'defExpirationDate': res.customerMasterBean.defExpirationDate,
+        'defNumber': res.companyMaster.defNumber,
+        'defExpirationDate': res.companyMaster.defExpirationDate,
         
-        'issuesCreditsName': res.customerMasterBean.issuesCreditsName,
+        'issuesCreditsName': res.companyMaster.issuesCreditsName,
         
-        'issuesCreditsStreet': res.customerMasterBean.issuesCreditsStreet,
-        'issuesCreditsCity': res.customerMasterBean.issuesCreditsCity,
-        'issuesCreditsState': res.customerMasterBean.issuesCreditsState,
-        'issuesCreditsZipCode': res.customerMasterBean.issuesCreditsZipCode,
-        'issuesCreditsPhone': res.customerMasterBean.issuesCreditsPhone,
+        'issuesCreditsStreet': res.companyMaster.issuesCreditsStreet,
+        'issuesCreditsCity': res.companyMaster.issuesCreditsCity,
+        'issuesCreditsState': res.companyMaster.issuesCreditsState,
+        'issuesCreditsZipCode': res.companyMaster.issuesCreditsZipCode,
+        'issuesCreditsPhone': res.companyMaster.issuesCreditsPhone,
         
-        'generalInfroWacAwapMyprice': res.customerMasterBean.generalInfroWacAwapMyprice,
-        'generalInfroWacAwapPer':res.customerMasterBean.generalInfroWacAwapPer,
+        'generalInfroWacAwapMyprice': res.companyMaster.generalInfroWacAwapMyprice,
+        'generalInfroWacAwapPer':res.companyMaster.generalInfroWacAwapPer,
         
-        'myWholesalerPolicyType': res.customerMasterBean.myWholesalerPolicyType.toString(),
-        'myWholesalerPolicyMonths':res.customerMasterBean.myWholesalerPolicyMonths,
-        'myWholesalerCpp': res.customerMasterBean.myWholesalerCpp.toString(),
-        'cppServiceRate': res.customerMasterBean.cppServiceRate,
-        'cppShippingRate': res.customerMasterBean.cppShippingRate,
-        'cppNoOfChecks': res.customerMasterBean.cppNoOfChecks
+        'myWholesalerPolicyType': res.companyMaster.myWholesalerPolicyType.toString(),
+        'myWholesalerPolicyMonths':res.companyMaster.myWholesalerPolicyMonths,
+        'myWholesalerCpp': res.companyMaster.myWholesalerCpp.toString(),
+        'cppServiceRate': res.companyMaster.cppServiceRate,
+        'cppShippingRate': res.companyMaster.cppShippingRate,
+        'cppNoOfChecks': res.companyMaster.cppNoOfChecks
      })
 
- var companyAuthorizedSplitedList=res.customerMasterBean.authorizedClasses.split(',');
+ var companyAuthorizedSplitedList=res.companyMaster.authorizedClasses.split(',');
 
      this.companyAuthorizedClassesForm.patchValue({
       'companyAuthorizedClasses2': this.getBoolean(companyAuthorizedSplitedList[0]),
@@ -206,15 +206,15 @@ if (this.docForm.valid) {
       'authorizedClasses': this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses4+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses5
     });
 
-    this.customerMaster = this.docForm.value;
-    this.customerMasterService.customerMasterUpdate(this.customerMaster);
+    this.companyMaster = this.docForm.value;
+    this.companyMasterService.companyMasterUpdate(this.companyMaster);
     this.showNotification(
       "snackbar-success",
       "Edit Record Successfully...!!!",
       "bottom",
       "center"
     );
-    this.router.navigate(['/crm/customerMaster/listCustomer']);
+    this.router.navigate(['/setup/companyMaster/listCompanyMaster']);
 
   }
   }
@@ -229,7 +229,7 @@ if (this.docForm.valid) {
     this.dataarray.splice(index, 1);
   }
   onCancel(){
-    this.router.navigate(['/crm/customerMaster/listCustomer']);
+    this.router.navigate(['/setup/companyMaster/listCompanyMaster']);
    }
    autoFillClick(){
 

@@ -27,12 +27,14 @@ import {MatRadioModule} from '@angular/material/radio';
 import { CompanyMasterRoutingModule } from './company-master-routing.module';
 import { AddCompanyMasterComponent } from './add-company-master/add-company-master.component';
 import { ListCompanyMasterComponent } from './list-company-master/list-company-master.component';
+import { DeleteCompanyMasterComponent } from './list-company-master/delete-company-master/delete-company-master.component';
 
 
 @NgModule({
   declarations: [
     AddCompanyMasterComponent,
-    ListCompanyMasterComponent
+    ListCompanyMasterComponent,
+    DeleteCompanyMasterComponent,
   ],
   imports: [
     CommonModule,

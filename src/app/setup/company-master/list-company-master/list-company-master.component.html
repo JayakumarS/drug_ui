@@ -23,7 +23,7 @@
                         <li>
                           <div class="m-l-10" matTooltip="ADD">
                             <!-- <button mat-mini-fab color="primary" (click)="addNew()"> -->
-                            <button mat-mini-fab color="primary"  [routerLink]="'/crm/customerMaster/addCustomer/0'" >
+                            <button mat-mini-fab color="primary"  [routerLink]="'/setup/companyMaster/addCompanyMaster/0'" >
                               <mat-icon class="col-white">add</mat-icon>
                             </button>
                           </div>
@@ -79,7 +79,7 @@
                         <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
                       </button>
                       <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
-                        (click)="calculator()" class="tbl-action-btn">
+                        (click)="returnMemo()" class="tbl-action-btn">
                         <app-feather-icons [icon]="'divide-square'" [class]="'tbl-fav-edit'"></app-feather-icons>
                       </button>
                     </mat-cell>
