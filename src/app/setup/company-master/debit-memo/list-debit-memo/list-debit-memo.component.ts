@@ -1,8 +1,7 @@
-import { DeleteCompanyMasterComponent } from './delete-company-master/delete-company-master.component';
-import { CompanyMaster } from './../company-model';
-import { CompanyMasterService } from './../company-master.service';
+import { CompanyMaster } from './../../company-model';
+import { CompanyMasterService } from './../../company-master.service';
+import { AddDebitMemoComponent } from './../add-debit-memo/add-debit-memo.component';
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
-import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -16,13 +15,15 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
+import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 
 @Component({
-  selector: 'app-list-company-master',
-  templateUrl: './list-company-master.component.html',
-  styleUrls: ['./list-company-master.component.sass']
+  selector: 'app-list-debit-memo',
+  templateUrl: './list-debit-memo.component.html',
+  styleUrls: ['./list-debit-memo.component.sass']
 })
-export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
     "companyName",
     "companyEmailID",
@@ -30,13 +31,16 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
     "companyState",
     "actions"
   ];
-
+  companyList =[];
+  debitMemoList =[];
   dataSource: ExampleDataSource | null;
   exampleDatabase: CompanyMasterService | null;
   selection = new SelectionModel<CompanyMaster>(true, []);
   index: number;
   id: number;
   companyMaster: CompanyMaster | null;
+  debitMemoForm: FormGroup;
+
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -59,12 +63,24 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
   ngOnInit(): void {
     this.loadData();
 
-    // if (!localStorage.getItem('foo')) { 
-    //   localStorage.setItem('foo', 'no reload') 
-    //   location.reload() 
-    // } else {
-    //   localStorage.removeItem('foo') 
-    // }
+    this.httpService.get<any>(this.companyMasterService.getCompanyMasterDropdownList).subscribe(
+      (data) => {
+        this.companyList = data;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+      );
+
+      this.httpService.get<any>(this.companyMasterService.getdebitMemoDropdownList).subscribe(
+        (data) => {
+          this.debitMemoList = data;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+        );
+
   }
 
   refresh(){
@@ -94,46 +110,43 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
   }
 
   deleteItem(row){ 
-    this.id = row.companyCode;
-    let tempDirection;
-    if (localStorage.getItem("isRtl") === "true") {
-      tempDirection = "rtl";
-    } else {
-      tempDirection = "ltr";
-    }
-    const dialogRef = this.dialog.open(DeleteCompanyMasterComponent, {
-      height: "270px",
-      width: "400px",
-      data: row,
-      direction: tempDirection,
-    });
-    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
-      this.loadData();
-        this.showNotification(
-          "snackbar-success",
-          "Delete Record Successfully...!!!",
-          "bottom",
-          "center"
-        );
-      
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
-    });
 
   }
 
 
-  returnMemo(row){
-    this.router.navigate(['/setup/debitMemo/listDebitMemo/'+ row.companyCode]);
+  returnMemo(){   
+   let tempDirection;
+   if (localStorage.getItem("isRtl") === "true") {
+     tempDirection = "rtl";
+   } else {
+     tempDirection = "ltr";
+   }
+   const dialogRef = this.dialog.open(AddDebitMemoComponent, {
+     height: "270px",
+     width: "400px",
+    // data: row,
+     direction: tempDirection,
+   });
+   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+     
+     this.loadData();
+       this.showNotification(
+         "snackbar-success",
+         "Record Saved Successfully...!!!",
+         "bottom",
+         "center"
+       );
+     
+   });
+
 
   }
+
+  onOk() {
+    
+  }
+
+  
 
   // calculator(){
 

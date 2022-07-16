@@ -1,3 +1,5 @@
+
+import { DebitMemoModule } from './company-master/debit-memo/debit-memo.module';
 import { RolesModule } from './roles/roles.module';
 import { Role } from 'src/app/core/models/role';
 import { NgModule } from '@angular/core';
@@ -38,6 +40,11 @@ const routes: Routes = [
     path: "companyMaster",
     loadChildren: () =>
       import("./company-master/company-master.module").then((m) => m.CompanyMasterModule),
+  },
+  {
+    path: "debitMemo",
+    loadChildren: () =>
+      import("./company-master/debit-memo/debit-memo.module").then((m) => m.DebitMemoModule),
   }
 
 ];

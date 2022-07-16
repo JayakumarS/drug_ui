@@ -34,7 +34,9 @@ export class CompanyMasterService extends UnsubscribeOnDestroyAdapter{
   public editCompanyMaster = `${this.serverUrl.apiServerAddress}api/auth/app/companyMaster/edit`;
   public updateCompanyMaster = `${this.serverUrl.apiServerAddress}api/auth/app/companyMaster/update`;
   private deleteCompanyMaster = `${this.serverUrl.apiServerAddress}api/auth/app/companyMaster/delete`;
-
+  public getCompanyMasterDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/companyMaster/getCompanyMasterDropdownList`;
+  public getdebitMemoDropdownList= `${this.serverUrl.apiServerAddress}api/auth/app/companyMaster/getDebitMemoDropdownList`;
+ 
 
   get data(): CompanyMaster[] {
     return this.dataChange.value;
