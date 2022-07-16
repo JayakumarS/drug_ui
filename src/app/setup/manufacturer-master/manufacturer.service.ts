@@ -27,7 +27,8 @@ export class ManufacturerService extends UnsubscribeOnDestroyAdapter {
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient,private serverUrl:serverLocations,private httpService:HttpServiceService) {
+  meesage :any;
+  constructor(private httpClient: HttpClient,private serverUrl:serverLocations,private httpService:HttpServiceService ) {
     super();
   }
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/manufacturerMaster/getList`;
@@ -61,9 +62,12 @@ export class ManufacturerService extends UnsubscribeOnDestroyAdapter {
     this.dialogData = manufacturerMaster;
     this.httpService.post<ManufacturerMaster>(this.savemanufacturerMaster, manufacturerMaster).subscribe(data => {
       console.log(data);
+  
       //this.dialogData = employees;
       },
-      (err: HttpErrorResponse) => {
+      (error: HttpErrorResponse) => {
+        this.isTblLoading = false;
+        console.log(error.name + " " + error.message);
         
     });
   }
@@ -88,5 +92,5 @@ export class ManufacturerService extends UnsubscribeOnDestroyAdapter {
       }
     );
   }
-
+ 
 }

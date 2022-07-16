@@ -9,6 +9,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-add-druginfo-master',
@@ -26,7 +27,7 @@ export class AddDruginfoMasterComponent implements OnInit {
   detailRowData = new DetailRowComponent;
   requestId: number;
   edit: boolean=false;
-  constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,
+  constructor(private tokenStorage: TokenStorageService,private fb: FormBuilder,private authService: AuthService,public router: Router,
     private druginfoService:DruginfoService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
@@ -47,6 +48,7 @@ export class AddDruginfoMasterComponent implements OnInit {
       awp: ["", [Validators.required]],
       wap: ["", [Validators.required]],
       myPrice: ["", [Validators.required]],
+      userName: this.tokenStorage.getUsername()
            
     });
 

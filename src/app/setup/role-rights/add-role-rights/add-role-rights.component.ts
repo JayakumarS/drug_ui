@@ -8,6 +8,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { RoleRights } from './../role-rights-model';
 import { RoleRightsService } from './../role-rights.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-add-role-rights',
@@ -24,12 +25,14 @@ export class AddRoleRightsComponent implements OnInit{
   selectedItems = [];
   dropdownSettings:IDropdownSettings;
   roleId1=0;
-  constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,
+  constructor (private tokenStorage: TokenStorageService,private fb: FormBuilder,private authService: AuthService,public router: Router,
     private roleRightsService:RoleRightsService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
       roleId: ["", [Validators.required]],
-      formList: [""]
+      formList: [""],
+      userName: this.tokenStorage.getUsername()
+     
     });
   }
   onSubmit() {

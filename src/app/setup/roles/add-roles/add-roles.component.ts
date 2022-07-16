@@ -9,6 +9,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { RolesResultBean } from './../roles-result-bean';
 import { RolesMaster } from './../roles-model';
 import { RolesService } from './../roles.service';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 
 @Component({
@@ -21,12 +22,13 @@ export class AddRolesComponent implements OnInit{
   docForm: FormGroup;
   edit: boolean=false;
   requestId: number;
-  constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,
+  constructor( private tokenStorage: TokenStorageService,private fb: FormBuilder,private authService: AuthService,public router: Router,
     private rolesService:RolesService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
       roleName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
-      remarks: [""]
+      remarks: [""],
+      userName: this.tokenStorage.getUsername()
     });
   }
   onSubmit() {

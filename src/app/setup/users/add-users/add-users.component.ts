@@ -10,6 +10,7 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { UsersService } from './../users.service';
 import { PasswordStrengthValidator } from './../../../shared/passwordPolicy';
 import { MustMatch } from './../../../shared/mustMatch';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 @Component({
   selector: 'app-add-users',
   templateUrl: './add-users.component.html',
@@ -23,7 +24,7 @@ export class AddUsersComponent  implements OnInit  {
   agree3 = false;
   roleList:[];
   companyList:[];
-  constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,
+  constructor( private tokenStorage: TokenStorageService,private fb: FormBuilder,private authService: AuthService,public router: Router,
     private usersService:UsersService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
@@ -38,6 +39,7 @@ export class AddUsersComponent  implements OnInit  {
       roles: ["", [Validators.required]],
       fileUploadUrl:[""],
       companyCode:["", [Validators.required]],
+      userName: this.tokenStorage.getUsername()
     }, {
       validator: MustMatch('newPassword', 'confirmPassword')
     });

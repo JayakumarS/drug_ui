@@ -8,7 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
-
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
   selector: 'app-add-manufacturermaster',
@@ -27,7 +27,7 @@ export class AddManufacturermasterComponent implements OnInit {
   detailRowData = new DetailRowComponent;
   requestId: number;
   edit: boolean=false;
-  constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,
+  constructor(private tokenStorage: TokenStorageService,private fb: FormBuilder,private authService: AuthService,public router: Router,
     private manufacturerService:ManufacturerService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
@@ -46,7 +46,7 @@ export class AddManufacturermasterComponent implements OnInit {
       phoneNo: ["", [Validators.required]],
       tollFreeNo: ["", [Validators.required]],
       fax: ["", [Validators.required]],
-      
+      useName: this.tokenStorage.getUsername()
      
     });
   }
@@ -65,13 +65,16 @@ export class AddManufacturermasterComponent implements OnInit {
     this.manufacturerMaster = this.docForm.value;
     console.log(this.manufacturerMaster);
     this.manufacturerService.addmanufacturerMaster(this.manufacturerMaster);
+   
     this.showNotification(
       "snackbar-success",
       "Add Record Successfully...!!!",
       "bottom",
       "center"
     );
-    this.router.navigate(['/setup/wholesaler/ListWholesaler']);
+    
+    this.router.navigate(['/setup/manufacturer/listManufacturermaster']);
+
   }
 }
 

@@ -8,6 +8,9 @@ import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { CompanyMasterService } from './../company-master.service';
 import { CompanyMaster } from './../company-model';
+import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.model';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { CustomerMasterService } from 'src/app/crm/customer-master/customer-master.service';
 
 @Component({
   selector: 'app-add-company-master',
@@ -26,9 +29,12 @@ export class AddCompanyMasterComponent implements OnInit {
   detailRowData = new DetailRowComponent;
   requestId: number;
   edit: boolean=false;
-  constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,
-    private companyMasterService:CompanyMasterService,private httpService: HttpServiceService
-    ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
+  // constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,
+  //   private httpService: HttpServiceService
+  
+  constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,private tokenStorage: TokenStorageService,
+    private customerMasterService:CustomerMasterService,private httpService: HttpServiceService
+    ,private snackBar: MatSnackBar,public route: ActivatedRoute,private companyMasterService:CompanyMasterService) {
     this.docForm = this.fb.group({
       wholesalerCode: [""],
       wholesalerPolicyCode: ["", [Validators.required]],
@@ -45,7 +51,8 @@ export class AddCompanyMasterComponent implements OnInit {
       wholesalerTollFreeNo: ["", [Validators.required]],
       wholesalerFax: ["", [Validators.required]],
       wholesalerPhone: ["", [Validators.required]],
-
+      userName: this.tokenStorage.getUsername(),
+ 
       companyCode: [""],
 companyName:["", [Validators.required]],
 companyDba:[""],

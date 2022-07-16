@@ -8,6 +8,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 
 @Component({
@@ -27,7 +28,7 @@ export class AddWholesalerComponent implements OnInit {
   detailRowData = new DetailRowComponent;
   requestId: number;
   edit: boolean=false;
-  constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,
+  constructor(private tokenStorage: TokenStorageService,private fb: FormBuilder,private authService: AuthService,public router: Router,
     private wholesalerService:WholesalerService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
@@ -46,7 +47,7 @@ export class AddWholesalerComponent implements OnInit {
       tollFreeNo: ["", [Validators.required]],
       fax: ["", [Validators.required]],
       phone: ["", [Validators.required]],
-     
+      userName: this.tokenStorage.getUsername()
     });
   }
   ngOnInit(): void {
