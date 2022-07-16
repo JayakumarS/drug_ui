@@ -6,4 +6,6 @@ export class DEAFormBean{
     deaFormBean:DEAForm;
     deaForm: [];
     companyNameList:[];
+    returnMemoNoList:[];
+    searchList:[];
 }

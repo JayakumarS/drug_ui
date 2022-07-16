@@ -2,12 +2,15 @@ export class PackingForm{
     companyCode: string;
     companyName:string;
 
+
+
+	returnMemo:string;
     ndcupcCode:string;
 	pakageUnit:string;
-	quantity:string;
-	price:string;
+	quanTity:string;
+	priceRs:string;
 	expDate:string;
-	reason:string;
+	reasoNo:string;
 	lotNo:string;	
 	// partialQty:string;	
 	// total:string;	

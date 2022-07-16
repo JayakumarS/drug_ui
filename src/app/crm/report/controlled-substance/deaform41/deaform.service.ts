@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { BehaviorSubject } from "rxjs";
-import { HttpClient,HttpHeaders } from "@angular/common/http";
+import { HttpClient,HttpErrorResponse,HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
@@ -27,11 +27,25 @@ export class DeaformService extends UnsubscribeOnDestroyAdapter{
   }
 
   public companyNameUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getCompanyNameList`;
+  public returnMemoNoUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getReturnMemoNo`;
+  // public searchListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSearchList`;
+  private savedEAForm = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSearchList`;
 
   get data(): DEAForm[] {
     return this.dataChange.value;
   }
  
 
+
+  addScheduleInfo(dEAForm:DEAForm): void {
+    this.dialogData = dEAForm;
+    this.httpService.post<DEAForm>(this.savedEAForm, dEAForm).subscribe(data => {
+      console.log(data);
+      //this.dialogData = employees;
+      },
+      (err: HttpErrorResponse) => {
+        
+    });
+  }
 
 }

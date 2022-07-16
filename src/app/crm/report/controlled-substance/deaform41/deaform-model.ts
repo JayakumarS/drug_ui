@@ -1,4 +1,6 @@
 export class DEAForm{
-    companyCode: string;
-    companyName:string;
+    companyid: string;
+    returnremono:string;
+    fromdt:string
+    todt:string
 }

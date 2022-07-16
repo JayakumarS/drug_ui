@@ -9,6 +9,7 @@ import { InventoryformService } from '../../inventory-report/inventory-service';
 import { InventoryFormBean } from '../../inventory-report/inventory-result-bean';
 import { PackingFormService } from '../../packing-slip/packingSlip-service';
 import { PackingFormBean } from '../../packing-slip/packingSlip-result-bean';
+import { DEAForm } from '../deaform-model';
 
 @Component({
   selector: 'app-addschedule-ii',
@@ -19,17 +20,19 @@ export class AddscheduleIIComponent implements OnInit {
 
   docForm: FormGroup;
   companyNameList: any;
+  returnMemoNoList: any;
   exampleDatabase: DeaformService | null;
   memoListDetails: any;
   memoInfoList: any;
-
+  searchList: any;
+  dEAForm:DEAForm;
   constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService,
     private httpService: HttpServiceService,public deaformService:DeaformService,private packingFormService:PackingFormService,
     public route: ActivatedRoute) {
     this.docForm = this.fb.group({
-      companyName: ["", [Validators.required]],
-      debitMemoNo: ["", [Validators.required]],
-      controlledSubstance: ["", [Validators.required]],
+      companyName: "",
+      returnMemoNo: "",
+      // controlledSubstance: "",
       startDate:"",
       endDate:"",
     });
@@ -48,8 +51,18 @@ export class AddscheduleIIComponent implements OnInit {
         console.log(error.name + " " + error.message);
       }
     );
-    this.getMemoList();
-    this.getMemoInfo();
+
+    this.httpService.get<any>(this.deaformService.returnMemoNoUrl).subscribe(
+      (data) => {
+        this.returnMemoNoList = data.returnMemoNo;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+    // this.getMemoList();
+  //  this.getMemoInfo();
+  this.onSearch();
   }
 
   getMemoList() {
@@ -152,6 +165,27 @@ export class AddscheduleIIComponent implements OnInit {
       </html>`        
          );
     newWin.document.close();
+    }
+
+
+    onSearch()
+    {
+      // this.httpService.get<DEAFormBean>(this.deaformService.searchListUrl).subscribe(
+      //   (data) => {
+      //     this.searchList = data.searchList;
+      //   },
+      //   (error: HttpErrorResponse) => {
+      //     console.log(error.name + " " + error.message);
+      //   }
+      // );
+
+
+
+      if (this.docForm.valid) {
+        this.dEAForm = this.docForm.value;
+        console.log(this.dEAForm);
+        this.deaformService.addScheduleInfo(this.dEAForm);
+      }
     }
   
 }

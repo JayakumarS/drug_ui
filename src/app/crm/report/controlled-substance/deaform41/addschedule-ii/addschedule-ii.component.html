@@ -21,7 +21,7 @@
                      <div class="col-md-3" >
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>Company Name</mat-label>
-                              <mat-select formControlName="companyName" required>
+                              <mat-select formControlName="companyName">
                                 <mat-option *ngFor="let title of companyNameList" [value]="title.id">
                                   {{title.text}}
                                 </mat-option>
@@ -35,14 +35,11 @@
                     <div class="col-md-3">
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-label>Debit Memo No</mat-label>
-                        <mat-select formControlName="debitMemoNo" required>
-                          <mat-option [value]="'1'">
-                            OMG062922 
+                        <mat-select formControlName="returnMemoNo">
+                          <mat-option *ngFor="let title of returnMemoNoList"  [value]="title.no">
+                            {{title.no}}
                           </mat-option>
-                          <mat-option [value]="'2'">
-                            OMG070122
-                          </mat-option>
-                            </mat-select>
+                          </mat-select>
                       </mat-form-field>
                     </div>
                 </div>
@@ -91,7 +88,7 @@
          
                 <div class="col-md-12" style="margin-left: 83%;">
                     <button (click) = "onOk()" class="btn-space" mat-raised-button
-                    color="accent" style="background-color: #34d034;">Search</button>
+                    color="accent" style="background-color: #34d034;" (click) = "onSearch()">Search</button>
                     <button (click) = "print()" class="btn-space" mat-raised-button
                     color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button>
                 </div>
@@ -123,15 +120,14 @@
                             <table class="table table-bordered table-hover">
                             <thead class="theadRow thead-light" style="font-size: 80%;">
                               <tr>
+                                <th style="text-align: center;"><b>Return Memo No</b></th>
                                 <th style="text-align: center;"><b>NDC/UPC</b></th>
-                                <th style="text-align: center;"><b>Description</b></th>
-                                <th style="text-align: center;"><b>Cont#</b></th>
-                                <th style="text-align: center;"><b>Strength</b></th>
-                                <th style="text-align: center;"><b>Lot#</b></th>
+                                <th style="text-align: center;"><b>Package or Unit</b></th>
+                                <th style="text-align: center;"><b>Quantity</b></th>
+                                <th style="text-align: center;"><b>Price</b></th>
                                 <th style="text-align: center;"><b>Exp Date</b></th>
-                                <th style="text-align: center;"><b>Pkg Size</b></th>
-                                <th style="text-align: center;"><b>Full Qty</b></th>
-                                <th style="text-align: center;"><b>Partial Qty</b></th>
+                                <th style="text-align: center;"><b>Reason</b></th>
+                                <th style="text-align: center;"><b>Lot No</b></th>
                               </tr>
                           </thead>
                           <thead>
@@ -139,22 +135,21 @@
                               <td style="text-align:center;font-size: 80%;"colspan="9"><b><u>Non Returnable</u></b></td>
                             </tr>
                           </thead>
-                          <thead>
-                            <tr>
-                              <td colspan="9" style="font-size: 80%;"><b>Camber Pharmaceuticals.Inc</b></td>
+                          <!-- <thead>
+                            <tr  *ngFor="let title of companyNameList" [value]="title.id">
+                              <td colspan="9" style="font-size: 80%;"><b> {{title.text}}</b></td>
                             </tr>
-                          </thead> 
+                          </thead>  -->
                           <tbody style="font-size: 80%;">
                                          <tr *ngFor="let memoInfo of memoInfoList;">
+                                            <td style="text-align: center;">{{memoInfo.returnMemo}}</td>
                                             <td style="text-align: center;">{{memoInfo.ndcupcCode}}</td>
-                                            <td style="text-align: center;">HYDROMET<br> (Partial packages of this product are non-returnable)</td>
-                                            <td style="text-align: center;">2</td>
-                                            <td style="text-align: center;">1.5 MG/5 ML-5 M</td>
-                                            <th style="text-align: center;">{{memoInfo.lotNo}}</th>
+                                            <td style="text-align: center;">{{memoInfo.pakageUnit}}</td>
+                                            <td style="text-align: center;">{{memoInfo.quanTity}}</td>
+                                            <th style="text-align: center;">{{memoInfo.priceRs}}</th>
                                             <th style="text-align: center;">{{memoInfo.expDate}}</th>
-                                            <th style="text-align: center;">480 ML</th>
                                             <th style="text-align: center;">-</th>
-                                            <th style="text-align: center;">2</th>
+                                            <th style="text-align: center;">-</th>
                                           </tr>
                                           </tbody> 
                                       </table>
