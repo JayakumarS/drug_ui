@@ -1,20 +1,52 @@
 import { Injectable } from '@angular/core';
 import * as moment from "moment";
+<<<<<<< Updated upstream
 import { serverLocations } from '../auth/serverLocations';
+=======
+import { BehaviorSubject } from "rxjs";
+import { HttpClient, HttpErrorResponse,HttpHeaders } from "@angular/common/http";
+import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
+import { AuthService } from "src/app/auth/auth.service";
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { AuthLoginInfo } from 'src/app/auth/login-info';
+import { serverLocations } from 'src/app/auth/serverLocations';
+import { HttpServiceService } from 'src/app/auth/http-service.service';
+>>>>>>> Stashed changes
 
-@Injectable()
-export class CommonService {
+const httpOptions = {
+  headers: new HttpHeaders({ 'Content-Type': 'application/json' })
+};
 
+<<<<<<< Updated upstream
   constructor(
 
     private serverUrl:serverLocations
   ) { }
+=======
+@Injectable({
+  providedIn: 'root'
+})
+
+export class CommonService extends UnsubscribeOnDestroyAdapter {
+
+  constructor(private httpClient: HttpClient,private serverUrl:serverLocations,private httpService:HttpServiceService) {
+    super();
+  }
+>>>>>>> Stashed changes
 
   getDate(date): any {
     return moment(date).format('DD/MM/YYYY');
   }
+<<<<<<< Updated upstream
   public getCompanyMasterDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCompanyMasterDropdownList`;
   public getdebitMemoDropdownList= `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getDebitMemoDropdownList`;
  
 
+=======
+  
+  public getcompanyMasterDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCompanyMasterDropdownList`;
+  public getdebitMemoDropdownList= `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getDebitMemoDropdownList`;
+
+  
+>>>>>>> Stashed changes
 }
