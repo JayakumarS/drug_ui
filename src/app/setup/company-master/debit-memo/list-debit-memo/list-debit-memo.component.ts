@@ -1,5 +1,5 @@
-import { CompanyMaster } from './../../company-model';
-import { CompanyMasterService } from './../../company-master.service';
+import { DebitMemo } from './../debitmemo-model';
+import { DebitmemoService } from './../debitmemo.service';
 import { AddDebitMemoComponent } from './../add-debit-memo/add-debit-memo.component';
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { MatDialog } from "@angular/material/dialog";
@@ -14,10 +14,11 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { Router } from '@angular/router';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-
+import { CommonService } from 'src/app/common-service/common.service';
+import { ActivatedRoute, Router } from '@angular/router';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 @Component({
   selector: 'app-list-debit-memo',
   templateUrl: './list-debit-memo.component.html',
@@ -25,32 +26,41 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 })
 export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
-    "companyName",
-    "companyEmailID",
-    "companyCity", 
-    "companyState",
+    "company",
+    "returnMemoDate",
+    "returnMemoName", 
+    "returnMemoNo",
     "actions"
   ];
   companyList =[];
   debitMemoList =[];
   dataSource: ExampleDataSource | null;
-  exampleDatabase: CompanyMasterService | null;
-  selection = new SelectionModel<CompanyMaster>(true, []);
+  exampleDatabase: DebitmemoService | null;
+  selection = new SelectionModel<DebitMemo>(true, []);
   index: number;
   id: number;
-  companyMaster: CompanyMaster | null;
-  debitMemoForm: FormGroup;
+  requestId: any;
+  debitMemo: DebitMemo | null;
+  docForm: FormGroup;
 
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public companyMasterService: CompanyMasterService,
+    public debitmemoService: DebitmemoService,
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
     public router: Router,
+    public commonService: CommonService,
+    public route: ActivatedRoute,
+    private fb: FormBuilder,
+    private tokenStorage: TokenStorageService
   ) {
     super();
+    this.docForm = this.fb.group({
+      company: ["", [Validators.required]],
+      returnMemoNo: ["", [Validators.required]],
+    });
   }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -61,18 +71,28 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
-    this.loadData();
+    
+    this.route.params.subscribe(params => {
+      if(params.id!=undefined && params.id!=0){
+       this.requestId = params.id;
+      }
+     });
 
-    this.httpService.get<any>(this.companyMasterService.getCompanyMasterDropdownList).subscribe(
+
+    this.httpService.get<any>(this.commonService.getcompanyMasterDropdownList).subscribe(
       (data) => {
         this.companyList = data;
+        this.docForm.patchValue({
+          'company' : this.requestId,
+       })
+
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
       }
       );
 
-      this.httpService.get<any>(this.companyMasterService.getdebitMemoDropdownList).subscribe(
+      this.httpService.get<any>(this.commonService.getdebitMemoDropdownList).subscribe(
         (data) => {
           this.debitMemoList = data;
         },
@@ -81,6 +101,8 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
         }
         );
 
+
+        this.loadData();
   }
 
   refresh(){
@@ -88,7 +110,7 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
   }
 
   public loadData() {
-    this.exampleDatabase = new CompanyMasterService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new DebitmemoService(this.httpClient,this.serverUrl,this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -122,9 +144,9 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
      tempDirection = "ltr";
    }
    const dialogRef = this.dialog.open(AddDebitMemoComponent, {
-     height: "270px",
-     width: "400px",
-    // data: row,
+     height: "80%",
+     width: "80%",
+     data: this.requestId,
      direction: tempDirection,
    });
    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
@@ -171,7 +193,7 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
   }
 
 // context menu
-  onContextMenu(event: MouseEvent, item: CompanyMaster) {
+  onContextMenu(event: MouseEvent, item: DebitMemo) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
     this.contextMenuPosition.y = event.clientY + "px";
@@ -181,7 +203,7 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
   }
 }
 
-export class ExampleDataSource extends DataSource<CompanyMaster> {
+export class ExampleDataSource extends DataSource<DebitMemo> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value;
@@ -189,10 +211,10 @@ export class ExampleDataSource extends DataSource<CompanyMaster> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: CompanyMaster[] = [];
-  renderedData: CompanyMaster[] = [];
+  filteredData: DebitMemo[] = [];
+  renderedData: DebitMemo[] = [];
   constructor(
-    public exampleDatabase: CompanyMasterService,
+    public exampleDatabase: DebitmemoService,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {
@@ -201,7 +223,7 @@ export class ExampleDataSource extends DataSource<CompanyMaster> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<CompanyMaster[]> {
+  connect(): Observable<DebitMemo[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -215,12 +237,12 @@ export class ExampleDataSource extends DataSource<CompanyMaster> {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((companyMaster: CompanyMaster) => {
+          .filter((debitMemo: DebitMemo) => {
             const searchStr = (
-              companyMaster.companyName +
-              companyMaster.companyEmailID +
-              companyMaster.companyState +
-              companyMaster.companyCity 
+              debitMemo.company +
+              debitMemo.returnMemoDate +
+              debitMemo.returnMemoNo +
+              debitMemo.returnMemoName 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -238,7 +260,7 @@ export class ExampleDataSource extends DataSource<CompanyMaster> {
   }
   disconnect() {}
   /** Returns a sorted copy of the database data. */
-  sortData(data: CompanyMaster[]): CompanyMaster[] {
+  sortData(data: DebitMemo[]): DebitMemo[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }
@@ -246,17 +268,17 @@ export class ExampleDataSource extends DataSource<CompanyMaster> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "companyName":
-          [propertyA, propertyB] = [a.companyName, b.companyName];
+        case "company":
+          [propertyA, propertyB] = [a.company, b.company];
           break;
-        case "companyEmailID":
-          [propertyA, propertyB] = [a.companyEmailID, b.companyEmailID];
+        case "returnMemoDate":
+          [propertyA, propertyB] = [a.returnMemoDate, b.returnMemoDate];
           break;
-        case "companyState":
-          [propertyA, propertyB] = [a.companyState, b.companyState];
+        case "returnMemoNo":
+          [propertyA, propertyB] = [a.returnMemoNo, b.returnMemoNo];
           break;
-        case "companyCity":
-          [propertyA, propertyB] = [a.companyCity, b.companyCity];
+        case "returnMemoName":
+          [propertyA, propertyB] = [a.returnMemoName, b.returnMemoName];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

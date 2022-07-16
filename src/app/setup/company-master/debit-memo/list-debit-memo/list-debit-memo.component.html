@@ -10,7 +10,7 @@
         
           
       <div class="body">
-        <form class="m-1" [formGroup]="debitMemoForm">
+        <form class="m-1" [formGroup]="docForm">
           <div class="col-xl-12" >
             <div class="card" style="width:100%; height: 10%;">
               <div class="row" style="margin-left: 3%;margin-top: 1%;">
@@ -20,7 +20,7 @@
                <div class="col-xl-3" >
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-label>Company Name</mat-label>
-                      <mat-select>
+                      <mat-select  formControlName="company">
                         <mat-option *ngFor="let title of companyList" [value]="title.id">
                           {{title.text}}
                         </mat-option>
@@ -34,7 +34,7 @@
               <div class="col-xl-3">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-label>Debit Memo No</mat-label>
-                      <mat-select>
+                      <mat-select  formControlName="returnMemoNo">
                         <mat-option *ngFor="let title of debitMemoList" [value]="title.id">
                           {{title.id}}
                         </mat-option>
@@ -71,58 +71,28 @@
           <div class="card">
             <div class="body">
               <div class="table-responsive">
-                <div class="materialTableHeader">
-                  <div class="row">
-                    <div class="col-8">
-                      <ul class="header-buttons-left ms-0">
-                    
-                        <li class="dropdown m-l-20">
-                          <label for="search-input"><i class="material-icons search-icon">search</i></label>
-                          <input placeholder="Search" type="text" #filter class="browser-default search-field"
-                            aria-label="Search box">
-                        </li>
-                        <li>
-                          <div class="m-l-10" matTooltip="ADD">
-                            <button mat-mini-fab color="primary"  [routerLink]="'/setup/companyMaster/addCompanyMaster/0'" >
-                              <mat-icon class="col-white">add</mat-icon>
-                            </button>
-                          </div>
-                        </li>
-                      </ul>
-                    </div>
-                    <div class="col-4">
-                      <ul class="header-buttons">
-                        <li>
-                          <div class="export-button m-l-10" matTooltip="XLSX">
-                            <img src="assets/images/icons/xlsx.png" alt=""
-                              (click)="exporter.exportTable('xlsx', {fileName:'assets-list', sheet: 'sheet1'})" />
-                          </div>
-                        </li>                     
-                      </ul>
-                    </div>
-                  </div>
-                </div>
+               
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                   #exporter="matTableExporter">
                   
-                  <ng-container matColumnDef="companyName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyName}}
+                  <ng-container matColumnDef="company">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.company}}
                     </mat-cell>
                   </ng-container>
   
-                  <ng-container matColumnDef="companyEmailID">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Email ID</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyEmailID}}</mat-cell>
+                  <ng-container matColumnDef="returnMemoDate">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Return Memo Date</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.returnMemoDate}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="companyState">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">State</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyState}}</mat-cell>
+                  <ng-container matColumnDef="returnMemoNo">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">Return Memo No</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.returnMemoNo}}</mat-cell>
                   </ng-container>
                   
-                  <ng-container matColumnDef="companyCity">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>City</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyCity}}</mat-cell>
+                  <ng-container matColumnDef="returnMemoName">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Return Memo Name</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.returnMemoName}}</mat-cell>
                   </ng-container>
                 
                  
