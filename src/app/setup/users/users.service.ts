@@ -36,7 +36,11 @@ export class UsersService extends UnsubscribeOnDestroyAdapter{
   public roleListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/getRoleList`;
   public addUserFiles = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/uploadFile`;
   public customerList = `${this.serverUrl.apiServerAddress}api/auth/app/fileUpload/getCustomerList`;
-  
+  public validateOldPasswordUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/oldPasswordValidation`;
+  public updateChangePasswordUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/updatePassword`;
+  public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
+
+
   get data(): UsersMaster[] {
     return this.dataChange.value;
   }

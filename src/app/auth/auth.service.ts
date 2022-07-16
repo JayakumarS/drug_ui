@@ -37,7 +37,8 @@ public currentUser: Observable<User>;
   insertCusMaster = `${this.serverURL.apiServerAddress}api/customerMaster/save`;
   validateOtpUrl =  `${this.serverURL.apiServerAddress}api/auth/validateOtp`;
   resendOtpUrl =  `${this.serverURL.apiServerAddress}api/auth/resendOtpvalidate`;
-  
+  forgotPasswordUrl =  `${this.serverURL.apiServerAddress}api/auth/forgotPassword`;
+
   attemptAuth(credentials: AuthLoginInfo): Observable<JwtResponse> {
     return  this.http
       .post<JwtResponse>(this.loginUrl, credentials)
@@ -92,5 +93,10 @@ public currentUser: Observable<User>;
   resendOtp(otpInfo: AuthLoginInfo): Observable<any> {
     return  this.http.post<any>(this.resendOtpUrl, otpInfo);
   }
+
+  forgotPasswordService(otpInfo: AuthLoginInfo): Observable<any> {
+    return  this.http.post<any>(this.forgotPasswordUrl, otpInfo);
+  }
+
 }
 

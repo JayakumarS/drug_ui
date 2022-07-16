@@ -185,5 +185,35 @@ export class AddUsersComponent  implements OnInit  {
       }
     );*/
   }
+
+  userNameValidation(event){
+    this.httpService.get<any>(this.usersService.uniqueValidateUrl+ "?tableName=" +"user_details"+"&columnName="+"emp_user_id"+"&columnValue="+event).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['newUserName'].setErrors({ userValid: true });
+      }else{
+        this.docForm.controls['newUserName'].setErrors(null);
+      }
+    });
+  }
+
+  emailIdValidation(event){
+    this.httpService.get<any>(this.usersService.uniqueValidateUrl+ "?tableName=" +"user_details"+"&columnName="+"email_id"+"&columnValue="+event).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['emailId'].setErrors({ emailValid: true });
+      }else{
+        this.docForm.controls['emailId'].setErrors(null);
+      }
+    });
+  }
+
+  phoneNoValidation(event){
+    this.httpService.get<any>(this.usersService.uniqueValidateUrl+ "?tableName=" +"user_details"+"&columnName="+"phone_no"+"&columnValue="+event).subscribe((res: any) => {
+      if(res){
+        this.docForm.controls['mobileNo'].setErrors({ mobileNoValid: true });
+      }else{
+        this.docForm.controls['mobileNo'].setErrors(null);
+      }
+    });
+  }
   
 }

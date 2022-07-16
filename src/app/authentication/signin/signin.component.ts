@@ -30,6 +30,7 @@ export class SigninComponent
   userName : string ='';
   userObj = {};
   login:boolean=false;
+  forgot:boolean=false;
   // For OTP countdown
   timeLeft: number = 300;
   interval;
@@ -50,7 +51,8 @@ export class SigninComponent
     this.authForm = this.formBuilder.group({
       username: ["", Validators.required],
       password: ["", Validators.required],
-      otpValue: [""]
+      otpValue: [""],
+      userNameEmailId: [""]
     });
   }
   get f() {
@@ -78,7 +80,7 @@ export class SigninComponent
     } else {
 
       this.loginInfo = new AuthLoginInfo(
-      this.f.username.value, this.f.password.value,this.f.otpValue.value);
+      this.f.username.value, this.f.password.value,this.f.otpValue.value,this.f.userNameEmailId.value);
 
 
       this.authService.attemptAuth(this.loginInfo).subscribe(
@@ -127,7 +129,7 @@ export class SigninComponent
 
   verifyOtp(){
     this.loginInfo = new AuthLoginInfo(
-      this.f.username.value, this.f.password.value,this.f.otpValue.value);
+      this.f.username.value, this.f.password.value,this.f.otpValue.value,this.f.userNameEmailId.value);
     console.log(this.loginInfo);
     this.authService.attemptOtpValidation(this.loginInfo).subscribe(
       data => {        
@@ -163,10 +165,10 @@ export class SigninComponent
 
   resendOtpNo(){
     this.loginInfo = new AuthLoginInfo(
-      this.f.username.value, this.f.password.value,this.f.otpValue.value);
+      this.f.username.value, this.f.password.value,this.f.otpValue.value,this.f.userNameEmailId.value);
     console.log(this.loginInfo);
     this.login=true;
-    // resetting the time as 300s
+    // resetting the time again for 300s
     this.timeLeft=300;
     this.authService.resendOtp(this.loginInfo).subscribe(
       data => {        
@@ -197,6 +199,39 @@ export class SigninComponent
 
   pauseTimer() {
     clearInterval(this.interval);
+  }
+
+  forgotpassword(){
+    this.forgot=true;
+  }
+
+  forgottPasswordButton(){
+    this.loginInfo = new AuthLoginInfo(
+    this.f.username.value, this.f.password.value,this.f.otpValue.value,this.f.userNameEmailId.value);
+    this.authService.forgotPasswordService(this.loginInfo).subscribe(
+      data => {        
+       if(data) {
+            if(data.success){
+              this.error = data.message;
+              this.login=false;
+              this.forgot = false;
+          }else{
+            setTimeout(() => {
+              this.submitted = false;
+              this.loading = false;
+              this.error = data.message;
+
+        }, 1000);
+          }
+       }
+      },
+        
+      );
+  }
+
+  backToSignInPage(){
+    this.login=false;
+    this.forgot=false;
   }
 
 }
