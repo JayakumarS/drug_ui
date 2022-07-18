@@ -14,9 +14,7 @@
           <div class="col-xl-12" >
             <div class="card" style="width:100%; height: 10%;">
               <div class="row" style="margin-left: 3%;margin-top: 1%;">
-              <!-- <div class="col-xl-1" >
-                <mat-label>Company Name :</mat-label>
-               </div> -->
+            
                <div class="col-xl-3" >
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-label>Company Name</mat-label>
@@ -28,9 +26,7 @@
                 </mat-form-field>
               </div>
              
-              <!-- <div class="col-xl-2"  style="margin-left: 5%;">
-                   <mat-label>Debit Memo No : </mat-label>
-              </div> -->
+             
               <div class="col-xl-3">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-label>Debit Memo No</mat-label>
@@ -45,7 +41,7 @@
         
 
           <div class="col-xl-3 example-full-width  form-control-sm">
-            <button (click) = "onOk()" class="btn-space" mat-raised-button
+            <button (click) = "searchData()" class="btn-space" mat-raised-button
             color="accent" style="background-color: #34d034;">Search</button>
           
         </div>
@@ -66,127 +62,38 @@
  
 </div>
 </div>
-      <div class="row">
-        <div class="col-lg-12 col-md-12 col-sm-12 col-xs-12">
-          <div class="card">
-            <div class="body">
-              <div class="table-responsive">
-               
-                <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
-                  #exporter="matTableExporter">
-                  
-                  <ng-container matColumnDef="company">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.company}}
-                    </mat-cell>
-                  </ng-container>
-  
-                  <ng-container matColumnDef="returnMemoDate">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Return Memo Date</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.returnMemoDate}}</mat-cell>
-                  </ng-container>
-                  <ng-container matColumnDef="returnMemoNo">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">Return Memo No</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.returnMemoNo}}</mat-cell>
-                  </ng-container>
-                  
-                  <ng-container matColumnDef="returnMemoName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Return Memo Name</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.returnMemoName}}</mat-cell>
-                  </ng-container>
-                
-                 
-                  <!-- actions -->
-                  <ng-container matColumnDef="actions" class="col-lg-12 col-md-2">
-                    <mat-header-cell class="pr-0" *matHeaderCellDef>Actions</mat-header-cell>
-                    <mat-cell *matCellDef="let row; let i=index;" class="pr-0">
-                      <button mat-icon-button color="accent" (click)="$event.stopPropagation()" (click)="editCall(row)"
-                        class="tbl-action-btn">
-                        <app-feather-icons [icon]="'edit'" [class]="'tbl-fav-edit'"></app-feather-icons>
-                      </button>
-                      <button mat-icon-button color="accent" (click)="$event.stopPropagation()"
-                        (click)="deleteItem(row)" class="tbl-action-btn">
-                        <app-feather-icons [icon]="'trash-2'" [class]="'tbl-fav-delete'"></app-feather-icons>
-                      </button>
-                      <button   mat-icon-button color="accent" (click)="$event.stopPropagation()"
-                        (click)="returnMemoItems(row)" class="tbl-action-btn">
-                        <i-feather name="log-in" style="margin-bottom: 22px;" (click)="returnMemoItems(row)"></i-feather>
-                      </button> 
-                      
-
-                    </mat-cell>
-                  </ng-container>
-  
-  
-                  <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
-                  <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
-                  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
-                    [style.cursor]="'pointer'" matRipple>
-                  </mat-row>
-                </mat-table>
-                <!-- Loading spinner -->
-                <div *ngIf="exampleDatabase.isTblLoading" class="tbl-spinner">
-                  <mat-progress-spinner color="primary" [diameter]="40" mode="indeterminate">
-                  </mat-progress-spinner>
-                </div>
-                <!-- context menu start -->
-                <div style="visibility: hidden; position: fixed" [style.left]="contextMenuPosition.x"
-                  [style.top]="contextMenuPosition.y" [matMenuTriggerFor]="contextMenu">
-                </div>
-                <mat-menu #contextMenu="matMenu">
-                  <ng-template matMenuContent let-item="item">
-                    <button mat-menu-item (click)="addNew()">
-                      <mat-icon>add_box</mat-icon>
-                      <span>Add Record</span>
-                    </button>
-                    <button mat-menu-item (click)="editCall(item)">
-                      <mat-icon>create</mat-icon>
-                      <span>Edit Record</span>
-                    </button>
-                    <button mat-menu-item (click)="deleteItem(item.id,item)">
-                      <mat-icon>delete</mat-icon>
-                      <span>Delete Record</span>
-                    </button>
-                    <button mat-menu-item (click)="refresh()">
-                      <mat-icon>refresh</mat-icon>
-                      <span>Refresh Record</span>
-                    </button>
-                    <button mat-menu-item disabled>
-                      <mat-icon>no_encryption</mat-icon>
-                      <span>Disable</span>
-                    </button>
-                    <button mat-menu-item [matMenuTriggerFor]="nestedmenu">
-                      <mat-icon>list_alt</mat-icon>
-                      <span> Nested Menu</span>
-                    </button>
-                  </ng-template>
-                </mat-menu>
-                <mat-menu #nestedmenu="matMenu">
-                  <button mat-menu-item>
-                    <mat-icon>mail_outline</mat-icon>
-                    <span>Item 1</span>
-                  </button>
-                  <button mat-menu-item>
-                    <mat-icon>call</mat-icon>
-                    <span>Item 2</span>
-                  </button>
-                  <button mat-menu-item>
-                    <mat-icon>chat</mat-icon>
-                    <span>Item 3</span>
-                  </button>
-                </mat-menu>
-                <!-- context menu end -->
-                <div *ngIf="!exampleDatabase.isTblLoading" class="no-results"
-                  [style.display]="dataSource.renderedData.length == 0 ? '' : 'none'">
-                  No results
-                </div>
-                <mat-paginator #paginator [length]="dataSource.filteredData.length" [pageIndex]="0" [pageSize]="10"
-                  [pageSizeOptions]="[5, 10, 25, 100]">
-                </mat-paginator>
-              </div>
-          </div>
-        </div>
+<div class="row">
+  <div class="col-md-12">
+      <div class="table-responsive-sm">
+          <table class="table table-bordered table-hover">
+              <thead class="theadRow thead-light">
+                  <tr>
+                      <th>Company</th>
+                      <th>Return Memo Date</th>
+                      <th>Return Memo Name</th>
+                      <th>Return Memo No</th>
+                      <th>Actions</th>
+                  </tr>
+              </thead>
+              <tbody>
+                  <ng-container *ngFor="let item of listDebitMemo">
+                  <tr>
+                      <td> {{item.company !== null ? item.company:'-'}}</td>
+                      <td> {{item.returnMemoDate !== null ? item.returnMemoDate:'-' | date:'dd-MM-yyyy HH:mm a' }}</td>
+                      <td> {{item.returnMemoName !== null ? item.returnMemoName:'-'}}</td>
+                      <td> {{item.returnMemoNo !== null ? item.returnMemoNo:'-'}}</td>
+                      <td style="text-align: center;" >
+                        	
+                        <i class="fas fa-arrow-right" title="Return Items" style="color:#74AEB5" (click)='editStaffDetails(1)'></i>
+                        <!-- <i class="fas fa-edit" title="Edit" style="color:#74AEB5" (click)='editStaffDetails(1)'></i>&nbsp;&nbsp;
+                        <i class="fas fa-eye" title="View" style="color:#74AEB5" (click)='viewStaffDetails(1)'></i> -->
+                    </td>
+                  </tr>
+              </ng-container>
+              </tbody>
+          </table>
       </div>
-    </div>
+  </div>
+</div>
   </div>
   </section>
