@@ -45,8 +45,12 @@ const routes: Routes = [
     path: "debitMemo",
     loadChildren: () =>
       import("./company-master/debit-memo/debit-memo.module").then((m) => m.DebitMemoModule),
+  },
+  {
+    path: "returnMemoItems",
+    loadChildren: () =>
+      import("./company-master/return-memo-items/return-memo-items.module").then((m) => m.ReturnMemoItemsModule),
   }
-
 ];
 
 @NgModule({

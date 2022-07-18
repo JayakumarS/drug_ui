@@ -1,6 +1,6 @@
-import { DebitMemo } from './../debitmemo-model';
-import { DebitmemoService } from './../debitmemo.service';
-import { AddDebitMemoComponent } from './../add-debit-memo/add-debit-memo.component';
+import { AddReturnMemoItemsComponent } from './../add-return-memo-items/add-return-memo-items.component';
+import { DebitmemoService } from './../../debit-memo/debitmemo.service';
+import { DebitMemo } from './../../debit-memo/debitmemo-model';
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
@@ -20,11 +20,11 @@ import { CommonService } from 'src/app/common-service/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 @Component({
-  selector: 'app-list-debit-memo',
-  templateUrl: './list-debit-memo.component.html',
-  styleUrls: ['./list-debit-memo.component.sass']
+  selector: 'app-list-return-memo-items',
+  templateUrl: './list-return-memo-items.component.html',
+  styleUrls: ['./list-return-memo-items.component.sass']
 })
-export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
     "company",
     "returnMemoDate",
@@ -135,7 +135,7 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
    } else {
      tempDirection = "ltr";
    }
-   const dialogRef = this.dialog.open(AddDebitMemoComponent, {
+   const dialogRef = this.dialog.open(AddReturnMemoItemsComponent, {
      height: "80%",
      width: "80%",
      data: this.requestId,
@@ -173,7 +173,7 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
    } else {
      tempDirection = "ltr";
    }
-   const dialogRef = this.dialog.open(AddDebitMemoComponent, {
+   const dialogRef = this.dialog.open(AddReturnMemoItemsComponent, {
      height: "80%",
      width: "80%",
      data: this.requestId,
