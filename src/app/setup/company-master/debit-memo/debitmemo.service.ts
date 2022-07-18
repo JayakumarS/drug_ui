@@ -29,7 +29,7 @@ export class DebitmemoService extends UnsubscribeOnDestroyAdapter{
   constructor(private httpClient: HttpClient,private serverUrl:serverLocations,private httpService:HttpServiceService) {
     super();
   }
-  private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/debitMemo/getList`;
+  public getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/debitMemo/getList`;
   private saveDebitMemo = `${this.serverUrl.apiServerAddress}api/auth/app/debitMemo/save`;
   public editDebitMemo = `${this.serverUrl.apiServerAddress}api/auth/app/debitMemo/edit`;
   public updateDebitMemo = `${this.serverUrl.apiServerAddress}api/auth/app/debitMemo/update`;
