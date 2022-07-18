@@ -127,6 +127,7 @@ export class DashboardComponent implements OnInit {
     this.chart2();
     this.gaugechart();
     this.stackChart();
+   
   }
   private chart1() {
     this.barChartOptions = {
@@ -337,4 +338,7 @@ export class DashboardComponent implements OnInit {
       },
     };
   }
+
+ 
+
 }

@@ -1,4 +1,5 @@
 import { Component, OnInit } from "@angular/core";
+import { MatDialog } from "@angular/material/dialog";
 import {
   ChartComponent,
   ApexAxisChartSeries,
@@ -16,6 +17,10 @@ import {
   ApexTitleSubtitle,
   ApexResponsive,
 } from "ng-apexcharts";
+import { HttpServiceService } from "src/app/auth/http-service.service";
+import { TokenStorageService } from "src/app/auth/token-storage.service";
+import { ChangePasswordPopUpComponent } from "src/app/setup/users/change-password-pop-up/change-password-pop-up.component";
+import { UsersService } from "src/app/setup/users/users.service";
 export type ChartOptions = {
   series: ApexAxisChartSeries;
   chart: ApexChart;
@@ -77,7 +82,8 @@ export class MainComponent implements OnInit {
     responsive: true,
   };
 
-  constructor() {}
+  constructor(private httpService: HttpServiceService,private usersService:UsersService,
+    private tokenStorage: TokenStorageService,public dialog: MatDialog) {}
   ngOnInit() {
     this.smallChart1();
     this.smallChart2();
@@ -87,6 +93,7 @@ export class MainComponent implements OnInit {
     this.chart2();
     this.chart4();
     this.projectChart();
+    this.passwordResetPopUpCheck();
   }
 
   private smallChart1() {
@@ -643,5 +650,18 @@ export class MainComponent implements OnInit {
         },
       },
     };
+  }
+  
+  passwordResetPopUpCheck(){
+    this.httpService.get<any>(this.usersService.resetPasswordCheckUrl+ "?resetPasswordPopUp=" + this.tokenStorage.getUsername()).subscribe((res: any) => {
+      if(!res){
+        const dialogRef = this.dialog.open(ChangePasswordPopUpComponent, {
+          disableClose: true ,
+          height: "550px",
+          width: "465px",
+      
+        });
+      }
+    });
   }
 }

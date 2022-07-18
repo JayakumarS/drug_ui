@@ -46,6 +46,7 @@ export class Dashboard2Component implements OnInit {
   ngOnInit() {
     this.chart1();
     this.chart2();
+    
   }
 
   private chart1() {
@@ -146,4 +147,7 @@ export class Dashboard2Component implements OnInit {
       ],
     };
   }
+
+  
+
 }
