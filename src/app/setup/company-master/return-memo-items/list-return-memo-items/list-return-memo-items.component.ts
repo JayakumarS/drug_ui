@@ -1,6 +1,6 @@
+import { ReturnMemoItems } from './../return-memo-items-model';
+import { ReturnMemoItemsService } from './../return-memo-items.service';
 import { AddReturnMemoItemsComponent } from './../add-return-memo-items/add-return-memo-items.component';
-import { DebitmemoService } from './../../debit-memo/debitmemo.service';
-import { DebitMemo } from './../../debit-memo/debitmemo-model';
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
@@ -26,27 +26,27 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 })
 export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
-    "company",
-    "returnMemoDate",
-    "returnMemoName", 
-    "returnMemoNo",
+    "ndcupcCode",
+    "quantity",
+    "expDate", 
+    "price",
     "actions"
   ];
   companyList =[];
-  debitMemoList =[];
+  returnMemoItemsList =[];
   dataSource: ExampleDataSource | null;
-  exampleDatabase: DebitmemoService | null;
-  selection = new SelectionModel<DebitMemo>(true, []);
+  exampleDatabase: ReturnMemoItemsService | null;
+  selection = new SelectionModel<ReturnMemoItems>(true, []);
   index: number;
   id: number;
   requestId: any;
-  debitMemo: DebitMemo | null;
+  returnMemoItems: ReturnMemoItems | null;
   docForm: FormGroup;
 
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
-    public debitmemoService: DebitmemoService,
+    public returnMemoItemsService: ReturnMemoItemsService,
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
@@ -59,7 +59,7 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
     super();
     this.docForm = this.fb.group({
       company: ["", [Validators.required]],
-      returnMemoNo: ["", [Validators.required]],
+      price: ["", [Validators.required]],
     });
   }
 
@@ -79,28 +79,7 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
      });
 
 
-    this.httpService.get<any>(this.commonService.getcompanyMasterDropdownList).subscribe(
-      (data) => {
-        this.companyList = data;
-        this.docForm.patchValue({
-          'company' : this.requestId,
-       })
-
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
-      }
-      );
-
-      this.httpService.get<any>(this.commonService.getdebitMemoDropdownList).subscribe(
-        (data) => {
-          this.debitMemoList = data;
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.name + " " + error.message);
-        }
-        );
-
+    
 
         this.loadData();
   }
@@ -110,7 +89,7 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
   }
 
   public loadData() {
-    this.exampleDatabase = new DebitmemoService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new ReturnMemoItemsService(this.httpClient,this.serverUrl,this.httpService);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
@@ -158,7 +137,7 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
 
   }
 
-  returnMemoItems(row){ 
+  returnMemoItemspage(row){ 
  
     this.router.navigate(['/setup/returnMemoItems/listReturnMemoItems/'+ row.company]);
 
@@ -223,7 +202,7 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
   }
 
 // context menu
-  onContextMenu(event: MouseEvent, item: DebitMemo) {
+  onContextMenu(event: MouseEvent, item: ReturnMemoItems) {
     event.preventDefault();
     this.contextMenuPosition.x = event.clientX + "px";
     this.contextMenuPosition.y = event.clientY + "px";
@@ -233,7 +212,7 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
   }
 }
 
-export class ExampleDataSource extends DataSource<DebitMemo> {
+export class ExampleDataSource extends DataSource<ReturnMemoItems> {
   filterChange = new BehaviorSubject("");
   get filter(): string {
     return this.filterChange.value;
@@ -241,10 +220,10 @@ export class ExampleDataSource extends DataSource<DebitMemo> {
   set filter(filter: string) {
     this.filterChange.next(filter);
   }
-  filteredData: DebitMemo[] = [];
-  renderedData: DebitMemo[] = [];
+  filteredData: ReturnMemoItems[] = [];
+  renderedData: ReturnMemoItems[] = [];
   constructor(
-    public exampleDatabase: DebitmemoService,
+    public exampleDatabase: ReturnMemoItemsService,
     public paginator: MatPaginator,
     public _sort: MatSort
   ) {
@@ -253,7 +232,7 @@ export class ExampleDataSource extends DataSource<DebitMemo> {
     this.filterChange.subscribe(() => (this.paginator.pageIndex = 0));
   }
   /** Connect function called by the table to retrieve one stream containing the data to render. */
-  connect(): Observable<DebitMemo[]> {
+  connect(): Observable<ReturnMemoItems[]> {
     // Listen for any changes in the base data, sorting, filtering, or pagination
     const displayDataChanges = [
       this.exampleDatabase.dataChange,
@@ -267,12 +246,12 @@ export class ExampleDataSource extends DataSource<DebitMemo> {
         // Filter data
         this.filteredData = this.exampleDatabase.data
           .slice()
-          .filter((debitMemo: DebitMemo) => {
+          .filter((returnMemoItems: ReturnMemoItems) => {
             const searchStr = (
-              debitMemo.company +
-              debitMemo.returnMemoDate +
-              debitMemo.returnMemoNo +
-              debitMemo.returnMemoName 
+              returnMemoItems.ndcupcCode +
+              returnMemoItems.quantity +
+              returnMemoItems.price +
+              returnMemoItems.expDate 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -290,7 +269,7 @@ export class ExampleDataSource extends DataSource<DebitMemo> {
   }
   disconnect() {}
   /** Returns a sorted copy of the database data. */
-  sortData(data: DebitMemo[]): DebitMemo[] {
+  sortData(data: ReturnMemoItems[]): ReturnMemoItems[] {
     if (!this._sort.active || this._sort.direction === "") {
       return data;
     }
@@ -298,17 +277,17 @@ export class ExampleDataSource extends DataSource<DebitMemo> {
       let propertyA: number | string = "";
       let propertyB: number | string = "";
       switch (this._sort.active) {
-        case "company":
-          [propertyA, propertyB] = [a.company, b.company];
+        case "ndcupcCode":
+          [propertyA, propertyB] = [a.ndcupcCode, b.ndcupcCode];
           break;
-        case "returnMemoDate":
-          [propertyA, propertyB] = [a.returnMemoDate, b.returnMemoDate];
+        case "quantity":
+          [propertyA, propertyB] = [a.quantity, b.quantity];
           break;
-        case "returnMemoNo":
-          [propertyA, propertyB] = [a.returnMemoNo, b.returnMemoNo];
+        case "price":
+          [propertyA, propertyB] = [a.price, b.price];
           break;
-        case "returnMemoName":
-          [propertyA, propertyB] = [a.returnMemoName, b.returnMemoName];
+        case "expDate":
+          [propertyA, propertyB] = [a.expDate, b.expDate];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;
