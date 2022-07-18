@@ -34,7 +34,7 @@ export class AddUsersComponent  implements OnInit  {
       mobileNo: ["", [Validators.required]],
       // newPassword: ["", Validators.compose([Validators.required, PasswordStrengthValidator, Validators.minLength(6)])],
       // confirmPassword: ["", [Validators.required]],
-      newPassword: ["",],
+      newPassword: [""],
       confirmPassword: [""],
       emailId: [ "",[Validators.required, Validators.email, Validators.minLength(5)],],
       uploadImg: [""],

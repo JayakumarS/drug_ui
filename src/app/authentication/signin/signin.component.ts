@@ -101,6 +101,7 @@ export class SigninComponent
                 this.tokenStorage.saveUserId(data.email);
                 this.tokenStorage.saveDefaultRoleId(data.defaultRoleId);
                 this.tokenStorage.saveDefaultRole(data.defaultRole);
+                this.tokenStorage.saveCustomerCompanyCode(data.companyCode);
                 this.loading = false;  
                 this.login=true; 
                 this.startTimer();            

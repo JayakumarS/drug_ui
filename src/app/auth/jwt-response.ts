@@ -8,4 +8,5 @@ export class JwtResponse {
     email:string;
     defaultRoleId: any;
     defaultRole: string;
+    companyCode:string;
 }
