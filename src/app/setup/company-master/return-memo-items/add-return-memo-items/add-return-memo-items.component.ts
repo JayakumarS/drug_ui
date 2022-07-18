@@ -34,27 +34,26 @@ export class AddReturnMemoItemsComponent implements OnInit {
     private debitmemoService:DebitmemoService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute,public dialog: MatDialog, private tokenStorage: TokenStorageService) {
     this.docForm = this.fb.group({
-      entryNo: ["", [Validators.required]],
+      entryNo: [""],
+      ndcupcCode: ["", [Validators.required]],
       lotNo: ["", [Validators.required]],
       reason: ["", [Validators.required]],
       expDate: ["", [Validators.required]],
-      invoiceNo: ["", [Validators.required]],
-      itemNo: ["", [Validators.required]],
+      invoiceNo: [""],
+      itemNo: [""],
       quantity: ["", [Validators.required]],
       price: ["", [Validators.required]],
-      returnTo: ["", [Validators.required]],
-      manufacturer: ["", [Validators.required]],
-      dosage: ["", [Validators.required]],
-      estimatedValue: ["", [Validators.required]],
-      strength: ["", [Validators.required]],
-      returnMemoNo: ["", [Validators.required]],
-      packageSize: ["", [Validators.required]],
-      controlNo: ["", [Validators.required]],
-      unitPackage: ["", [Validators.required]],
-      upc: ["", [Validators.required]],
-      ndcUpc: ["", [Validators.required]],
-      return: ["", [Validators.required]],
-      // : this.tokenStorage.getUsername()
+      returnTo: [""],
+      manufacturer: [""],
+      dosage: [""],
+      estimatedValue: [""],
+      strength: [""],
+      returnMemoNo: [""],
+      packageSize: [""],
+      controlNo: [""],
+      unitPackage: [""],
+      upc: [""],
+      return: [""],
     });
 
   }

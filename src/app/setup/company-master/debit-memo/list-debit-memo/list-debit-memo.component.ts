@@ -59,8 +59,8 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
   ) {
     super();
     this.docForm = this.fb.group({
-      company: ["", [Validators.required]],
-      returnMemoNo: ["", [Validators.required]],
+      company: [""],
+      returnMemoNo: [""],
     });
   }
 

@@ -17,7 +17,7 @@
               <!-- <div class="col-xl-1" >
                 <mat-label>Company Name :</mat-label>
                </div> -->
-               <div class="col-xl-3" >
+               <!-- <div class="col-xl-3" >
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-label>Company Name</mat-label>
                       <mat-select  formControlName="company">
@@ -26,33 +26,33 @@
                         </mat-option>
                       </mat-select>
                 </mat-form-field>
-              </div>
+              </div> -->
              
               <!-- <div class="col-xl-2"  style="margin-left: 5%;">
                    <mat-label>Debit Memo No : </mat-label>
               </div> -->
-              <div class="col-xl-3">
+              <!-- <div class="col-xl-3">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-label>Debit Memo No</mat-label>
-                      <mat-select  formControlName="returnMemoNo">
+                      <mat-select  formControlName="price">
                         <mat-option *ngFor="let title of debitMemoList" [value]="title.id">
                           {{title.id}}
                         </mat-option>
                       </mat-select>
                 </mat-form-field>
-              </div>
+              </div> -->
           
         
 
-          <div class="col-xl-3 example-full-width  form-control-sm">
+          <!-- <div class="col-xl-3 example-full-width  form-control-sm">
             <button (click) = "onOk()" class="btn-space" mat-raised-button
             color="accent" style="background-color: #34d034;">Search</button>
           
-        </div>
+        </div> -->
 
-        <div style="text-align: right;" class="col-xl-3 example-full-width  form-control-sm right">
+        <div style="text-align: right;" class="col-xl-11 example-full-width  form-control-sm right">
           <button (click) = "returnMemo()" class="btn-space" mat-raised-button
-          color="accent" style="background-color: #2704a7;">Create New Return</button>
+          color="accent" style="background-color: #2704a7;">Create New Return Items</button>
         
       </div>
       
@@ -75,24 +75,24 @@
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                   #exporter="matTableExporter">
                   
-                  <ng-container matColumnDef="company">
+                  <ng-container matColumnDef="ndcupcCode">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Company</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.company}}
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.ndcupcCode}}
                     </mat-cell>
                   </ng-container>
   
-                  <ng-container matColumnDef="returnMemoDate">
+                  <ng-container matColumnDef="quantity">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Return Memo Date</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.returnMemoDate}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.quantity}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="returnMemoNo">
+                  <ng-container matColumnDef="price">
                     <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">Return Memo No</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.returnMemoNo}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.price}}</mat-cell>
                   </ng-container>
                   
-                  <ng-container matColumnDef="returnMemoName">
+                  <ng-container matColumnDef="expDate">
                     <mat-header-cell *matHeaderCellDef mat-sort-header>Return Memo Name</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.returnMemoName}}</mat-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.expDate}}</mat-cell>
                   </ng-container>
                 
                  
