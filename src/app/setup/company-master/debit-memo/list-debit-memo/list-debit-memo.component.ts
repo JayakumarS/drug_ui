@@ -120,6 +120,11 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
   }
 
 
+  returnMemoItems(row){
+    this.router.navigate(['/setup/returnMemoItems/listReturnMemoItems/'+ row.company]);
+
+  }
+
 
  
 
@@ -154,11 +159,7 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
 
   }
 
-  returnMemoItems(row){ 
- 
-    this.router.navigate(['/setup/returnMemoItems/listReturnMemoItems/'+ row.company]);
 
-  }
 
 
 
