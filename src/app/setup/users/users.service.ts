@@ -39,7 +39,7 @@ export class UsersService extends UnsubscribeOnDestroyAdapter{
   public validateOldPasswordUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/oldPasswordValidation`;
   public updateChangePasswordUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/updatePassword`;
   public uniqueValidateUrl = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/validateUnique`;
-
+  public resetPasswordCheckUrl = `${this.serverUrl.apiServerAddress}api/auth/app/userMaster/resetPasswordCheck`;
 
   get data(): UsersMaster[] {
     return this.dataChange.value;
