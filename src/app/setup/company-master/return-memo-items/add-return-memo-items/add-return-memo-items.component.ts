@@ -8,9 +8,10 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { DebitmemoService } from './../../debit-memo/debitmemo.service';
 import { DebitMemo } from './../../debit-memo/debitmemo-model';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
-import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/common-service/common.service';
+import { ReturnMemoCalculatorComponent } from "./return-memo-calculator/return-memo-calculator.component";
 
 @Component({
   selector: 'app-add-return-memo-items',
@@ -31,13 +32,29 @@ export class AddReturnMemoItemsComponent implements OnInit {
   constructor( public commonService: CommonService,public dialogRef: MatDialogRef<AddReturnMemoItemsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,private fb: FormBuilder,private authService: AuthService,public router: Router,
     private debitmemoService:DebitmemoService,private httpService: HttpServiceService
-    ,private snackBar: MatSnackBar,public route: ActivatedRoute, private tokenStorage: TokenStorageService) {
+    ,private snackBar: MatSnackBar,public route: ActivatedRoute,public dialog: MatDialog, private tokenStorage: TokenStorageService) {
     this.docForm = this.fb.group({
-      company: ["", [Validators.required]],
-      returnMemoDate: ["", [Validators.required]],
-      returnMemoName: ["", [Validators.required]],
+      entryNo: ["", [Validators.required]],
+      lotNo: ["", [Validators.required]],
+      reason: ["", [Validators.required]],
+      expDate: ["", [Validators.required]],
+      invoiceNo: ["", [Validators.required]],
+      itemNo: ["", [Validators.required]],
+      quantity: ["", [Validators.required]],
+      price: ["", [Validators.required]],
+      returnTo: ["", [Validators.required]],
+      manufacturer: ["", [Validators.required]],
+      dosage: ["", [Validators.required]],
+      estimatedValue: ["", [Validators.required]],
+      strength: ["", [Validators.required]],
       returnMemoNo: ["", [Validators.required]],
-      createdBy: this.tokenStorage.getUsername()
+      packageSize: ["", [Validators.required]],
+      controlNo: ["", [Validators.required]],
+      unitPackage: ["", [Validators.required]],
+      upc: ["", [Validators.required]],
+      ndcUpc: ["", [Validators.required]],
+      return: ["", [Validators.required]],
+      // : this.tokenStorage.getUsername()
     });
 
   }
@@ -171,4 +188,12 @@ if (this.docForm.valid) {
      }
     }
 
+    onCalculator(){
+      const dialogRef = this.dialog.open(ReturnMemoCalculatorComponent, {
+        disableClose: true ,
+        height: "550px",
+        width: "465px",
+    
+      });
+    }
 }
