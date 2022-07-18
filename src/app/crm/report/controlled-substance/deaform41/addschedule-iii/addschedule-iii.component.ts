@@ -9,7 +9,9 @@ import { InventoryformService } from '../../inventory-report/inventory-service';
 import { InventoryFormBean } from '../../inventory-report/inventory-result-bean';
 import { PackingFormService } from '../../packing-slip/packingSlip-service';
 import { PackingFormBean } from '../../packing-slip/packingSlip-result-bean';
-0
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 @Component({
   selector: 'app-addschedule-iii',
   templateUrl: './addschedule-iii.component.html',
@@ -157,5 +159,20 @@ export class AddscheduleIIIComponent implements OnInit {
     newWin.document.close();
     }
   
+    
+    //Export PDF
+   
+    public openPDF(): void {
+      let DATA: any = document.getElementById('htmlData');
+      html2canvas(DATA).then((canvas) => {
+        let fileWidth = 208;
+        let fileHeight = (canvas.height * fileWidth) / canvas.width;
+        const FILEURI = canvas.toDataURL('image/png');
+        let PDF = new jsPDF('p', 'mm', 'a4');
+        let position = 0;
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+        PDF.save('ScheduleII.pdf');
+      });
+    }
 }
 

@@ -74,11 +74,12 @@
                     <br>
                 </div>
          
-                <div class="col-md-12" style="margin-left: 83%;">
+                <div class="col-md-12" style="margin-left: 80%;">
                     <button class="btn-space" mat-raised-button
                     color="accent" style="background-color: #34d034;" (click) = "searchData()">Search</button>
-                    <button (click) = "print()" class="btn-space" mat-raised-button
-                    color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button>
+                    <!-- <button (click) = "print()" class="btn-space" mat-raised-button
+                    color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button> -->
+                    <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
                 </div>
                 
                 <br>
@@ -92,16 +93,18 @@
 
 
 
-            <div id="scheduleIIPrint">
+            <!-- <div id="scheduleIIPrint" > -->
+              <!-- <div class="container"> -->
+              <div id="htmlData">
               <div class="row" style="overflow-x:auto;">
                 <div class="col-md-12">
                     <div class="table-responsive-sm">
                         <table class="table table-bordered table-hover">
                             <thead class="theadRow thead-light" style="font-size: 80%;">
-                                <tr *ngFor="let memoReport of memoListDetails;">
-                                  <th style="text-align: center;">Return Name: {{memoReport.name}}<br> Created: {{memoReport.date}}</th>
-                                  <th style="text-align: center;">{{memoReport.text}} <br><br> <b>Schedule 2 Report</b></th>
-                                  <th style="text-align: center;">Debit Memo: {{memoReport.no}}</th>
+                                <tr *ngFor="let item of memoList;">
+                                  <th style="text-align: center;">Return Name: {{item.name !== null ? item.name:'-'}}<br> Created: {{item.date !== null ? item.date:'-'}}</th>
+                                  <th style="text-align: center;">{{item.text !== null ? item.text:'-'}} <br><br> <b>Schedule 2 Report</b></th>
+                                  <th style="text-align: center;">Debit Memo: {{item.no !== null ? item.no:'-'}}</th>
                                 </tr>
                             </thead>
                             </table>
@@ -127,7 +130,7 @@
                           </thead>
                         
                           <tbody style="font-size: 80%;">
-                                         <tr *ngFor="let item of searchList;">
+                                         <tr *ngFor="let item of memoDetails;">
                                             <td style="text-align: center;">{{item.ndcupcCode !== null ? item.ndcupcCode:'-'}}</td>
                                             <td style="text-align: center;">{{item.description !== null ? item.description:'-'}}</td>
                                             <td style="text-align: center;"></td>
@@ -146,6 +149,7 @@
                                         </div>
                                         </div>
                           </div>
+                        <!-- </div> -->
 
           </div>
         </div>

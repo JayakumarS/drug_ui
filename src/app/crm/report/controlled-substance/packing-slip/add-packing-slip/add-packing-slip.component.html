@@ -93,16 +93,19 @@
             <div class="col-md-12" style="margin-left: 84%;">
               <button (click) = "onOk()" class="btn-space" mat-raised-button
               color="accent" style="background-color: #34d034;">Search</button>
-              <button (click) = "print()" class="btn-space" mat-raised-button
-              color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button>
-          </div>
+              <!-- <button (click) = "print()" class="btn-space" mat-raised-button
+              color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button> -->
+              <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
+
+            </div>
           <br>
                 </div>
               </div>
             </div>
               </form>
             </div>
-            <div id="packingSlipPrint">
+            <!-- <div id="packingSlipPrint"> -->
+              <div id="htmlData">
               <div class="row" style="overflow-x:auto;">
                 <div class="col-md-12">
                     <div class="table-responsive-sm">

@@ -9,7 +9,8 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.model'; 
 import { DEAFormBean } from '../deaform-result-bean';
 import { DeaformService } from '../deaform.service';
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 @Component({
   selector: 'app-add-deaform41',
   templateUrl: './add-deaform41.component.html',
@@ -124,6 +125,23 @@ export class AddDEAForm41Component implements OnInit {
       </html>`        
          );
     newWin.document.close();
+    }
+
+
+    
+    //Export PDF
+   
+    public openPDF(): void {
+      let DATA: any = document.getElementById('htmlData');
+      html2canvas(DATA).then((canvas) => {
+        let fileWidth = 208;
+        let fileHeight = (canvas.height * fileWidth) / canvas.width;
+        const FILEURI = canvas.toDataURL('image/png');
+        let PDF = new jsPDF('p', 'mm', 'a4');
+        let position = 0;
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+        PDF.save('DeaForn41.pdf');
+      });
     }
 }
 

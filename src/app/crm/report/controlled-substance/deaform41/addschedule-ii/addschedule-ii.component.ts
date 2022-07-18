@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
@@ -13,6 +13,10 @@ import { DEAForm } from '../deaform-model';
 import { CommonService } from 'src/app/common-service/common.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
+import { DebitmemoService } from 'src/app/setup/company-master/debit-memo/debitmemo.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatMenuTrigger } from '@angular/material/menu';
 
 @Component({
   selector: 'app-addschedule-ii',
@@ -21,22 +25,26 @@ import html2canvas from 'html2canvas';
 })
 export class AddscheduleIIComponent implements OnInit {
 
+  @ViewChild('htmlData') htmlData!: ElementRef;
+
   docForm: FormGroup;
   companyNameList: any;
   returnMemoNoList: any;
   exampleDatabase: DeaformService | null;
-  memoListDetails: any;
-  memoInfoList: any;
+  memoList: any;
+  memoDetails: any;
   searchList: any;
   dEAForm:DEAForm;
   requestId: any;
   companyList =[];
   debitMemoList =[];
+  listDebitMemo =[];
 
 
   constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService,
     private httpService: HttpServiceService,public deaformService:DeaformService,private packingFormService:PackingFormService,
-    public route: ActivatedRoute,    public commonService: CommonService,
+    public route: ActivatedRoute,    public commonService: CommonService,    public debitmemoService: DebitmemoService
+
     ) {
     this.docForm = this.fb.group({
       company: ["", [Validators.required]],
@@ -47,6 +55,14 @@ export class AddscheduleIIComponent implements OnInit {
     });
   }
  
+
+  
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild("filter", { static: true }) filter: ElementRef;
+  @ViewChild(MatMenuTrigger)
+  contextMenu: MatMenuTrigger;
+  contextMenuPosition = { x: "0px", y: "0px" };
 
 
   ngOnInit(): void {
@@ -83,30 +99,33 @@ export class AddscheduleIIComponent implements OnInit {
         setTimeout(() => {
         this.searchData();
       }, 700);
+
+      // this.getMemoList();
+      // this.getMemoInfo();
   }
 
 
-  // getMemoList() {
-  //     this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
-  //       (data) => {
-  //         this.memoListDetails = data.memoList;
-  //       },
-  //       (error: HttpErrorResponse) => {
-  //         console.log(error.name + " " + error.message);
-  //       }
-  //     );
-  //   }
+  getMemoList() {
+      this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
+        (data) => {
+          this.memoList = data.memoList;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
+    }
 
-  //   getMemoInfo() {
-  //     this.httpService.get<PackingFormBean>(this.packingFormService.memoDetailsUrl).subscribe(
-  //       (data) => {
-  //         this.memoInfoList = data.memoDetails;
-  //       },
-  //       (error: HttpErrorResponse) => {
-  //         console.log(error.name + " " + error.message);
-  //       }
-  //     );
-  //   }
+    getMemoInfo() {
+      this.httpService.get<PackingFormBean>(this.packingFormService.memoDetailsUrl).subscribe(
+        (data) => {
+          this.memoDetails = data.memoDetails;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
+    }
 
   print() {
     let newWin;
@@ -200,6 +219,22 @@ export class AddscheduleIIComponent implements OnInit {
           console.log(error.name + " " + error.message);
         }
         );
+    }
+
+  
+    //Export PDF
+   
+    public openPDF(): void {
+      let DATA: any = document.getElementById('htmlData');
+      html2canvas(DATA).then((canvas) => {
+        let fileWidth = 208;
+        let fileHeight = (canvas.height * fileWidth) / canvas.width;
+        const FILEURI = canvas.toDataURL('image/png');
+        let PDF = new jsPDF('p', 'mm', 'a4');
+        let position = 0;
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+        PDF.save('ScheduleII.pdf');
+      });
     }
 }
 

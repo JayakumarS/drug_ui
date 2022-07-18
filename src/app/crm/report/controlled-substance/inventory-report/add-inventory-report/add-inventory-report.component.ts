@@ -12,6 +12,9 @@ import { InventoryFormBean } from '../inventory-result-bean';
 import { InventoryformService } from '../inventory-service';
 import { PackingFormService } from '../../packing-slip/packingSlip-service';
 import { PackingFormBean } from '../../packing-slip/packingSlip-result-bean';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+
 @Component({
   selector: 'app-add-inventory-report',
   templateUrl: './add-inventory-report.component.html',
@@ -153,6 +156,23 @@ export class AddInventoryReportComponent implements OnInit {
       </html>`        
          );
     newWin.document.close();
+    }
+
+    
+    
+    //Export PDF
+   
+    public openPDF(): void {
+      let DATA: any = document.getElementById('htmlData');
+      html2canvas(DATA).then((canvas) => {
+        let fileWidth = 208;
+        let fileHeight = (canvas.height * fileWidth) / canvas.width;
+        const FILEURI = canvas.toDataURL('image/png');
+        let PDF = new jsPDF('p', 'mm', 'a4');
+        let position = 0;
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+        PDF.save('Inventory.pdf');
+      });
     }
   
 }

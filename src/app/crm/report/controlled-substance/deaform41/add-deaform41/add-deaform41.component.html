@@ -72,14 +72,14 @@
                 </div> 
                 </div>
                 <div class="row" style="margin-left: 5%;">
-                  <div class="col-md-7" style="margin-left: 5%;">
+                  <div class="col-md-6" style="margin-left: 5%;">
                       <mat-checkbox  ngInit="checked=true">Including Aging Product</mat-checkbox> <br>
                         <mat-label>Note: The DEA Form 41 is Not accepted by all state DEA Field Office for the<br>
                                    surrendering of controlled substances. Please contact your local DEA Field Office<br>
                                    for approval.
                         </mat-label>
                 </div>
-                <div class="col-md-3" style="margin-left: 16%;">
+                <div class="col-md-2" style="margin-left: 9%;">
                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                           <mat-label>Controlled Substance To Print</mat-label>
                           <mat-select formControlName="debitMemoNo" required>
@@ -95,18 +95,20 @@
                           </mat-select>
                     </mat-form-field>
                   </div>
-                <div class="col-md-1" style="margin-left: 37%;">
+                <div class="col-md-2" style="margin-left: 60%;">
                     <button (click) = "search()" class="btn-space" mat-raised-button
                     color="accent" style="margin-left: 80%;background-color: #34d034;">Search</button>
                     </div>
-               <div class="col-md-1">
+               <div class="col-md-2" style="margin-left: 2%;">
+                  <!-- <button (click) = "print()" class="btn-space" mat-raised-button
+                  color="accent" style="margin-left: 80%;background-color: #34d034;">Print</button> -->
+                  <button class="btn btn-success btn-block" (click)="openPDF()">Download PDF</button>
 
-                  <button (click) = "print()" class="btn-space" mat-raised-button
-                  color="accent" style="margin-left: 80%;background-color: #34d034;">Print</button>
-              </div>
+                </div>
               </div>
                 </div>
-                <div id="deaFormPrint">
+                <!-- <div id="deaFormPrint"> -->
+                <div id="htmlData">
                 <div class="row" style="overflow-x:auto;">
                   <div class="col-md-12">
                       <div class="table-responsive-sm">
