@@ -1,4 +1,4 @@
-import { Component, OnInit ,HostListener} from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup , Validators} from '@angular/forms';
 import { MatDialogRef } from '@angular/material/dialog';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
@@ -22,7 +22,6 @@ export class ChangePasswordPopUpComponent implements OnInit {
   oldPwd:boolean = false;
   constructor(private fb: FormBuilder,public dialogRef: MatDialogRef<ChangePasswordPopUpComponent>,private httpService: HttpServiceService,
     private usersService:UsersService,private tokenStorage: TokenStorageService) { 
-      dialogRef.disableClose = true;
     this.docForm = this.fb.group({
         oldChangepassword: ["",[Validators.required]],
         newChangePassword:["",Validators.compose([Validators.required, PasswordStrengthValidator, Validators.minLength(6)])],
@@ -78,9 +77,5 @@ export class ChangePasswordPopUpComponent implements OnInit {
     } else{
       this.docForm.controls['newChangePassword'].setErrors(null);
     }
-  }
-
-  @HostListener('window:keyup.esc') onKeyUp() {
-    this.dialogRef.close();
   }
 }

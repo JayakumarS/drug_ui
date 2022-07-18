@@ -265,7 +265,6 @@ export class HeaderComponent
 
   passwordChange(){
     const dialogRef = this.dialog.open(ChangePasswordPopUpComponent, {
-      disableClose: true ,
       height: "550px",
       width: "465px",
   

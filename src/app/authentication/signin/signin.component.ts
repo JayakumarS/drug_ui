@@ -9,9 +9,6 @@ import { Role } from "src/app/core/models/role";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { User } from "src/app/core/models/user";
 import { BehaviorSubject,Observable } from 'rxjs';
-//declare var grecaptcha: any;
-
-
 @Component({
   selector: "app-signin",
   templateUrl: "./signin.component.html",
@@ -37,8 +34,6 @@ export class SigninComponent
   // For OTP countdown
   timeLeft: number = 300;
   interval;
- // siteKey: string='6LeiApIfAAAAAOBsKqX0U-EQNu3lk3O9LVByiRAA';
-
    private currentUserSubject: BehaviorSubject<User>;
   private loginInfo: AuthLoginInfo;
   constructor(
@@ -57,8 +52,7 @@ export class SigninComponent
       username: ["", Validators.required],
       password: ["", Validators.required],
       otpValue: [""],
-      userNameEmailId: [""],
-      recaptchaResponse: [""]
+      userNameEmailId: [""]
     });
   }
   get f() {
@@ -80,7 +74,6 @@ export class SigninComponent
     this.submitted = true;
     this.loading = true;
     this.error = "";
- //   const response = grecaptcha.getResponse();
     if (this.authForm.invalid) {
       this.error = "Username and Password not valid !";
       return;
@@ -88,6 +81,7 @@ export class SigninComponent
 
       this.loginInfo = new AuthLoginInfo(
       this.f.username.value, this.f.password.value,this.f.otpValue.value,this.f.userNameEmailId.value);
+
 
       this.authService.attemptAuth(this.loginInfo).subscribe(
       data => {        
