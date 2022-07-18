@@ -10,6 +10,9 @@ import { InventoryFormBean } from '../../inventory-report/inventory-result-bean'
 import { PackingFormService } from '../../packing-slip/packingSlip-service';
 import { PackingFormBean } from '../../packing-slip/packingSlip-result-bean';
 import { DEAForm } from '../deaform-model';
+import { CommonService } from 'src/app/common-service/common.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
 
 @Component({
   selector: 'app-addschedule-ii',
@@ -26,66 +29,84 @@ export class AddscheduleIIComponent implements OnInit {
   memoInfoList: any;
   searchList: any;
   dEAForm:DEAForm;
+  requestId: any;
+  companyList =[];
+  debitMemoList =[];
+
+
   constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService,
     private httpService: HttpServiceService,public deaformService:DeaformService,private packingFormService:PackingFormService,
-    public route: ActivatedRoute) {
+    public route: ActivatedRoute,    public commonService: CommonService,
+    ) {
     this.docForm = this.fb.group({
-      companyName: "",
-      returnMemoNo: "",
+      company: ["", [Validators.required]],
+      returnMemoNo: ["", [Validators.required]],
       // controlledSubstance: "",
       startDate:"",
       endDate:"",
     });
   }
  
-  onOk() {
+
+
+  ngOnInit(): void {
     
-  }
+    this.route.params.subscribe(params => {
+      if(params.id!=undefined && params.id!=0){
+       this.requestId = params.id;
+      }
+     });
 
-  ngOnInit() {
-    this.httpService.get<DEAFormBean>(this.deaformService.companyNameUrl).subscribe(
+
+    this.httpService.get<any>(this.commonService.getcompanyMasterDropdownList).subscribe(
       (data) => {
-        this.companyNameList = data.companyNameList;
+        this.companyList = data;
+        this.docForm.patchValue({
+          'company' : this.requestId,
+       })
+
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
       }
-    );
+      );
 
-    this.httpService.get<any>(this.deaformService.returnMemoNoUrl).subscribe(
-      (data) => {
-        this.returnMemoNoList = data.returnMemoNo;
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
-      }
-    );
-    // this.getMemoList();
-  //  this.getMemoInfo();
-  this.onSearch();
+      this.httpService.get<any>(this.commonService.getdebitMemoDropdownList).subscribe(
+        (data) => {
+          this.debitMemoList = data;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+        );
+
+        setTimeout(() => {
+        this.searchData();
+      }, 700);
   }
 
-  getMemoList() {
-      this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
-        (data) => {
-          this.memoListDetails = data.memoList;
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.name + " " + error.message);
-        }
-      );
-    }
 
-    getMemoInfo() {
-      this.httpService.get<PackingFormBean>(this.packingFormService.memoDetailsUrl).subscribe(
-        (data) => {
-          this.memoInfoList = data.memoDetails;
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.name + " " + error.message);
-        }
-      );
-    }
+  // getMemoList() {
+  //     this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
+  //       (data) => {
+  //         this.memoListDetails = data.memoList;
+  //       },
+  //       (error: HttpErrorResponse) => {
+  //         console.log(error.name + " " + error.message);
+  //       }
+  //     );
+  //   }
+
+  //   getMemoInfo() {
+  //     this.httpService.get<PackingFormBean>(this.packingFormService.memoDetailsUrl).subscribe(
+  //       (data) => {
+  //         this.memoInfoList = data.memoDetails;
+  //       },
+  //       (error: HttpErrorResponse) => {
+  //         console.log(error.name + " " + error.message);
+  //       }
+  //     );
+  //   }
 
   print() {
     let newWin;
@@ -168,25 +189,17 @@ export class AddscheduleIIComponent implements OnInit {
     }
 
 
-    onSearch()
-    {
-      // this.httpService.get<DEAFormBean>(this.deaformService.searchListUrl).subscribe(
-      //   (data) => {
-      //     this.searchList = data.searchList;
-      //   },
-      //   (error: HttpErrorResponse) => {
-      //     console.log(error.name + " " + error.message);
-      //   }
-      // );
-
-
-
-      if (this.docForm.valid) {
-        this.dEAForm = this.docForm.value;
-        console.log(this.dEAForm);
-        this.deaformService.addScheduleInfo(this.dEAForm);
-      }
-    }
+ 
   
+    searchData(){
+      this.httpService.post<any>(this.deaformService.savedEAForm, this.docForm.value).subscribe(
+        (data) => {
+          this.searchList= data.searchList;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+        );
+    }
 }
 
