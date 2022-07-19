@@ -83,14 +83,12 @@
                     </mat-select>
                     </mat-form-field>
                   </div>
-                </div>
-            <div class="row">      
+                   
                 <div class="col-xl-2"  style="margin-left: 2%">
                     <mat-label>Lable Category to Print :</mat-label>
                 </div>
-            </div>
-            <div class="row">
-                <div class="card col-xl-2"  style="height: 100%;width: 21%; margin-left: 20%">
+           
+                <div class="card col-xl-2"  style="height: 100%;width: 21%;">
                     <br>
                   <div class="col-xl-3" style="margin-left: 5%;">
                       <mat-radio-button>Manufacturer Packing Slip 
@@ -104,9 +102,9 @@
                   </div>
                   <br>
               </div>
+            </div>
            
-           
-              
+            <div class="row">
             <div class="col-md-12" style="margin-left: 80%;">
               <button class="btn-space" mat-raised-button
               color="accent" style="background-color: #34d034;" (click) = "searchData()">Search</button>
@@ -130,7 +128,7 @@
                             <thead class="theadRow thead-light" >
                               <tr *ngFor="let item of searchList;">
                                 <th style="text-align: center;">Return Name: {{item.name !== null ? item.name:'-'}}<br> Created: {{item.returnMemoDate !== null ? item.returnMemoDate:'-'}}</th>
-                                <th class="card" style="text-align: center;"><b><U>Manufacturer Packing Slip</U></b><br><b>Return To: Ajanta Pharma USA Inc</b></th>
+                                <th class="card" style="text-align: center;"><b><U>Manufacturer Packing Slip</U></b><br><b>Return To: </b></th>
                                 <th style="text-align: center;">Debit Memo: {{item.returnMemoNo !== null ? item.returnMemoNo:'-'}}</th>
                               </tr>
                             </thead>
