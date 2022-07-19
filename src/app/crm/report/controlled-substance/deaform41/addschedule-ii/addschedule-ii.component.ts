@@ -1,5 +1,5 @@
 import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpErrorResponse } from "@angular/common/http";
@@ -17,6 +17,7 @@ import { DebitmemoService } from 'src/app/setup/company-master/debit-memo/debitm
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatMenuTrigger } from '@angular/material/menu';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 
 @Component({
   selector: 'app-addschedule-ii',
@@ -24,6 +25,7 @@ import { MatMenuTrigger } from '@angular/material/menu';
   styleUrls: ['./addschedule-ii.component.sass']
 })
 export class AddscheduleIIComponent implements OnInit {
+  [x: string]: any;
 
   @ViewChild('htmlData') htmlData!: ElementRef;
 
@@ -48,8 +50,7 @@ export class AddscheduleIIComponent implements OnInit {
     ) {
     this.docForm = this.fb.group({
       company: ["", [Validators.required]],
-      returnMemoNo: ["", [Validators.required]],
-      // controlledSubstance: "",
+      returnMemoNo: "",
       startDate:"",
       endDate:"",
     });
@@ -213,7 +214,7 @@ export class AddscheduleIIComponent implements OnInit {
     searchData(){
       this.httpService.post<any>(this.deaformService.savedEAForm, this.docForm.value).subscribe(
         (data) => {
-          this.searchList= data.searchList;
+          this.searchList= data.listSearchBean;
         },
         (error: HttpErrorResponse) => {
           console.log(error.name + " " + error.message);
@@ -236,5 +237,28 @@ export class AddscheduleIIComponent implements OnInit {
         PDF.save('ScheduleII.pdf');
       });
     }
+
+
+//     //Export PDF
+//     openPDF() {    
+//     if(this.searchList.length !== 0) {
+//     // this.entiymasterid = sessionStorage.getItem('entityId-usec'); 
+    
+//     this.deaformService.savedEAForm(this.docForm)
+//       .pipe(takeUntil(this.subscribe)).subscribe((data: any) => {
+//         let file = new Blob([data], { type: "application/pdf" });
+//         var fileURL = URL.createObjectURL(file);
+//         window.open(fileURL);
+//       }, error => {
+//         console.log(error);
+//         this.helper.errorMessage(error);
+//       });
+//   } else {
+//     this.tostar.error('No Record Found', 'Error', {
+//       timeOut: 2000
+//     });
+//   }
+
+// }
 }
 

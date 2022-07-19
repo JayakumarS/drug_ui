@@ -7,5 +7,7 @@ export class PackingFormBean{
     packingForm: [];
     companyNameList:[];
     memoDetails:[];
+    searchList:[];
+
 
 }

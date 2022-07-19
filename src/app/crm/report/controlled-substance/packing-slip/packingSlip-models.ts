@@ -1,20 +1,24 @@
 export class PackingForm{
-    companyCode: string;
-    companyName:string;
-
-
-
-	returnMemo:string;
-    ndcupcCode:string;
-	pakageUnit:string;
-	quanTity:string;
-	priceRs:string;
-	expDate:string;
-	reasoNo:string;
-	lotNo:string;	
-	// partialQty:string;	
-	// total:string;	
-	// returnable:string;
-	// estValue:string;
-    // dsg:string;
+    company: string;
+    companyName: string;
+    returnMemoNo: string;
+    returnMemoDate: string;
+    ndcupcCode: string;
+    description: string;
+    isReturnable: string;
+    strength: string;
+    dosage: string;
+    lotNo: string;
+    pakageSize: string;
+    expDate: string;
+    fullQuantity: string;
+    partialQuantity: string;
+    price: string;
+    estValue: string;
+   
+   
+	
+	//for search
+	 startDate;
+	 endDate;
 }

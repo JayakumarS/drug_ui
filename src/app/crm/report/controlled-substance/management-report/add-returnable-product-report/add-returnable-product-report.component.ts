@@ -13,6 +13,8 @@ import { ManagementFormService } from '../management-service';
 import { ManagementFormBean } from '../management-result-bean';
 import { MatDialog } from '@angular/material/dialog';
 import { CalculatorReturnableComponent } from './calculator-returnable/calculator-returnable.component';
+import { CommonService } from 'src/app/common-service/common.service';
+import { DebitmemoService } from 'src/app/setup/company-master/debit-memo/debitmemo.service';
 @Component({
   selector: 'app-add-returnable-product-report',
   templateUrl: './add-returnable-product-report.component.html',
@@ -20,35 +22,79 @@ import { CalculatorReturnableComponent } from './calculator-returnable/calculato
 })
 export class AddReturnableProductReportComponent implements OnInit {
 
-  managementForm: FormGroup;
+  docForm: FormGroup;
   companyNameList: any;
   exampleDatabase: ManagementFormService | null;
+  requestId: any;
+  companyList =[];
+  debitMemoList =[];
+  listDebitMemo =[];
+  searchList: any;
   
   constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,public deaformService:DeaformService,
     private customerMasterService:CustomerMasterService,private httpService: HttpServiceService,
-    public dialog: MatDialog,private snackBar: MatSnackBar,public route: ActivatedRoute) {
-    this.managementForm = this.fb.group({
-      companyName: ["", [Validators.required]],
-      debitMemoNo: ["", [Validators.required]],
-      controlledSubstance: ["", [Validators.required]],
-      startDate:"",
-      endDate:"",
-    });
+    public dialog: MatDialog,private snackBar: MatSnackBar,public route: ActivatedRoute,
+    public commonService: CommonService,    public debitmemoService: DebitmemoService) {
+      this.docForm = this.fb.group({
+        company: ["", [Validators.required]],
+        returnMemoNo: "",
+        startDate:"",
+        endDate:"",
+      });
   }
  
   onOk() {
     
   }
 
-  ngOnInit() {
-    this.httpService.get<ManagementFormBean>(this.deaformService.companyNameUrl).subscribe(
+  ngOnInit(): void {
+    
+    this.route.params.subscribe(params => {
+      if(params.id!=undefined && params.id!=0){
+       this.requestId = params.id;
+      }
+     });
+
+
+    this.httpService.get<any>(this.commonService.getcompanyMasterDropdownList).subscribe(
       (data) => {
-        this.companyNameList = data.companyNameList;
+        this.companyList = data;
+        this.docForm.patchValue({
+          'company' : this.requestId,
+       })
+
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
       }
-    );
+      );
+
+      this.httpService.get<any>(this.commonService.getdebitMemoDropdownList).subscribe(
+        (data) => {
+          this.debitMemoList = data;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+        );
+
+        setTimeout(() => {
+        this.searchData();
+      }, 700);
+
+      // this.getMemoList();
+      // this.getMemoInfo();
+  }
+
+  searchData(){
+    this.httpService.post<any>(this.deaformService.savedEAForm, this.docForm.value).subscribe(
+      (data) => {
+        this.searchList= data.listSearchBean;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+      );
   }
 
   calculator(){
