@@ -104,7 +104,7 @@
                         <table class="table table-bordered table-hover">
                             <thead class="theadRow thead-light" >
                                 <tr *ngFor="let item of searchList;">
-                                  <th style="text-align: center;">Return Name: {{item.name !== null ? item.name:'-'}}<br> Created: {{item.returnMemoDate !== null ? item.returnMemoDate:'-'}}</th>
+                                  <th style="text-align: center;">Return Name: {{item.name !== null ? item.name:'-'}}<br> Created: {{item.returnMemoDate !== null ? item.returnMemoDate:'-' | date:'dd-MM-yyyy HH:mm a'}}</th>
                                   <th style="text-align: center;">{{item.companyName !== null ? item.companyName:'-'}} <br><br> <b>Schedule 2 Report</b></th>
                                   <th style="text-align: center;">Debit Memo: {{item.returnMemoNo !== null ? item.returnMemoNo:'-'}}</th>
                                 </tr>
@@ -127,7 +127,7 @@
                           </thead>
                           <thead>
                             <tr>
-                              <td style="text-align:center;font-size: 80%;"colspan="9"><b><u>Non Returnable</u></b></td>
+                              <td style="text-align:center;"colspan="9"><b><u>Non Returnable</u></b></td>
                             </tr>
                           </thead>
                         <!-- <thead>
@@ -143,13 +143,33 @@
                                             <td style="text-align: center;"></td>
                                             <td style="text-align: center;">{{item.strength  !== null ? item.strength:'-'}}</td>
                                             <th style="text-align: center;">{{item.lotNo  !== null ? item.lotNo:'-'}}</th>
-                                            <th style="text-align: center;">{{item.expDate  !== null ? item.expDate:'-'}}</th>
+                                            <th style="text-align: center;">{{item.expDate  !== null ? item.expDate:'-' | date:'dd-MM-yyyy HH:mm a'}}</th>
                                             <th style="text-align: center;">{{item.pakageSize  !== null ? item.pakageSize:'-'}}</th>
                                             <th style="text-align: center;">{{item.fullQuantity  !== null ? item.fullQuantity:'-'}}</th>
                                             <th style="text-align: center;">{{item.partialQuantity  !== null ? item.partialQuantity:'-'}}</th>
 
                                           </tr>
                                           </tbody> 
+
+                                          <thead>
+                                            <tr>
+                                              <td style="text-align:center;"colspan="9"><b><u>Returnable</u></b></td>
+                                            </tr>
+                                          </thead>
+                                          <tbody >
+                                            <tr *ngFor="let item of searchList;">
+                                               <td style="text-align: center;">{{item.ndcupcCode !== null ? item.ndcupcCode:'-'}}</td>
+                                               <td style="text-align: center;">{{item.description !== null ? item.description:'-'}}</td>
+                                               <td style="text-align: center;"></td>
+                                               <td style="text-align: center;">{{item.strength  !== null ? item.strength:'-'}}</td>
+                                               <th style="text-align: center;">{{item.lotNo  !== null ? item.lotNo:'-'}}</th>
+                                               <th style="text-align: center;">{{item.expDate  !== null ? item.expDate:'-' | date:'dd-MM-yyyy HH:mm a'}}</th>
+                                               <th style="text-align: center;">{{item.pakageSize  !== null ? item.pakageSize:'-'}}</th>
+                                               <th style="text-align: center;">{{item.fullQuantity  !== null ? item.fullQuantity:'-'}}</th>
+                                               <th style="text-align: center;">{{item.partialQuantity  !== null ? item.partialQuantity:'-'}}</th>
+   
+                                             </tr>
+                                             </tbody> 
                                       </table>
                                          
                                         </div>

@@ -82,8 +82,8 @@
                       <table class="table table-bordered table-hover">
                         <thead class="theadRow thead-light" >
                           <tr *ngFor="let item of searchList;">
-                            <th style="text-align: center;">Return Name: {{item.name !== null ? item.name:'-'}}<br> Created: {{item.returnMemoDate !== null ? item.returnMemoDate:'-'}}</th>
-                            <th style="text-align: center;">{{item.company !== null ? item.company:'-'}} <br><br> <b>Schedule 2 Report</b></th>
+                            <th style="text-align: center;"> Created: {{item.returnMemoDate !== null ? item.returnMemoDate:'-'}}</th>
+                            <th style="text-align: center;">{{item.company !== null ? item.company:'-'}} <br><br> <b>Inventory Report</b></th>
                             <th style="text-align: center;">Debit Memo: {{item.returnMemoNo !== null ? item.returnMemoNo:'-'}}</th>
                           </tr>
                       </thead>
@@ -103,16 +103,13 @@
                                 <th style="text-align: center;"><b>Total</b></th>
                             </tr>
                         </thead>
-                        <thead>
-                          <tr>
-                            <td style="text-align:center" colspan="9"><b><u>Non Returnable</u></b></td>
-                          </tr>
-                        </thead>
+                   
                         <!-- <thead>
                           <tr *ngFor="let item of searchList;">
                             <td colspan="9" ><b>{{item.companycompanyName !== null ? item.companycompanyName:'-'}} </b></td>
                           </tr>
                         </thead>  -->
+                     
                          
                                      <tbody >
                                       <tr *ngFor="let item of searchList;">
@@ -125,20 +122,9 @@
                                         <td style="text-align: center;">{{item.fullQuantity  !== null ? item.fullQuantity:'-'}}</td>
                                         <td style="text-align: center;">{{item.partialQuantity  !== null ? item.partialQuantity:'-'}}</td>
                                         <td style="text-align: center;">{{item.price  !== null ? item.price:'-'}}</td>
-                                          <th style="text-align: center;"></th>
+                                        <th style="text-align: center;"></th>
                                         </tr>
-                                        <!-- <tr>
-                                          <td style="text-align: center;">00472-1030-16</td>
-                                          <td style="text-align: center;">HYDROMET</td>
-                                          <td style="text-align: center;">1.5 MG/5 ML-5 M</td>
-                                          <td style="text-align: center;">SYR</td>
-                                          <th style="text-align: center;">Yes</th>
-                                          <th style="text-align: center;">480 ML</th>
-                                          <th style="text-align: center;">1</th>
-                                          <th style="text-align: center;">300.00 ML</th>
-                                          <th style="text-align: center;">16.19</th>
-                                          <th style="text-align: center;">10.12</th>
-                                        </tr> -->
+                                      
                                         <tr>
                                           <td style="text-align: center;"></td>
                                           <td style="text-align: center;"></td>
@@ -148,27 +134,23 @@
                                           <th style="text-align: center;"></th>
                                           <th style="text-align: center;"></th>
                                           <th style="text-align: center;"></th>
-                                          <th style="text-align: center;">Actavis,Inc total:</th>
+                                          <th style="text-align: center;">Total:</th>
                                           <th style="text-align: center;"></th>
                                         </tr>
                                         </tbody> 
-                                        <!-- <thead>
-                                          <tr>
-                                            <td colspan="9" ><b>Ajanta Pharma USA Inc total:</b></td>
-                                          </tr>
-                                        </thead> 
+                                       
                                         <tbody >
                                           <tr>
-                                            <td style="text-align: center;">27241-0161-01 </td>
-                                            <td style="text-align: center;">CAPTOPRIL</td>
-                                            <td style="text-align: center;">25 MG</td>
-                                            <td style="text-align: center;">TAB</td>
-                                            <th style="text-align: center;">Yes</th>
-                                            <th style="text-align: center;">100 EA</th>
-                                            <th style="text-align: center;">1</th>
+                                            <td style="text-align: center;"></td>
+                                            <td style="text-align: center;"></td>
+                                            <td style="text-align: center;"></td>
+                                            <td style="text-align: center;"></td>
                                             <th style="text-align: center;"></th>
-                                            <th style="text-align: center;">33.43</th>
-                                            <th style="text-align: center;">33.43</th>
+                                            <th style="text-align: center;"></th>
+                                            <th style="text-align: center;">Total Returnable Inventory:</th>
+                                            <th style="text-align: center;"></th>
+                                            <th style="text-align: center;"></th>
+                                            <th style="text-align: center;"></th>
                                           </tr>
                                           <tr>
                                             <td style="text-align: center;"></td>
@@ -177,272 +159,60 @@
                                             <td style="text-align: center;"></td>
                                             <th style="text-align: center;"></th>
                                             <th style="text-align: center;"></th>
+                                            <th style="text-align: center;">Total Non-Returnable Inventory:</th>
                                             <th style="text-align: center;"></th>
+                                            <th style="text-align: center;">Total Inventory:</th>
                                             <th style="text-align: center;"></th>
-                                            <th style="text-align: center;">Ajanta Pharma USA Inc total:</th>
-                                            <th style="text-align: center;">33.43</th>
                                           </tr>
-                                          </tbody> 
+                                          </tbody>    
+                                          
                                           <thead>
+                                          <tr>
+                                            <td style="text-align:center;"colspan="9"><b><u>Non Returnable Products</u></b></td>
+                                          </tr>
+                                        </thead>
+                                        <tbody >
+                                          <tr *ngFor="let item of searchList;">
+                                            <td style="text-align: center;">{{item.ndcupcCode !== null ? item.ndcupcCode:'-'}}</td>
+                                            <td style="text-align: center;">{{item.description !== null ? item.description:'-'}}</td>
+                                            <td style="text-align: center;">{{item.strength  !== null ? item.strength:'-'}}</td>
+                                            <td style="text-align: center;">{{item.dosage  !== null ? item.dosage:'-'}}</td>
+                                            <td style="text-align: center;">{{item.isReturnable  !== null ? item.isReturnable:'-'}}</td>
+                                            <td style="text-align: center;">{{item.pakageSize  !== null ? item.pakageSize:'-'}}</td>
+                                            <td style="text-align: center;">{{item.fullQuantity  !== null ? item.fullQuantity:'-'}}</td>
+                                            <td style="text-align: center;">{{item.partialQuantity  !== null ? item.partialQuantity:'-'}}</td>
+                                            <td style="text-align: center;">{{item.price  !== null ? item.price:'-'}}</td>
+                                            <th style="text-align: center;"></th>
+                                            </tr>
+
+                                            <tr>
+                                              <td style="text-align: center;"></td>
+                                              <td style="text-align: center;"></td>
+                                              <td style="text-align: center;"></td>
+                                              <td style="text-align: center;"></td>
+                                              <th style="text-align: center;"></th>
+                                              <th style="text-align: center;"></th>
+                                              <th style="text-align: center;"></th>
+                                              <th style="text-align: center;"></th>
+                                              <th style="text-align: center;">Total:</th>
+                                              <th style="text-align: center;"></th>
+                                            </tr>
+                                            </tbody>
+                                            <!-- <tbody >
                                               <tr>
-                                                <td colspan="9" ><b>Allergan: </b></td>
+                                                <td style="text-align: center;"></td>
+                                                <td style="text-align: center;"></td>
+                                                <td style="text-align: center;"></td>
+                                                <td style="text-align: center;"></td>
+                                                <th style="text-align: center;"></th>
+                                                <th style="text-align: center;"></th>
+                                                <th style="text-align: center;">Grand Total:</th>
+                                                <th style="text-align: center;"></th>
+                                                <th style="text-align: center;"></th>
+                                                <th style="text-align: center;"></th>
                                               </tr>
-                                            </thead> 
-                                            <tbody >
-                                              <tr>
-                                                <td style="text-align: center;">00023-3205-03</td>
-                                                <td style="text-align: center;">LUMIGAN</td>
-                                                <td style="text-align: center;">0.01%</td>
-                                                <td style="text-align: center;">SOL</td>
-                                                <th style="text-align: center;">No</th>
-                                                <th style="text-align: center;">2 ML</th>
-                                                <th style="text-align: center;"></th>
-                                                <th style="text-align: center;">1.00 ML</th>
-                                                <th style="text-align: center;">78.26</th>
-                                                <th style="text-align: center;">39.13</th>
-                                              </tr>
-                                              <tr>
-                                                <td style="text-align: center;"></td>
-                                                <td style="text-align: center;"></td>
-                                                <td style="text-align: center;"></td>
-                                                <td style="text-align: center;"></td>
-                                                <th style="text-align: center;"></th>
-                                                <th style="text-align: center;"></th>
-                                                <th style="text-align: center;"></th>
-                                                <th style="text-align: center;"></th>
-                                                <th style="text-align: center;">Allergan total:</th>
-                                                <th style="text-align: center;">39.13</th>
-                                              </tr>
-                                              </tbody> 
-                                              <thead>
-                                                <tr>
-                                                  <td colspan="9" ><b>Camber Pharmaceuticals.Inc:</b></td>
-                                                </tr>
-                                              </thead> 
-                                              <tbody >
-                                                <tr>
-                                                  <td style="text-align: center;">31722-0952-01</td>
-                                                  <td style="text-align: center;">METHYLPHENIDATE HCL</td>
-                                                  <td style="text-align: center;">18 MG</td>
-                                                  <td style="text-align: center;">TAB</td>
-                                                  <th style="text-align: center;">Yes</th>
-                                                  <th style="text-align: center;">100 EA</th>
-                                                  <th style="text-align: center;">2</th>
-                                                  <th style="text-align: center;"></th>
-                                                  <th style="text-align: center;">3.49</th>
-                                                  <th style="text-align: center;">6.98</th>
-                                                </tr>
-                                                <tr>
-                                                  <td style="text-align: center;">31722-0952-01</td>
-                                                  <td style="text-align: center;">METHYLPHENIDATE HCL</td>
-                                                  <td style="text-align: center;">18 MG</td>
-                                                  <td style="text-align: center;">TAB</td>
-                                                  <th style="text-align: center;">No</th>
-                                                  <th style="text-align: center;">100 EA</th>
-                                                  <th style="text-align: center;"></th>
-                                                  <th style="text-align: center;">80.00 EA</th>
-                                                  <th style="text-align: center;">3.49</th>
-                                                  <th style="text-align: center;">2.79</th>            
-                                                </tr>
-                                                <tr>
-                                                  <td style="text-align: center;"></td>
-                                                  <td style="text-align: center;"></td>
-                                                  <td style="text-align: center;"></td>
-                                                  <td style="text-align: center;"></td>
-                                                  <th style="text-align: center;"></th>
-                                                  <th style="text-align: center;"></th>
-                                                  <th style="text-align: center;"></th>
-                                                  <th style="text-align: center;"></th>
-                                                  <th style="text-align: center;">Camber Pharmaceuticals.Inc total:</th>
-                                                  <th style="text-align: center;">9.77</th>
-                                                </tr>
-                                                </tbody>
-                                                <thead>
-                                                  <tr>
-                                                    <td colspan="9" ><b>Dr. Reddy's Laboratories:</b></td>
-                                                  </tr>
-                                                </thead> 
-                                                <tbody >
-                                                  <tr>
-                                                    <td style="text-align: center;">55111-0158-10</td>
-                                                    <td style="text-align: center;">OMEPRAZOLE</td>
-                                                    <td style="text-align: center;">20MG</td>
-                                                    <td style="text-align: center;">CAP</td>
-                                                    <th style="text-align: center;">Yes</th>
-                                                    <th style="text-align: center;">1,000 EA</th>
-                                                    <th style="text-align: center;"></th>
-                                                    <th style="text-align: center;">390.00 EA </th>
-                                                    <th style="text-align: center;">156.47</th>
-                                                    <th style="text-align: center;">61.02</th>
-                                                  </tr>
-                                                  <tr>
-                                                    <td style="text-align: center;"></td>
-                                                    <td style="text-align: center;"></td>
-                                                    <td style="text-align: center;"></td>
-                                                    <td style="text-align: center;"></td>
-                                                    <th style="text-align: center;"></th>
-                                                    <th style="text-align: center;"></th>
-                                                    <th style="text-align: center;"></th>
-                                                    <th style="text-align: center;"></th>
-                                                    <th style="text-align: center;">Dr. Reddy's Laboratories total:</th>
-                                                    <th style="text-align: center;">61.02</th>
-                                                  </tr>
-                                                  </tbody> 
-                                                  <thead>
-                                                    <tr>
-                                                      <td colspan="9" ><b>Heritage pharmaceuticals Inc:</b></td>
-                                                    </tr>
-                                                  </thead> 
-                                                  <tbody >
-                                                    <tr>
-                                                      <td style="text-align: center;">23155-0104-10</td>
-                                                      <td style="text-align: center;">METFORMIN</td>
-                                                      <td style="text-align: center;">1000MG</td>
-                                                      <td style="text-align: center;">TAB</td>
-                                                      <th style="text-align: center;">Yes</th>
-                                                      <th style="text-align: center;">1,000 EA</th>
-                                                      <th style="text-align: center;">1</th>
-                                                      <th style="text-align: center;"></th>
-                                                      <th style="text-align: center;">35.00</th>
-                                                      <th style="text-align: center;">35.00</th>
-                                                    </tr>
-                                                    <tr>
-                                                      <td style="text-align: center;"></td>
-                                                      <td style="text-align: center;"></td>
-                                                      <td style="text-align: center;"></td>
-                                                      <td style="text-align: center;"></td>
-                                                      <th style="text-align: center;"></th>
-                                                      <th style="text-align: center;"></th>
-                                                      <th style="text-align: center;"></th>
-                                                      <th style="text-align: center;"></th>
-                                                      <th style="text-align: center;">Heritage pharmaceuticals Inc total:</th>
-                                                      <th style="text-align: center;">35.00</th>
-                                                    </tr>
-                                                    </tbody> 
-                                                    <thead>
-                                                      <tr>
-                                                        <td colspan="9" ><b>Parke-Davis (Pfizer)</b></td>
-                                                      </tr>
-                                                    </thead> 
-                                                    <tbody >
-                                                      <tr>
-                                                        <td style="text-align: center;">00071-1015-41</td>
-                                                        <td style="text-align: center;">LYRICA</td>
-                                                        <td style="text-align: center;">100MG</td>
-                                                        <td style="text-align: center;">TAB</td>
-                                                        <th style="text-align: center;">Yes</th>
-                                                        <th style="text-align: center;">100 EA</th>
-                                                        <th style="text-align: center;"></th>
-                                                        <th style="text-align: center;">40.00 EA</th>
-                                                        <th style="text-align: center;">191.62</th>
-                                                        <th style="text-align: center;">76.65</th>
-                                                      </tr>
-                                                      <tr>
-                                                        <td style="text-align: center;"></td>
-                                                        <td style="text-align: center;"></td>
-                                                        <td style="text-align: center;"></td>
-                                                        <td style="text-align: center;"></td>
-                                                        <th style="text-align: center;"></th>
-                                                        <th style="text-align: center;"></th>
-                                                        <th style="text-align: center;"></th>
-                                                        <th style="text-align: center;"></th>
-                                                        <th style="text-align: center;">Parke-Davis (Pfizer) total:</th>
-                                                        <th style="text-align: center;">76.65</th>
-                                                      </tr>
-                                                      </tbody> 
-                                                      <thead>
-                                                        <tr>
-                                                          <td colspan="9" ><b>Sandoz</b></td>
-                                                        </tr>
-                                                      </thead> 
-                                                      <tbody >
-                                                        <tr>
-                                                          <td style="text-align: center;">00781-5377-01</td>
-                                                          <td style="text-align: center;">LORAZEPAM</td>
-                                                          <td style="text-align: center;">1MG</td>
-                                                          <td style="text-align: center;">TAB</td>
-                                                          <th style="text-align: center;">No</th>
-                                                          <th style="text-align: center;">100 EA</th>
-                                                          <th style="text-align: center;"></th>
-                                                          <th style="text-align: center;">60.00 EA</th>
-                                                          <th style="text-align: center;">3.90</th>
-                                                          <th style="text-align: center;">2.34</th>
-                                                        </tr>
-                                                        <tr>
-                                                          <td style="text-align: center;"></td>
-                                                          <td style="text-align: center;"></td>
-                                                          <td style="text-align: center;"></td>
-                                                          <td style="text-align: center;"></td>
-                                                          <th style="text-align: center;"></th>
-                                                          <th style="text-align: center;"></th>
-                                                          <th style="text-align: center;"></th>
-                                                          <th style="text-align: center;"></th>
-                                                          <th style="text-align: center;">Sandoz total:</th>
-                                                          <th style="text-align: center;">2.34</th>
-                                                        </tr>
-                                                        </tbody>
-                                                        <thead>
-                                                          <tr>
-                                                            <td colspan="9" ><b>UCB Pharma</b></td>
-                                                          </tr>
-                                                        </thead> 
-                                                        <tbody >
-                                                          <tr>
-                                                            <td style="text-align: center;">00131-2477-35</td>
-                                                            <td style="text-align: center;">VIMPAT</td>
-                                                            <td style="text-align: center;">50MG</td>
-                                                            <td style="text-align: center;">TAB</td>
-                                                            <th style="text-align: center;">Yes</th>
-                                                            <th style="text-align: center;">60 EA</th>
-                                                            <th style="text-align: center;">1</th>
-                                                            <th style="text-align: center;"></th>
-                                                            <th style="text-align: center;">233.65</th>
-                                                            <th style="text-align: center;">233.65</th>
-                                                          </tr>
-                                                          <tr>
-                                                            <td style="text-align: center;"></td>
-                                                            <td style="text-align: center;"></td>
-                                                            <td style="text-align: center;"></td>
-                                                            <td style="text-align: center;"></td>
-                                                            <th style="text-align: center;"></th>
-                                                            <th style="text-align: center;"></th>
-                                                            <th style="text-align: center;"></th>
-                                                            <th style="text-align: center;"></th>
-                                                            <th style="text-align: center;">UCB Pharma total:</th>
-                                                            <th style="text-align: center;">233.65</th>
-                                                          </tr>
-                                                          </tbody> -->
-                                                          <thead>
-                                                            <tr>
-                                                              <!-- <td colspan="9"><b>UCB Pharma</b></td> -->
-                                                            </tr>
-                                                          </thead> 
-                                                          <tbody >
-                                                            <tr>
-                                                              <td style="text-align: center;"></td>
-                                                              <td style="text-align: center;"></td>
-                                                              <td style="text-align: center;"></td>
-                                                              <td style="text-align: center;"></td>
-                                                              <th style="text-align: center;"></th>
-                                                              <th style="text-align: center;"></th>
-                                                              <th style="text-align: center;"></th>
-                                                              <th style="text-align: center;"></th>
-                                                              <th style="text-align: center;">Total Returnable Inventory:</th>
-                                                              <th style="text-align: center;"></th>
-                                                            </tr>
-                                                            <tr>
-                                                              <td style="text-align: center;"></td>
-                                                              <td style="text-align: center;"></td>
-                                                              <td style="text-align: center;"></td>
-                                                              <td style="text-align: center;"></td>
-                                                              <th style="text-align: center;"></th>
-                                                              <th style="text-align: center;"></th>
-                                                              <th style="text-align: center;"></th>
-                                                              <th style="text-align: center;"></th>
-                                                              <th style="text-align: center;">Total Non-Returnable Inventory:</th>
-                                                              <th style="text-align: center;"></th>
-                                                            </tr>
-                                                            </tbody>
+                                              </tbody> -->
+                                                          
                                     </table>
                                        
                                       </div>
