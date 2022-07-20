@@ -25,7 +25,7 @@ import { MatdynamicmenuComponent } from "./layout/matdynamicmenu/matdynamicmenu.
 import { MatdynamicsubmenuComponent } from "./layout/matdynamicmenu/matdynamicsubmenu/matdynamicsubmenu.component";
 import { MatnestedmenuComponent } from "./layout/matnestedmenu/matnestedmenu.component";
 import { MatDialogModule } from "@angular/material/dialog";
-
+import { NgxCaptchaModule } from 'ngx-captcha';
 
 import {
   PerfectScrollbarModule,
@@ -87,7 +87,8 @@ export function createTranslateLoader(http: HttpClient): any {
         CoreModule,
         SharedModule,
         MatToolbarModule,
-        MatMenuModule
+        MatMenuModule,
+        NgxCaptchaModule
         
     ],
     providers: [

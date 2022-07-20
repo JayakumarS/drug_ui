@@ -37,7 +37,7 @@ export class AddUsersComponent  implements OnInit  {
       newPassword: [""],
       confirmPassword: [""],
       emailId: [ "",[Validators.required, Validators.email, Validators.minLength(5)],],
-      uploadImg: [""],
+      uploadImg: ["",[Validators.required]],
       roles: ["", [Validators.required]],
       fileUploadUrl:[""],
       companyCode:["", [Validators.required]],

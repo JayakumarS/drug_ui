@@ -52,9 +52,10 @@ public currentUser: Observable<User>;
           this.userObj['username'] = user.email;
           this.userObj['token'] = user.accessToken;
           this.userObj['roles'] = user.roles;
-          this.userObj["img"] = "assets/images/user/admin.jpg";
+          this.userObj["img"] = this.serverURL.apiServerAddress + user.imgUrl;
           this.userObj["defaultRoleId"] = user.defaultRoleId;
           this.userObj["companyCode"] = user.companyCode;
+          console.log(this.userObj);
           this.currentUserSubject.next(this.userObj);
           return user;
         })

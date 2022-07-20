@@ -1,3 +1,4 @@
+import { serverLocations } from 'src/app/auth/serverLocations';
 import { Component, OnInit } from "@angular/core";
 import { AppService } from 'src/app/app.service';
 import { Router, ActivatedRoute } from "@angular/router";
@@ -9,7 +10,7 @@ import { Role } from "src/app/core/models/role";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { User } from "src/app/core/models/user";
 import { BehaviorSubject,Observable } from 'rxjs';
-//declare var grecaptcha: any;
+declare var grecaptcha: any;
 
 
 @Component({
@@ -37,9 +38,11 @@ export class SigninComponent
   // For OTP countdown
   timeLeft: number = 300;
   interval;
- // siteKey: string='6LeiApIfAAAAAOBsKqX0U-EQNu3lk3O9LVByiRAA';
+  // Google Captcha Site key
+  siteKey: string='6LePmAAhAAAAAD6iX_sR3Vt_GWWevZitGKJoyrau';
+  title = 'captcha';
 
-   private currentUserSubject: BehaviorSubject<User>;
+  private currentUserSubject: BehaviorSubject<User>;
   private loginInfo: AuthLoginInfo;
   constructor(
     private formBuilder: FormBuilder,
@@ -47,7 +50,8 @@ export class SigninComponent
     private router: Router,
     private authService: AuthService,
     private app:AppService,
-    private tokenStorage: TokenStorageService
+    private tokenStorage: TokenStorageService,
+    private serverURL:serverLocations
   ) {
     super();
   }
@@ -58,7 +62,7 @@ export class SigninComponent
       password: ["", Validators.required],
       otpValue: [""],
       userNameEmailId: [""],
-      recaptchaResponse: [""]
+      recaptchaResponse: [""],
     });
   }
   get f() {
@@ -80,14 +84,14 @@ export class SigninComponent
     this.submitted = true;
     this.loading = true;
     this.error = "";
- //   const response = grecaptcha.getResponse();
+    const response = grecaptcha.getResponse();
     if (this.authForm.invalid) {
       this.error = "Username and Password not valid !";
       return;
     } else {
 
       this.loginInfo = new AuthLoginInfo(
-      this.f.username.value, this.f.password.value,this.f.otpValue.value,this.f.userNameEmailId.value);
+      this.f.username.value, this.f.password.value,this.f.otpValue.value,this.f.userNameEmailId.value,this.f.recaptchaResponse.value);
 
       this.authService.attemptAuth(this.loginInfo).subscribe(
       data => {        
@@ -102,11 +106,13 @@ export class SigninComponent
                 this.tokenStorage.saveDefaultRoleId(data.defaultRoleId);
                 this.tokenStorage.saveDefaultRole(data.defaultRole);
                 this.tokenStorage.saveCustomerCompanyCode(data.companyCode);
+                this.tokenStorage.saveImgUrl(this.serverURL.apiServerAddress + data.imgUrl);
                 this.loading = false;  
                 this.login=true; 
                 this.startTimer();            
         //        this.router.navigate(["/admin/dashboard/main"]);
               }, 1000);
+              grecaptcha.reset();
               }else{
                  this.submitted = false;
                   this.loading = false;
@@ -136,7 +142,7 @@ export class SigninComponent
 
   verifyOtp(){
     this.loginInfo = new AuthLoginInfo(
-      this.f.username.value, this.f.password.value,this.f.otpValue.value,this.f.userNameEmailId.value);
+      this.f.username.value, this.f.password.value,this.f.otpValue.value,this.f.userNameEmailId.value,this.f.recaptchaResponse.value);
     console.log(this.loginInfo);
     this.authService.attemptOtpValidation(this.loginInfo).subscribe(
       data => {        
@@ -172,7 +178,7 @@ export class SigninComponent
 
   resendOtpNo(){
     this.loginInfo = new AuthLoginInfo(
-      this.f.username.value, this.f.password.value,this.f.otpValue.value,this.f.userNameEmailId.value);
+      this.f.username.value, this.f.password.value,this.f.otpValue.value,this.f.userNameEmailId.value,this.f.recaptchaResponse.value);
     console.log(this.loginInfo);
     this.login=true;
     // resetting the time again for 300s
@@ -214,7 +220,7 @@ export class SigninComponent
 
   forgottPasswordButton(){
     this.loginInfo = new AuthLoginInfo(
-    this.f.username.value, this.f.password.value,this.f.otpValue.value,this.f.userNameEmailId.value);
+    this.f.username.value, this.f.password.value,this.f.otpValue.value,this.f.userNameEmailId.value,this.f.recaptchaResponse.value);
     this.authService.forgotPasswordService(this.loginInfo).subscribe(
       data => {        
        if(data) {

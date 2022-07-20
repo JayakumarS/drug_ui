@@ -7,6 +7,7 @@ const AUTHUSERID_KEY = 'AuthUserId';
 const AUTHDEFAULTROLEID_KEY = 'AuthDefaultRoleId';
 const AUTHDEFAULTROLE_KEY = 'AuthDefaultRole';
 const AUTHCUSTOMERCOMPANYCODE_KEY = 'AuthCompanyCode';
+const AUTHIMGURL_KEY = 'AuthImgUrl';
 @Injectable({
   providedIn: 'root'
 })
@@ -86,5 +87,14 @@ public getUserId(): string {
 
   public getCustomerCompanyCode(){
     return sessionStorage.getItem(AUTHCUSTOMERCOMPANYCODE_KEY);
+  }
+
+  public saveImgUrl(imgUrl: string){
+    window.sessionStorage.removeItem(AUTHIMGURL_KEY);
+    window.sessionStorage.setItem(AUTHIMGURL_KEY, imgUrl);
+  }
+
+  public getImgUrl(){
+    return sessionStorage.getItem(AUTHIMGURL_KEY);
   }
 }
