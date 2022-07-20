@@ -223,7 +223,7 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td>Ajanta Pharma USA Inc to issue a check for: </td>
+                                            <td  *ngFor="let item of searchList;">{{item.companycompanyName !== null ? item.companycompanyName:'-'}} </td>
                                             <td> </td>
                                           </tr>
                                           </tbody> 
