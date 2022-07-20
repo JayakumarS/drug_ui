@@ -1,3 +1,4 @@
+import { DeleteDebitMemoComponent } from './delete-debit-memo/delete-debit-memo.component';
 import { DebitMemo } from './../debitmemo-model';
 import { DebitmemoService } from './../debitmemo.service';
 import { AddDebitMemoComponent } from './../add-debit-memo/add-debit-memo.component';
@@ -19,6 +20,7 @@ import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { CommonService } from 'src/app/common-service/common.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+
 @Component({
   selector: 'app-list-debit-memo',
   templateUrl: './list-debit-memo.component.html',
@@ -93,20 +95,26 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
       }
       );
 
-      this.httpService.get<any>(this.commonService.getdebitMemoDropdownList).subscribe(
-        (data) => {
-          this.debitMemoList = data;
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.name + " " + error.message);
-        }
-        );
+      
 
         setTimeout(() => {
+        this.debitMemoDropdownList(this.requestId);
         this.searchData();
       }, 700);
   }
 
+
+
+  debitMemoDropdownList(companyId){
+  this.httpService.get<any>(this.commonService.getdebitMemoDropdownList+"?companyId="+companyId).subscribe(
+    (data) => {
+      this.debitMemoList = data;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+    );
+  }
 
   searchData(){
     this.httpService.post<any>(this.debitmemoService.getAllMasters, this.docForm.value).subscribe(
@@ -136,26 +144,71 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
    } else {
      tempDirection = "ltr";
    }
+
+   const obj={
+    company: this.requestId,
+    returnMemoDate: row.returnMemoDate,
+    returnMemoName: row.returnMemoName,
+    returnMemoNo: row.returnMemoNo,
+    type:'Edit'
+  }
+
    const dialogRef = this.dialog.open(AddDebitMemoComponent, {
      height: "80%",
      width: "80%",
-     data: this.requestId,
+     data: obj,
      direction: tempDirection,
    });
    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
      
-     this.searchData();
+     
        this.showNotification(
          "snackbar-success",
          "Record Saved Successfully...!!!",
          "bottom",
          "center"
        );
-     
+       this.debitMemoDropdownList(this.requestId);
+       this.searchData();
+       
    });
   }
 
-  deleteItem(row){ 
+  deleteItem(row){  
+    this.id = row.ndcupc;
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(DeleteDebitMemoComponent, {
+      height: "270px",
+      width: "400px",
+      data: row,
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      
+      this.searchData();
+        this.showNotification(
+          "snackbar-success",
+          "Delete Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      
+      // else{
+      //   this.showNotification(
+      //     "snackbar-danger",
+      //     "Error in Delete....",
+      //     "bottom",
+      //     "center"
+      //   );
+      // }
+    });
+
+ 
 
   }
 
@@ -163,17 +216,23 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
 
 
 
-  returnMemo(){   
+  addreturnMemo(){   
    let tempDirection;
    if (localStorage.getItem("isRtl") === "true") {
      tempDirection = "rtl";
    } else {
      tempDirection = "ltr";
    }
+   const obj={
+    company:this.requestId,
+    type:'Add'
+  }
+
    const dialogRef = this.dialog.open(AddDebitMemoComponent, {
+    
      height: "80%",
      width: "80%",
-     data: this.requestId,
+     data: obj,
      direction: tempDirection,
    });
    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {

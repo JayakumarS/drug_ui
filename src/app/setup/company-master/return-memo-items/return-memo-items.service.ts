@@ -34,7 +34,8 @@ export class ReturnMemoItemsService extends UnsubscribeOnDestroyAdapter{
   public editReturnMemoItems = `${this.serverUrl.apiServerAddress}api/auth/app/returnMemoItems/edit`;
   public updateReturnMemoItems = `${this.serverUrl.apiServerAddress}api/auth/app/returnMemoItems/update`;
   private deleteReturnMemoItems = `${this.serverUrl.apiServerAddress}api/auth/app/returnMemoItems/delete`;
- 
+  public findAllDetailsByndcupcCode = `${this.serverUrl.apiServerAddress}api/auth/app/drugInfoMaster/edit`;
+
 
   get data(): ReturnMemoItems[] {
     return this.dataChange.value;
@@ -79,7 +80,7 @@ export class ReturnMemoItemsService extends UnsubscribeOnDestroyAdapter{
   }
 
   returnMemoItemsDelete(cusCode: any): void {
-    this.httpService.get(this.deleteReturnMemoItems+"?company="+cusCode).subscribe(data => {
+    this.httpService.get(this.deleteReturnMemoItems+"?returnMemoNo="+cusCode).subscribe(data => {
       console.log(cusCode);
       },
       (err: HttpErrorResponse) => {

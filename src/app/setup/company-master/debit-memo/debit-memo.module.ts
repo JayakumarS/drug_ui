@@ -27,12 +27,14 @@ import {MatRadioModule} from '@angular/material/radio';
 import { DebitMemoRoutingModule } from './debit-memo-routing.module';
 import { ListDebitMemoComponent } from './list-debit-memo/list-debit-memo.component';
 import { AddDebitMemoComponent } from './add-debit-memo/add-debit-memo.component';
+import { DeleteDebitMemoComponent } from './list-debit-memo/delete-debit-memo/delete-debit-memo.component';
 
 
 @NgModule({
   declarations: [
     ListDebitMemoComponent,
-    AddDebitMemoComponent
+    AddDebitMemoComponent,
+    DeleteDebitMemoComponent
   ],
   imports: [
     CommonModule,

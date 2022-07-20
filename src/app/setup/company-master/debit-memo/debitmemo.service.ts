@@ -81,7 +81,7 @@ export class DebitmemoService extends UnsubscribeOnDestroyAdapter{
   }
 
   debitMemoDelete(cusCode: any): void {
-    this.httpService.get(this.deleteDebitMemo+"?company="+cusCode).subscribe(data => {
+    this.httpService.get(this.deleteDebitMemo+"?debitMemo="+cusCode).subscribe(data => {
       console.log(cusCode);
       },
       (err: HttpErrorResponse) => {

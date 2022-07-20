@@ -22,7 +22,7 @@ import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { CommonModule } from "@angular/common";
 import { NgModule } from "@angular/core";
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 
 import { DruginfoMasterRoutingModule } from './druginfo-master-routing.module';
 import { AddDruginfoMasterComponent } from './add-druginfo-master/add-druginfo-master.component';

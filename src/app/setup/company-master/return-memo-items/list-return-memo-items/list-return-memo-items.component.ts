@@ -1,7 +1,8 @@
+import { DeleteReturnMemoItemsComponent } from './delete-return-memo-items/delete-return-memo-items.component';
 import { ReturnMemoItems } from './../return-memo-items-model';
 import { ReturnMemoItemsService } from './../return-memo-items.service';
-import { AddReturnMemoItemsComponent } from './../add-return-memo-items/add-return-memo-items.component';
 import { Component, ElementRef, OnInit, ViewChild} from '@angular/core';
+import { HttpClient } from "@angular/common/http";
 import { MatDialog } from "@angular/material/dialog";
 import { MatPaginator } from "@angular/material/paginator";
 import { MatSort } from "@angular/material/sort";
@@ -14,11 +15,9 @@ import { SelectionModel } from "@angular/cdk/collections";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { CommonService } from 'src/app/common-service/common.service';
+import { AddReturnMemoItemsComponent } from './../add-return-memo-items/add-return-memo-items.component';
 import { ActivatedRoute, Router } from '@angular/router';
-import { TokenStorageService } from 'src/app/auth/token-storage.service';
+
 @Component({
   selector: 'app-list-return-memo-items',
   templateUrl: './list-return-memo-items.component.html',
@@ -28,21 +27,18 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
   displayedColumns = [
     "ndcupcCode",
     "quantity",
-    "expDate", 
-    "price",
+    "price", 
+    "expDate",
     "actions"
   ];
-  companyList =[];
-  returnMemoItemsList =[];
+
   dataSource: ExampleDataSource | null;
   exampleDatabase: ReturnMemoItemsService | null;
   selection = new SelectionModel<ReturnMemoItems>(true, []);
   index: number;
   id: number;
-  requestId: any;
+  requestId:any;
   returnMemoItems: ReturnMemoItems | null;
-  docForm: FormGroup;
-
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -51,16 +47,9 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
     public router: Router,
-    public commonService: CommonService,
-    public route: ActivatedRoute,
-    private fb: FormBuilder,
-    private tokenStorage: TokenStorageService
+    public route: ActivatedRoute
   ) {
     super();
-    this.docForm = this.fb.group({
-      company: ["", [Validators.required]],
-      price: ["", [Validators.required]],
-    });
   }
 
   @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
@@ -71,17 +60,20 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
   contextMenuPosition = { x: "0px", y: "0px" };
 
   ngOnInit(): void {
-    
+    this.loadData();
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
+     
       }
      });
 
-
-    
-
-        this.loadData();
+    // if (!localStorage.getItem('foo')) { 
+    //   localStorage.setItem('foo', 'no reload') 
+    //   location.reload() 
+    // } else {
+    //   localStorage.removeItem('foo') 
+    // }
   }
 
   refresh(){
@@ -107,78 +99,110 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
 
 
   editCall(row) {
-     
-   let tempDirection;
-   if (localStorage.getItem("isRtl") === "true") {
-     tempDirection = "rtl";
-   } else {
-     tempDirection = "ltr";
-   }
-   const dialogRef = this.dialog.open(AddReturnMemoItemsComponent, {
-     height: "80%",
-     width: "80%",
-     data: this.requestId,
-     direction: tempDirection,
-   });
-   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-     
-     this.loadData();
-       this.showNotification(
-         "snackbar-success",
-         "Record Saved Successfully...!!!",
-         "bottom",
-         "center"
-       );
-     
-   });
+   
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const obj={
+      returnMemoNo: row.returnMemoNo,
+      type:'Edit'
+    }
+    const dialogRef = this.dialog.open(AddReturnMemoItemsComponent, {
+      height: "80%",
+      width: "80%",
+      data: obj,
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      
+      this.loadData();
+        this.showNotification(
+          "snackbar-success",
+          "Record Saved Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      
+    });
   }
 
   deleteItem(row){ 
+    this.id = row.returnMemoNo;
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const dialogRef = this.dialog.open(DeleteReturnMemoItemsComponent, {
+      height: "270px",
+      width: "400px",
+      data: row,
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      
+      this.loadData();
+        this.showNotification(
+          "snackbar-success",
+          "Delete Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      
+      // else{
+      //   this.showNotification(
+      //     "snackbar-danger",
+      //     "Error in Delete....",
+      //     "bottom",
+      //     "center"
+      //   );
+      // }
+    });
 
   }
 
-  returnMemoItemspage(row){ 
- 
-    this.router.navigate(['/setup/returnMemoItems/listReturnMemoItems/'+ row.company]);
+
+  returnMemopage(row){
+    this.router.navigate(['/setup/debitMemo/listDebitMemo/'+ row.companyCode]);
 
   }
-
 
 
   returnMemo(){   
-   let tempDirection;
-   if (localStorage.getItem("isRtl") === "true") {
-     tempDirection = "rtl";
-   } else {
-     tempDirection = "ltr";
-   }
-   const dialogRef = this.dialog.open(AddReturnMemoItemsComponent, {
-     height: "80%",
-     width: "80%",
-     data: this.requestId,
-     direction: tempDirection,
-   });
-   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-     
-     this.loadData();
-       this.showNotification(
-         "snackbar-success",
-         "Record Saved Successfully...!!!",
-         "bottom",
-         "center"
-       );
-     
-   });
-
-
-  }
-
-  onOk() {
+    let tempDirection;
+    if (localStorage.getItem("isRtl") === "true") {
+      tempDirection = "rtl";
+    } else {
+      tempDirection = "ltr";
+    }
+    const obj={
+      type:'Add'
+    }
     
-  }
-
-  
-
+    const dialogRef = this.dialog.open(AddReturnMemoItemsComponent, {
+      height: "80%",
+      width: "80%",
+      data: obj,
+      direction: tempDirection,
+    });
+    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+      
+      this.loadData();
+        this.showNotification(
+          "snackbar-success",
+          "Record Saved Successfully...!!!",
+          "bottom",
+          "center"
+        );
+      
+    });
+ 
+ 
+   }
   // calculator(){
 
   //   const dialogRef = this.dialog.open(CalculatorCustomerComponent, {
@@ -250,8 +274,8 @@ export class ExampleDataSource extends DataSource<ReturnMemoItems> {
             const searchStr = (
               returnMemoItems.ndcupcCode +
               returnMemoItems.quantity +
-              returnMemoItems.price +
-              returnMemoItems.expDate 
+              returnMemoItems.expDate +
+              returnMemoItems.price 
             ).toLowerCase();
             return searchStr.indexOf(this.filter.toLowerCase()) !== -1;
           });
@@ -283,11 +307,11 @@ export class ExampleDataSource extends DataSource<ReturnMemoItems> {
         case "quantity":
           [propertyA, propertyB] = [a.quantity, b.quantity];
           break;
-        case "price":
-          [propertyA, propertyB] = [a.price, b.price];
-          break;
         case "expDate":
           [propertyA, propertyB] = [a.expDate, b.expDate];
+          break;
+        case "price":
+          [propertyA, propertyB] = [a.price, b.price];
           break;
       }
       const valueA = isNaN(+propertyA) ? propertyA : +propertyA;

@@ -46,10 +46,20 @@ export class AddDebitMemoComponent implements OnInit {
     this.httpService.get<any>(this.commonService.getcompanyMasterDropdownList).subscribe(
       (data) => {
         this.companyList = data;
+        if(this.data.type=='Edit'){
+          this.edit=true;
         this.docForm.patchValue({
-          'company' : this.data,
+          'company' : this.data.company,
+          'returnMemoDate': this.data.returnMemoDate,
+      'returnMemoName': this.data.returnMemoName,
+      'returnMemoNo': this.data.returnMemoNo,
        })
-
+      }else if(this.data.type=='Add'){
+        this.edit=false;
+        this.docForm.patchValue({
+          'company' : this.data.company,
+       })
+      }
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -104,7 +114,8 @@ if (this.docForm.valid) {
       "bottom",
       "center"
     );
-    this.router.navigate(['/setup/debitMemo/listdebitMemo']);
+    //this.router.navigate(['/setup/debitMemo/listdebitMemo']);
+    this.dialogRef.close();
   }
   }
   reset(){}

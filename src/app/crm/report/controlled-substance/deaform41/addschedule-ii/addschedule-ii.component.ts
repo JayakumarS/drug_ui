@@ -11,8 +11,8 @@ import { PackingFormService } from '../../packing-slip/packingSlip-service';
 import { PackingFormBean } from '../../packing-slip/packingSlip-result-bean';
 import { DEAForm } from '../deaform-model';
 import { CommonService } from 'src/app/common-service/common.service';
-import jsPDF from 'jspdf';
-import html2canvas from 'html2canvas';
+
+
 
 @Component({
   selector: 'app-addschedule-ii',

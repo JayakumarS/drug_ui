@@ -5,13 +5,13 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
-import { DebitmemoService } from './../../debit-memo/debitmemo.service';
-import { DebitMemo } from './../../debit-memo/debitmemo-model';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/common-service/common.service';
 import { ReturnMemoCalculatorComponent } from "./return-memo-calculator/return-memo-calculator.component";
+import { ReturnMemoItems } from './../return-memo-items-model';
+import { ReturnMemoItemsService } from './../return-memo-items.service';
 
 @Component({
   selector: 'app-add-return-memo-items',
@@ -25,13 +25,14 @@ export class AddReturnMemoItemsComponent implements OnInit {
   dataarray=[];
   cusMasterData =[];
   companyList =[];
-  debitMemo:DebitMemo;
+  manufacturerList = [];
+  returnMemoItems:ReturnMemoItems;
   detailRowData = new DetailRowComponent;
   requestId: number;
   edit: boolean=false;
   constructor( public commonService: CommonService,public dialogRef: MatDialogRef<AddReturnMemoItemsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,private fb: FormBuilder,private authService: AuthService,public router: Router,
-    private debitmemoService:DebitmemoService,private httpService: HttpServiceService
+    private returnMemoItemsService:ReturnMemoItemsService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute,public dialog: MatDialog, private tokenStorage: TokenStorageService) {
     this.docForm = this.fb.group({
       entryNo: [""],
@@ -44,43 +45,50 @@ export class AddReturnMemoItemsComponent implements OnInit {
       quantity: ["", [Validators.required]],
       price: ["", [Validators.required]],
       returnTo: [""],
-      manufacturer: [""],
+      manufacturerBy: [""],
       dosage: [""],
       estimatedValue: [""],
       strength: [""],
-      returnMemoNo: [""],
+      availableVia: [""],
       packageSize: [""],
       controlNo: [""],
       unitPackage: [""],
       upc: [""],
       return: [""],
+      returnMemoNo: [""],
+      createdBy: this.tokenStorage.getUsername()
     });
 
   }
   ngOnInit(): void {
 
-    this.httpService.get<any>(this.commonService.getcompanyMasterDropdownList).subscribe(
-      (data) => {
-        this.companyList = data;
-        this.docForm.patchValue({
-          'company' : this.data,
-       })
+  if(this.data.type=='Edit'){
+      this.edit=true;
+ this.fetchDetails(this.data.returnMemoNo)
+  }else if(this.data.type=='Add'){
+    this.edit=false;
+   
+  }
 
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
-      }
-      );
+      this.httpService.get<any>(this.commonService.getManufacturerList).subscribe(
+        (data) => {
+          this.manufacturerList = data.manufacturerList;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+        );
+
   }
   onSubmit() {
     
 if (this.docForm.valid) {
   
 
-    this.debitMemo = this.docForm.value;
-    console.log(this.debitMemo);
+    this.returnMemoItems = this.docForm.value;
+    console.log(this.returnMemoItems);
     
-    this.debitmemoService.addDebitMemo(this.debitMemo);
+    this.returnMemoItemsService.addReturnMemoItems(this.returnMemoItems);
     this.showNotification(
       "snackbar-success",
       "Add Record Successfully...!!!",
@@ -88,18 +96,58 @@ if (this.docForm.valid) {
       "center"
     );
     this.dialogRef.close();
-   // this.router.navigate(['/setup/debitMemo/listdebitMemo']);
+   // this.router.navigate(['/setup/returnMemoItems/listreturnMemoItems']);
   }
   }
+
+  findAllDetailsByndcupcCode() {
+    this.httpService.get(this.returnMemoItemsService.findAllDetailsByndcupcCode+"?drugInfoId="+this.docForm.value.ndcupcCode).subscribe((res: any)=> {
+
+
+      this.docForm.patchValue({
+ 
+        'manufacturerBy': res.drugInfoMasterBean.manufacturerBy,
+//         'description': res.drugInfoMasterBean.description,
+        'strength': res.drugInfoMasterBean.strength,
+         'controlNo': res.drugInfoMasterBean.control,
+//         'department': res.drugInfoMasterBean.department,
+         'unitPackage': res.drugInfoMasterBean.packageSize,
+//         'rxOtc': res.drugInfoMasterBean.rxOtc,
+//         'unitPerPackage': res.drugInfoMasterBean.unitPerPackage,
+//         'unitDose': this.getBoolean(res.drugInfoMasterBean.unitDose),
+         'dosage': res.drugInfoMasterBean.dosage,
+//         'unitOfMeasure': res.drugInfoMasterBean.unitOfMeasure,
+//         'hazardous': this.getBoolean(res.drugInfoMasterBean.hazardous),
+// 'awp': res.drugInfoMasterBean.awp,
+// 'wap': res.drugInfoMasterBean.wap,
+// 'myPrice': res.drugInfoMasterBean.myPrice,
+     
+     })
+
+     
+
+      },
+      (err: HttpErrorResponse) => {
+         // error code here
+      }
+    );
+
+  }
+
   fetchDetails(cusCode: any): void {
-    this.httpService.get(this.debitmemoService.editDebitMemo+"?company="+cusCode).subscribe((res: any)=> {
+    this.httpService.get(this.returnMemoItemsService.editReturnMemoItems+"?returnMemoNo="+cusCode).subscribe((res: any)=> {
       console.log(cusCode);
 
       this.docForm.patchValue({
-        'company' : res.debitMemo.company,
-        'returnMemoDate' : res.debitMemo.returnMemoDate,
-        'returnMemoName' : res.debitMemo.returnMemoName,
-        'returnMemoNo' : res.debitMemo.returnMemoNo
+        'returnMemoNo' : res.returnMemoItems.returnMemoNo,
+'ndcupcCode' : res.returnMemoItems.ndcupcCode,
+'lotNo' : res.returnMemoItems.lotNo,
+'reason' : res.returnMemoItems.reason,
+'expDate' : res.returnMemoItems.expDate,
+'invoiceNo' : res.returnMemoItems.invoiceNo,
+'itemNo' : res.returnMemoItems.itemNo,
+'quantity' : res.returnMemoItems.quantity,
+'price' : res.returnMemoItems.price
      })
 
       },
@@ -112,15 +160,16 @@ if (this.docForm.valid) {
   
   update(){
     if (this.docForm.valid) {
-    this.debitMemo = this.docForm.value;
-    this.debitmemoService.debitMemoUpdate(this.debitMemo);
+    this.returnMemoItems = this.docForm.value;
+    this.returnMemoItemsService.returnMemoItemsUpdate(this.returnMemoItems);
     this.showNotification(
       "snackbar-success",
       "Edit Record Successfully...!!!",
       "bottom",
       "center"
     );
-    this.router.navigate(['/setup/debitMemo/listdebitMemo']);
+    this.dialogRef.close();
+   // this.router.navigate(['/setup/returnMemoItems/listreturnMemoItems']);
   }
   }
   reset(){}
@@ -135,7 +184,7 @@ if (this.docForm.valid) {
   }
   onCancel(){
     this.dialogRef.close();
-    //this.router.navigate(['/setup/debitMemo/listdebitMemo']);
+    //this.router.navigate(['/setup/returnMemoItems/listreturnMemoItems']);
    }
   
 

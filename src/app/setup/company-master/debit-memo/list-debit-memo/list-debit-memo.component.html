@@ -18,7 +18,7 @@
                <div class="col-xl-3" >
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-label>Company Name</mat-label>
-                      <mat-select  formControlName="company">
+                      <mat-select  formControlName="company"  (selectionChange)="debitMemoDropdownList($event.value)">
                         <mat-option *ngFor="let title of companyList" [value]="title.id">
                           {{title.text}}
                         </mat-option>
@@ -47,7 +47,7 @@
         </div>
 
         <div style="text-align: right;" class="col-xl-3 example-full-width  form-control-sm right">
-          <button (click) = "returnMemo()" class="btn-space" mat-raised-button
+          <button (click) = "addreturnMemo()" class="btn-space" mat-raised-button
           color="accent" style="background-color: #2704a7;">Create New Return</button>
         
       </div>
@@ -79,15 +79,15 @@
                   <ng-container *ngFor="let item of listDebitMemo">
                   <tr>
                       <td> {{item.company !== null ? item.company:'-'}}</td>
-                      <td> {{item.returnMemoDate !== null ? item.returnMemoDate:'-' | date:'dd-MM-yyyy HH:mm a' }}</td>
+                      <td> {{item.returnMemoDate | date:'dd-MM-yyyy' }}</td>
                       <td> {{item.returnMemoName !== null ? item.returnMemoName:'-'}}</td>
                       <td> {{item.returnMemoNo !== null ? item.returnMemoNo:'-'}}</td>
                       <td style="text-align: center;" >
                         	
+                        <i class="fas fa-edit" title="Edit" (click)='editCall(item)' style="color:#0e92a1"></i>&nbsp;&nbsp;
+                        <i class="fas fa-trash"  title="Delete" (click)='deleteItem(item)' style="color: red;"></i>&nbsp;&nbsp;
                         <i class="fas fa-arrow-right" title="Return Items" style="color:#74AEB5" (click)='returnMemoItems(item)'></i>
-                        <!-- <i class="fas fa-edit" title="Edit" style="color:#74AEB5" (click)='editStaffDetails(1)'></i>&nbsp;&nbsp;
-                        <i class="fas fa-eye" title="View" style="color:#74AEB5" (click)='viewStaffDetails(1)'></i> -->
-                    </td>
+                       </td>
                   </tr>
               </ng-container>
               </tbody>

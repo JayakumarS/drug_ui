@@ -21,13 +21,14 @@ import { MatTableExporterModule } from "mat-table-exporter";
 import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
-import {MatRadioModule} from '@angular/material/radio';
+import { MatRadioModule } from '@angular/material/radio';
 
 
 import { ReturnMemoItemsRoutingModule } from './return-memo-items-routing.module';
 import { AddReturnMemoItemsComponent } from './add-return-memo-items/add-return-memo-items.component';
 import { ListReturnMemoItemsComponent } from './list-return-memo-items/list-return-memo-items.component';
 import { ReturnMemoCalculatorComponent } from './add-return-memo-items/return-memo-calculator/return-memo-calculator.component';
+import { DeleteReturnMemoItemsComponent } from './list-return-memo-items/delete-return-memo-items/delete-return-memo-items.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { ReturnMemoCalculatorComponent } from './add-return-memo-items/return-me
     AddReturnMemoItemsComponent,
     ListReturnMemoItemsComponent,
     ReturnMemoCalculatorComponent,
+    DeleteReturnMemoItemsComponent,
     
   ],
   imports: [
