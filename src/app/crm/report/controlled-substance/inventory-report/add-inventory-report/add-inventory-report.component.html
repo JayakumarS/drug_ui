@@ -11,47 +11,37 @@
       <div class="box-shadow">
         <div class="card" style="width:100; height: 100%;">
           <div class="body">
-            <form class="m-1" [formGroup]="inventoryForm">
+            <form class="m-1" [formGroup]="docForm">
               <div class="col-xl-12" >
                 <div class="card" style="width:100%; height: 10%;">
-                  <div class="row" style="margin-left: 5%;">
-                  <div class="col-xl-2" >
-                    <mat-label>Company Name :</mat-label>
-                   </div>
-                   <div class="col-xl-3" >
+                  <div class="row">
+                    <div class="col-xl-3" >
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-label>Company Name</mat-label>
-                            <mat-select formControlName="companyName" required>
-                              <mat-option [value]="'1'">
-                                OMG062922 
+                            <mat-select  formControlName="company">
+                              <mat-option *ngFor="let title of companyList" [value]="title.id">
+                                {{title.text}}
                               </mat-option>
-                              <mat-option [value]="'2'">
-                                OMG070122
-                              </mat-option>
-                                </mat-select>
+                            </mat-select>
                       </mat-form-field>
-                  </div>
-                 
-                  <div class="col-xl-2"  style="margin-left: 5%;">
-                       <mat-label>Debit Memo No : </mat-label>
-                  </div>
-                  <div class="col-xl-3">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Debit Memo No</mat-label>
-                      <mat-select formControlName="debitMemoNo" required>
-                            <mat-option [value]="'1'">
-                              OMG071316KK
-                            </mat-option>
-                          </mat-select>
-                    </mat-form-field>
-                  </div>
-              </div>
+                    </div>
+                   
+                   
+                    <div class="col-xl-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Debit Memo No</mat-label>
+                            <mat-select  formControlName="returnMemoNo">
+                              <mat-option *ngFor="let title of debitMemoList" [value]="title.id">
+                                {{title.id}}
+                              </mat-option>
+                            </mat-select>
+                      </mat-form-field>
+                    </div>
+              <!-- </div>
             
             
-               <div class="row"  style="margin-left: 5%;">
-                <div class="col-xl-2">
-                  <mat-label>Start Date : </mat-label>
-               </div>
+               <div class="row"  style="margin-left: 5%;"> -->
+              
                 <div class="col-xl-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>Start Date</mat-label>
@@ -60,9 +50,7 @@
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
               </div>
-              <div class="col-xl-2" style="margin-left: 5%;">
-                <mat-label>End Date : </mat-label>
-             </div>
+             
               <div class="col-xl-3">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-label>End Date</mat-label>
@@ -73,32 +61,35 @@
               </div> 
               </div>
 
-              <div class="col-md-12" style="margin-left: 86%;">
-                <button (click) = "onOk()" class="btn-space" mat-raised-button
-                color="accent" style="background-color: #34d034;">Search</button>
-                <button (click) = "print()" class="btn-space" mat-raised-button
-                color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button>
-            </div>
+              <div class="col-md-12" style="margin-left: 82%;">
+                <button  class="btn-space" mat-raised-button
+                color="accent" style="background-color: #34d034;" (click) = "searchData()">Search</button>
+                <!-- <button (click) = "print()" class="btn-space" mat-raised-button
+                color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button> -->
+                <button class="btn btn-success btn-block" (click)="openPDF()">Export Report</button>
+
+              </div>
             <br>
               </div>
             </div>
             </form>
           </div>
-          <div id="inventoryPrint">
+          <!-- <div id="inventoryPrint"> -->
+            <div id="htmlData">
             <div class="row" style="overflow-x:auto;">
               <div class="col-md-12">
                   <div class="table-responsive-sm">
                       <table class="table table-bordered table-hover">
-                          <thead class="theadRow thead-light" style="font-size: 80%;">
-                            <tr *ngFor="let memoReport of memoListDetails;">
-                                <th style="text-align: center;">Return Name: {{memoReport.name}}<br> Created: {{memoReport.date}}</th>
-                                <th style="text-align: center;">{{memoReport.text}} <br><br> <b>Inventory Report</b></th>
-                                <th style="text-align: center;">Debit Memo: {{memoReport.no}}</th>
-                              </tr>
-                          </thead>
+                        <thead class="theadRow thead-light" >
+                          <tr *ngFor="let item of searchList;">
+                            <th style="text-align: center;">Return Name: {{item.name !== null ? item.name:'-'}}<br> Created: {{item.returnMemoDate !== null ? item.returnMemoDate:'-'}}</th>
+                            <th style="text-align: center;">{{item.company !== null ? item.company:'-'}} <br><br> <b>Schedule 2 Report</b></th>
+                            <th style="text-align: center;">Debit Memo: {{item.returnMemoNo !== null ? item.returnMemoNo:'-'}}</th>
+                          </tr>
+                      </thead>
                           </table>
                           <table class="table table-bordered table-hover">
-                          <thead class="theadRow thead-light" style="font-size: 80%;">
+                          <thead class="theadRow thead-light" >
                             <tr>
                                 <th style="text-align: center;"><b>NDC/UPC</b></th>
                                 <th style="text-align: center;"><b>Description</b></th>
@@ -112,29 +103,29 @@
                                 <th style="text-align: center;"><b>Total</b></th>
                             </tr>
                         </thead>
-                        <!-- <thead>
+                        <thead>
                           <tr>
                             <td style="text-align:center" colspan="9"><b><u>Non Returnable</u></b></td>
                           </tr>
-                        </thead> -->
-                        <thead>
-                          <tr>
-                            <td colspan="9" style="font-size: 80%;"><b>Actavis,Inc</b></td>
+                        </thead>
+                        <!-- <thead>
+                          <tr *ngFor="let item of searchList;">
+                            <td colspan="9" ><b>{{item.companycompanyName !== null ? item.companycompanyName:'-'}} </b></td>
                           </tr>
-                        </thead> 
+                        </thead>  -->
                          
-                                     <tbody style="font-size: 80%;">
-                                      <tr *ngFor="let memoInfo of memoInfoList;">
-                                          <td style="text-align: center;">{{memoInfo.ndcupcCode}}</td>
-                                          <td style="text-align: center;">HYDROMET</td>
-                                          <td style="text-align: center;">1.5 MG/5 ML-5 M</td>
-                                          <td style="text-align: center;">SYR</td>
-                                          <th style="text-align: center;">Yes</th>
-                                          <th style="text-align: center;">480 ML</th>
-                                          <th style="text-align: center;">1</th>
-                                          <th style="text-align: center;">-</th>
-                                          <th style="text-align: center;">{{memoInfo.price}}</th>
-                                          <th style="text-align: center;">100</th>
+                                     <tbody >
+                                      <tr *ngFor="let item of searchList;">
+                                        <td style="text-align: center;">{{item.ndcupcCode !== null ? item.ndcupcCode:'-'}}</td>
+                                        <td style="text-align: center;">{{item.description !== null ? item.description:'-'}}</td>
+                                        <td style="text-align: center;">{{item.strength  !== null ? item.strength:'-'}}</td>
+                                        <td style="text-align: center;">{{item.dosage  !== null ? item.dosage:'-'}}</td>
+                                        <td style="text-align: center;">{{item.isReturnable  !== null ? item.isReturnable:'-'}}</td>
+                                        <td style="text-align: center;">{{item.pakageSize  !== null ? item.pakageSize:'-'}}</td>
+                                        <td style="text-align: center;">{{item.fullQuantity  !== null ? item.fullQuantity:'-'}}</td>
+                                        <td style="text-align: center;">{{item.partialQuantity  !== null ? item.partialQuantity:'-'}}</td>
+                                        <td style="text-align: center;">{{item.price  !== null ? item.price:'-'}}</td>
+                                          <th style="text-align: center;"></th>
                                         </tr>
                                         <!-- <tr>
                                           <td style="text-align: center;">00472-1030-16</td>
@@ -158,15 +149,15 @@
                                           <th style="text-align: center;"></th>
                                           <th style="text-align: center;"></th>
                                           <th style="text-align: center;">Actavis,Inc total:</th>
-                                          <th style="text-align: center;">100</th>
+                                          <th style="text-align: center;"></th>
                                         </tr>
                                         </tbody> 
                                         <!-- <thead>
                                           <tr>
-                                            <td colspan="9" style="font-size: 80%;"><b>Ajanta Pharma USA Inc total:</b></td>
+                                            <td colspan="9" ><b>Ajanta Pharma USA Inc total:</b></td>
                                           </tr>
                                         </thead> 
-                                        <tbody style="font-size: 80%;">
+                                        <tbody >
                                           <tr>
                                             <td style="text-align: center;">27241-0161-01 </td>
                                             <td style="text-align: center;">CAPTOPRIL</td>
@@ -194,10 +185,10 @@
                                           </tbody> 
                                           <thead>
                                               <tr>
-                                                <td colspan="9" style="font-size: 80%;"><b>Allergan: </b></td>
+                                                <td colspan="9" ><b>Allergan: </b></td>
                                               </tr>
                                             </thead> 
-                                            <tbody style="font-size: 80%;">
+                                            <tbody >
                                               <tr>
                                                 <td style="text-align: center;">00023-3205-03</td>
                                                 <td style="text-align: center;">LUMIGAN</td>
@@ -225,10 +216,10 @@
                                               </tbody> 
                                               <thead>
                                                 <tr>
-                                                  <td colspan="9" style="font-size: 80%;"><b>Camber Pharmaceuticals.Inc:</b></td>
+                                                  <td colspan="9" ><b>Camber Pharmaceuticals.Inc:</b></td>
                                                 </tr>
                                               </thead> 
-                                              <tbody style="font-size: 80%;">
+                                              <tbody >
                                                 <tr>
                                                   <td style="text-align: center;">31722-0952-01</td>
                                                   <td style="text-align: center;">METHYLPHENIDATE HCL</td>
@@ -268,10 +259,10 @@
                                                 </tbody>
                                                 <thead>
                                                   <tr>
-                                                    <td colspan="9" style="font-size: 80%;"><b>Dr. Reddy's Laboratories:</b></td>
+                                                    <td colspan="9" ><b>Dr. Reddy's Laboratories:</b></td>
                                                   </tr>
                                                 </thead> 
-                                                <tbody style="font-size: 80%;">
+                                                <tbody >
                                                   <tr>
                                                     <td style="text-align: center;">55111-0158-10</td>
                                                     <td style="text-align: center;">OMEPRAZOLE</td>
@@ -299,10 +290,10 @@
                                                   </tbody> 
                                                   <thead>
                                                     <tr>
-                                                      <td colspan="9" style="font-size: 80%;"><b>Heritage pharmaceuticals Inc:</b></td>
+                                                      <td colspan="9" ><b>Heritage pharmaceuticals Inc:</b></td>
                                                     </tr>
                                                   </thead> 
-                                                  <tbody style="font-size: 80%;">
+                                                  <tbody >
                                                     <tr>
                                                       <td style="text-align: center;">23155-0104-10</td>
                                                       <td style="text-align: center;">METFORMIN</td>
@@ -330,10 +321,10 @@
                                                     </tbody> 
                                                     <thead>
                                                       <tr>
-                                                        <td colspan="9" style="font-size: 80%;"><b>Parke-Davis (Pfizer)</b></td>
+                                                        <td colspan="9" ><b>Parke-Davis (Pfizer)</b></td>
                                                       </tr>
                                                     </thead> 
-                                                    <tbody style="font-size: 80%;">
+                                                    <tbody >
                                                       <tr>
                                                         <td style="text-align: center;">00071-1015-41</td>
                                                         <td style="text-align: center;">LYRICA</td>
@@ -361,10 +352,10 @@
                                                       </tbody> 
                                                       <thead>
                                                         <tr>
-                                                          <td colspan="9" style="font-size: 80%;"><b>Sandoz</b></td>
+                                                          <td colspan="9" ><b>Sandoz</b></td>
                                                         </tr>
                                                       </thead> 
-                                                      <tbody style="font-size: 80%;">
+                                                      <tbody >
                                                         <tr>
                                                           <td style="text-align: center;">00781-5377-01</td>
                                                           <td style="text-align: center;">LORAZEPAM</td>
@@ -392,10 +383,10 @@
                                                         </tbody>
                                                         <thead>
                                                           <tr>
-                                                            <td colspan="9" style="font-size: 80%;"><b>UCB Pharma</b></td>
+                                                            <td colspan="9" ><b>UCB Pharma</b></td>
                                                           </tr>
                                                         </thead> 
-                                                        <tbody style="font-size: 80%;">
+                                                        <tbody >
                                                           <tr>
                                                             <td style="text-align: center;">00131-2477-35</td>
                                                             <td style="text-align: center;">VIMPAT</td>
@@ -426,7 +417,7 @@
                                                               <!-- <td colspan="9"><b>UCB Pharma</b></td> -->
                                                             </tr>
                                                           </thead> 
-                                                          <tbody style="font-size: 80%;">
+                                                          <tbody >
                                                             <tr>
                                                               <td style="text-align: center;"></td>
                                                               <td style="text-align: center;"></td>
@@ -437,7 +428,7 @@
                                                               <th style="text-align: center;"></th>
                                                               <th style="text-align: center;"></th>
                                                               <th style="text-align: center;">Total Returnable Inventory:</th>
-                                                              <th style="text-align: center;">100</th>
+                                                              <th style="text-align: center;"></th>
                                                             </tr>
                                                             <tr>
                                                               <td style="text-align: center;"></td>
@@ -449,7 +440,7 @@
                                                               <th style="text-align: center;"></th>
                                                               <th style="text-align: center;"></th>
                                                               <th style="text-align: center;">Total Non-Returnable Inventory:</th>
-                                                              <th style="text-align: center;">100</th>
+                                                              <th style="text-align: center;"></th>
                                                             </tr>
                                                             </tbody>
                                     </table>

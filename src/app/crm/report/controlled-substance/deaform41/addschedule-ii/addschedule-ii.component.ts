@@ -1,5 +1,5 @@
-import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpErrorResponse } from "@angular/common/http";
@@ -11,8 +11,13 @@ import { PackingFormService } from '../../packing-slip/packingSlip-service';
 import { PackingFormBean } from '../../packing-slip/packingSlip-result-bean';
 import { DEAForm } from '../deaform-model';
 import { CommonService } from 'src/app/common-service/common.service';
-
-
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { DebitmemoService } from 'src/app/setup/company-master/debit-memo/debitmemo.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 
 @Component({
   selector: 'app-addschedule-ii',
@@ -20,33 +25,45 @@ import { CommonService } from 'src/app/common-service/common.service';
   styleUrls: ['./addschedule-ii.component.sass']
 })
 export class AddscheduleIIComponent implements OnInit {
+  [x: string]: any;
+
+  @ViewChild('htmlData') htmlData!: ElementRef;
 
   docForm: FormGroup;
   companyNameList: any;
   returnMemoNoList: any;
   exampleDatabase: DeaformService | null;
-  memoListDetails: any;
-  memoInfoList: any;
+  memoList: any;
+  memoDetails: any;
   searchList: any;
   dEAForm:DEAForm;
   requestId: any;
   companyList =[];
   debitMemoList =[];
+  listDebitMemo =[];
 
 
   constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService,
     private httpService: HttpServiceService,public deaformService:DeaformService,private packingFormService:PackingFormService,
-    public route: ActivatedRoute,    public commonService: CommonService,
+    public route: ActivatedRoute,    public commonService: CommonService,    public debitmemoService: DebitmemoService
+
     ) {
     this.docForm = this.fb.group({
       company: ["", [Validators.required]],
-      returnMemoNo: ["", [Validators.required]],
-      // controlledSubstance: "",
+      returnMemoNo: "",
       startDate:"",
       endDate:"",
     });
   }
  
+
+  
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild("filter", { static: true }) filter: ElementRef;
+  @ViewChild(MatMenuTrigger)
+  contextMenu: MatMenuTrigger;
+  contextMenuPosition = { x: "0px", y: "0px" };
 
 
   ngOnInit(): void {
@@ -83,30 +100,33 @@ export class AddscheduleIIComponent implements OnInit {
         setTimeout(() => {
         this.searchData();
       }, 700);
+
+      // this.getMemoList();
+      // this.getMemoInfo();
   }
 
 
-  // getMemoList() {
-  //     this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
-  //       (data) => {
-  //         this.memoListDetails = data.memoList;
-  //       },
-  //       (error: HttpErrorResponse) => {
-  //         console.log(error.name + " " + error.message);
-  //       }
-  //     );
-  //   }
+  getMemoList() {
+      this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
+        (data) => {
+          this.memoList = data.memoList;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
+    }
 
-  //   getMemoInfo() {
-  //     this.httpService.get<PackingFormBean>(this.packingFormService.memoDetailsUrl).subscribe(
-  //       (data) => {
-  //         this.memoInfoList = data.memoDetails;
-  //       },
-  //       (error: HttpErrorResponse) => {
-  //         console.log(error.name + " " + error.message);
-  //       }
-  //     );
-  //   }
+    getMemoInfo() {
+      this.httpService.get<PackingFormBean>(this.packingFormService.memoDetailsUrl).subscribe(
+        (data) => {
+          this.memoDetails = data.memoDetails;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+      );
+    }
 
   print() {
     let newWin;
@@ -194,12 +214,51 @@ export class AddscheduleIIComponent implements OnInit {
     searchData(){
       this.httpService.post<any>(this.deaformService.savedEAForm, this.docForm.value).subscribe(
         (data) => {
-          this.searchList= data.searchList;
+          this.searchList= data.listSearchBean;
         },
         (error: HttpErrorResponse) => {
           console.log(error.name + " " + error.message);
         }
         );
     }
+
+  
+    //Export PDF
+   
+    public openPDF(): void {
+      let DATA: any = document.getElementById('htmlData');
+      html2canvas(DATA).then((canvas) => {
+        let fileWidth = 208;
+        let fileHeight = (canvas.height * fileWidth) / canvas.width;
+        const FILEURI = canvas.toDataURL('image/png');
+        let PDF = new jsPDF('p', 'mm', 'a4');
+        let position = 0;
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+        PDF.save('ScheduleII.pdf');
+      });
+    }
+
+
+//     //Export PDF
+//     openPDF() {    
+//     if(this.searchList.length !== 0) {
+//     // this.entiymasterid = sessionStorage.getItem('entityId-usec'); 
+    
+//     this.deaformService.savedEAForm(this.docForm)
+//       .pipe(takeUntil(this.subscribe)).subscribe((data: any) => {
+//         let file = new Blob([data], { type: "application/pdf" });
+//         var fileURL = URL.createObjectURL(file);
+//         window.open(fileURL);
+//       }, error => {
+//         console.log(error);
+//         this.helper.errorMessage(error);
+//       });
+//   } else {
+//     this.tostar.error('No Record Found', 'Error', {
+//       timeOut: 2000
+//     });
+//   }
+
+// }
 }
 

@@ -1,10 +1,25 @@
 export class InventoryForm{
-    companyCode: string;
-    companyName:string;
-    no:string;
-    name:string;
-    date:string;
-    text:string;
-    create:string;
+    company: string;
+    companyName: string;
+    returnMemoNo: string;
+    returnMemoDate: string;
+    ndcupcCode: string;
+    description: string;
+    isReturnable: string;
+    strength: string;
+    dosage: string;
+    lotNo: string;
+    pakageSize: string;
+    expDate: string;
+    fullQuantity: string;
+    partialQuantity: string;
+    price: string;
+    estValue: string;
+   
+   
+	
+	//for search
+	 startDate;
+	 endDate;
 
 }

@@ -10,6 +10,10 @@ import { PackingFormService } from '../packingSlip-service';
 import { PackingFormBean } from '../packingSlip-result-bean';
 import { InventoryFormBean } from '../../inventory-report/inventory-result-bean';
 import { InventoryformService } from '../../inventory-report/inventory-service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { CommonService } from 'src/app/common-service/common.service';
+import { DebitmemoService } from 'src/app/setup/company-master/debit-memo/debitmemo.service';
 @Component({
   selector: 'app-add-packing-slip',
   templateUrl: './add-packing-slip.component.html',
@@ -32,28 +36,60 @@ export class AddPackingSlipComponent implements OnInit {
   exampleDatabase: PackingFormService | null;
   memoListDetails: any;
   memoInfoList: any;
+  companyList =[];
+  debitMemoList =[];
+  listDebitMemo =[];
+  searchList: any;
+  docForm: FormGroup;
+
   
   constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService, private packingFormService:PackingFormService,
-   private httpService: HttpServiceService,public deaformService:DeaformService
+   private httpService: HttpServiceService,public deaformService:DeaformService,
+   public commonService: CommonService,    public debitmemoService: DebitmemoService
    ,public route: ActivatedRoute) {
-    this.packingForm = this.fb.group({
-      companyName: ["", [Validators.required]],
-      debitMemoNo: ["", [Validators.required]],
-      manufactureName: ["", [Validators.required]],
+    this.docForm = this.fb.group({
+      company: ["", [Validators.required]],
+      returnMemoNo: "",
+      // controlledSubstance: "",
       startDate:"",
       endDate:"",
     });
   }
 
   ngOnInit() {
-    this.httpService.get<PackingFormBean>(this.deaformService.companyNameUrl).subscribe(
+    
+    this.route.params.subscribe(params => {
+      if(params.id!=undefined && params.id!=0){
+       this.requestId = params.id;
+      }
+     });
+
+
+    this.httpService.get<any>(this.commonService.getcompanyMasterDropdownList).subscribe(
       (data) => {
-        this.companyNameList = data.companyNameList;
+        this.companyList = data;
+        this.docForm.patchValue({
+          'company' : this.requestId,
+       })
+
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
       }
-    );
+      );
+
+      this.httpService.get<any>(this.commonService.getdebitMemoDropdownList).subscribe(
+        (data) => {
+          this.debitMemoList = data;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+        );
+
+        setTimeout(() => {
+        this.searchData();
+      }, 700);
     this.route.params.subscribe(params => {
        this.toggleAllSelection();
        this.packingForm = this.fb.group({
@@ -77,13 +113,9 @@ export class AddPackingSlipComponent implements OnInit {
       
       
      });
-     this.getMemoList();
-     this.getMemoInfo();
+    //  this.getMemoList();
+    //  this.getMemoInfo();
   }
-  onOk() {
-    
-  }
-  
 
 toggleAllSelection() {
   if (this.allSelected) {
@@ -196,6 +228,35 @@ print() {
        );
   newWin.document.close();
   }
+
+
+      //Export PDF
+   
+      public openPDF(): void {
+        let DATA: any = document.getElementById('htmlData');
+        html2canvas(DATA).then((canvas) => {
+          let fileWidth = 208;
+          let fileHeight = (canvas.height * fileWidth) / canvas.width;
+          const FILEURI = canvas.toDataURL('image/png');
+          let PDF = new jsPDF('p', 'mm', 'a4');
+          let position = 0;
+          PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+          PDF.save('PackingSlip.pdf');
+        });
+      }
+
+      searchData(){
+        this.httpService.post<any>(this.deaformService.savedEAForm, this.docForm.value).subscribe(
+          (data) => {
+            this.searchList= data.listSearchBean;
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + " " + error.message);
+          }
+          );
+      }
+  
+    
 }
 
 

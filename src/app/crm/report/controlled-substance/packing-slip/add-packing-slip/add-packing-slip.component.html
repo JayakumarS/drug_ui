@@ -9,50 +9,86 @@
       <div class="row clearfix ">
         <div class="col-xl-12">
         <div class="box-shadow">
-          <div class="card" style="width:100; height: 100%;">
+          <div class="card" style="width:100%; height: 100%;">
             <div class="body">
-              <form class="m-2" [formGroup]="packingForm">
+              <form class="m-2" [formGroup]="docForm">
                 <div class="col-xl-12" >
-                <div class="card" style="width:100; height: 10%;">
-                  <div class="row" style="margin-left: 5%;">
-                    <div class="col-xl-2" >
-                      <mat-label>Company Name :</mat-label>
-                     </div>
-                     <div class="col-xl-3">
-                        <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Company Name</mat-label>
-                              <mat-select formControlName="companyName" required>
-                                <mat-option *ngFor="let title of companyNameList" [value]="title.id">
-                                  {{title.text}}
-                                </mat-option>
-                              </mat-select>
-                        </mat-form-field>
-                    </div>
-                   
-                    <div class="col-xl-2"  style="margin-left: 5%;">
-                         <mat-label>Debit Memo No : </mat-label>
-                    </div>
-                    <div class="col-xl-3">
+                <div class="card" style="width:100%; height: 10%;">
+                  <div class="row">
+                    <div class="col-xl-3" >
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Debit Memo No</mat-label>
-                        <mat-select formControlName="debitMemoNo" required>
-                          <mat-option [value]="'1'">
-                            OMG062922 
-                          </mat-option>
-                          <mat-option [value]="'2'">
-                            OMG070122
-                          </mat-option>
+                        <mat-label>Company Name</mat-label>
+                            <mat-select  formControlName="company">
+                              <mat-option *ngFor="let title of companyList" [value]="title.id">
+                                {{title.text}}
+                              </mat-option>
                             </mat-select>
                       </mat-form-field>
                     </div>
-                </div>
-            <div class="row">      
-                <div class="col-xl-2"  style="margin-left: 5%">
+                   
+                   
+                    <div class="col-xl-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                        <mat-label>Debit Memo No</mat-label>
+                            <mat-select  formControlName="returnMemoNo">
+                              <mat-option *ngFor="let title of debitMemoList" [value]="title.id">
+                                {{title.id}}
+                              </mat-option>
+                            </mat-select>
+                      </mat-form-field>
+                    </div>
+              <!-- </div>
+            
+            
+               <div class="row"  style="margin-left: 5%;"> -->
+              
+                <div class="col-xl-3">
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                    <mat-label>Start Date</mat-label>
+                    <input matInput [matDatepicker]="picker" formControlName="startDate">
+                    <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+              </div>
+             
+              <div class="col-xl-3">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-label>End Date</mat-label>
+                  <input matInput [matDatepicker]="picker1" formControlName="endDate">
+                  <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
+                  <mat-datepicker #picker1></mat-datepicker>
+                </mat-form-field>
+              </div> 
+              </div>
+              <div class="row">
+                    <div class="col-xl-3">
+                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-select placeholder="Manufacturer Name" formControlName="manufactureName" multiple>
+                        <mat-option *ngFor="let filters of userTypeFilters" [value]="filters.key">
+                              {{filters.value}}
+                        </mat-option>
+                            <mat-option #allSelected (click)="toggleAllSelection()"  [value]="0">Manufacture Name</mat-option>
+                            <mat-option [value]="1">3M Consumer</mat-option>
+                            <mat-option [value]="2">3M Health Care</mat-option>
+                            <mat-option [value]="3">3M Pharmaceuticals(Graceway)</mat-option>
+                            <mat-option [value]="4">A.Aarons (Bradley)</mat-option>
+                            <mat-option [value]="5">AAI Pharma</mat-option>
+                            <mat-option [value]="6">Abbott Diabetes care</mat-option>
+                            <mat-option [value]="7">Accord Healthcare Inc</mat-option>
+                            <mat-option [value]="8">Acella Pharmaceuticals Inc</mat-option>
+                            <mat-option [value]="9">Actavis Inc</mat-option>
+                            <mat-option [value]="10">Ajanta Pharma USA Inc</mat-option>
+                            <mat-option [value]="11">Akorn</mat-option>
+                            <mat-option [value]="12">Alcon Laboratories</mat-option>
+                    </mat-select>
+                    </mat-form-field>
+                  </div>
+                   
+                <div class="col-xl-2"  style="margin-left: 2%">
                     <mat-label>Lable Category to Print :</mat-label>
                 </div>
-            </div>
-            <div class="row">
-                <div class="card col-xl-2"  style="height: 100%;width: 21%; margin-left: 23%">
+           
+                <div class="card col-xl-2"  style="height: 100%;width: 21%;">
                     <br>
                   <div class="col-xl-3" style="margin-left: 5%;">
                       <mat-radio-button>Manufacturer Packing Slip 
@@ -66,62 +102,44 @@
                   </div>
                   <br>
               </div>
-           
-           
-              <div class="col-xl-3" style="margin-left: 21%;">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <mat-select placeholder="Manufacturer Name" formControlName="manufactureName" multiple>
-                  <mat-option *ngFor="let filters of userTypeFilters" [value]="filters.key">
-                        {{filters.value}}
-                  </mat-option>
-                      <mat-option #allSelected (click)="toggleAllSelection()"  [value]="0">Manufacture Name</mat-option>
-                      <mat-option [value]="1">3M Consumer</mat-option>
-                      <mat-option [value]="2">3M Health Care</mat-option>
-                      <mat-option [value]="3">3M Pharmaceuticals(Graceway)</mat-option>
-                      <mat-option [value]="4">A.Aarons (Bradley)</mat-option>
-                      <mat-option [value]="5">AAI Pharma</mat-option>
-                      <mat-option [value]="6">Abbott Diabetes care</mat-option>
-                      <mat-option [value]="7">Accord Healthcare Inc</mat-option>
-                      <mat-option [value]="8">Acella Pharmaceuticals Inc</mat-option>
-                      <mat-option [value]="9">Actavis Inc</mat-option>
-                      <mat-option [value]="10">Ajanta Pharma USA Inc</mat-option>
-                      <mat-option [value]="11">Akorn</mat-option>
-                      <mat-option [value]="12">Alcon Laboratories</mat-option>
-              </mat-select>
-              </mat-form-field>
             </div>
-            <div class="col-md-12" style="margin-left: 84%;">
-              <button (click) = "onOk()" class="btn-space" mat-raised-button
-              color="accent" style="background-color: #34d034;">Search</button>
-              <button (click) = "print()" class="btn-space" mat-raised-button
-              color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button>
-          </div>
+           
+            <div class="row">
+            <div class="col-md-12" style="margin-left: 80%;">
+              <button class="btn-space" mat-raised-button
+              color="accent" style="background-color: #34d034;" (click) = "searchData()">Search</button>
+              <!-- <button (click) = "print()" class="btn-space" mat-raised-button
+              color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button> -->
+              <button class="btn btn-success btn-block" (click)="openPDF()">Export Report</button>
+
+            </div>
           <br>
                 </div>
               </div>
             </div>
               </form>
             </div>
-            <div id="packingSlipPrint">
+            <!-- <div id="packingSlipPrint"> -->
+              <div id="htmlData">
               <div class="row" style="overflow-x:auto;">
                 <div class="col-md-12">
                     <div class="table-responsive-sm">
                         <table class="table table-bordered table-hover">
-                            <thead class="theadRow thead-light" style="font-size: 80%;">
-                              <tr *ngFor="let memoReport of memoListDetails;">
-                                <th style="text-align: center;">Return Name:{{memoReport.name}}<br> Created:{{memoReport.date}}</th>
-                                  <th class="card" style="text-align: center;"><b><U>Manufacturer Packing Slip</U></b><br><b>Return To: Ajanta Pharma USA Inc</b></th>
-                                  <th style="text-align: center;">Debit Memo:{{memoReport.no}}</th>
-                                </tr>
+                            <thead class="theadRow thead-light" >
+                              <tr *ngFor="let item of searchList;">
+                                <th style="text-align: center;">Return Name: {{item.name !== null ? item.name:'-'}}<br> Created: {{item.returnMemoDate !== null ? item.returnMemoDate:'-'}}</th>
+                                <th class="card" style="text-align: center;"><b><U>Manufacturer Packing Slip</U></b><br><b>Return To: </b></th>
+                                <th style="text-align: center;">Debit Memo: {{item.returnMemoNo !== null ? item.returnMemoNo:'-'}}</th>
+                              </tr>
                             </thead>
-                            <thead class="theadRow thead-light" style="font-size: 80%;">
+                            <thead class="theadRow thead-light" >
                               <tr>
                                 <th style="text-align: center;">Account</th>
                                 <th style="text-align: center;">Issue Credit To</th>
                                 <th style="text-align: center;">Wholesaler</th>
                               </tr>
                           </thead>
-                          <tbody style="font-size: 80%;">
+                          <tbody >
                             <td>Sample Company <br>
                               2535 First Avenue <br>
                               Suite 101 <br>
@@ -138,7 +156,7 @@
                               Chicago, IL 60641-1234
                             </td>
                           </tbody> 
-                          <tbody style="font-size: 80%;">
+                          <tbody >
                             <td>
                               <b>Phone:</b>(312) 555-5544 <b>Fax:</b>(312) 555-5533 <br>
                               <b>Contact:</b>Tom Smith <br>
@@ -155,7 +173,7 @@
                           </tbody> 
                           </table>
                             <table class="table table-bordered table-hover">
-                            <thead class="theadRow thead-light" style="font-size: 80%;">
+                            <thead class="theadRow thead-light" >
                               <tr>
                                 <th style="text-align: center;"><b>NDC/UPC</b></th>
                                 <th style="text-align: center;"><b>Description</b></th>
@@ -171,24 +189,24 @@
                               </tr>
                           </thead>
                          
-                          <thead >
-                            <tr>
-                              <td colspan="9" style="font-size: 80%;"><b>Ajanta Pharma USA Inc</b></td>
-                            </tr>
-                          </thead> 
-                          <tbody style="font-size: 80%;">
-                                          <tr *ngFor="let memoInfo of memoInfoList;">
-                                            <td style="text-align: center;">{{memoInfo.ndcupcCode}}</td>
-                                            <td style="text-align: center;">HYDROMET<br> (Partial packages of this product are non-returnable)</td>
-                                            <td style="text-align: center;">2</td>
-                                            <td style="text-align: center;">1.5 MG/5 ML-5 M</td>
-                                            <th style="text-align: center;">-</th>
-                                            <th style="text-align: center;">{{memoInfo.expDate}}</th>
-                                            <th style="text-align: center;">480 ML</th>
-                                            <th style="text-align: center;">2</th>
-                                            <th style="text-align: center;">-</th>
-                                            <th style="text-align: center;">{{memoInfo.price}}</th>
-                                            <th style="text-align: center;">100</th>
+               <!-- <thead>
+                          <tr *ngFor="let item of searchList;">
+                            <td colspan="9" ><b>{{item.companycompanyName !== null ? item.companycompanyName:'-'}} </b></td>
+                          </tr>
+                        </thead>  --> 
+                          <tbody >
+                                            <tr *ngFor="let item of searchList;">
+                                              <td style="text-align: center;">{{item.ndcupcCode !== null ? item.ndcupcCode:'-'}}</td>
+                                              <td style="text-align: center;">{{item.description !== null ? item.description:'-'}}</td>
+                                              <td style="text-align: center;"></td>
+                                              <td style="text-align: center;">{{item.strength !== null ? item.strength:'-'}}</td>
+                                              <td style="text-align: center;">{{item.lotNo !== null ? item.lotNo:'-'}}</td>
+                                              <td style="text-align: center;">{{item.expDate !== null ? item.expDate:'-'}}</td>
+                                              <td style="text-align: center;">{{item.pakageSize !== null ? item.pakageSize:'-'}}</td>
+                                              <td style="text-align: center;">{{item.fullQuantity !== null ? item.fullQuantity:'-'}}</td>
+                                              <td style="text-align: center;">{{item.partialQuantity !== null ? item.partialQuantity:'-'}}</td>
+                                              <td style="text-align: center;">{{item.price !== null ? item.price:'-'}}</td>
+                                              <td style="text-align: center;">{{item.estValue !== null ? item.estValue:'-'}}</td>
                                           </tr>
                                           <tr>
                                             <td></td>
@@ -201,7 +219,7 @@
                                             <td></td>
                                             <td></td>
                                             <td>Ajanta Pharma USA Inc to issue a check for: </td>
-                                            <td>100 </td>
+                                            <td> </td>
                                           </tr>
                                           </tbody> 
                                           <thead>

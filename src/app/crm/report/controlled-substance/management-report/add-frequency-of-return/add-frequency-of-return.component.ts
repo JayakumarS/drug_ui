@@ -11,6 +11,8 @@ import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.mode
 import { ManagementFormBean } from '../management-result-bean';
 import { ManagementFormService } from '../management-service';
 import { DeaformService } from '../../deaform41/deaform.service'; 
+import { CommonService } from 'src/app/common-service/common.service';
+import { DebitmemoService } from 'src/app/setup/company-master/debit-memo/debitmemo.service';
 @Component({
   selector: 'app-add-frequency-of-return',
   templateUrl: './add-frequency-of-return.component.html',
@@ -22,33 +24,72 @@ export class AddFrequencyOfReturnComponent implements OnInit {
   docForm: FormGroup;
   companyNameList: any;
   exampleDatabase: ManagementFormService | null;
+  requestId: any;
+  companyList =[];
+  debitMemoList =[];
+  listDebitMemo =[];
+  searchList: any;
 
   constructor(private fb: FormBuilder,public router: Router,
   private httpService: HttpServiceService,public deaformService:DeaformService
-    ,public route: ActivatedRoute) {
+    ,public route: ActivatedRoute,  public commonService: CommonService,    public debitmemoService: DebitmemoService) {
     this.docForm = this.fb.group({
-      companyName: ["", [Validators.required]],
-      debitMemoNo: ["", [Validators.required]],
-      controlledSubstance: ["", [Validators.required]],
-      onlyItem: ["", [Validators.required]],
-      itemsReturned: ["", [Validators.required]],
+      company: ["", [Validators.required]],
+      returnMemoNo: "",
       startDate:"",
       endDate:"",
     });
   }
-  ngOnInit() {
-    this.httpService.get<ManagementFormBean>(this.deaformService.companyNameUrl).subscribe(
+  
+
+  ngOnInit(): void {
+    
+    this.route.params.subscribe(params => {
+      if(params.id!=undefined && params.id!=0){
+       this.requestId = params.id;
+      }
+     });
+
+
+    this.httpService.get<any>(this.commonService.getcompanyMasterDropdownList).subscribe(
       (data) => {
-        this.companyNameList = data.companyNameList;
+        this.companyList = data;
+        this.docForm.patchValue({
+          'company' : this.requestId,
+       })
+
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
       }
-    );
+      );
+
+      this.httpService.get<any>(this.commonService.getdebitMemoDropdownList).subscribe(
+        (data) => {
+          this.debitMemoList = data;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+        );
+
+        setTimeout(() => {
+        this.searchData();
+      }, 700);
+
+      // this.getMemoList();
+      // this.getMemoInfo();
   }
   
-  onOk() {
-    
+  searchData(){
+    this.httpService.post<any>(this.deaformService.savedEAForm, this.docForm.value).subscribe(
+      (data) => {
+        this.searchList= data.listSearchBean;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+      );
   }
 }
 

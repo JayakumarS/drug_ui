@@ -1,58 +1,115 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
-import { AuthService } from 'src/app/auth/auth.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { HttpErrorResponse  } from "@angular/common/http";
-import { MatSnackBar } from "@angular/material/snack-bar";
-import { MatDialog } from '@angular/material/dialog';
-import { DeaformService } from '../../deaform41/deaform.service'; 
-import { DEAFormBean } from '../../deaform41/deaform-result-bean'; 
-import { InventoryFormBean } from '../inventory-result-bean';
-import { InventoryformService } from '../inventory-service';
+import { HttpErrorResponse } from "@angular/common/http";
+import { InventoryformService } from '../../inventory-report/inventory-service';
+import { InventoryFormBean } from '../../inventory-report/inventory-result-bean';
 import { PackingFormService } from '../../packing-slip/packingSlip-service';
 import { PackingFormBean } from '../../packing-slip/packingSlip-result-bean';
+import { CommonService } from 'src/app/common-service/common.service';
+import jsPDF from 'jspdf';
+import html2canvas from 'html2canvas';
+import { DebitmemoService } from 'src/app/setup/company-master/debit-memo/debitmemo.service';
+import { MatPaginator } from '@angular/material/paginator';
+import { MatSort } from '@angular/material/sort';
+import { MatMenuTrigger } from '@angular/material/menu';
+import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import { DeaformService } from '../../deaform41/deaform.service';
+import { DEAForm } from '../../deaform41/deaform-model';
+
 @Component({
   selector: 'app-add-inventory-report',
   templateUrl: './add-inventory-report.component.html',
   styleUrls: ['./add-inventory-report.component.sass']
 })
 export class AddInventoryReportComponent implements OnInit {
- 
-  inventoryForm: FormGroup;
-  companyNameList: any;
-  memoListDetails: any;
-  exampleDatabase: DeaformService | null;
-  memoInfoList: any;
+  [x: string]: any;
 
-  constructor(private fb: FormBuilder,public dialog: MatDialog,public router: Router, private packingFormService:PackingFormService,
-    private inventoryformService:InventoryformService,private httpService: HttpServiceService,public deaformService:DeaformService
-    ,public route: ActivatedRoute) {
-    this.inventoryForm = this.fb.group({
-      companyName: ["", [Validators.required]],
-      debitMemoNo: ["", [Validators.required]],
-      controlledSubstance: ["", [Validators.required]],
+  @ViewChild('htmlData') htmlData!: ElementRef;
+
+  docForm: FormGroup;
+  companyNameList: any;
+  returnMemoNoList: any;
+  exampleDatabase: DeaformService | null;
+  memoList: any;
+  memoDetails: any;
+  searchList: any;
+  dEAForm:DEAForm;
+  requestId: any;
+  companyList =[];
+  debitMemoList =[];
+  listDebitMemo =[];
+
+
+  constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService,
+    private httpService: HttpServiceService,public deaformService:DeaformService,private packingFormService:PackingFormService,
+    public route: ActivatedRoute,    public commonService: CommonService,    public debitmemoService: DebitmemoService
+
+    ) {
+    this.docForm = this.fb.group({
+      company: ["", [Validators.required]],
+      returnMemoNo: "",
+      // controlledSubstance: "",
       startDate:"",
       endDate:"",
     });
   }
-  ngOnInit() {
-    this.httpService.get<DEAFormBean>(this.deaformService.companyNameUrl).subscribe(
+ 
+
+  
+  @ViewChild(MatPaginator, { static: true }) paginator: MatPaginator;
+  @ViewChild(MatSort, { static: true }) sort: MatSort;
+  @ViewChild("filter", { static: true }) filter: ElementRef;
+  @ViewChild(MatMenuTrigger)
+  contextMenu: MatMenuTrigger;
+  contextMenuPosition = { x: "0px", y: "0px" };
+
+
+  ngOnInit(): void {
+    
+    this.route.params.subscribe(params => {
+      if(params.id!=undefined && params.id!=0){
+       this.requestId = params.id;
+      }
+     });
+
+
+    this.httpService.get<any>(this.commonService.getcompanyMasterDropdownList).subscribe(
       (data) => {
-        this.companyNameList = data.companyNameList;
+        this.companyList = data;
+        this.docForm.patchValue({
+          'company' : this.requestId,
+       })
+
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
       }
-    );
-    this.getMemoList();
-    this.getMemoInfo();
+      );
+
+      this.httpService.get<any>(this.commonService.getdebitMemoDropdownList).subscribe(
+        (data) => {
+          this.debitMemoList = data;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+        );
+
+        setTimeout(() => {
+        this.searchData();
+      }, 700);
+
+      // this.getMemoList();
+      // this.getMemoInfo();
   }
+
 
   getMemoList() {
       this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
         (data) => {
-          this.memoListDetails = data.memoList;
+          this.memoList = data.memoList;
         },
         (error: HttpErrorResponse) => {
           console.log(error.name + " " + error.message);
@@ -63,7 +120,7 @@ export class AddInventoryReportComponent implements OnInit {
     getMemoInfo() {
       this.httpService.get<PackingFormBean>(this.packingFormService.memoDetailsUrl).subscribe(
         (data) => {
-          this.memoInfoList = data.memoDetails;
+          this.memoDetails = data.memoDetails;
         },
         (error: HttpErrorResponse) => {
           console.log(error.name + " " + error.message);
@@ -71,13 +128,9 @@ export class AddInventoryReportComponent implements OnInit {
       );
     }
 
-  onOk() {
-    
-  }
-
   print() {
     let newWin;
-    var content = document.getElementById('inventoryPrint').innerHTML;
+    var content = document.getElementById('scheduleIIPrint').innerHTML;
     var combined = document.createElement('div');
     combined.innerHTML = content; 
     combined.id = 'new';
@@ -154,5 +207,58 @@ export class AddInventoryReportComponent implements OnInit {
          );
     newWin.document.close();
     }
+
+
+ 
   
+    searchData(){
+      this.httpService.post<any>(this.deaformService.savedEAForm, this.docForm.value).subscribe(
+        (data) => {
+          this.searchList= data.listSearchBean;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+        );
+    }
+
+  
+    //Export PDF
+   
+    public openPDF(): void {
+      let DATA: any = document.getElementById('htmlData');
+      html2canvas(DATA).then((canvas) => {
+        let fileWidth = 208;
+        let fileHeight = (canvas.height * fileWidth) / canvas.width;
+        const FILEURI = canvas.toDataURL('image/png');
+        let PDF = new jsPDF('p', 'mm', 'a4');
+        let position = 0;
+        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
+        PDF.save('ScheduleII.pdf');
+      });
+    }
+
+
+//     //Export PDF
+//     openPDF() {    
+//     if(this.searchList.length !== 0) {
+//     // this.entiymasterid = sessionStorage.getItem('entityId-usec'); 
+    
+//     this.deaformService.savedEAForm(this.docForm)
+//       .pipe(takeUntil(this.subscribe)).subscribe((data: any) => {
+//         let file = new Blob([data], { type: "application/pdf" });
+//         var fileURL = URL.createObjectURL(file);
+//         window.open(fileURL);
+//       }, error => {
+//         console.log(error);
+//         this.helper.errorMessage(error);
+//       });
+//   } else {
+//     this.tostar.error('No Record Found', 'Error', {
+//       timeOut: 2000
+//     });
+//   }
+
+// }
 }
+

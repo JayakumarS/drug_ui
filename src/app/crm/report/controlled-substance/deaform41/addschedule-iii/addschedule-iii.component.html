@@ -7,51 +7,38 @@
       </app-breadcrumb>
     </div>
     <div class="row clearfix ">
-      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
+      <div class="col-md-12">
       <div class="box-shadow">
-        <div class="card" style="width:100; height: 80%;">
+        <div class="card" style="width:100%; height: 10%;">
           <div class="body">
             <form class="m-2" [formGroup]="docForm">
               <div class="col-md-12">
                 <div class="card" style="width:100%; height: 10%;">
-                  <div class="row" style="margin-left: 5%;">
-                  <div class="col-md-2" >
-                    <mat-label>Company Name :</mat-label>
-                   </div>
-                   <div class="col-md-3" >
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Company Name</mat-label>
-                            <mat-select formControlName="companyName" required>
-                              <mat-option *ngFor="let title of companyNameList" [value]="title.id">
-                                {{title.text}}
-                              </mat-option>
-                            </mat-select>
-                      </mat-form-field>
-                  </div>
-                 
-                  <div class="col-md-2"  style="margin-left: 5%;">
-                       <mat-label>Debit Memo No : </mat-label>
-                  </div>
-                  <div class="col-md-3">
+                  <div class="row">
+                  <div class="col-xl-3" >
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Debit Memo No</mat-label>
-                      <mat-select formControlName="debitMemoNo" required>
-                        <mat-option [value]="'1'">
-                          OMG062922 
-                        </mat-option>
-                        <mat-option [value]="'2'">
-                          OMG070122
-                        </mat-option>
+                      <mat-label>Company Name</mat-label>
+                          <mat-select  formControlName="company">
+                            <mat-option *ngFor="let title of companyList" [value]="title.id">
+                              {{title.text}}
+                            </mat-option>
                           </mat-select>
                     </mat-form-field>
                   </div>
-              </div>
+                 
+                 
+                  <div class="col-xl-3">
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                      <mat-label>Debit Memo No</mat-label>
+                          <mat-select  formControlName="returnMemoNo">
+                            <mat-option *ngFor="let title of debitMemoList" [value]="title.id">
+                              {{title.id}}
+                            </mat-option>
+                          </mat-select>
+                    </mat-form-field>
+                  </div>
             
-             
-              <div class="row"  style="margin-left: 5%;">
-                <div class="col-md-2">
-                  <mat-label>Start Date : </mat-label>
-               </div>
+               
                 <div class="col-md-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>Start Date</mat-label>
@@ -60,9 +47,7 @@
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
               </div>
-              <div class="col-md-2" style="margin-left: 5%;">
-                <mat-label>End Date : </mat-label>
-             </div>
+            
               <div class="col-md-3">
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                   <mat-label>End Date</mat-label>
@@ -76,9 +61,9 @@
                   <div class="col-md-3">
                       <mat-label>Choose Records to Display/Print :</mat-label>
                   </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-                <div class="card col-md-6">
+                <div class="card col-md-7">
               <br>
-                  <div class="col-md-12" style="margin-left: 5%;">
+                  <div class="col-md-12" style="margin-left: 2%;">
                       <mat-radio-button>All
                       </mat-radio-button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
                       <mat-radio-button>Returnable items only
@@ -88,12 +73,15 @@
                   </div>
                   <br>
               </div>
-       
-              <div class="col-md-12" style="margin-left: 83%;">
-                  <button (click) = "onOk()" class="btn-space" mat-raised-button
-                  color="accent" style="background-color: #34d034;">Search</button>
-                  <button (click) = "print()" class="btn-space" mat-raised-button
-                  color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button>
+            </div>
+           <br>
+           <div class="row"  style="margin-left: 5%;">  
+              <div class="col-md-12" style="margin-left: 79%;">
+                  <button class="btn-space" mat-raised-button
+                  color="accent" style="background-color: #34d034;" (click) = "searchData()">Search</button>
+                  <!-- <button (click) = "print()" class="btn-space" mat-raised-button
+                  color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button> -->
+                  <button class="btn btn-success btn-block" (click)="openPDF()">Export Report</button>
               </div>
               
               <br>
@@ -102,65 +90,75 @@
             </div>
             </form>
           </div>
-       
-        <div id="scheduleIIIPrint">
-          <div class="row" style="overflow-x:auto;">
-            <div class="col-md-12">
-                <div class="table-responsive-sm">
-                    <table class="table table-bordered table-hover">
-                        <thead class="theadRow thead-light" style="font-size: 80%;">
-                          <tr *ngFor="let memoReport of memoListDetails;">
-                            <th style="text-align: center;">Return Name: {{memoReport.name}}<br> Created: {{memoReport.date}}</th>
-                            <th style="text-align: center;">{{memoReport.text}} <br><br> <b>Schedule 2 Report</b></th>
-                            <th style="text-align: center;">Debit Memo: {{memoReport.no}}</th>
+
+
+
+
+
+          <!-- <div id="scheduleIIPrint" > -->
+            <!-- <div class="container"> -->
+            <div id="htmlData">
+            <div class="row" style="overflow-x:auto;">
+              <div class="col-md-12">
+                  <div class="table-responsive-sm">
+                      <table class="table table-bordered table-hover">
+                          <thead class="theadRow thead-light" >
+                              <tr *ngFor="let item of searchList;">
+                                <th style="text-align: center;">Return Name: {{item.name !== null ? item.name:'-'}}<br> Created: {{item.returnMemoDate !== null ? item.returnMemoDate:'-'}}</th>
+                                <th style="text-align: center;">{{item.companyName !== null ? item.companyName:'-'}} <br><br> <b>Schedule 2 Report</b></th>
+                                <th style="text-align: center;">Debit Memo: {{item.returnMemoNo !== null ? item.returnMemoNo:'-'}}</th>
+                              </tr>
+                          </thead>
+                          </table>
+                          <table class="table table-bordered table-hover">
+                          <thead class="theadRow thead-light" >
+                            <tr>
+                              <th style="text-align: center;"><b>NDC/UPC</b></th>
+                              <th style="text-align: center;"><b>Description</b></th>
+                              <th style="text-align: center;"><b>Cont#</b></th>
+                              <th style="text-align: center;"><b>Strength</b></th>
+                              <th style="text-align: center;"><b>Lot#</b></th>
+                              <th style="text-align: center;"><b>Exp Date</b></th>
+                              <th style="text-align: center;"><b>Pkg Size</b></th>
+                              <th style="text-align: center;"><b>Full Qty</b></th>
+                              <th style="text-align: center;"><b>Partial Qty</b></th>
+
+                            </tr>
+                        </thead>
+                        <thead>
+                          <tr>
+                            <td style="text-align:center;font-size: 80%;"colspan="9"><b><u>Non Returnable</u></b></td>
                           </tr>
                         </thead>
-                        </table>
-                        <table class="table table-bordered table-hover">
-                        <thead class="theadRow thead-light" style="font-size: 80%;">
-                          <tr>
-                            <th style="text-align: center;"><b>NDC/UPC</b></th>
-                            <th style="text-align: center;"><b>Description</b></th>
-                            <th style="text-align: center;"><b>Cont#</b></th>
-                            <th style="text-align: center;"><b>Strength</b></th>
-                            <th style="text-align: center;"><b>Lot#</b></th>
-                            <th style="text-align: center;"><b>Exp Date</b></th>
-                            <th style="text-align: center;"><b>Pkg Size</b></th>
-                            <th style="text-align: center;"><b>Full Qty</b></th>
-                            <th style="text-align: center;"><b>Partial Qty</b></th>
-                          </tr>
-                      </thead>
-                      <thead>
-                        <tr>
-                          <td style="text-align:center;font-size: 80%;" colspan="9"><b><u>Non Returnable</u></b></td>
+                      <!-- <thead>
+                        <tr *ngFor="let item of searchList;">
+                          <td colspan="9" ><b>{{item.companycompanyName !== null ? item.companycompanyName:'-'}} </b></td>
                         </tr>
-                      </thead>
-                      <thead>
-                        <tr>
-                          <td colspan="9" style="font-size: 80%;"><b>Sandoz</b></td>
-                        </tr>
-                      </thead> 
-                       
-                      <tbody style="font-size: 80%;">
-                        <tr *ngFor="let memoInfo of memoInfoList;">
-                          <td style="text-align: center;">{{memoInfo.ndcupcCode}}</td>
-                          <td style="text-align: center;">HYDROMET<br> (Partial packages of this product are non-returnable)</td>
-                          <td style="text-align: center;">2</td>
-                          <td style="text-align: center;">1.5 MG/5 ML-5 M</td>
-                          <th style="text-align: center;">{{memoInfo.lotNo}}</th>
-                          <th style="text-align: center;">{{memoInfo.expDate}}</th>
-                          <th style="text-align: center;">480 ML</th>
-                          <th style="text-align: center;">-</th>
-                          <th style="text-align: center;">2</th>
-                        </tr>
-                        </tbody> 
-                      </table>
-                                     
-                                    </div>
-                                    </div>
-                                    </div>
-                      </div>
-                    </div>
+                      </thead>   -->
+                      
+                        <tbody >
+                                       <tr *ngFor="let item of searchList;">
+                                          <td style="text-align: center;">{{item.ndcupcCode !== null ? item.ndcupcCode:'-'}}</td>
+                                          <td style="text-align: center;">{{item.description !== null ? item.description:'-'}}</td>
+                                          <td style="text-align: center;"></td>
+                                          <td style="text-align: center;">{{item.strength  !== null ? item.strength:'-'}}</td>
+                                          <th style="text-align: center;">{{item.lotNo  !== null ? item.lotNo:'-'}}</th>
+                                          <th style="text-align: center;">{{item.expDate  !== null ? item.expDate:'-'}}</th>
+                                          <th style="text-align: center;">{{item.pakageSize  !== null ? item.pakageSize:'-'}}</th>
+                                          <th style="text-align: center;">{{item.fullQuantity  !== null ? item.fullQuantity:'-'}}</th>
+                                          <th style="text-align: center;">{{item.partialQuantity  !== null ? item.partialQuantity:'-'}}</th>
+
+                                        </tr>
+                                        </tbody> 
+                                    </table>
+                                       
+                                      </div>
+                                      </div>
+                                      </div>
+                        </div>
+                      <!-- </div> -->
+
+        </div>
       </div>
       </div>
     </div>

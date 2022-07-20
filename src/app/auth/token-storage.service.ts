@@ -6,7 +6,7 @@ const AUTHORITIES_KEY = 'AuthAuthorities';
 const AUTHUSERID_KEY = 'AuthUserId';
 const AUTHDEFAULTROLEID_KEY = 'AuthDefaultRoleId';
 const AUTHDEFAULTROLE_KEY = 'AuthDefaultRole';
-
+const AUTHCUSTOMERCOMPANYCODE_KEY = 'AuthCompanyCode';
 @Injectable({
   providedIn: 'root'
 })
@@ -77,5 +77,14 @@ public getUserId(): string {
 
   public getDefaultRole(): string {
     return sessionStorage.getItem(AUTHDEFAULTROLE_KEY);
+  }
+
+  public saveCustomerCompanyCode(companyCode: string){
+    window.sessionStorage.removeItem(AUTHCUSTOMERCOMPANYCODE_KEY);
+    window.sessionStorage.setItem(AUTHCUSTOMERCOMPANYCODE_KEY, companyCode);
+  }
+
+  public getCustomerCompanyCode(){
+    return sessionStorage.getItem(AUTHCUSTOMERCOMPANYCODE_KEY);
   }
 }
