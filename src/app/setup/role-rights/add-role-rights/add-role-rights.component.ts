@@ -31,7 +31,7 @@ export class AddRoleRightsComponent implements OnInit{
     this.docForm = this.fb.group({
       roleId: ["", [Validators.required]],
       formList: [""],
-      userName: this.tokenStorage.getUsername()
+    //  userName: this.tokenStorage.getUsername()
      
     });
   }

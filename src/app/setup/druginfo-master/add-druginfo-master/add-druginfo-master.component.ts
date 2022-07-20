@@ -48,7 +48,7 @@ export class AddDruginfoMasterComponent implements OnInit {
       awp: ["", [Validators.required]],
       wap: ["", [Validators.required]],
       myPrice: ["", [Validators.required]],
-      userName: this.tokenStorage.getUsername()
+    //  userName: this.tokenStorage.getUsername()
            
     });
 
@@ -110,9 +110,9 @@ export class AddDruginfoMasterComponent implements OnInit {
         'dosage': res.drugInfoMasterBean.dosage,
         'unitOfMeasure': res.drugInfoMasterBean.unitOfMeasure,
         'hazardous': this.getBoolean(res.drugInfoMasterBean.hazardous),
-'awp': res.drugInfoMasterBean.awp,
-'wap': res.drugInfoMasterBean.wap,
-'myPrice': res.drugInfoMasterBean.myPrice,
+        'awp': res.drugInfoMasterBean.awp,
+        'wap': res.drugInfoMasterBean.wap,
+        'myPrice': res.drugInfoMasterBean.myPrice,
      
      })
 
