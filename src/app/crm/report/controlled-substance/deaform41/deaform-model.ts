@@ -1,5 +1,6 @@
 export class DEAForm{
     company: string;
+    companyId: string;
     companyName: string;
     returnMemoNo: string;
     returnMemoDate: string;

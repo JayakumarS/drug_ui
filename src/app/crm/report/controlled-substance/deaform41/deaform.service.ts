@@ -30,6 +30,7 @@ export class DeaformService extends UnsubscribeOnDestroyAdapter{
   public returnMemoNoUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getReturnMemoNo`;
   // public searchListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSearchList`;
   public savedEAForm = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSearchList`;
+  public savedEAForm14 = `${this.serverUrl.apiServerAddress}api/auth/app/report/getNonReturnSearchList`;
 
   get data(): DEAForm[] {
     return this.dataChange.value;

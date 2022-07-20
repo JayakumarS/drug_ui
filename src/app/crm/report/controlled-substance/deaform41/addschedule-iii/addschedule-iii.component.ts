@@ -36,6 +36,7 @@ export class AddscheduleIIIComponent implements OnInit {
   memoList: any;
   memoDetails: any;
   searchList: any;
+  nonSearchList: any;
   dEAForm:DEAForm;
   requestId: any;
   companyList =[];
@@ -67,6 +68,7 @@ export class AddscheduleIIIComponent implements OnInit {
   contextMenuPosition = { x: "0px", y: "0px" };
 
 
+ 
   ngOnInit(): void {
     
     this.route.params.subscribe(params => {
@@ -89,23 +91,26 @@ export class AddscheduleIIIComponent implements OnInit {
       }
       );
 
-      this.httpService.get<any>(this.commonService.getdebitMemoDropdownList).subscribe(
-        (data) => {
-          this.debitMemoList = data;
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.name + " " + error.message);
-        }
-        );
+      
 
         setTimeout(() => {
+        this.debitMemoDropdownList(this.requestId);
         this.searchData();
       }, 700);
-
-      // this.getMemoList();
-      // this.getMemoInfo();
   }
 
+
+
+  debitMemoDropdownList(companyId){
+  this.httpService.get<any>(this.commonService.getdebitMemoDropdownList+"?companyId="+companyId).subscribe(
+    (data) => {
+      this.debitMemoList = data;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+    );
+  }
 
   getMemoList() {
       this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
@@ -213,6 +218,7 @@ export class AddscheduleIIIComponent implements OnInit {
  
   
     searchData(){
+      
       this.httpService.post<any>(this.deaformService.savedEAForm, this.docForm.value).subscribe(
         (data) => {
           this.searchList= data.listSearchBean;
@@ -221,6 +227,16 @@ export class AddscheduleIIIComponent implements OnInit {
           console.log(error.name + " " + error.message);
         }
         );
+
+        
+        this.httpService.post<any>(this.deaformService.savedEAForm14, this.docForm.value).subscribe(
+          (data) => {
+            this.nonSearchList= data.nonListSearchBean;
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + " " + error.message);
+          }
+          );
     }
 
   

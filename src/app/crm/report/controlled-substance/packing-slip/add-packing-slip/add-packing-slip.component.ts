@@ -40,6 +40,7 @@ export class AddPackingSlipComponent implements OnInit {
   debitMemoList =[];
   listDebitMemo =[];
   searchList: any;
+  nonSearchList: any;
   docForm: FormGroup;
 
   
@@ -78,16 +79,10 @@ export class AddPackingSlipComponent implements OnInit {
       }
       );
 
-      this.httpService.get<any>(this.commonService.getdebitMemoDropdownList).subscribe(
-        (data) => {
-          this.debitMemoList = data;
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.name + " " + error.message);
-        }
-        );
+      
 
         setTimeout(() => {
+        this.debitMemoDropdownList(this.requestId);
         this.searchData();
       }, 700);
     this.route.params.subscribe(params => {
@@ -117,6 +112,18 @@ export class AddPackingSlipComponent implements OnInit {
     //  this.getMemoInfo();
   }
 
+  debitMemoDropdownList(companyId){
+    this.httpService.get<any>(this.commonService.getdebitMemoDropdownList+"?companyId="+companyId).subscribe(
+      (data) => {
+        this.debitMemoList = data;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+      );
+    }
+
+    
 toggleAllSelection() {
   if (this.allSelected) {
     this.packingForm.controls.userType
@@ -254,6 +261,15 @@ print() {
             console.log(error.name + " " + error.message);
           }
           );
+
+          // this.httpService.post<any>(this.deaformService.savedEAForm14, this.docForm.value).subscribe(
+          //   (data) => {
+          //     this.nonSearchList= data.nonListSearchBean;
+          //   },
+          //   (error: HttpErrorResponse) => {
+          //     console.log(error.name + " " + error.message);
+          //   }
+          //   );
       }
   
     
