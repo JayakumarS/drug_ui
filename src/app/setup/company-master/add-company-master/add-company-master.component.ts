@@ -51,7 +51,7 @@ export class AddCompanyMasterComponent implements OnInit {
       wholesalerTollFreeNo: ["", [Validators.required]],
       wholesalerFax: ["", [Validators.required]],
       wholesalerPhone: ["", [Validators.required]],
-      userName: this.tokenStorage.getUsername(),
+    //  userName: this.tokenStorage.getUsername(),
  
       companyCode: [""],
 companyName:["", [Validators.required]],

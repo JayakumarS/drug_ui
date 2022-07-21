@@ -15,28 +15,30 @@
               <div class="col-md-12">
                 <div class="card" style="width:100%; height: 10%;">
                   <div class="row">
-                  <div class="col-xl-3" >
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Company Name</mat-label>
-                          <mat-select  formControlName="company">
-                            <mat-option *ngFor="let title of companyList" [value]="title.id">
-                              {{title.text}}
-                            </mat-option>
-                          </mat-select>
-                    </mat-form-field>
-                  </div>
-                 
-                 
-                  <div class="col-xl-3">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Debit Memo No</mat-label>
-                          <mat-select  formControlName="returnMemoNo">
-                            <mat-option *ngFor="let title of debitMemoList" [value]="title.id">
-                              {{title.id}}
-                            </mat-option>
-                          </mat-select>
-                    </mat-form-field>
-                  </div>
+                       
+               <div class="col-xl-3" >
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-label>Company Name</mat-label>
+                      <mat-select  formControlName="company"  (selectionChange)="debitMemoDropdownList($event.value)">
+                        <mat-option *ngFor="let title of companyList" [value]="title.id">
+                          {{title.text}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+              </div>
+             
+             
+              <div class="col-xl-3">
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
+                  <mat-label>Debit Memo No</mat-label>
+                      <mat-select  formControlName="returnMemoNo">
+                        <mat-option *ngFor="let title of debitMemoList" [value]="title.id">
+                          {{title.id}}
+                        </mat-option>
+                      </mat-select>
+                </mat-form-field>
+              </div>
+          
             
                
                 <div class="col-md-3">
@@ -104,8 +106,8 @@
                       <table class="table table-bordered table-hover">
                           <thead class="theadRow thead-light" >
                               <tr *ngFor="let item of searchList;">
-                                <th style="text-align: center;">Return Name: {{item.name !== null ? item.name:'-'}}<br> Created: {{item.returnMemoDate !== null ? item.returnMemoDate:'-'}}</th>
-                                <th style="text-align: center;">{{item.companyName !== null ? item.companyName:'-'}} <br><br> <b>Schedule 2 Report</b></th>
+                                <th style="text-align: center;">Return Name: {{item.name !== null ? item.name:'-'}}<br> Created: {{item.returnMemoDate !== null ? item.returnMemoDate:'-' | date:'dd-MM-yyyy HH:mm a'}}</th>
+                                <th style="text-align: center;">{{item.companyName !== null ? item.companyName:'-'}} <br><br> <b>Schedule 3,4,5 Report</b></th>
                                 <th style="text-align: center;">Debit Memo: {{item.returnMemoNo !== null ? item.returnMemoNo:'-'}}</th>
                               </tr>
                           </thead>
@@ -127,7 +129,7 @@
                         </thead>
                         <thead>
                           <tr>
-                            <td style="text-align:center;font-size: 80%;"colspan="9"><b><u>Non Returnable</u></b></td>
+                            <td style="text-align:center;"colspan="9"><b><u>Non Returnable</u></b></td>
                           </tr>
                         </thead>
                       <!-- <thead>
@@ -137,19 +139,39 @@
                       </thead>   -->
                       
                         <tbody >
-                                       <tr *ngFor="let item of searchList;">
+                                       <tr *ngFor="let item of nonSearchList;">
                                           <td style="text-align: center;">{{item.ndcupcCode !== null ? item.ndcupcCode:'-'}}</td>
                                           <td style="text-align: center;">{{item.description !== null ? item.description:'-'}}</td>
                                           <td style="text-align: center;"></td>
                                           <td style="text-align: center;">{{item.strength  !== null ? item.strength:'-'}}</td>
                                           <th style="text-align: center;">{{item.lotNo  !== null ? item.lotNo:'-'}}</th>
-                                          <th style="text-align: center;">{{item.expDate  !== null ? item.expDate:'-'}}</th>
+                                          <th style="text-align: center;">{{item.expDate  !== null ? item.expDate:'-' | date:'dd-MM-yyyy HH:mm a'}}</th>
                                           <th style="text-align: center;">{{item.pakageSize  !== null ? item.pakageSize:'-'}}</th>
                                           <th style="text-align: center;">{{item.fullQuantity  !== null ? item.fullQuantity:'-'}}</th>
                                           <th style="text-align: center;">{{item.partialQuantity  !== null ? item.partialQuantity:'-'}}</th>
 
                                         </tr>
                                         </tbody> 
+
+                                        <thead>
+                                          <tr>
+                                            <td style="text-align:center;"colspan="9"><b><u>Returnable</u></b></td>
+                                          </tr>
+                                        </thead>
+                                        <tbody >
+                                          <tr *ngFor="let item of searchList;">
+                                             <td style="text-align: center;">{{item.ndcupcCode !== null ? item.ndcupcCode:'-'}}</td>
+                                             <td style="text-align: center;">{{item.description !== null ? item.description:'-'}}</td>
+                                             <td style="text-align: center;"></td>
+                                             <td style="text-align: center;">{{item.strength  !== null ? item.strength:'-'}}</td>
+                                             <th style="text-align: center;">{{item.lotNo  !== null ? item.lotNo:'-'}}</th>
+                                             <th style="text-align: center;">{{item.expDate  !== null ? item.expDate:'-' | date:'dd-MM-yyyy HH:mm a'}}</th>
+                                             <th style="text-align: center;">{{item.pakageSize  !== null ? item.pakageSize:'-'}}</th>
+                                             <th style="text-align: center;">{{item.fullQuantity  !== null ? item.fullQuantity:'-'}}</th>
+                                             <th style="text-align: center;">{{item.partialQuantity  !== null ? item.partialQuantity:'-'}}</th>
+ 
+                                           </tr>
+                                           </tbody> 
                                     </table>
                                        
                                       </div>

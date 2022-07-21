@@ -36,6 +36,7 @@ export class AddscheduleIIComponent implements OnInit {
   memoList: any;
   memoDetails: any;
   searchList: any;
+  nonSearchList:any;
   dEAForm:DEAForm;
   requestId: any;
   companyList =[];
@@ -88,21 +89,25 @@ export class AddscheduleIIComponent implements OnInit {
       }
       );
 
-      this.httpService.get<any>(this.commonService.getdebitMemoDropdownList).subscribe(
-        (data) => {
-          this.debitMemoList = data;
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.name + " " + error.message);
-        }
-        );
+      
 
         setTimeout(() => {
+        this.debitMemoDropdownList(this.requestId);
         this.searchData();
       }, 700);
+  }
 
-      // this.getMemoList();
-      // this.getMemoInfo();
+
+
+  debitMemoDropdownList(companyId){
+  this.httpService.get<any>(this.commonService.getdebitMemoDropdownList+"?companyId="+companyId).subscribe(
+    (data) => {
+      this.debitMemoList = data;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+    );
   }
 
 
@@ -220,6 +225,15 @@ export class AddscheduleIIComponent implements OnInit {
           console.log(error.name + " " + error.message);
         }
         );
+
+        this.httpService.post<any>(this.deaformService.savedEAForm14, this.docForm.value).subscribe(
+          (data) => {
+            this.nonSearchList= data.nonListSearchBean;
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + " " + error.message);
+          }
+          );
     }
 
   

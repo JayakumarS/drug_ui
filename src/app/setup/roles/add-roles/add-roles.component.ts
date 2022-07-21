@@ -28,7 +28,7 @@ export class AddRolesComponent implements OnInit{
     this.docForm = this.fb.group({
       roleName: ["", [Validators.required, Validators.pattern("[a-zA-Z]+")]],
       remarks: [""],
-      userName: this.tokenStorage.getUsername()
+     // userName: this.tokenStorage.getUsername()
     });
   }
   onSubmit() {

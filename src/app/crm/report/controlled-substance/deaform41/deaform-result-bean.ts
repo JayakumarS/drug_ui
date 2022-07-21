@@ -8,4 +8,6 @@ export class DEAFormBean{
     companyNameList:[];
     returnMemoNoList:[];
     searchList:[];
+    nonSearchList:[];
+
 }

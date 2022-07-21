@@ -18,7 +18,7 @@
                     <div class="col-xl-3" >
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                         <mat-label>Company Name</mat-label>
-                            <mat-select  formControlName="company">
+                            <mat-select  formControlName="company"  (selectionChange)="debitMemoDropdownList($event.value)">
                               <mat-option *ngFor="let title of companyList" [value]="title.id">
                                 {{title.text}}
                               </mat-option>
@@ -37,11 +37,7 @@
                             </mat-select>
                       </mat-form-field>
                     </div>
-              <!-- </div>
-            
-            
-               <div class="row"  style="margin-left: 5%;"> -->
-              
+                    
                 <div class="col-xl-3">
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
                     <mat-label>Start Date</mat-label>
@@ -194,6 +190,11 @@
                             <td colspan="9" ><b>{{item.companycompanyName !== null ? item.companycompanyName:'-'}} </b></td>
                           </tr>
                         </thead>  --> 
+                        <thead>
+                          <tr>
+                            <td style="text-align:center;"colspan="11"><b><u>Returnable Products</u></b></td>
+                          </tr>
+                        </thead>
                           <tbody >
                                             <tr *ngFor="let item of searchList;">
                                               <td style="text-align: center;">{{item.ndcupcCode !== null ? item.ndcupcCode:'-'}}</td>
@@ -218,17 +219,17 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td>Ajanta Pharma USA Inc to issue a check for: </td>
+                                            <td  *ngFor="let item of searchList;">{{item.companycompanyName !== null ? item.companycompanyName:'-'}} </td>
                                             <td> </td>
                                           </tr>
                                           </tbody> 
                                           <thead>
                                             <tr>
-                                              <td style="text-align:center;font-size: 80%;"colspan="11"><b>Return Instructions</b></td>
+                                              <td style="text-align:center;"colspan="11"><b>Return Instructions</b></td>
                                             </tr>
                                           </thead>
                                       </table>
-                                      <div class="row" style="margin-left: 2%;font-size: 80%;">
+                                      <div class="row" style="margin-left: 2%;">
                                         <div class="col-md-12">
                                           1. You are required to fax your Direct Return invoice to (877)546-9068 and Stericycle
                                           Pharmaceutical Services will fax you back an authorization form with an RA#

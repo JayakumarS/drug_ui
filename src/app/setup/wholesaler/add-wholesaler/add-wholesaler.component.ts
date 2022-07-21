@@ -47,7 +47,7 @@ export class AddWholesalerComponent implements OnInit {
       tollFreeNo: ["", [Validators.required]],
       fax: ["", [Validators.required]],
       phone: ["", [Validators.required]],
-      userName: this.tokenStorage.getUsername()
+    //  userName: this.tokenStorage.getUsername()
     });
   }
   ngOnInit(): void {

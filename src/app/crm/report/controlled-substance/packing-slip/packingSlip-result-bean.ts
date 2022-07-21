@@ -8,6 +8,8 @@ export class PackingFormBean{
     companyNameList:[];
     memoDetails:[];
     searchList:[];
+    nonSearchList:[];
+
 
 
 }
