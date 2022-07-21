@@ -28,6 +28,7 @@ import { ListUsersComponent } from './list-users/list-users.component';
 import { AddUsersComponent } from './add-users/add-users.component';
 import { DeleteUsersComponent } from './list-users/delete-users/delete-users.component';
 import { ChangePasswordPopUpComponent } from './change-password-pop-up/change-password-pop-up.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -63,6 +64,7 @@ import { ChangePasswordPopUpComponent } from './change-password-pop-up/change-pa
     ComponentsModule,
     SharedModule,
     MatRadioModule,
+    NgMultiSelectDropDownModule.forRoot()
   ]
 })
 export class UsersModule { }

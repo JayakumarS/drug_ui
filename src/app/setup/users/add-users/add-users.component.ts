@@ -2,7 +2,7 @@ import { UsersResultBean } from './../users-result-bean';
 import { UsersMaster } from './../users-model';
 import { ActivatedRoute,Router } from '@angular/router';
 import { Component, OnInit,ElementRef,ViewChild } from '@angular/core';
-import { FormBuilder, FormGroup, Validators } from "@angular/forms";
+import { FormArray, FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { AuthService } from 'src/app/auth/auth.service';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
@@ -11,6 +11,7 @@ import { UsersService } from './../users.service';
 import { PasswordStrengthValidator } from './../../../shared/passwordPolicy';
 import { MustMatch } from './../../../shared/mustMatch';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
 @Component({
   selector: 'app-add-users',
   templateUrl: './add-users.component.html',
@@ -24,6 +25,11 @@ export class AddUsersComponent  implements OnInit  {
   agree3 = false;
   roleList:[];
   companyList:[];
+  roles:[];
+ 
+  dropdownList = [];
+  dropdownSettings:IDropdownSettings={};
+  //  selectedItems = [];
   constructor( private tokenStorage: TokenStorageService,private fb: FormBuilder,private authService: AuthService,public router: Router,
     private usersService:UsersService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
@@ -38,10 +44,14 @@ export class AddUsersComponent  implements OnInit  {
       confirmPassword: [""],
       emailId: [ "",[Validators.required, Validators.email, Validators.minLength(5)],],
       uploadImg: ["",[Validators.required]],
-      roles: ["", [Validators.required]],
+   //   roles: ["", [Validators.required]],
+   //   uploadImg: [""],
+      roles: [, [Validators.required]],
       fileUploadUrl:[""],
       companyCode:["", [Validators.required]],
-      userName: this.tokenStorage.getUsername()
+      userName: this.tokenStorage.getUsername(),
+      roleName:[""],
+
     }, {
       validator: MustMatch('newPassword', 'confirmPassword')
     });
@@ -130,11 +140,21 @@ export class AddUsersComponent  implements OnInit  {
 
   }
 
+
   onCancel(){
     this.router.navigate(['/setup/users/listUsers']);
   }
 
   ngOnInit() {
+ 
+    this.dropdownSettings = {
+       singleSelection: false,
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 2,
+      allowSearchFilter: true
+    };
+  
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -146,7 +166,8 @@ export class AddUsersComponent  implements OnInit  {
 
     this.httpService.get<UsersResultBean>(this.usersService.roleListUrl).subscribe(
       (data) => {
-        this.roleList = data.roleList;
+    //    this.roleList = data.roleList;
+        this.dropdownList =data.roleList
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -160,8 +181,9 @@ export class AddUsersComponent  implements OnInit  {
         console.log(error.name + " " + error.message);
       }
     );
+    
   }
-
+ 
   fetchDetails(empId: any): void {
     this.httpService.get(this.usersService.editUsers+"?usersId="+empId).subscribe((res: any)=> {
       console.log(empId);
@@ -173,23 +195,19 @@ export class AddUsersComponent  implements OnInit  {
         'mobileNo': res.usersMasterBean.mobileNo,
         'emailId': res.usersMasterBean.emailId,
         'uploadImg' : res.usersMasterBean.uploadImg,
-        'roles': res.usersMasterBean.roles,
+        'roles': res.roles,
         
      })
+   
+     this.dropdownList=res.roles;
       },
       (err: HttpErrorResponse) => {
-         // error code here
+       
       }
     );
-    /*  this.httpClient.delete(this.API_URL + id).subscribe(data => {
-      console.log(id);
-      },
-      (err: HttpErrorResponse) => {
-         // error code here
-      }
-    );*/
   }
 
+ 
   userNameValidation(event){
     this.httpService.get<any>(this.usersService.uniqueValidateUrl+ "?tableName=" +"user_details"+"&columnName="+"emp_user_id"+"&columnValue="+event).subscribe((res: any) => {
       if(res){
@@ -218,6 +236,12 @@ export class AddUsersComponent  implements OnInit  {
         this.docForm.controls['mobileNo'].setErrors(null);
       }
     });
+  }
+  onItemSelect(roles: any) {
+    console.log(roles);
+  }
+  onSelectAll(roles: any) {
+    console.log(roles);
   }
   
 }

@@ -6,4 +6,6 @@ export class UsersResultBean{
     usersMasterBean:UsersMaster;
     usersMasterDetails: [];
     roleList:[];
+    roles:[];
+    dropdownList:[];
 }
