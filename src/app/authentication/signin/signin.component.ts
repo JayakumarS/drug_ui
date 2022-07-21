@@ -39,7 +39,7 @@ export class SigninComponent
   timeLeft: number = 300;
   interval;
   // Google Captcha Site key
-  siteKey: string='6LePmAAhAAAAAD6iX_sR3Vt_GWWevZitGKJoyrau';
+  siteKey: string='6LeiApIfAAAAAOBsKqX0U-EQNu3lk3O9LVByiRAA';
   title = 'captcha';
 
   private currentUserSubject: BehaviorSubject<User>;
