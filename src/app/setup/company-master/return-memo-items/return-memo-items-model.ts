@@ -1,5 +1,6 @@
 export class ReturnMemoItems {
     //new added by gokul
+	returnMemoItemsCode: string;
     ndcupcCode: string;
 	lotNo: string;
 	reason: string;

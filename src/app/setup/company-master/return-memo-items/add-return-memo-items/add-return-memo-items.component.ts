@@ -35,6 +35,7 @@ export class AddReturnMemoItemsComponent implements OnInit {
     private returnMemoItemsService:ReturnMemoItemsService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute,public dialog: MatDialog, private tokenStorage: TokenStorageService) {
     this.docForm = this.fb.group({
+      returnMemoItemsCode: [""],
       entryNo: [""],
       ndcupcCode: ["", [Validators.required]],
       lotNo: ["", [Validators.required]],
@@ -53,7 +54,7 @@ export class AddReturnMemoItemsComponent implements OnInit {
       packageSize: [""],
       controlNo: [""],
       unitPackage: [""],
-      upc: [""],
+      description: [""],
       return: [""],
       returnMemoNo: [""],
       createdBy: this.tokenStorage.getUsername()
@@ -64,10 +65,23 @@ export class AddReturnMemoItemsComponent implements OnInit {
 
   if(this.data.type=='Edit'){
       this.edit=true;
- this.fetchDetails(this.data.returnMemoNo)
+      
+
+
+ this.docForm.patchValue({
+  'returnMemoNo': this.data.returnMemoNo,
+  'returnMemoItemsCode': this.data.returnMemoItemsCode,
+  'ndcupcCode': this.data.ndcupcCode,
+})
+this.fetchreturnMemoNamebyId(this.data.returnMemoNo);
+this.findAllDetailsByndcupcCode();
+this.fetchDetails(this.data.returnMemoItemsCode);
   }else if(this.data.type=='Add'){
     this.edit=false;
-   
+    this.fetchreturnMemoNamebyId(this.data.returnMemoNo);
+    this.docForm.patchValue({
+      'returnMemoNo': this.data.returnMemoNo,
+    })
   }
 
       this.httpService.get<any>(this.commonService.getManufacturerList).subscribe(
@@ -99,6 +113,19 @@ if (this.docForm.valid) {
    // this.router.navigate(['/setup/returnMemoItems/listreturnMemoItems']);
   }
   }
+ 
+  fetchreturnMemoNamebyId(cusCode: any){
+    this.httpService.get<any>(this.returnMemoItemsService.fetchreturnMemoNamebyId+"?returnMemoNo="+cusCode).subscribe(
+      (data) => {
+        this.docForm.patchValue({
+          'return': data.text,
+        })
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+      );
+  }
 
   findAllDetailsByndcupcCode() {
     this.httpService.get(this.returnMemoItemsService.findAllDetailsByndcupcCode+"?drugInfoId="+this.docForm.value.ndcupcCode).subscribe((res: any)=> {
@@ -107,13 +134,13 @@ if (this.docForm.valid) {
       this.docForm.patchValue({
  
         'manufacturerBy': res.drugInfoMasterBean.manufacturerBy,
-//         'description': res.drugInfoMasterBean.description,
+         'description': res.drugInfoMasterBean.description,
         'strength': res.drugInfoMasterBean.strength,
          'controlNo': res.drugInfoMasterBean.control,
 //         'department': res.drugInfoMasterBean.department,
-         'unitPackage': res.drugInfoMasterBean.packageSize,
+         'unitPackage': res.drugInfoMasterBean.unitPerPackage,
 //         'rxOtc': res.drugInfoMasterBean.rxOtc,
-//         'unitPerPackage': res.drugInfoMasterBean.unitPerPackage,
+         'packageSize': res.drugInfoMasterBean.packageSize,
 //         'unitDose': this.getBoolean(res.drugInfoMasterBean.unitDose),
          'dosage': res.drugInfoMasterBean.dosage,
 //         'unitOfMeasure': res.drugInfoMasterBean.unitOfMeasure,

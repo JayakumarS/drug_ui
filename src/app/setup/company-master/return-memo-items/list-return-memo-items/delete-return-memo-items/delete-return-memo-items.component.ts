@@ -17,7 +17,7 @@ export class DeleteReturnMemoItemsComponent implements OnInit {
       this.dialogRef.close();
     }
     confirmDelete(): void {
-      this.returnMemoItemsService.returnMemoItemsDelete(this.data.returnMemoNo);
+      this.returnMemoItemsService.returnMemoItemsDelete(this.data.returnMemoItemsCode);
 
     }
   ngOnInit(): void {

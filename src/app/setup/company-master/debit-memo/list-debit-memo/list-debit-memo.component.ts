@@ -129,12 +129,19 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
 
 
   returnMemoItems(row){
-    this.router.navigate(['/setup/returnMemoItems/listReturnMemoItems/'+ row.company]);
+    this.router.navigate(['/setup/returnMemoItems/listReturnMemoItems/'+ row.returnMemoNo]);
 
   }
 
 
  
+  reset(){
+    this.docForm.patchValue({
+      'company' : this.requestId,
+      'returnMemoNo' : ''
+   })
+   this.searchData();
+  }
 
   editCall(row) {
      

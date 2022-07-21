@@ -11,6 +11,7 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Component, Inject, OnInit } from '@angular/core';
 import { CommonService } from 'src/app/common-service/common.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-add-debit-memo',
@@ -28,6 +29,7 @@ export class AddDebitMemoComponent implements OnInit {
   detailRowData = new DetailRowComponent;
   requestId: number;
   edit: boolean=false;
+  today = moment().format('YYYY-MM-DD');
   constructor( public commonService: CommonService,public dialogRef: MatDialogRef<AddDebitMemoComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,private fb: FormBuilder,private authService: AuthService,public router: Router,
     private debitmemoService:DebitmemoService,private httpService: HttpServiceService
@@ -58,6 +60,7 @@ export class AddDebitMemoComponent implements OnInit {
         this.edit=false;
         this.docForm.patchValue({
           'company' : this.data.company,
+          'returnMemoDate' : this.today
        })
       }
       },
