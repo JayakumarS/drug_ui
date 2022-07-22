@@ -6,9 +6,6 @@
       <app-breadcrumb [title]="'Inventory Report'" [items]="['Report']" [active_item]="'Inventory Report'">
       </app-breadcrumb>
     </div>
-    <div class="row clearfix ">
-      <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-      <div class="box-shadow">
         <div class="card" style="width:100; height: 100%;">
           <div class="body">
             <form class="m-1" [formGroup]="docForm">
@@ -80,7 +77,7 @@
                         <thead class="theadRow thead-light" >
                           <tr *ngFor="let item of searchList;">
                             <th style="text-align: center;"> Created: {{item.returnMemoDate !== null ? item.returnMemoDate:'-'}}</th>
-                            <th style="text-align: center;">{{item.company !== null ? item.company:'-'}} <br><br> <b>Inventory Report</b></th>
+                            <th style="text-align: center;">{{item.companyName !== null ? item.companyName:'-'}} <br><br> <b>Inventory Report</b></th>
                             <th style="text-align: center;">Debit Memo: {{item.returnMemoNo !== null ? item.returnMemoNo:'-'}}</th>
                           </tr>
                       </thead>
@@ -100,16 +97,12 @@
                                 <th style="text-align: center;"><b>Total</b></th>
                             </tr>
                         </thead>
-                   
-                        <!-- <thead>
-                          <tr *ngFor="let item of searchList;">
-                            <td colspan="9" ><b>{{item.companycompanyName !== null ? item.companycompanyName:'-'}} </b></td>
-                          </tr>
-                        </thead>  -->
-                     
-                         
-                                     <tbody >
-                                      <tr *ngFor="let item of searchList;">
+                                        
+                        <tbody *ngFor="let item of searchList;">
+                          <tr>
+                          <td colspan="9" ><b>{{item.description !== null ? item.description:'-'}} </b></td>
+                        </tr>
+                                      <tr>
                                         <td style="text-align: center;">{{item.ndcupcCode !== null ? item.ndcupcCode:'-'}}</td>
                                         <td style="text-align: center;">{{item.description !== null ? item.description:'-'}}</td>
                                         <td style="text-align: center;">{{item.strength  !== null ? item.strength:'-'}}</td>
@@ -168,8 +161,12 @@
                                             <td style="text-align:center;"colspan="9"><b><u>Non Returnable Products</u></b></td>
                                           </tr>
                                         </thead>
-                                        <tbody >
-                                          <tr *ngFor="let item of nonSearchList;">
+
+                                        <tbody *ngFor="let item of nonSearchList;">
+                                          <tr>
+                                          <td colspan="9" ><b>{{item.description !== null ? item.description:'-'}} </b></td>
+                                        </tr>
+                                          <tr>
                                             <td style="text-align: center;">{{item.ndcupcCode !== null ? item.ndcupcCode:'-'}}</td>
                                             <td style="text-align: center;">{{item.description !== null ? item.description:'-'}}</td>
                                             <td style="text-align: center;">{{item.strength  !== null ? item.strength:'-'}}</td>
@@ -217,9 +214,6 @@
                                       </div>
                         </div>
         </div>
-      </div>
-      </div>
-    </div>
   </div>
 </section>
 

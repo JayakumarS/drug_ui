@@ -237,6 +237,51 @@ export class AddscheduleIIIComponent implements OnInit {
             console.log(error.name + " " + error.message);
           }
           );
+
+          this.returnFlag=true;
+          this.nonReturnFlag=true;
+    }
+
+
+    returnFilter()
+    {
+        this.httpService.post<any>(this.deaformService.savedEAForm, this.docForm.value).subscribe(
+        (data) => {
+          this.searchList= data.listSearchBean;
+          this.nonSearchList= [];
+          this.returnFlag=true;
+          this.nonReturnFlag=false;
+
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+        );
+      
+    }
+
+    nonreturnFilter()
+    {
+
+      this.httpService.post<any>(this.deaformService.savedEAForm14, this.docForm.value).subscribe(
+        (data) => {
+          this.nonSearchList= data.nonListSearchBean;
+          this.searchList= [];
+          this.returnFlag=false;
+          this.nonReturnFlag=true;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+        );
+    }
+
+
+    allFilter()
+    {
+     
+      this.searchData();
+
     }
 
   
