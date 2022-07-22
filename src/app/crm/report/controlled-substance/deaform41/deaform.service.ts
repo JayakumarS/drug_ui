@@ -27,10 +27,11 @@ export class DeaformService extends UnsubscribeOnDestroyAdapter{
   }
 
   public companyNameUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getCompanyNameList`;
-  public returnMemoNoUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getReturnMemoNo`;
-  // public searchListUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSearchList`;
   public savedEAForm = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSearchList`;
   public savedEAForm14 = `${this.serverUrl.apiServerAddress}api/auth/app/report/getNonReturnSearchList`;
+  public sechduleIIUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSechduleIIUrl`;
+  public sechduleIII_V_Url = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSechduleIII_V_Url`;
+
 
   get data(): DEAForm[] {
     return this.dataChange.value;

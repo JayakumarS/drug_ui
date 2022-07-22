@@ -111,10 +111,10 @@ export class AddscheduleIIComponent implements OnInit {
   }
 
 
-  getMemoList() {
-      this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
+  getSechudulII() {
+      this.httpService.get<DEAFormBean>(this.deaformService.sechduleIIUrl).subscribe(
         (data) => {
-          this.memoList = data.memoList;
+          this.scheduleIIList = data.scheduleIIList;
         },
         (error: HttpErrorResponse) => {
           console.log(error.name + " " + error.message);
@@ -122,16 +122,7 @@ export class AddscheduleIIComponent implements OnInit {
       );
     }
 
-    getMemoInfo() {
-      this.httpService.get<PackingFormBean>(this.packingFormService.memoDetailsUrl).subscribe(
-        (data) => {
-          this.memoDetails = data.memoDetails;
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.name + " " + error.message);
-        }
-      );
-    }
+
 
   print() {
     let newWin;

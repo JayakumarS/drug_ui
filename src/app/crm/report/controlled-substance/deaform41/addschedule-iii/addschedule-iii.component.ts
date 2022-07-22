@@ -111,28 +111,17 @@ export class AddscheduleIIIComponent implements OnInit {
     }
     );
   }
-
-  getMemoList() {
-      this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
-        (data) => {
-          this.memoList = data.memoList;
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.name + " " + error.message);
-        }
-      );
-    }
-
-    getMemoInfo() {
-      this.httpService.get<PackingFormBean>(this.packingFormService.memoDetailsUrl).subscribe(
-        (data) => {
-          this.memoDetails = data.memoDetails;
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.name + " " + error.message);
-        }
-      );
-    }
+ 
+  getSechudulIII() {
+    this.httpService.get<DEAFormBean>(this.deaformService.sechduleIII_V_Url).subscribe(
+      (data) => {
+        this.scheduleIIIList = data.scheduleIIIList;
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+    );
+  }
 
   print() {
     let newWin;

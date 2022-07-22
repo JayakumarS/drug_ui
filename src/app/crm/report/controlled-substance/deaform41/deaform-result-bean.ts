@@ -9,5 +9,8 @@ export class DEAFormBean{
     returnMemoNoList:[];
     searchList:[];
     nonSearchList:[];
+    scheduleIIList:[];
+    scheduleIIIList:[];
+
 
 }
