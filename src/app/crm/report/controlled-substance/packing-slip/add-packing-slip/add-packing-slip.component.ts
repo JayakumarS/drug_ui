@@ -42,7 +42,7 @@ export class AddPackingSlipComponent implements OnInit {
   searchList: any;
   nonSearchList: any;
   docForm: FormGroup;
-
+  packingList: any;
   
   constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService, private packingFormService:PackingFormService,
    private httpService: HttpServiceService,public deaformService:DeaformService,
@@ -134,9 +134,9 @@ toggleAllSelection() {
 }
 
 getMemoList() {
-  this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
+  this.httpService.get<PackingFormBean>(this.packingFormService.packingSlipUrl).subscribe(
     (data) => {
-      this.memoListDetails = data.memoList;
+      this.packingList = data.packingList;
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
@@ -144,16 +144,6 @@ getMemoList() {
   );
 }
 
-getMemoInfo() {
-  this.httpService.get<PackingFormBean>(this.packingFormService.memoDetailsUrl).subscribe(
-    (data) => {
-      this.memoInfoList = data.memoDetails;
-    },
-    (error: HttpErrorResponse) => {
-      console.log(error.name + " " + error.message);
-    }
-  );
-}
 
 
 print() {

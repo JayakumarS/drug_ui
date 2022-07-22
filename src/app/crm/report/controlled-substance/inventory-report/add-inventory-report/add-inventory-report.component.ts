@@ -112,9 +112,9 @@ export class AddInventoryReportComponent implements OnInit {
 
 
   getMemoList() {
-      this.httpService.get<InventoryFormBean>(this.inventoryformService.memoListUrl).subscribe(
+      this.httpService.get<InventoryFormBean>(this.inventoryformService.inventoryUrl).subscribe(
         (data) => {
-          this.memoList = data.memoList;
+          this.inventoryList = data.inventoryList;
         },
         (error: HttpErrorResponse) => {
           console.log(error.name + " " + error.message);
@@ -122,16 +122,6 @@ export class AddInventoryReportComponent implements OnInit {
       );
     }
 
-    getMemoInfo() {
-      this.httpService.get<PackingFormBean>(this.packingFormService.memoDetailsUrl).subscribe(
-        (data) => {
-          this.memoDetails = data.memoDetails;
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.name + " " + error.message);
-        }
-      );
-    }
 
   print() {
     let newWin;

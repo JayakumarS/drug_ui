@@ -9,6 +9,7 @@ export class InventoryFormBean{
     memoList:[];
     searchList:[];
     nonSearchList:[];
+    inventoryList:[];
 
 
 }

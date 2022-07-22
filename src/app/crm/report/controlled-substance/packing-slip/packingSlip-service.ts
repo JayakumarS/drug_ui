@@ -30,7 +30,9 @@ export class PackingFormService extends UnsubscribeOnDestroyAdapter{
   public memoDetailsUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/returnMemo/getMemoDetails`;
   public savedEAForm = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSearchList`;
   public savedEAForm14 = `${this.serverUrl.apiServerAddress}api/auth/app/report/getNonReturnSearchList`;
+  public packingSlipUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getPackingSlip`;
 
+  
 
 
   get data(): PackingForm[] {

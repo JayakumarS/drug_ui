@@ -9,7 +9,7 @@ export class PackingFormBean{
     memoDetails:[];
     searchList:[];
     nonSearchList:[];
-
+    packingList:[];
 
 
 }
