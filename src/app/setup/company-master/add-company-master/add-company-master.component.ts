@@ -1,3 +1,4 @@
+import { FileUploadService } from './../../../files/file-upload/file-upload.service';
 import { Component, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DetailRowComponent } from 'src/app/crm/customer-master/detail-row/detail-row.component';
@@ -11,6 +12,8 @@ import { CompanyMaster } from './../company-model';
 import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.model';
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 import { CustomerMasterService } from 'src/app/crm/customer-master/customer-master.service';
+import { CommonService } from 'src/app/common-service/common.service';
+
 
 @Component({
   selector: 'app-add-company-master',
@@ -19,12 +22,14 @@ import { CustomerMasterService } from 'src/app/crm/customer-master/customer-mast
 })
 export class AddCompanyMasterComponent implements OnInit {
   companyAuthorizedClassesForm: FormGroup;
-
+  myWholesalerCppForm: FormGroup;
   docForm: FormGroup;
   hide3 = true;
   agree3 = false;
   dataarray=[];
   cusMasterData =[];
+  stateList =[];
+  companyFacilityTypeList = [ {id: '1', text: 'Hospital'},{id: '2', text: 'Retail'},{id: '3', text: 'Wholesaler'}];
   companyMaster:CompanyMaster;
   detailRowData = new DetailRowComponent;
   requestId: number;
@@ -34,23 +39,23 @@ export class AddCompanyMasterComponent implements OnInit {
   
   constructor(private fb: FormBuilder,private authService: AuthService,public router: Router,private tokenStorage: TokenStorageService,
     private customerMasterService:CustomerMasterService,private httpService: HttpServiceService
-    ,private snackBar: MatSnackBar,public route: ActivatedRoute,private companyMasterService:CompanyMasterService) {
+    ,private snackBar: MatSnackBar, public commonService:CommonService, public route: ActivatedRoute,private companyMasterService:CompanyMasterService) {
     this.docForm = this.fb.group({
       wholesalerCode: [""],
       wholesalerPolicyCode: ["", [Validators.required]],
       wholesalerName: ["", [Validators.required]],
       wholesalerExpiryPacket: [""],
-      wholesalerEmailID: ["", [Validators.required]],
+      wholesalerEmailID: [""],
       wholesalerAllowOverride: [""],
-      wholesalerDepartment: ["", [Validators.required]],
+      wholesalerDepartment: [""],
       wholesalerStreet: ["", [Validators.required]],
       wholesalerCity: ["", [Validators.required]],
       wholesalerState: ["", [Validators.required]],
       wholesalerZipCode:["", [Validators.required]],
-      wholesalerPhoneNo: ["", [Validators.required]],
+      wholesalerPhoneNo: [""],
       wholesalerTollFreeNo: ["", [Validators.required]],
-      wholesalerFax: ["", [Validators.required]],
-      wholesalerPhone: ["", [Validators.required]],
+      wholesalerFax: [""],
+      wholesalerPhone: [""],
     //  userName: this.tokenStorage.getUsername(),
  
       companyCode: [""],
@@ -70,7 +75,7 @@ authorizedClasses:[""],
 
 companyFacilityType:["", [Validators.required]],
 
-defNumber:["", [Validators.required]],
+defNumber: ['', Validators.compose([Validators.required, Validators.pattern('[a-zA-Z]{2}[0-9]{7}')])],
 defExpirationDate:["", [Validators.required]],
 
 issuesCreditsName:["", [Validators.required]],
@@ -86,21 +91,23 @@ generalInfroWacAwapPer:[""],
 
 myWholesalerPolicyType:["", [Validators.required]],
 myWholesalerPolicyMonths:[""],
-myWholesalerCpp:["false", [Validators.required]],
-cppServiceRate:["", [Validators.required]],
-cppShippingRate:["", [Validators.required]],
-cppNoOfChecks:["", [Validators.required]],
+myWholesalerCpp:[""],
+cppServiceRate:[""],
+cppShippingRate:[""],
+cppNoOfChecks:[""],
     });
 
+    this.myWholesalerCppForm = this.fb.group({
+      myWholesalerCpp: false
+    });
     this.companyAuthorizedClassesForm = this.fb.group({
-      companyAuthorizedClasses2: false,
-      companyAuthorizedClasses2N: false,
-      companyAuthorizedClasses3: false,
-      companyAuthorizedClasses3N: false,
-      companyAuthorizedClasses4: false,
-      companyAuthorizedClasses5: false,
+      companyAuthorizedClasses2: true,
+      companyAuthorizedClasses2N: true,
+      companyAuthorizedClasses3: true,
+      companyAuthorizedClasses3N: true,
+      companyAuthorizedClasses4: true,
+      companyAuthorizedClasses5: true,
     });
-
   }
   ngOnInit(): void {
     this.route.params.subscribe(params => {
@@ -111,14 +118,25 @@ cppNoOfChecks:["", [Validators.required]],
        this.fetchDetails(this.requestId) ;
       }
      });
+     this.httpService.get<any>(this.commonService.getStateDropdownList).subscribe(
+      (data) => {
+        this.stateList = data;
+
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+      );
+
   }
   onSubmit() {
     
 if (this.docForm.valid) {
   this.docForm.patchValue({
-    'authorizedClasses': this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses4+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses5
+    'authorizedClasses': this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses4+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses5,
+    'myWholesalerCpp': this.myWholesalerCppForm.value.myWholesalerCpp
   });
-
+ 
     this.companyMaster = this.docForm.value;
     console.log(this.companyMaster);
     
@@ -182,7 +200,7 @@ if (this.docForm.valid) {
         
         'myWholesalerPolicyType': res.companyMaster.myWholesalerPolicyType.toString(),
         'myWholesalerPolicyMonths':res.companyMaster.myWholesalerPolicyMonths,
-        'myWholesalerCpp': res.companyMaster.myWholesalerCpp.toString(),
+        //'myWholesalerCpp': res.companyMaster.myWholesalerCpp.toString(),
         'cppServiceRate': res.companyMaster.cppServiceRate,
         'cppShippingRate': res.companyMaster.cppShippingRate,
         'cppNoOfChecks': res.companyMaster.cppNoOfChecks
@@ -199,6 +217,9 @@ if (this.docForm.valid) {
       'companyAuthorizedClasses5': this.getBoolean(companyAuthorizedSplitedList[5]),  
    })
 
+   this.myWholesalerCppForm.patchValue({
+    'myWholesalerCpp': this.getBoolean(res.companyMaster.myWholesalerCpp),
+    })
       },
       (err: HttpErrorResponse) => {
          // error code here
@@ -210,7 +231,9 @@ if (this.docForm.valid) {
   update(){
     if (this.docForm.valid) {
     this.docForm.patchValue({
-      'authorizedClasses': this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses4+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses5
+      'authorizedClasses': this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses2N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses3N+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses4+','+this.companyAuthorizedClassesForm.value.companyAuthorizedClasses5,
+      'myWholesalerCpp': this.myWholesalerCppForm.value.myWholesalerCpp
+
     });
 
     this.companyMaster = this.docForm.value;
@@ -275,6 +298,13 @@ if (this.docForm.valid) {
     }
   }
 
+  keyPressDefNumber(event: any) {
+    const pattern = /[A-Z{2}]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
    showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
       duration: 3000,
@@ -296,6 +326,30 @@ if (this.docForm.valid) {
          default: 
              return false;
      }
+    }
+
+    cppUpdateValidation(event: any) {
+if(this.myWholesalerCppForm.value.myWholesalerCpp==='true'){
+  this.docForm.controls.cppServiceRate.setValidators(Validators.required);
+  this.docForm.controls['cppServiceRate'].updateValueAndValidity();
+    
+  this.docForm.controls.cppShippingRate.setValidators(Validators.required);
+  this.docForm.controls['cppShippingRate'].updateValueAndValidity();
+
+  this.docForm.controls.cppNoOfChecks.setValidators(Validators.required);
+  this.docForm.controls['cppNoOfChecks'].updateValueAndValidity();
+
+}else{
+ 
+  this.docForm.controls.cppServiceRate.clearValidators();
+  this.docForm.controls['cppServiceRate'].updateValueAndValidity();
+
+  this.docForm.controls.cppShippingRate.clearValidators();
+  this.docForm.controls['cppShippingRate'].updateValueAndValidity();
+
+  this.docForm.controls.cppNoOfChecks.clearValidators();
+  this.docForm.controls['cppNoOfChecks'].updateValueAndValidity();
+}
     }
 
 }
