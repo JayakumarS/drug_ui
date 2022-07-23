@@ -57,12 +57,12 @@ export class CustomerListFilesComponent extends UnsubscribeOnDestroyAdapter impl
   ngOnInit(): void {
     this.loadData();
 
-    if (!localStorage.getItem('foo')) { 
-      localStorage.setItem('foo', 'no reload') 
-      location.reload() 
-    } else {
-      localStorage.removeItem('foo') 
-    }
+    // if (!localStorage.getItem('foo')) { 
+    //   localStorage.setItem('foo', 'no reload') 
+    //   location.reload() 
+    // } else {
+    //   localStorage.removeItem('foo') 
+    // }
     this.filePath = this.serverUrl.apiServerAddress;
   }
 

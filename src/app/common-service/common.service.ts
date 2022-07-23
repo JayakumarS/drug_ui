@@ -30,6 +30,7 @@ export class CommonService extends UnsubscribeOnDestroyAdapter {
   public getcompanyMasterDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getCompanyMasterDropdownList`;
   public getdebitMemoDropdownList= `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getDebitMemoDropdownList`;
   public getManufacturerList = `${this.serverUrl.apiServerAddress}api/auth/app/drugInfoMaster/getManufacturerList`;
+  public getStateDropdownList = `${this.serverUrl.apiServerAddress}api/auth/app/commonServices/getStateDropdownList`;
 
-
+  
 }
