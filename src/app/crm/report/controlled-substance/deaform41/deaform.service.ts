@@ -28,6 +28,7 @@ export class DeaformService extends UnsubscribeOnDestroyAdapter{
 
   public companyNameUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getCompanyNameList`;
   public savedEAForm = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSearchList`;
+  public savedEAFormm = `${this.serverUrl.apiServerAddress}api/auth/app/report/getReturnSearchList`;
   public savedEAForm14 = `${this.serverUrl.apiServerAddress}api/auth/app/report/getNonReturnSearchList`;
   public sechduleIIUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSechduleIIUrl`;
   public sechduleIII_V_Url = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSechduleIII_V_Url`;

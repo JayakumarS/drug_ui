@@ -217,7 +217,15 @@ export class AddscheduleIIIComponent implements OnInit {
         }
         );
 
-        
+        this.httpService.post<any>(this.deaformService.savedEAFormm, this.docForm.value).subscribe(
+          (data) => {
+            this.returnableList= data.returnableSearchBean;
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + " " + error.message);
+          }
+          );
+
         this.httpService.post<any>(this.deaformService.savedEAForm14, this.docForm.value).subscribe(
           (data) => {
             this.nonSearchList= data.nonListSearchBean;
@@ -234,9 +242,9 @@ export class AddscheduleIIIComponent implements OnInit {
 
     returnFilter()
     {
-        this.httpService.post<any>(this.deaformService.savedEAForm, this.docForm.value).subscribe(
+        this.httpService.post<any>(this.deaformService.savedEAFormm, this.docForm.value).subscribe(
         (data) => {
-          this.searchList= data.listSearchBean;
+          this.returnableList= data.returnableSearchBean;
           this.nonSearchList= [];
           this.returnFlag=true;
           this.nonReturnFlag=false;
@@ -255,7 +263,7 @@ export class AddscheduleIIIComponent implements OnInit {
       this.httpService.post<any>(this.deaformService.savedEAForm14, this.docForm.value).subscribe(
         (data) => {
           this.nonSearchList= data.nonListSearchBean;
-          this.searchList= [];
+          this.returnableList= [];
           this.returnFlag=false;
           this.nonReturnFlag=true;
         },

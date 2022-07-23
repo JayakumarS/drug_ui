@@ -8,9 +8,11 @@ export class DEAFormBean{
     companyNameList:[];
     returnMemoNoList:[];
     searchList:[];
+    returnableSearchBean: [];
     nonSearchList:[];
     scheduleIIList:[];
     scheduleIIIList:[];
 
+ 
 
 }
