@@ -69,33 +69,46 @@
       <div class="table-responsive-sm">
           <table class="table table-bordered table-hover">
               <thead class="theadRow thead-light">
-                  <tr>
-                      <th>Company</th>
-                      <th>Return Memo Date</th>
-                      <th>Return Memo Name</th>
-                      <th>Return Memo No</th>
-                      <th>Actions</th>
-                  </tr>
+                <tr>
+                  <th>Company</th>
+                  <th>Return Memo Date</th>
+                  <th>Return Memo Name</th>
+                  <th>Return Memo No</th>
+                  <th>Actions</th>
+                </tr>
               </thead>
               <tbody>
-                  <ng-container *ngFor="let item of listDebitMemo">
-                  <tr>
-                      <td> {{item.company !== null ? item.company:'-'}}</td>
-                      <td> {{item.returnMemoDate | date:'dd-MM-yyyy' }}</td>
-                      <td> {{item.returnMemoName !== null ? item.returnMemoName:'-'}}</td>
-                      <td> {{item.returnMemoNo !== null ? item.returnMemoNo:'-'}}</td>
-                      <td style="text-align: center;" >
-                        	
-                        <i class="fas fa-edit" title="Edit" (click)='editCall(item)' style="color:#0e92a1"></i>&nbsp;&nbsp;
-                        <i class="fas fa-trash"  title="Delete" (click)='deleteItem(item)' style="color: red;"></i>&nbsp;&nbsp;
-                        <i class="fas fa-arrow-right" title="Return Items" style="color:#74AEB5" (click)='returnMemoItems(item)'></i>
-                       </td>
-                  </tr>
-              </ng-container>
+                <tr
+                  *ngFor="let item of POSTS | paginate : {
+                            itemsPerPage: tableSize,
+                            currentPage: page,
+                            totalItems: count
+                          }; let i = index">
+                   <td> {{item.company !== null ? item.company:'-'}}</td>
+                  <td> {{item.returnMemoDate | date:'dd-MM-yyyy' }}</td>
+                  <td> {{item.returnMemoName !== null ? item.returnMemoName:'-'}}</td>
+                  <td> {{item.returnMemoNo !== null ? item.returnMemoNo:'-'}}</td>
+                  <td style="text-align: center;" >
+                      
+                    <i class="fas fa-edit" title="Edit" (click)='editCall(item)' style="color:#0e92a1"></i>&nbsp;&nbsp;
+                    <i class="fas fa-trash"  title="Delete" (click)='deleteItem(item)' style="color: red;"></i>&nbsp;&nbsp;
+                    <i class="fas fa-arrow-right" title="Return Items" style="color:#74AEB5" (click)='returnMemoItems(item)'></i>
+                   </td>
+                </tr>
               </tbody>
-          </table>
+            </table>
+            <div class="d-flex justify-content-center">
+              <pagination-controls
+                previousLabel="Prev"
+                nextLabel="Next"
+                (pageChange)="onTableDataChange($event)"
+              >
+              </pagination-controls>
+            </div>
       </div>
   </div>
-</div>
+</div> 
+
+    
   </div>
   </section>

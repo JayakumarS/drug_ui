@@ -68,7 +68,12 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
   @ViewChild(MatMenuTrigger)
   contextMenu: MatMenuTrigger;
   contextMenuPosition = { x: "0px", y: "0px" };
-
+  POSTS: any;
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
+  tableSizes: any = [3, 6, 9, 12];
+  
   ngOnInit(): void {
     
     this.route.params.subscribe(params => {
@@ -88,7 +93,9 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
   searchData(){
     this.httpService.post<any>(this.returnMemoItemsService.getAllMasters, this.docForm.value).subscribe(
       (data) => {
-        this.listReturnMemoItems= data.listReturnMemoItems;
+      //  this.listReturnMemoItems= data.listReturnMemoItems;
+      this.POSTS = data.listReturnMemoItems;
+
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
@@ -104,6 +111,16 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
    this.searchData();
   }
 
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.searchData();
+  }
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.searchData();
+  }
+  
 
   editCall(row) {
    

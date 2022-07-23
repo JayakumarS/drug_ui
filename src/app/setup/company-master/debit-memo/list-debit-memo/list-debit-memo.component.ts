@@ -72,6 +72,11 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
   @ViewChild(MatMenuTrigger)
   contextMenu: MatMenuTrigger;
   contextMenuPosition = { x: "0px", y: "0px" };
+  POSTS: any;
+  page: number = 1;
+  count: number = 0;
+  tableSize: number = 10;
+  tableSizes: any = [3, 6, 9, 12];
 
   ngOnInit(): void {
     
@@ -119,12 +124,23 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
   searchData(){
     this.httpService.post<any>(this.debitmemoService.getAllMasters, this.docForm.value).subscribe(
       (data) => {
-        this.listDebitMemo= data.listDebitMemo;
+        //this.listDebitMemo= data.listDebitMemo;
+        this.POSTS = data.listDebitMemo;
       },
       (error: HttpErrorResponse) => {
         console.log(error.name + " " + error.message);
       }
       );
+  }
+
+  onTableDataChange(event: any) {
+    this.page = event;
+    this.searchData();
+  }
+  onTableSizeChange(event: any): void {
+    this.tableSize = event.target.value;
+    this.page = 1;
+    this.searchData();
   }
 
 
@@ -140,6 +156,7 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
       'company' : this.requestId,
       'returnMemoNo' : ''
    })
+   this.page = 1;
    this.searchData();
   }
 

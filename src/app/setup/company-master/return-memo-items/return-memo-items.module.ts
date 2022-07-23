@@ -22,6 +22,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import { MatRadioModule } from '@angular/material/radio';
+import { NgxPaginationModule } from 'ngx-pagination'; 
 
 
 import { ReturnMemoItemsRoutingModule } from './return-memo-items-routing.module';
@@ -64,7 +65,8 @@ import { DeleteReturnMemoItemsComponent } from './list-return-memo-items/delete-
     MatProgressSpinnerModule,
     ComponentsModule,
     SharedModule,
-    MatRadioModule
+    MatRadioModule,
+    NgxPaginationModule
   ]
 })
 export class ReturnMemoItemsModule { }

@@ -55,7 +55,7 @@
 
 </div>
 </div>
-<div class="row">
+<!-- <div class="row">
 <div class="col-md-12">
     <div class="table-responsive-sm">
         <table class="table table-bordered table-hover">
@@ -88,6 +88,52 @@
         </table>
     </div>
 </div>
-</div>
+</div> -->
+<div class="row">
+  <div class="col-md-12">
+      <div class="table-responsive-sm">
+          <table class="table table-bordered table-hover">
+              <thead class="theadRow thead-light">
+                <tr>
+                  <th>ndcupc Code</th>
+                  <th>lot No</th>
+                  <th>Quantity</th>
+                  <th>Price</th>
+                  <th>Exp Date</th>
+                  <th>Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr
+                  *ngFor="let item of POSTS | paginate : {
+                            itemsPerPage: tableSize,
+                            currentPage: page,
+                            totalItems: count
+                          }; let i = index">
+                          <td> {{item.ndcupcCode !== null ? item.ndcupcCode:'-'}}</td>
+                          <td> {{item.lotNo !== null ? item.lotNo:'-'}}</td>
+                          <td> {{item.quantity !== null ? item.quantity:'-'}}</td>
+                          <td> {{item.price !== null ? item.price:'-'}}</td>
+                          <td> {{item.expDate | date:'dd-MM-yyyy' }}</td>
+                          <td style="text-align: center;" >
+                             
+                            <i class="fas fa-edit" title="Edit" (click)='editCall(item)' style="color:#0e92a1"></i>&nbsp;&nbsp;
+                            <i class="fas fa-trash"  title="Delete" (click)='deleteItem(item)' style="color: red;"></i>&nbsp;&nbsp;
+                           </td>
+                </tr>
+              </tbody>
+            </table>
+            <div class="d-flex justify-content-center">
+              <pagination-controls
+                previousLabel="Prev"
+                nextLabel="Next"
+                (pageChange)="onTableDataChange($event)"
+              >
+              </pagination-controls>
+            </div>
+      </div>
+  </div>
+</div> 
+
 </div>
 </section>

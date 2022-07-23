@@ -22,6 +22,7 @@ import { MatProgressSpinnerModule } from "@angular/material/progress-spinner";
 import { ComponentsModule } from "src/app/shared/components/components.module";
 import { SharedModule } from "src/app/shared/shared.module";
 import {MatRadioModule} from '@angular/material/radio';
+import { NgxPaginationModule } from 'ngx-pagination'; 
 
 
 import { DebitMemoRoutingModule } from './debit-memo-routing.module';
@@ -37,6 +38,7 @@ import { DeleteDebitMemoComponent } from './list-debit-memo/delete-debit-memo/de
     DeleteDebitMemoComponent
   ],
   imports: [
+    NgxPaginationModule,
     CommonModule,
     DebitMemoRoutingModule,
     FormsModule,
