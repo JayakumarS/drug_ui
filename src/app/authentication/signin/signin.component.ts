@@ -107,12 +107,13 @@ export class SigninComponent
                 this.tokenStorage.saveDefaultRole(data.defaultRole);
                 this.tokenStorage.saveCustomerCompanyCode(data.companyCode);
                 this.tokenStorage.saveImgUrl(this.serverURL.apiServerAddress + data.imgUrl);
+                this.tokenStorage.saveRoleName(data.roles);
                 this.loading = false;  
                 this.login=true; 
                 this.startTimer();            
         //        this.router.navigate(["/admin/dashboard/main"]);
               }, 1000);
-              grecaptcha.reset();
+              
               }else{
                  this.submitted = false;
                   this.loading = false;
@@ -134,7 +135,8 @@ export class SigninComponent
             this.error = "Server Down!!!";
             console.log(error); 
             
-        }
+        },
+        grecaptcha.reset()
       );
 
     }

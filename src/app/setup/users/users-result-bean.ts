@@ -8,4 +8,5 @@ export class UsersResultBean{
     roleList:[];
     roles:[];
     dropdownList:[];
+    roleListForPopUp:[];
 }
