@@ -64,11 +64,11 @@
           </div>
         </div>
             <div class="row">
-            <div class="col-md-12" style="margin-left: 80%;">
+            <div class="col-md-12" style="margin-left: 76%;">
               <button class="btn-space" mat-raised-button
               color="accent" style="background-color: #34d034;" (click) = "searchData()" (click) = "hide()">Search</button>
-              <!-- <button (click) = "print()" class="btn-space" mat-raised-button
-              color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button> -->
+              <button (click) = "reset()" class="btn-space" mat-raised-button
+              color="accent" style="background-color: #eb0202;">Reset</button>
               <button class="btn btn-success btn-block" (click)="openPDF()">Export Report</button>
 
             </div>
@@ -80,7 +80,7 @@
             </div>
             <!-- <div id="packingSlipPrint"> -->
               <div id="htmlData" *ngIf="hideFlag">
-              <div class="row" style="overflow-x:auto;">
+              <div class="row">
                 <div class="col-md-12">
                     <div class="table-responsive-sm">
                         <table class="table table-bordered table-hover">
@@ -180,13 +180,14 @@
                                             <td></td>
                                             <td></td>
                                             <td></td>
-                                            <td  *ngFor="let item of searchList;">{{item.companycompanyName !== null ? item.companycompanyName:'-'}} </td>
+                                            <td></td>
+                                            <!-- <td  *ngFor="let item of searchList;">{{item.companycompanyName !== null ? item.companycompanyName:'-'}} </td> -->
                                             <td> </td>
                                           </tr>
                                           </tbody> 
                                           <thead>
                                             <tr>
-                                              <td style="text-align:center;"colspan="10"><b>Return Instructions</b></td>
+                                              <td style="text-align:center;"colspan="11"><b>Return Instructions</b></td>
                                             </tr>
                                           </thead>
                                       </table>

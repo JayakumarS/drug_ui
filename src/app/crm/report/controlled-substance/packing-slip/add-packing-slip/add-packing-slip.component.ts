@@ -7,13 +7,11 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.model';
 import { DeaformService } from '../../deaform41/deaform.service'; 
 import { PackingFormService } from '../packingSlip-service';
-import { PackingFormBean } from '../packingSlip-result-bean';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { CommonService } from 'src/app/common-service/common.service';
 import { DebitmemoService } from 'src/app/setup/company-master/debit-memo/debitmemo.service';
 import { IDropdownSettings } from 'ng-multiselect-dropdown';
-import { ManufacturerFormBean } from '../manufacturer-result-bean';
 import { ManufacturerFormService } from '../manufacturer-service';
 @Component({
   selector: 'app-add-packing-slip',
@@ -23,31 +21,17 @@ import { ManufacturerFormService } from '../manufacturer-service';
 export class AddPackingSlipComponent implements OnInit {
 
   packingForm: FormGroup;
-  hide3 = true;
-  agree3 = false;
-  dataarray=[];
-  cusMasterData =[];
   customerMaster:CustomerMaster;
-  detailRowData = new DetailRowComponent;
   requestId: number;
-  edit: boolean=false;
   allSelected: any;
-  userTypeFilters: any;
-  companyNameList: any;
-  exampleDatabase: PackingFormService | null;
-  exampleData: ManufacturerFormService | null;
-  memoListDetails: any;
-  memoInfoList: any;
-  companyList =[];
-  debitMemoList =[];
-  manufacturerList =[];
-  listDebitMemo =[];
-  searchList: any;
-  nonSearchList: any;
   docForm: FormGroup;
-  packingList: any;
-  manufacturerAddressList: any;
+  manufacturerAddressList = [];
   dropdownSettings:IDropdownSettings={};
+  companyList = [];
+  debitMemoList = [];
+  manufacturerList = [];
+  searchList = [];
+  nonSearchList = [];
   hideFlag = false;
   
   constructor(private fb: FormBuilder,public router: Router, private packingFormService:PackingFormService, private manufacturerFormService:ManufacturerFormService,
@@ -59,14 +43,14 @@ export class AddPackingSlipComponent implements OnInit {
       returnMemoNo: "",
       startDate:"",
       endDate:"",
-      manufactureName:"",
+      manufactureName: ["", [Validators.required]],
     });
   }
 
   ngOnInit() {
 
-        this.dropdownSettings = {
-       singleSelection: false,
+      this.dropdownSettings = {
+      singleSelection: false,
       selectAllText: 'Select All',
       unSelectAllText: 'UnSelect All',
       itemsShowLimit: 2,
@@ -137,19 +121,6 @@ export class AddPackingSlipComponent implements OnInit {
       }
       );
     }
-
-  
-
-    
-toggleAllSelection() {
-  if (this.allSelected) {
-    this.packingForm.controls.userType
-    .patchValue([...this.userTypeFilters.map(item => item.key), 0]);
-  } else {
-    this.packingForm.controls.userType;
-  }
-}
- 
 
 
 getManufacturer(manufacturercode){
@@ -271,7 +242,19 @@ print() {
 
       }
   
-    
+      
+      reset(){
+        this.docForm.patchValue({
+          'company' : '',
+          'returnMemoNo' : '',
+          'manufactureName' : '',
+       
+       })
+       this.searchData();   
+       this.searchList= [];
+       this.nonSearchList= [];
+       this.hideFlag = false;
+   }
 }
 
 

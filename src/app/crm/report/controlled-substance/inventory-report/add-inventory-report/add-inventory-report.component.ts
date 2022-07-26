@@ -6,7 +6,6 @@ import { HttpErrorResponse } from "@angular/common/http";
 import { InventoryformService } from '../../inventory-report/inventory-service';
 import { InventoryFormBean } from '../../inventory-report/inventory-result-bean';
 import { PackingFormService } from '../../packing-slip/packingSlip-service';
-import { PackingFormBean } from '../../packing-slip/packingSlip-result-bean';
 import { CommonService } from 'src/app/common-service/common.service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
@@ -14,7 +13,6 @@ import { DebitmemoService } from 'src/app/setup/company-master/debit-memo/debitm
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatMenuTrigger } from '@angular/material/menu';
-import { takeUntil } from 'rxjs/internal/operators/takeUntil';
 import { DeaformService } from '../../deaform41/deaform.service';
 import { DEAForm } from '../../deaform41/deaform-model';
 
@@ -29,18 +27,13 @@ export class AddInventoryReportComponent implements OnInit {
   @ViewChild('htmlData') htmlData!: ElementRef;
 
   docForm: FormGroup;
-  companyNameList: any;
-  returnMemoNoList: any;
   exampleDatabase: DeaformService | null;
-  memoList: any;
-  memoDetails: any;
-  searchList: any;
-  nonSearchList: any;
   dEAForm:DEAForm;
   requestId: any;
+  searchList=[];
+  nonSearchList=[];
   companyList =[];
   debitMemoList =[];
-  listDebitMemo =[];
   hideFlag = false;
 
   constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService,
@@ -232,6 +225,21 @@ export class AddInventoryReportComponent implements OnInit {
           );
     }
 
+
+     
+    reset(){
+      this.docForm.patchValue({
+        'company' : '',
+        'returnMemoNo' : '',
+        'startDate':'',
+        'endDate':'',
+     })
+     this.page = 1;
+     this.searchData();   
+     this.searchList= [];
+     this.nonSearchList= [];
+     this.hideFlag = false;
+ }
   
     //Export PDF
    
