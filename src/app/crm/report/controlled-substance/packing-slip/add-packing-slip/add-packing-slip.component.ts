@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from "@angular/forms";
+import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DetailRowComponent } from 'src/app/crm/customer-master/detail-row/detail-row.component';
 import { ActivatedRoute, Router } from '@angular/router';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
@@ -8,12 +8,13 @@ import { CustomerMaster } from 'src/app/crm/customer-master/customer-master.mode
 import { DeaformService } from '../../deaform41/deaform.service'; 
 import { PackingFormService } from '../packingSlip-service';
 import { PackingFormBean } from '../packingSlip-result-bean';
-import { InventoryFormBean } from '../../inventory-report/inventory-result-bean';
-import { InventoryformService } from '../../inventory-report/inventory-service';
 import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { CommonService } from 'src/app/common-service/common.service';
 import { DebitmemoService } from 'src/app/setup/company-master/debit-memo/debitmemo.service';
+import { IDropdownSettings } from 'ng-multiselect-dropdown';
+import { ManufacturerFormBean } from '../manufacturer-result-bean';
+import { ManufacturerFormService } from '../manufacturer-service';
 @Component({
   selector: 'app-add-packing-slip',
   templateUrl: './add-packing-slip.component.html',
@@ -34,30 +35,43 @@ export class AddPackingSlipComponent implements OnInit {
   userTypeFilters: any;
   companyNameList: any;
   exampleDatabase: PackingFormService | null;
+  exampleData: ManufacturerFormService | null;
   memoListDetails: any;
   memoInfoList: any;
   companyList =[];
   debitMemoList =[];
+  manufacturerList =[];
   listDebitMemo =[];
   searchList: any;
   nonSearchList: any;
   docForm: FormGroup;
   packingList: any;
+  manufacturerAddressList: any;
+  dropdownSettings:IDropdownSettings={};
+
   
-  constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService, private packingFormService:PackingFormService,
+  constructor(private fb: FormBuilder,public router: Router, private packingFormService:PackingFormService, private manufacturerFormService:ManufacturerFormService,
    private httpService: HttpServiceService,public deaformService:DeaformService,
    public commonService: CommonService,    public debitmemoService: DebitmemoService
    ,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
       company: ["", [Validators.required]],
       returnMemoNo: "",
-      // controlledSubstance: "",
       startDate:"",
       endDate:"",
+      manufactureName:"",
     });
   }
 
   ngOnInit() {
+
+        this.dropdownSettings = {
+       singleSelection: false,
+      selectAllText: 'Select All',
+      unSelectAllText: 'UnSelect All',
+      itemsShowLimit: 2,
+      allowSearchFilter: true
+    };
     
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
@@ -80,36 +94,31 @@ export class AddPackingSlipComponent implements OnInit {
       );
 
       
+      this.httpService.get<any>(this.commonService.getManufacturerList).subscribe(
+        (data) => {
+          this.manufacturerList = data.manufacturerList;
+        },
+        (error: HttpErrorResponse) => {
+          console.log(error.name + " " + error.message);
+        }
+        );
+
+      
 
         setTimeout(() => {
         this.debitMemoDropdownList(this.requestId);
         this.searchData();
       }, 700);
-    this.route.params.subscribe(params => {
-       this.toggleAllSelection();
-       this.packingForm = this.fb.group({
-        userType: new FormControl('')
-      });
-      
-      const userTypeFilters = [
-        {
-          key: 1, value: 'Value 1',
-        },
-        {
-          key: 2, value: 'Value 2',
-        },
-        {
-          key: 3, value: 'Value 3',
-        },
-        {
-          key: 4, value: 'Value 4',
-        }
-      ]
-      
-      
-     });
-    //  this.getMemoList();
-    //  this.getMemoInfo();
+
+
+  }
+
+  onItemSelect(roles: any) {
+    console.log(roles);
+    this.getManufacturer(roles.id);
+  }
+  onSelectAll(roles: any) {
+    console.log(roles);
   }
 
   debitMemoDropdownList(companyId){
@@ -123,6 +132,8 @@ export class AddPackingSlipComponent implements OnInit {
       );
     }
 
+  
+
     
 toggleAllSelection() {
   if (this.allSelected) {
@@ -132,19 +143,19 @@ toggleAllSelection() {
     this.packingForm.controls.userType;
   }
 }
+ 
 
-getMemoList() {
-  this.httpService.get<PackingFormBean>(this.packingFormService.packingSlipUrl).subscribe(
+
+getManufacturer(manufacturercode){
+  this.httpService.get<any>(this.manufacturerFormService.manufacturerAddressUrl+"?manufacturercode="+manufacturercode).subscribe(
     (data) => {
-      this.packingList = data.packingList;
+      this.manufacturerAddressList = data;
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
     }
-  );
-}
-
-
+    );
+  }
 
 print() {
   let newWin;
@@ -252,14 +263,6 @@ print() {
           }
           );
 
-          // this.httpService.post<any>(this.deaformService.savedEAForm14, this.docForm.value).subscribe(
-          //   (data) => {
-          //     this.nonSearchList= data.nonListSearchBean;
-          //   },
-          //   (error: HttpErrorResponse) => {
-          //     console.log(error.name + " " + error.message);
-          //   }
-          //   );
       }
   
     

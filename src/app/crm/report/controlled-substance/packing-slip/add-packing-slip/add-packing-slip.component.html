@@ -37,69 +37,32 @@
                             </mat-select>
                       </mat-form-field>
                     </div>
-                    
-                <div class="col-xl-3">
-                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Start Date</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="startDate">
-                    <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
-                    <mat-datepicker #picker></mat-datepicker>
-                  </mat-form-field>
-              </div>
-             
-              <div class="col-xl-3">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>End Date</mat-label>
-                  <input matInput [matDatepicker]="picker1" formControlName="endDate">
-                  <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
-                  <mat-datepicker #picker1></mat-datepicker>
-                </mat-form-field>
+           
+
+                  <div class="col-xl-3">
+                      <ng-multiselect-dropdown formControlName="manufactureName" 
+                      [placeholder]="'Manufacturer Name'"
+                      [settings]="dropdownSettings"
+                      [data]="manufacturerList"
+                      (onSelect)="onItemSelect($event)"
+                      (onSelectAll)="onSelectAll($event)">
+                      </ng-multiselect-dropdown>
+                  </div> 
               </div> 
+            <div class="row"  style="margin-left: 1%;">    
+              <div class="col-md-2">
+                  <mat-label>Lable Category to Print :</mat-label>
+              </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+            <div class="card col-md-4">
+          <br>
+              <div class="col-md-12">
+                  <mat-radio-button>Manufacturer Packing Slip 
+                  </mat-radio-button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                  <mat-radio-button >Schedule II
+                  </mat-radio-button> &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
               </div>
-              <div class="row">
-                    <div class="col-xl-3">
-                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-select placeholder="Manufacturer Name" formControlName="manufactureName" multiple>
-                        <mat-option *ngFor="let filters of userTypeFilters" [value]="filters.key">
-                              {{filters.value}}
-                        </mat-option>
-                            <mat-option #allSelected (click)="toggleAllSelection()"  [value]="0">Manufacture Name</mat-option>
-                            <mat-option [value]="1">3M Consumer</mat-option>
-                            <mat-option [value]="2">3M Health Care</mat-option>
-                            <mat-option [value]="3">3M Pharmaceuticals(Graceway)</mat-option>
-                            <mat-option [value]="4">A.Aarons (Bradley)</mat-option>
-                            <mat-option [value]="5">AAI Pharma</mat-option>
-                            <mat-option [value]="6">Abbott Diabetes care</mat-option>
-                            <mat-option [value]="7">Accord Healthcare Inc</mat-option>
-                            <mat-option [value]="8">Acella Pharmaceuticals Inc</mat-option>
-                            <mat-option [value]="9">Actavis Inc</mat-option>
-                            <mat-option [value]="10">Ajanta Pharma USA Inc</mat-option>
-                            <mat-option [value]="11">Akorn</mat-option>
-                            <mat-option [value]="12">Alcon Laboratories</mat-option>
-                    </mat-select>
-                    </mat-form-field>
-                  </div>
-                   
-                <div class="col-xl-2"  style="margin-left: 2%">
-                    <mat-label>Lable Category to Print :</mat-label>
-                </div>
-           
-                <div class="card col-xl-2"  style="height: 100%;width: 21%;">
-                    <br>
-                  <div class="col-xl-3" style="margin-left: 5%;">
-                      <mat-radio-button>Manufacturer Packing Slip 
-                      </mat-radio-button>
-                  </div>
-                  <br>
-                  <div class="col-xl-3" style="margin-left: 5%;">
-                    <mat-radio-button>Schedule II
-                    </mat-radio-button>
-                      
-                  </div>
-                  <br>
-              </div>
-            </div>
-           
+          </div>
+        </div>
             <div class="row">
             <div class="col-md-12" style="margin-left: 80%;">
               <button class="btn-space" mat-raised-button
@@ -135,7 +98,7 @@
                                 <th style="text-align: center;">Wholesaler</th>
                               </tr>
                           </thead>
-                          <tbody >
+                          <tbody>
                             <td>Sample Company <br>
                               2535 First Avenue <br>
                               Suite 101 <br>
@@ -185,14 +148,10 @@
                               </tr>
                           </thead>
                          
-               <!-- <thead>
-                          <tr *ngFor="let item of searchList;">
-                            <td colspan="9" ><b>{{item.companycompanyName !== null ? item.companycompanyName:'-'}} </b></td>
-                          </tr>
-                        </thead>  --> 
+          
                         <thead>
                           <tr>
-                            <td style="text-align:center;"colspan="10"><b><u>Returnable Products</u></b></td>
+                            <td style="text-align:center;"colspan="11"><b><u>Returnable Products</u></b></td>
                           </tr>
                         </thead>
                           <tbody >

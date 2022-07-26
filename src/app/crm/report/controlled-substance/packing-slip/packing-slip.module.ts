@@ -26,6 +26,7 @@ import {MatRadioModule} from '@angular/material/radio';
 
 import { PackingSlipRoutingModule } from './packing-slip-routing.module';
 import { AddPackingSlipComponent } from './add-packing-slip/add-packing-slip.component';
+import { NgMultiSelectDropDownModule } from 'ng-multiselect-dropdown';
 
 
 @NgModule({
@@ -60,7 +61,9 @@ import { AddPackingSlipComponent } from './add-packing-slip/add-packing-slip.com
     SharedModule,
     MatRadioModule,
     CommonModule,
-    PackingSlipRoutingModule
+    PackingSlipRoutingModule,
+    NgMultiSelectDropDownModule.forRoot()
+
   ]
 })
 export class PackingSlipModule { }

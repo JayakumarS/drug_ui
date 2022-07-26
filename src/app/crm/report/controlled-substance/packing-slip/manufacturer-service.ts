@@ -4,7 +4,7 @@ import { HttpClient,HttpHeaders } from "@angular/common/http";
 import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
-import { PackingForm } from './packingSlip-models';
+import { ManufacturerForm } from './add-packing-slip/manufacturer-models';
 
 
 
@@ -14,10 +14,10 @@ const httpOptions = {
 @Injectable({
   providedIn: 'root'
 })
-export class PackingFormService extends UnsubscribeOnDestroyAdapter{
+export class ManufacturerFormService extends UnsubscribeOnDestroyAdapter{
 
   isTblLoading = true;
-  dataChange: BehaviorSubject<PackingForm[]> = new BehaviorSubject<PackingForm[]>(
+  dataChange: BehaviorSubject<ManufacturerForm[]> = new BehaviorSubject<ManufacturerForm[]>(
     []
   );
   // Temporarily stores data from dialogs
@@ -26,17 +26,14 @@ export class PackingFormService extends UnsubscribeOnDestroyAdapter{
     super();
   }
 
-  public companyNameUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getCompanyNameList`;
-  public memoDetailsUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/returnMemo/getMemoDetails`;
-  public savedEAForm = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSearchList`;
-  public savedEAForm14 = `${this.serverUrl.apiServerAddress}api/auth/app/report/getNonReturnSearchList`;
-  public packingSlipUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getPackingSlip`;
+  public manufacturerAddressUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getManufacturerAddress`;
+
 
 
   
 
 
-  get data(): PackingForm[] {
+  get data(): ManufacturerForm[] {
     return this.dataChange.value;
   }
  
