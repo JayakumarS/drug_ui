@@ -32,7 +32,7 @@ export class ManufacturerService extends UnsubscribeOnDestroyAdapter {
     super();
   }
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/manufacturerMaster/getList`;
-  private savemanufacturerMaster = `${this.serverUrl.apiServerAddress}api/auth/app/manufacturerMaster/save`;
+  public savemanufacturerMaster = `${this.serverUrl.apiServerAddress}api/auth/app/manufacturerMaster/save`;
   public editmanufacturerMaster = `${this.serverUrl.apiServerAddress}api/auth/app/manufacturerMaster/edit`;
   public updatemanufacturerMaster = `${this.serverUrl.apiServerAddress}api/auth/app/manufacturerMaster/update`;
   private deletemanufacturerMaster = `${this.serverUrl.apiServerAddress}api/auth/app/manufacturerMaster/delete`;

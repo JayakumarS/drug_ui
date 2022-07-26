@@ -1,116 +1,191 @@
 /* You can add global styles to this file, and also import other style files */
 .box-shadow{
-    //box-shadow: 0px 0px 13px 3px rgb(0 0 0 / 60%);
-}
-.mat-form-field-appearance-outline .mat-form-field-outline{
-color:rgb(161 161 161);
-//box-shadow: 0px 2px 13px -6px rgb(0 0 0 / 67%) !important;
-}
-.auth-form-section {
-    background-color: #ffffffb3;
-    border-radius: 18px;
-}
-
-.mat-form-field {
-    font-size: 10px !important;
-}
- .mat-form-field-appearance-outline .mat-form-field-label {
-    font-size: 12px !important;
-    top: 0.84375em !important;
-}
-.mat-form-field-label:not(.mat-form-field-empty){
-    top: 21px !important;
-}
-.mat-form-field.mat-focused .mat-form-field-label{
-    top: 21px !important;
-}
-.mat-error {
-    font-size: 10px !important;
-}
-.mat-mini-fab .mat-button-wrapper {
-    padding: 3px 0 !important;
-    line-height: 2px;
-}
-.mat-mini-fab {
-    border-radius: 0% !important; 
-    width: 30px !important;
-    height: 30px !important;
-}
-.materialTableHeader .header-buttons-left{
-    padding-left: 0px;
-}
-.materialTableHeader .header-buttons-left input.search-field {
-    height: 35px !important;
-}
-.mat-icon {
-    height: 33px !important;
-}
-.mat-header-row {
-    min-height: 35px !important;
-}
-mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
-    padding-left: 10px !important;
-}
-.mat-cell, .mat-footer-cell {
-    font-size: 12px !important;
-}
-mat-row, mat-footer-row {
-    min-height: 40px !important;
-}
-.mat-paginator-container {
-    min-height: 40px;
-}
-
-.mat-form-field-appearance-outline .mat-form-field-outline-start{
-    border-radius: 0px 0 0 0px !important;
-}
-
-.mat-form-field-appearance-outline .mat-form-field-outline-end {
-    border-radius: 0px 0 0 0px !important;
-}
-
-.mat-dialog-container {
-   // border-radius: 30px 70px 30px 70px !important;
-   border-radius: 30px 30px 30px 30px !important;
-}
-
-
-/* Table  */
-
-.table td {
-    font-size: 14px !important;
-}
-
-.table .thead-light th {
-    background-color: #cae9fb !important;
-    color: #222 !important;
-    font-size: var(--main-font-size);
-    text-align: center;
-}
-
-.theadRow {
-    background-color: #f8f8f8 !important;
-    color: #444444;
-    border-bottom: 1px solid #eaeaea;
-    border-top: 1px solid #eaeaea;
-}
-
-
-/* table tbody tr {
-    cursor: pointer;
-} */
-
-hr {
-    border-top: 1px solid #f5f5f5 !important;
-}
-
-.tbodyRow tr {
-    border-bottom: 1px solid #f5f5f5;
-    /* height: 56px !important; */
-}
-
-.table td,
-.table th {
-    padding: 0.5rem !important;
-}
-
+    //   box-shadow: -10px 11px 9px -1px rgb(0 0 0 / 60%);
+   }
+   .mat-form-field-appearance-outline .mat-form-field-outline{
+    color:rgb(161 161 161);
+   background-color: #fefeff !important; 
+   height:60%;
+   border-radius: 4px!important; 
+   box-shadow: 0px 2px 13px -6px rgb(0 0 0 / 67%) !important;
+   }
+   .auth-form-section {
+       background-color: #ffffffb3;
+       border-radius: 15px;
+       height:20%!important;
+       
+   }
+   
+   .mat-form-field {
+       font-size: 12px !important;
+       // font-family: 'Times New Roman', Times, serif;
+       // font-style: italic;
+       height:20%;
+       
+   }
+   
+    .mat-form-field-appearance-outline .mat-form-field-label {
+       font-size: 12x !important;
+       top: 0.84375em !important;
+       height: 80%;
+       
+   }
+   .mat-form-field-label:not(.mat-form-field-empty){
+       top: 21px !important;
+     
+   }
+   .mat-form-field.mat-focused .mat-form-field-label{
+       top: 21px !important;
+       
+       
+   }
+   .mat-error {
+       font-size: 11px !important;
+       font-family: 'Times New Roman', Times, serif;
+       font-style: italic;
+       margin-top: 2%;
+   }
+   .mat-mini-fab .mat-button-wrapper {
+       padding: 3px 0 !important;
+       line-height: 2px;
+   }
+   .mat-mini-fab {
+       border-radius: 0% !important; 
+       width: 30px !important;
+       height: 30px !important;
+   }
+   .materialTableHeader .header-buttons-left{
+      padding-left: 0px;
+   }
+   .materialTableHeader .header-buttons-left input.search-field {
+       height: 35px !important;
+   }
+   .mat-icon {
+       height: 33px !important;
+   }
+   .mat-header-row {
+       min-height: 35px !important;
+   }
+   mat-cell:first-of-type, mat-header-cell:first-of-type, mat-footer-cell:first-of-type {
+       padding-left: 10px !important;
+   }
+   .mat-cell, .mat-footer-cell {
+       font-size: 12px !important;
+       font-family: 'Times New Roman', Times, serif;
+       font-style: italic;
+       
+   }
+   mat-row, mat-footer-row {
+       min-height: 40px !important;
+   }
+   .mat-paginator-container {
+       min-height: 40px;
+       border-color: #e6e9ed;
+       background-color: #ebebee;
+   }
+   
+   .mat-form-field-appearance-outline .mat-form-field-outline-start{
+       border-radius: 0px 0 0 0px !important;
+   }
+   
+   .mat-form-field-appearance-outline .mat-form-field-outline-end {
+       border-radius: 0px 0 0 0px !important;
+   }
+   
+   .mat-dialog-container {
+      // border-radius: 30px 70px 30px 70px !important;
+      border-radius: 30px 30px 30px 30px !important;
+     //  border-radius: 30px 70px 30px 70px !important;
+       font-family: 'Times New Roman', Times, serif;
+       font-style: italic;
+   }
+   
+   
+   /* Table  */
+   .table td {
+       font-size: 14px !important;
+       font-family: 'Times New Roman', Times, serif;
+       font-style: italic;
+   }
+   
+   .table .thead-light th {
+       background-color: #cae9fb !important;
+       color: #222 !important;
+       font-size: var(--main-font-size);
+       text-align: center;
+       font-family: 'Times New Roman', Times, serif;
+       font-style: italic;
+   }
+   
+   .theadRow {
+     
+       color: #444444;
+       border-bottom: 1px solid hsl(0, 0%, 100%);
+       border-top: 1px solid #eaeaea;
+       font-family: 'Times New Roman', Times, serif;
+       font-style: italic;
+   }
+   
+   
+   /* table tbody tr {
+       cursor: pointer;
+   } */
+   
+   hr {
+       border-top: 1px solid #f5f5f5 !important;
+       font-family: 'Times New Roman', Times, serif;
+       font-style: italic;
+   }
+   
+   .tbodyRow tr {
+       border-bottom: 1px solid #f5f5f5;
+       font-family: 'Times New Roman', Times, serif;
+       font-style: italic;
+       /* height: 56px !important; */
+   }
+   
+   .table td,
+   .table th {
+       padding: 0.5rem !important;
+       font-family: 'Times New Roman', Times, serif;
+       font-style: italic;
+   }
+   
+   .breadcrumb-title{
+       font-size:20px;
+       font-weight:bold !important;
+   }
+   .btn-space{
+       font-family: 'Times New Roman', Times, serif !important;
+       font-style: italic !important;
+   }
+   .card{
+       background-color: #e8e8f1 !important;
+   }
+   .lable{
+       font-size:15px !important;
+       font-family: 'Times New Roman', Times, serif !important;
+       font-style: italic !important;
+       margin-left: 3%;
+       font-weight:bold;
+   }
+   .inputTxt{
+       font-size:15px !important;
+       padding-bottom: 9% !important;
+   }
+   .block-header{
+       font-weight:bold;
+       font-family: 'Times New Roman', Times, serif !important;
+       font-style: italic !important;
+       padding: 0.5% !important;
+   }
+   
+   .mat-form-field-wrapper {
+       padding-bottom: -0.0.34375em !important;
+       height: 277%;
+   }
+   .textarea.mat-input-element{
+       margin-top: -6%;
+   }
+   
+   

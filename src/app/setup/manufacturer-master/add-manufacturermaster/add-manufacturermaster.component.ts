@@ -9,6 +9,7 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { HttpClient, HttpErrorResponse, HttpHeaders } from "@angular/common/http";
 import { MatSnackBar } from "@angular/material/snack-bar";
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
+import { ManufacturerMasterResultBean } from '../manufacturer-result-bean';
 
 @Component({
   selector: 'app-add-manufacturermaster',
@@ -26,7 +27,9 @@ export class AddManufacturermasterComponent implements OnInit {
   manufacturerMaster:ManufacturerMaster;
   detailRowData = new DetailRowComponent;
   requestId: number;
+  message:string;
   edit: boolean=false;
+  error = "";
   constructor(private tokenStorage: TokenStorageService,private fb: FormBuilder,private authService: AuthService,public router: Router,
     private manufacturerService:ManufacturerService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
@@ -46,7 +49,7 @@ export class AddManufacturermasterComponent implements OnInit {
       phoneNo: ["", [Validators.required]],
       tollFreeNo: ["", [Validators.required]],
       fax: ["", [Validators.required]],
-      useName: this.tokenStorage.getUsername()
+  //    useName: this.tokenStorage.getUsername()
      
     });
   }
@@ -55,28 +58,72 @@ export class AddManufacturermasterComponent implements OnInit {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
        this.edit=true;
+       this
        //For User login Editable mode
        this.fetchDetails(this.requestId) ;
       }
      });
   }
+
   onSubmit() {
-  if (this.docForm.valid) {
-    this.manufacturerMaster = this.docForm.value;
-    console.log(this.manufacturerMaster);
-    this.manufacturerService.addmanufacturerMaster(this.manufacturerMaster);
-   
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
+    this.error = "";
+    console.log("Form Value", this.docForm.value);
+    if(this.docForm.valid){
+      this.httpService.post<ManufacturerMasterResultBean>(this.manufacturerService.savemanufacturerMaster, this.docForm.value).subscribe(data => {
+        console.log(data);
+          if(data.success==true){
+            this.showNotification(
+              "snackbar-success",
+              "User Added",
+              "top",
+              "right"
+            );
+            this.router.navigate(['/setup/manufacturer/listManufacturermaster']);
+
+          }else
+          {
+            data.success===false
+            // this.loading = false;
+                  this.error = data.message;
+                   console.log(data.message); 
+            
+          }
+        },
+        (err: HttpErrorResponse) => {
+          
+      }
+      );
+    }else{
+      this.showNotification(
+        "snackbar-danger",
+        "Please fill required details.",
+        "top",
+        "right"
+      );
+    }
     
-    this.router.navigate(['/setup/manufacturer/listManufacturermaster']);
 
   }
-}
+
+
+//   onSubmit() {
+//   if (this.docForm.valid) {
+
+//     this.manufacturerMaster = this.docForm.value;
+//     console.log(this.manufacturerMaster);
+//     this.manufacturerService.addmanufacturerMaster(this.manufacturerMaster);
+   
+//     this.showNotification(
+//       "snackbar-success",
+//       "Add Record Successfully...!!!",
+//       "bottom",
+//       "center"
+//     );
+    
+//     this.router.navigate(['/setup/manufacturer/listManufacturermaster']);
+
+//   }
+// }
 
   fetchDetails(whoCode: any): void {
     this.httpService.get(this.manufacturerService.editmanufacturerReturnPolicy+"?manufacturerId="+whoCode).subscribe((res: any)=> {
