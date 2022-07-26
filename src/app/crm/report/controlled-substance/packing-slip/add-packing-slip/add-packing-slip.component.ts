@@ -26,6 +26,7 @@ export class AddPackingSlipComponent implements OnInit {
   allSelected: any;
   docForm: FormGroup;
   manufacturerAddressList = [];
+  companyAddressList = [];
   dropdownSettings:IDropdownSettings={};
   companyList = [];
   debitMemoList = [];
@@ -94,6 +95,7 @@ export class AddPackingSlipComponent implements OnInit {
         this.searchData();
       }, 700);
 
+      this.getCompany('C029');
 
   }
 
@@ -127,6 +129,20 @@ getManufacturer(manufacturercode){
   this.httpService.get<any>(this.manufacturerFormService.manufacturerAddressUrl+"?manufacturercode="+manufacturercode).subscribe(
     (data) => {
       this.manufacturerAddressList = data;
+    },
+    (error: HttpErrorResponse) => {
+      console.log(error.name + " " + error.message);
+    }
+    );
+  }
+  
+
+
+  
+getCompany(companyId){
+  this.httpService.get<any>(this.manufacturerFormService.companyAddressUrl+"?companyId="+companyId).subscribe(
+    (data) => {
+      this.companyAddressList = data;
     },
     (error: HttpErrorResponse) => {
       console.log(error.name + " " + error.message);
