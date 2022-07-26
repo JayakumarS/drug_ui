@@ -30,19 +30,14 @@ export class AddscheduleIIIComponent implements OnInit {
   @ViewChild('htmlData') htmlData!: ElementRef;
 
   docForm: FormGroup;
-  companyNameList: any;
-  returnMemoNoList: any;
   exampleDatabase: DeaformService | null;
-  memoList: any;
-  memoDetails: any;
-  searchList: any;
-  nonSearchList: any;
   dEAForm:DEAForm;
   requestId: any;
+  searchList=[];
+  nonSearchList=[];
   companyList =[];
   debitMemoList =[];
-  listDebitMemo =[];
-
+  hideFlag = false;
 
   constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService,
     private httpService: HttpServiceService,public deaformService:DeaformService,private packingFormService:PackingFormService,
@@ -281,6 +276,13 @@ export class AddscheduleIIIComponent implements OnInit {
 
     }
 
+
+  
+    hide()
+    {
+     this.hideFlag=true;
+ 
+    }
   
     //Export PDF
    
@@ -297,6 +299,21 @@ export class AddscheduleIIIComponent implements OnInit {
       });
     }
 
+
+ 
+    reset(){
+      this.docForm.patchValue({
+        'company' : '',
+        'returnMemoNo' : '',
+        'startDate':'',
+        'endDate':'',
+     })
+     this.page = 1;
+     this.searchData();   
+     this.searchList= [];
+     this.nonSearchList= [];
+     this.hideFlag = false;
+ }
 
 //     //Export PDF
 //     openPDF() {    
