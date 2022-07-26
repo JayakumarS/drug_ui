@@ -2,6 +2,7 @@ import { AddManufacturermasterComponent } from './add-manufacturermaster/add-man
 import { ListManufacturermasterComponent } from './list-manufacturermaster/list-manufacturermaster.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddManufacturerReturnPolicyComponent } from './add-manufacturer-return-policy/add-manufacturer-return-policy.component';
 
 
 const routes: Routes = [
@@ -11,6 +12,9 @@ const routes: Routes = [
   },{
     path: "addManufacturermaster/:id",
     component: AddManufacturermasterComponent,
+  },{
+    path: "addManufacturerReturnPolicy/:id",
+    component: AddManufacturerReturnPolicyComponent,
   }
 ];
 

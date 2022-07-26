@@ -12,11 +12,11 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
-  selector: 'app-add-druginfo-master',
-  templateUrl: './add-druginfo-master.component.html',
-  styleUrls: ['./add-druginfo-master.component.sass']
+  selector: 'app-add-drug-info-return-policy',
+  templateUrl: './add-drug-info-return-policy.component.html',
+  styleUrls: ['./add-drug-info-return-policy.component.sass']
 })
-export class AddDruginfoMasterComponent implements OnInit {
+export class AddDrugInfoReturnPolicyComponent implements OnInit {
 
   docForm: FormGroup;
   hide3 = true;
@@ -31,31 +31,17 @@ export class AddDruginfoMasterComponent implements OnInit {
     private druginfoService:DruginfoService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
-      
-      ndcupc: ["", [Validators.required]],
-      manufacturerBy: ["", [Validators.required]],
-      description: ["", [Validators.required]],
-       strength: ["", [Validators.required]],
-       control: ["", [Validators.required]],
-       department: ["", [Validators.required]],
-      packageSize: ["", [Validators.required]],
-      rxOtc: ["", [Validators.required]],
-      unitPerPackage:["", [Validators.required]],
-      unitDose: [""],
-      dosage: ["", [Validators.required]],
-      unitOfMeasure: ["", [Validators.required]],
-      hazardous: [""],
-      awp: ["", [Validators.required]],
-      wap: ["", [Validators.required]],
-      myPrice: ["", [Validators.required]],
-    //  userName: this.tokenStorage.getUsername()
+      ndcupcCode: ["", [Validators.required]],
+      noMonthsBeforeExpiration: ["", [Validators.required]],
+      noMonthsAfterExpiration: ["", [Validators.required]],
+      acceptReturns: ["", [Validators.required]],
+      acceptPartialReturns: ["", [Validators.required]],
+      acceptpercentage: ["", [Validators.required]],
+   
            
     });
 
-    this.docForm.patchValue({
-      'unitDose': false,
-      'hazardous': false,
-   })
+    
 
   }
   ngOnInit(): void {
@@ -75,50 +61,52 @@ export class AddDruginfoMasterComponent implements OnInit {
        this.edit=true;
        //For User login Editable mode
        this.fetchDetails(this.requestId) ;
+       this.docForm.patchValue({
+        'ndcupcCode': this.requestId
+     })
       }
      });
   }
 
-  returnPolicy() {
-    this.router.navigate(['/setup/druginfoMaster/addDrugInfoReturnPolicy/',this.requestId]);
+  drugInfo() {
+    this.router.navigate(['/setup/druginfoMaster/addDruginfoMaster/',this.requestId]);
   }
   
   onSubmit() {
-    if (this.docForm.valid) {
-    this.drugInfoMaster = this.docForm.value;
-    console.log(this.drugInfoMaster);
-    this.druginfoService.adddrugInfoMaster(this.drugInfoMaster);
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
-    this.router.navigate(['/setup/druginfoMaster/listDruginfoMaster']);
+    
+  if (this.docForm.valid) {
+    this.httpService.post<any>(this.druginfoService.adddruginfoReturnPolicy, this.docForm.value).subscribe(
+      (data) => {
+        this.showNotification(
+          "snackbar-success",
+          "Add Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+        
+        this.router.navigate(['/setup/druginfoMaster/listDruginfoMaster']);
+    
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+      );
+
+    
+  }  
   }
-  }
+
   fetchDetails(ndcupc: any): void {
-    this.httpService.get(this.druginfoService.editdrugInfoMaster+"?drugInfoId="+ndcupc).subscribe((res: any)=> {
+    this.httpService.get(this.druginfoService.editdrugInfoReturnPolicy+"?drugInfoId="+ndcupc).subscribe((res: any)=> {
       console.log(ndcupc);
 
       this.docForm.patchValue({
-        'ndcupc': res.drugInfoMasterBean.ndcupc,
-        'manufacturerBy': res.drugInfoMasterBean.manufacturerBy,
-        'description': res.drugInfoMasterBean.description,
-        'strength': res.drugInfoMasterBean.strength,
-        'control': res.drugInfoMasterBean.control,
-        'department': res.drugInfoMasterBean.department,
-        'packageSize': res.drugInfoMasterBean.packageSize,
-        'rxOtc': res.drugInfoMasterBean.rxOtc,
-        'unitPerPackage': res.drugInfoMasterBean.unitPerPackage,
-        'unitDose': this.getBoolean(res.drugInfoMasterBean.unitDose),
-        'dosage': res.drugInfoMasterBean.dosage,
-        'unitOfMeasure': res.drugInfoMasterBean.unitOfMeasure,
-        'hazardous': this.getBoolean(res.drugInfoMasterBean.hazardous),
-        'awp': res.drugInfoMasterBean.awp,
-        'wap': res.drugInfoMasterBean.wap,
-        'myPrice': res.drugInfoMasterBean.myPrice,
-     
+        'ndcupcCode': res.druginfoReturnPolicyBean.ndcupcCode,
+        'noMonthsBeforeExpiration': res.druginfoReturnPolicyBean.noMonthsBeforeExpiration,
+        'noMonthsAfterExpiration': res.druginfoReturnPolicyBean.noMonthsAfterExpiration,
+        'acceptReturns': this.getBoolean(res.druginfoReturnPolicyBean.acceptReturns).toString(),
+        'acceptPartialReturns': this.getBoolean(res.druginfoReturnPolicyBean.acceptPartialReturns).toString(),
+        'acceptpercentage': res.druginfoReturnPolicyBean.acceptpercentage,
      })
 
      

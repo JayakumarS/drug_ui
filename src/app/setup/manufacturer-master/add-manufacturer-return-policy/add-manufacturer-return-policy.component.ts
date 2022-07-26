@@ -1,3 +1,4 @@
+import { AddManufactureReportComponent } from './../../../crm/report/controlled-substance/manufacture/add-manufacture-report/add-manufacture-report.component';
 import { ManufacturerService } from './../manufacturer.service';
 import { ManufacturerMaster } from './../manufacturer-model';
 import { Component, OnInit } from '@angular/core';
@@ -11,11 +12,11 @@ import { MatSnackBar } from "@angular/material/snack-bar";
 import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 @Component({
-  selector: 'app-add-manufacturermaster',
-  templateUrl: './add-manufacturermaster.component.html',
-  styleUrls: ['./add-manufacturermaster.component.sass']
+  selector: 'app-add-manufacturer-return-policy',
+  templateUrl: './add-manufacturer-return-policy.component.html',
+  styleUrls: ['./add-manufacturer-return-policy.component.sass']
 })
-export class AddManufacturermasterComponent implements OnInit {
+export class AddManufacturerReturnPolicyComponent  implements OnInit {
 
  
   docForm: FormGroup;
@@ -31,23 +32,12 @@ export class AddManufacturermasterComponent implements OnInit {
     private manufacturerService:ManufacturerService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
     this.docForm = this.fb.group({
-      manufacturerCode: [""],
-      manufacturerName: ["", [Validators.required]],
-      linkTo: ["", [Validators.required]],
-      billTo: ["", [Validators.required]],
-      returnService: ["", [Validators.required]],
-      contact: ["", [Validators.required]],
-       emailId: ["", [Validators.required]],
-       departmentName: ["", [Validators.required]],
-      streetName: ["", [Validators.required]],
-      cityName: ["", [Validators.required]],
-      stateName: ["", [Validators.required]],
-      zipCode:["", [Validators.required]],
-      phoneNo: ["", [Validators.required]],
-      tollFreeNo: ["", [Validators.required]],
-      fax: ["", [Validators.required]],
-      useName: this.tokenStorage.getUsername()
-     
+      manufacturerCode:  ["", [Validators.required]],
+      noMonthsBeforeExpiration: ["", [Validators.required]],
+      noMonthsAfterExpiration: ["", [Validators.required]],
+      acceptReturns: ["", [Validators.required]],
+      acceptPartialReturns: ["", [Validators.required]],
+      acceptpercentage: ["", [Validators.required]],
     });
   }
   ngOnInit(): void {
@@ -57,24 +47,33 @@ export class AddManufacturermasterComponent implements OnInit {
        this.edit=true;
        //For User login Editable mode
        this.fetchDetails(this.requestId) ;
+       this.docForm.patchValue({
+        'manufacturerCode': this.requestId
+     })
+
       }
      });
   }
   onSubmit() {
   if (this.docForm.valid) {
-    this.manufacturerMaster = this.docForm.value;
-    console.log(this.manufacturerMaster);
-    this.manufacturerService.addmanufacturerMaster(this.manufacturerMaster);
-   
-    this.showNotification(
-      "snackbar-success",
-      "Add Record Successfully...!!!",
-      "bottom",
-      "center"
-    );
+    this.httpService.post<any>(this.manufacturerService.addManufactureReturnPolicy, this.docForm.value).subscribe(
+      (data) => {
+        this.showNotification(
+          "snackbar-success",
+          "Add Record Successfully...!!!",
+          "bottom",
+          "center"
+        );
+        
+        this.router.navigate(['/setup/manufacturer/listManufacturermaster']);
     
-    this.router.navigate(['/setup/manufacturer/listManufacturermaster']);
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+      );
 
+    
   }
 }
 
@@ -83,21 +82,12 @@ export class AddManufacturermasterComponent implements OnInit {
     
 
       this.docForm.patchValue({
-        'manufacturerCode': res.manufacturerMasterBean.manufacturerCode,
-        'manufacturerName': res.manufacturerMasterBean.manufacturerName,
-        'linkTo': res.manufacturerMasterBean.linkTo,
-        'billTo': res.manufacturerMasterBean.billTo,
-        'returnService': res.manufacturerMasterBean.returnService,
-        'contact': res.manufacturerMasterBean.contact,
-        'emailId': res.manufacturerMasterBean.emailId,
-        'departmentName': res.manufacturerMasterBean. departmentName,
-        'streetName': res.manufacturerMasterBean.streetName,
-        'cityName': res.manufacturerMasterBean.cityName,
-        'stateName': res.manufacturerMasterBean.stateName,
-        'zipCode': res.manufacturerMasterBean.zipCode,
-        'phoneNo': res.manufacturerMasterBean.phoneNo,
-        'tollFreeNo': res.manufacturerMasterBean.tollFreeNo,
-        'fax': res.manufacturerMasterBean.fax,
+        'manufacturerCode': res.manufactureReturnPolicyBean.manufacturerCode,
+        'noMonthsBeforeExpiration': res.manufactureReturnPolicyBean.noMonthsBeforeExpiration,
+        'noMonthsAfterExpiration': res.manufactureReturnPolicyBean.noMonthsAfterExpiration,
+        'acceptReturns': this.getBoolean(res.manufactureReturnPolicyBean.acceptReturns).toString(),
+        'acceptPartialReturns': this.getBoolean(res.manufactureReturnPolicyBean.acceptPartialReturns).toString(),
+        'acceptpercentage': res.manufactureReturnPolicyBean.acceptpercentage,
        
      })
       },
@@ -121,8 +111,8 @@ export class AddManufacturermasterComponent implements OnInit {
 
   }
   }
-  returnPolicy() {
-    this.router.navigate(['/setup/manufacturer/addManufacturerReturnPolicy/',this.requestId]);
+  manufacturer() {
+    this.router.navigate(['/setup/manufacturer/addManufacturerReturnPolicy/0']);
   }
 
   reset(){}
@@ -172,4 +162,20 @@ export class AddManufacturermasterComponent implements OnInit {
     }
   }
   
+
+  getBoolean(value){
+    switch(value){
+         case true:
+         case "true":
+         case 1:
+         case "1":
+         case "on":
+         case "yes":
+             return true;
+         default: 
+             return false;
+     }
+    }
+
+
 }

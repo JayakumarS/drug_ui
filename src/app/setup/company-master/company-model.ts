@@ -5,4 +5,5 @@ export class CompanyMaster {
   companyEmailID: string;
   companyState: string;
   companyCity: string;
+  defExpirationDate: string;
 }

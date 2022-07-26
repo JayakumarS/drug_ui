@@ -28,13 +28,15 @@ import { ManufacturerMasterRoutingModule } from './manufacturer-master-routing.m
 import { AddManufacturermasterComponent } from './add-manufacturermaster/add-manufacturermaster.component';
 import { ListManufacturermasterComponent } from './list-manufacturermaster/list-manufacturermaster.component';
 import { DeleteManufacturerMasterComponent } from './list-manufacturermaster/delete-manufacturer-master/delete-manufacturer-master.component';
+import { AddManufacturerReturnPolicyComponent } from './add-manufacturer-return-policy/add-manufacturer-return-policy.component';
 
 
 @NgModule({
   declarations: [
     AddManufacturermasterComponent,
     ListManufacturermasterComponent,
-    DeleteManufacturerMasterComponent
+    DeleteManufacturerMasterComponent,
+    AddManufacturerReturnPolicyComponent
   ],
   imports: [
     FormsModule,

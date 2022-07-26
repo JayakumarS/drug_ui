@@ -35,6 +35,8 @@ export class DruginfoService  extends UnsubscribeOnDestroyAdapter {
   public updatedrugInfoMaster = `${this.serverUrl.apiServerAddress}api/auth/app/drugInfoMaster/update`;
   public deletedrugInfoMaster = `${this.serverUrl.apiServerAddress}api/auth/app/drugInfoMaster/delete`;
   public getManufacturerList = `${this.serverUrl.apiServerAddress}api/auth/app/drugInfoMaster/getManufacturerList`;
+  public adddruginfoReturnPolicy= `${this.serverUrl.apiServerAddress}api/auth/app/drugInfoMaster/saveDruginfoReturnPolicy`;
+  public editdrugInfoReturnPolicy = `${this.serverUrl.apiServerAddress}api/auth/app/drugInfoMaster/editDruginfoReturnPolicy`;
 
   get data(): DrugInfoMaster[] {
     return this.dataChange.value;

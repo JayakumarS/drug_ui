@@ -5,6 +5,12 @@
         <app-breadcrumb [title]="'Add Manufacturer'" [items]="['Manufacturer']" [active_item]="'Add Manufacturer'">
         </app-breadcrumb>
       </div>
+      <div *ngIf="edit" class="row" style="padding-bottom: 1%;">
+				<div class="col-md-11">
+					<button class="btn btn-info" type="button">Manufacturer Info</button>&nbsp;
+					<button class="btn btn-primary" type="button" (click) = "returnPolicy()">Return Policy</button>&nbsp;			
+				</div>
+			</div>
       <div class="row clearfix ">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="box-shadow">
