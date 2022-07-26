@@ -16,6 +16,7 @@ import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroy
 import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-list-company-master',
@@ -55,6 +56,7 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
   @ViewChild(MatMenuTrigger)
   contextMenu: MatMenuTrigger;
   contextMenuPosition = { x: "0px", y: "0px" };
+  today = moment().format('YYYY-MM-DD');
 
   ngOnInit(): void {
     this.loadData();
@@ -131,6 +133,9 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
 
 
   returnMemo(row){
+    if(row.defExpirationDate<=this.today){
+      this.router.navigate(['/setup/companyMaster/addCompanyMaster/'+ row.companyCode]);
+    }
     this.router.navigate(['/setup/debitMemo/listDebitMemo/'+ row.companyCode]);
 
   }

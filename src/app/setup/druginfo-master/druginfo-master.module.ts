@@ -28,6 +28,7 @@ import { DruginfoMasterRoutingModule } from './druginfo-master-routing.module';
 import { AddDruginfoMasterComponent } from './add-druginfo-master/add-druginfo-master.component';
 import { ListDruginfoMasterComponent } from './list-druginfo-master/list-druginfo-master.component';
 import { DeleteDrugInfoMasterComponent } from './list-druginfo-master/delete-drug-info-master/delete-drug-info-master.component';
+import { AddDrugInfoReturnPolicyComponent } from './add-drug-info-return-policy/add-drug-info-return-policy.component';
 
 
 @NgModule({
@@ -35,6 +36,7 @@ import { DeleteDrugInfoMasterComponent } from './list-druginfo-master/delete-dru
     AddDruginfoMasterComponent,
     ListDruginfoMasterComponent,
     DeleteDrugInfoMasterComponent,
+    AddDrugInfoReturnPolicyComponent,
   ],
   imports: [
     FormsModule,

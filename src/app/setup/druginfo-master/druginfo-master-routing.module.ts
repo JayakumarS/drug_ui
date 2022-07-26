@@ -2,6 +2,7 @@ import { AddDruginfoMasterComponent } from './add-druginfo-master/add-druginfo-m
 import { ListDruginfoMasterComponent } from './list-druginfo-master/list-druginfo-master.component';
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
+import { AddDrugInfoReturnPolicyComponent } from './add-drug-info-return-policy/add-drug-info-return-policy.component';
 
 const routes: Routes = [
   {
@@ -10,6 +11,9 @@ const routes: Routes = [
   },{
     path: "addDruginfoMaster/:id",
     component: AddDruginfoMasterComponent,
+  },{
+    path: "addDrugInfoReturnPolicy/:id",
+    component: AddDrugInfoReturnPolicyComponent,
   }
 ];
 @NgModule({

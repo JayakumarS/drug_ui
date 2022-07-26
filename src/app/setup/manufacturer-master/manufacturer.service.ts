@@ -36,6 +36,8 @@ export class ManufacturerService extends UnsubscribeOnDestroyAdapter {
   public editmanufacturerMaster = `${this.serverUrl.apiServerAddress}api/auth/app/manufacturerMaster/edit`;
   public updatemanufacturerMaster = `${this.serverUrl.apiServerAddress}api/auth/app/manufacturerMaster/update`;
   private deletemanufacturerMaster = `${this.serverUrl.apiServerAddress}api/auth/app/manufacturerMaster/delete`;
+  public addManufactureReturnPolicy = `${this.serverUrl.apiServerAddress}api/auth/app/manufacturerMaster/saveManufactureReturnPolicy`;
+  public editmanufacturerReturnPolicy = `${this.serverUrl.apiServerAddress}api/auth/app/manufacturerMaster/editManufactureReturnPolicy`;
 
 
   get data(): ManufacturerMaster[] {
