@@ -99,11 +99,13 @@
                               </tr>
                           </thead>
                           <tbody>
-                            <td>Sample Company <br>
-                              2535 First Avenue <br>
-                              Suite 101 <br>
-                              Chicago, IL 60634-5678
-                            </td> 
+                            <td *ngFor="let item of manufacturerAddressList">
+                              {{item.manufacturername !== null ? item.manufacturername:'-'}} <br>
+                              {{item.department !== null ? item.department:'-'}} <br>
+                              {{item.street !== null ? item.street:'-'}} <br>
+                              {{item.state !== null ? item.state:'-'}} <br>
+                              {{item.city !== null ? item.city:'-'}} &nbsp;  {{item.zipcode !== null ? item.zipcode:'-'}}
+                           </td> 
                             <td>Sample Company <br>
                               2535 First Avenue <br>
                               Suite 101 <br>

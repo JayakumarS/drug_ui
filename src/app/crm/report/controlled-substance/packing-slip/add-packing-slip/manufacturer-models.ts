@@ -1,5 +1,9 @@
 export class ManufacturerForm{
 
-    manufacturercode: string;
-    manufacturerName: string;
+     manufacturername: string;
+	 department: string;
+	 street: string;
+	 city: string;
+	 state: string;
+	 zipcode: string;
 }
