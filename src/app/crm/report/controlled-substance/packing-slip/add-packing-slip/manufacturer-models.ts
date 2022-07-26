@@ -6,4 +6,5 @@ export class ManufacturerForm{
 	 city: string;
 	 state: string;
 	 zipcode: string;
+
 }

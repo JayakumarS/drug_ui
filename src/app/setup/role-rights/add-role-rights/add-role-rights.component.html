@@ -1,7 +1,7 @@
 
 <section class="content">
     <div class="content-block">
-      <div class="block-header">
+      <div class="block-header" style="padding: 0.5% !important;">
         <!-- breadcrumb -->
         <app-breadcrumb [title]="'Create Role Rights'" [items]="['Setup']" [active_item]="'Create Role Rights'">
         </app-breadcrumb>
@@ -13,10 +13,9 @@
               <form class="m-4" [formGroup]="docForm" (ngSubmit)="onSubmit()">
                 <div class="row" style="margin-left: 193px;">
                   <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Roles</mat-label>
-    
-                        <mat-select formControlName="roleId" (selectionChange)="roleBasedFormList($event.value)">
+                    <mat-label class="lable">Roles</mat-label>
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">                      
+                        <mat-select  class="inputTxt"formControlName="roleId" (selectionChange)="roleBasedFormList($event.value)">
                           <mat-option *ngFor="let title of roleList" [value]="title.id">
                             {{title.text}}
                           </mat-option>
@@ -25,10 +24,9 @@
                   </div>
                 </div>
                 <div class="row" style="margin-left: 193px;">
-                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3" >
-                        
-                          <mat-label>Forms</mat-label>
-                          <ng-multiselect-dropdown formControlName="formList" 
+                    <div class="col-xl-4 col-lg-6 col-md-6 col-sm-12 mb-3" >   
+                      <mat-label class="lable">Forms</mat-label>                    
+                          <ng-multiselect-dropdown  class="inputTxt" formControlName="formList" 
                                     [placeholder]="'Forms'"
                                     [settings]="dropdownSettings"
                                     [data]="dropdownList"
@@ -48,7 +46,7 @@
                       <!-- <button *ngIf ="edit" (click) = "update()" class="btn-space" mat-raised-button 
                       style="margin-left: 38%; color: aliceblue; background-color: green;">Update</button> -->
 
-                    <button color="warn" (click) = "onCancel()" type="button" mat-raised-button >Cancel</button>
+                    <button color="warn" (click) = "onCancel()" class="btn-space" type="button" mat-raised-button >Cancel</button>
                   </div>
                 </div>
               </form>

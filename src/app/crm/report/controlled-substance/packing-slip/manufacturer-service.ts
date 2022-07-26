@@ -27,6 +27,7 @@ export class ManufacturerFormService extends UnsubscribeOnDestroyAdapter{
   }
 
   public manufacturerAddressUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getManufacturerAddress`;
+  public companyAddressUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getCompanyAddress`;
 
 
 

@@ -99,31 +99,33 @@
                               </tr>
                           </thead>
                           <tbody>
-                            <td *ngFor="let item of manufacturerAddressList">
-                              {{item.manufacturername !== null ? item.manufacturername:'-'}} <br>
+                            <td *ngFor="let item of companyAddressList">
+                              {{item.text !== null ? item.text:'-'}} <br>
                               {{item.department !== null ? item.department:'-'}} <br>
                               {{item.street !== null ? item.street:'-'}} <br>
                               {{item.state !== null ? item.state:'-'}} <br>
-                              {{item.city !== null ? item.city:'-'}} &nbsp;  {{item.zipcode !== null ? item.zipcode:'-'}}
+                              {{item.city !== null ? item.city:'-'}} &nbsp;  {{item.zipCode !== null ? item.zipCode:'-'}}
                            </td> 
-                            <td>Sample Company <br>
-                              2535 First Avenue <br>
-                              Suite 101 <br>
-                              Chicago, IL 60634-5678
-                            </td>
-                            <td>Wholesaler <br>
+                           <td *ngFor="let item of companyAddressList">
+                            {{item.creditToName !== null ? item.creditToName:'-'}} <br>
+                            {{item.creditToStreet !== null ? item.creditToStreet:'-'}} <br>
+                            {{item.creditToState !== null ? item.creditToState:'-'}} <br>
+                            {{item.creditToCity !== null ? item.creditToCity:'-'}} &nbsp;  {{item.creditToZipCode !== null ? item.creditToZipCode:'-'}}
+                          </td>
+                            <td *ngFor="let item of companyAddressList">
+                              Wholesaler <br>
                               123 Main Street <br>
                               Building 205 <br>
                               Chicago, IL 60641-1234
                             </td>
                           </tbody> 
                           <tbody >
-                            <td>
-                              <b>Phone:</b>(312) 555-5544 <b>Fax:</b>(312) 555-5533 <br>
-                              <b>Contact:</b>Tom Smith <br>
-                              <b>DEA#</b> AB1234563 <b>Exp. Date:</b>12/31/2004 <br>
-                              <b>Authorized Classes:</b> 2 2N 3 3N 4 5 <br>
-                              <b>State License #:</b> 54873-21
+                            <td  *ngFor="let item of companyAddressList">
+                              <b>Phone:</b> {{item.phoneNo !== null ? item.phoneNo:'-'}}<b>Fax:</b> {{item.faxNo !== null ? item.faxNo:'-'}}<br>
+                              <b>Contact:</b> {{item.contactPerson !== null ? item.contactPerson:'-'}}<br>
+                              <b>DEA#</b> {{item.deaNo !== null ? item.deaNo:'-'}}<b>Exp. Date:</b> {{item.deaExpDate !== null ? item.deaExpDate:'-'}}<br>
+                              <b>Authorized Classes:</b>  {{item.authorisedClasses !== null ? item.authorisedClasses:'-'}} <br>
+                              <b>State License #:</b> 
                             </td> 
                             <td>
                               

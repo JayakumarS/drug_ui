@@ -51,7 +51,7 @@
           </div>
         </li>
         <li class="nav-item user_profile btnUserDropdown" ngbDropdown>
-          <div class="chip dropdown-toggle" ngbDropdownToggle class="nav-notification-icons pt-0">
+          <div class="chip dropdown-toggle" ngbDropdownToggle class="nav-notification-icons pt-0" style="font-family: times new roman;font-style: italic;">
             <img src="{{userImg}}" class="user_img" width="32" height="32" >
             <span>{{userName}} - {{roleName}}</span>
             
@@ -72,12 +72,12 @@
                       </a>
                     </li> -->
                     <li>
-                      <a href="#" (click)="passwordChange()" #openModal data-target="#passwordModal" data-toggle="modal" onClick="return false;">
-                        <app-feather-icons [icon]="'edit-2'" [class]="'user-menu-icons'"></app-feather-icons>Change Password
+                      <a href="#" (click)="passwordChange()" #openModal data-target="#passwordModal" data-toggle="modal" onClick="return false;"  style="font-family: times new roman;font-style: italic;">
+                        <app-feather-icons [icon]="'edit-2'" [class]="'user-menu-icons'"></app-feather-icons>Change Password 
                       </a>
                     </li>
                     <li>
-                      <a href="javascript:void(0);" (click)="logout()">
+                      <a href="javascript:void(0);" (click)="logout()" style="font-family: times new roman;font-style: italic;">
                         <app-feather-icons [icon]="'log-out'" [class]="'user-menu-icons'"></app-feather-icons>Logout
                       </a>
                     </li>

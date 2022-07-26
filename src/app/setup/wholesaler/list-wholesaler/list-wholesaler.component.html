@@ -1,8 +1,8 @@
 <section class="content">
     <div class="content-block">
-      <div class="block-header">
+      <div class="block-header" style="padding: 0.5% !important;">
         <!-- breadcrumb -->
-        <app-breadcrumb [title]="'wholesaler'" [items]="['wholesaler']" [active_item]="'wholesaler List'">
+        <app-breadcrumb [title]="'Wholesaler'" [items]="['Wholesaler']" [active_item]="'Wholesaler List'">
         </app-breadcrumb>
       </div>
       <div class="row">
@@ -10,7 +10,7 @@
           <div class="card">
             <div class="body">
               <div class="table-responsive">
-                <div class="materialTableHeader">
+                <div class="materialTableHeader" style="padding-top: 1%;padding-bottom: 4%;">
                   <div class="row">
                     <div class="col-8">
                       <ul class="header-buttons-left ms-0">
@@ -42,11 +42,12 @@
                     </div>
                   </div>
                 </div>
+                
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                   #exporter="matTableExporter">
                   
                   <ng-container matColumnDef="wholesalerName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> wholeSaler Name </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> WholeSaler Name </mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.wholesalerName}}</mat-cell>
                   </ng-container>
                   <ng-container matColumnDef="emailID">
