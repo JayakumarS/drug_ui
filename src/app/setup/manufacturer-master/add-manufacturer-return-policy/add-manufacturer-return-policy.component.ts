@@ -18,7 +18,7 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
 })
 export class AddManufacturerReturnPolicyComponent  implements OnInit {
 
- 
+  packageoriginalityForm: FormGroup;
   docForm: FormGroup;
   hide3 = true;
   agree3 = false;
@@ -31,6 +31,11 @@ export class AddManufacturerReturnPolicyComponent  implements OnInit {
   constructor(private tokenStorage: TokenStorageService,private fb: FormBuilder,private authService: AuthService,public router: Router,
     private manufacturerService:ManufacturerService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
+
+      this.packageoriginalityForm = this.fb.group({
+        checkPackageOriginality: false
+      });
+
     this.docForm = this.fb.group({
       manufacturerCode:  ["", [Validators.required]],
       noMonthsBeforeExpiration: ["", [Validators.required]],
@@ -38,6 +43,7 @@ export class AddManufacturerReturnPolicyComponent  implements OnInit {
       acceptReturns: ["", [Validators.required]],
       acceptPartialReturns: ["", [Validators.required]],
       acceptpercentage: ["", [Validators.required]],
+      checkPackageOriginality: ["", [Validators.required]],
     });
   }
   ngOnInit(): void {
@@ -55,6 +61,11 @@ export class AddManufacturerReturnPolicyComponent  implements OnInit {
      });
   }
   onSubmit() {
+
+    this.docForm.patchValue({
+      'checkPackageOriginality': this.packageoriginalityForm.value.checkPackageOriginality
+    });
+
   if (this.docForm.valid) {
     this.httpService.post<any>(this.manufacturerService.addManufactureReturnPolicy, this.docForm.value).subscribe(
       (data) => {
@@ -80,6 +91,9 @@ export class AddManufacturerReturnPolicyComponent  implements OnInit {
   fetchDetails(whoCode: any): void {
     this.httpService.get(this.manufacturerService.editmanufacturerReturnPolicy+"?manufacturerId="+whoCode).subscribe((res: any)=> {
     
+      this.packageoriginalityForm.patchValue({
+        'checkPackageOriginality': this.getBoolean(res.manufactureReturnPolicyBean.checkPackageOriginality)
+      });
 
       this.docForm.patchValue({
         'manufacturerCode': res.manufactureReturnPolicyBean.manufacturerCode,
@@ -112,7 +126,7 @@ export class AddManufacturerReturnPolicyComponent  implements OnInit {
   }
   }
   manufacturer() {
-    this.router.navigate(['/setup/manufacturer/addManufacturerReturnPolicy/0']);
+    this.router.navigate(['/setup/manufacturer/addManufacturermaster/', this.requestId]);
   }
 
   reset(){}

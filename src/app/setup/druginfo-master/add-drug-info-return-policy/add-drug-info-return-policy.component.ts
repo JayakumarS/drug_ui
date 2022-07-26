@@ -17,7 +17,7 @@ import { TokenStorageService } from 'src/app/auth/token-storage.service';
   styleUrls: ['./add-drug-info-return-policy.component.sass']
 })
 export class AddDrugInfoReturnPolicyComponent implements OnInit {
-
+  packageoriginalityForm: FormGroup;
   docForm: FormGroup;
   hide3 = true;
   agree3 = false;
@@ -30,6 +30,11 @@ export class AddDrugInfoReturnPolicyComponent implements OnInit {
   constructor(private tokenStorage: TokenStorageService,private fb: FormBuilder,private authService: AuthService,public router: Router,
     private druginfoService:DruginfoService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute) {
+     
+      this.packageoriginalityForm = this.fb.group({
+        checkPackageOriginality: false
+      });
+
     this.docForm = this.fb.group({
       ndcupcCode: ["", [Validators.required]],
       noMonthsBeforeExpiration: ["", [Validators.required]],
@@ -37,7 +42,7 @@ export class AddDrugInfoReturnPolicyComponent implements OnInit {
       acceptReturns: ["", [Validators.required]],
       acceptPartialReturns: ["", [Validators.required]],
       acceptpercentage: ["", [Validators.required]],
-   
+      checkPackageOriginality: ["", [Validators.required]],
            
     });
 
@@ -74,6 +79,10 @@ export class AddDrugInfoReturnPolicyComponent implements OnInit {
   
   onSubmit() {
     
+    this.docForm.patchValue({
+      'checkPackageOriginality': this.packageoriginalityForm.value.checkPackageOriginality
+    });
+
   if (this.docForm.valid) {
     this.httpService.post<any>(this.druginfoService.adddruginfoReturnPolicy, this.docForm.value).subscribe(
       (data) => {
@@ -97,8 +106,12 @@ export class AddDrugInfoReturnPolicyComponent implements OnInit {
   }
 
   fetchDetails(ndcupc: any): void {
+    
     this.httpService.get(this.druginfoService.editdrugInfoReturnPolicy+"?drugInfoId="+ndcupc).subscribe((res: any)=> {
-      console.log(ndcupc);
+     // console.log(ndcupc);
+     this.packageoriginalityForm.patchValue({
+      'checkPackageOriginality': this.getBoolean(res.druginfoReturnPolicyBean.checkPackageOriginality)
+    });
 
       this.docForm.patchValue({
         'ndcupcCode': res.druginfoReturnPolicyBean.ndcupcCode,

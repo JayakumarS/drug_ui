@@ -79,7 +79,7 @@ export class AddManufacturermasterComponent implements OnInit {
 }
 
   fetchDetails(whoCode: any): void {
-    this.httpService.get(this.manufacturerService.editmanufacturerReturnPolicy+"?manufacturerId="+whoCode).subscribe((res: any)=> {
+    this.httpService.get(this.manufacturerService.editmanufacturerMaster+"?manufacturerId="+whoCode).subscribe((res: any)=> {
     
 
       this.docForm.patchValue({
