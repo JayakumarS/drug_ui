@@ -42,7 +42,7 @@ export class AddscheduleIIComponent implements OnInit {
   companyList =[];
   debitMemoList =[];
   listDebitMemo =[];
-
+  hideFlag = false;
 
   constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService,
     private httpService: HttpServiceService,public deaformService:DeaformService,private packingFormService:PackingFormService,
@@ -296,6 +296,12 @@ export class AddscheduleIIComponent implements OnInit {
 
     }
 
+
+   hide()
+   {
+    this.hideFlag=true;
+
+   }
 
 //     //Export PDF
 //     openPDF() {    

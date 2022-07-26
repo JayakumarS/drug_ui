@@ -81,7 +81,7 @@
            <div class="row"  style="margin-left: 5%;">  
               <div class="col-md-12" style="margin-left: 79%;">
                   <button class="btn-space" mat-raised-button
-                  color="accent" style="background-color: #34d034;" (click) = "searchData()">Search</button>
+                  color="accent" style="background-color: #34d034;" (click) = "searchData()" (click) = "hide()">Search</button>
                   <!-- <button (click) = "print()" class="btn-space" mat-raised-button
                   color="accent" style="margin-left: 1%;background-color: #34d034;">Print</button> -->
                   <button class="btn btn-success btn-block" (click)="openPDF()">Export Report</button>
@@ -100,7 +100,7 @@
 
           <!-- <div id="scheduleIIPrint" > -->
             <!-- <div class="container"> -->
-            <div id="htmlData">
+            <div id="htmlData" *ngIf="hideFlag">
             <div class="row" style="overflow-x:auto;">
               <div class="col-md-12">
                   <div class="table-responsive-sm">

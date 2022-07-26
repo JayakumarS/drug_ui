@@ -48,7 +48,7 @@ export class AddPackingSlipComponent implements OnInit {
   packingList: any;
   manufacturerAddressList: any;
   dropdownSettings:IDropdownSettings={};
-
+  hideFlag = false;
   
   constructor(private fb: FormBuilder,public router: Router, private packingFormService:PackingFormService, private manufacturerFormService:ManufacturerFormService,
    private httpService: HttpServiceService,public deaformService:DeaformService,
@@ -110,6 +110,12 @@ export class AddPackingSlipComponent implements OnInit {
         this.searchData();
       }, 700);
 
+
+  }
+
+  hide()
+  {
+   this.hideFlag=true;
 
   }
 
