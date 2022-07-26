@@ -8,6 +8,8 @@ const AUTHDEFAULTROLEID_KEY = 'AuthDefaultRoleId';
 const AUTHDEFAULTROLE_KEY = 'AuthDefaultRole';
 const AUTHCUSTOMERCOMPANYCODE_KEY = 'AuthCompanyCode';
 const AUTHIMGURL_KEY = 'AuthImgUrl';
+const AUTHROLENAME_KEY = 'AuthRoleName';
+
 @Injectable({
   providedIn: 'root'
 })
@@ -93,8 +95,18 @@ public getUserId(): string {
     window.sessionStorage.removeItem(AUTHIMGURL_KEY);
     window.sessionStorage.setItem(AUTHIMGURL_KEY, imgUrl);
   }
-
+  
   public getImgUrl(){
     return sessionStorage.getItem(AUTHIMGURL_KEY);
   }
+
+  public saveRoleName(roleName: string[]){
+    window.sessionStorage.removeItem(AUTHROLENAME_KEY);
+    window.sessionStorage.setItem(AUTHROLENAME_KEY, JSON.stringify(roleName));
+  }
+  
+  public getRoleName(){
+    return sessionStorage.getItem(AUTHROLENAME_KEY);
+  }
+
 }

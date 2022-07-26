@@ -18,6 +18,7 @@ import { AppService } from 'src/app/app.service';
 import { FormBuilder, FormGroup } from "@angular/forms";
 import { MatDialog } from "@angular/material/dialog";
 import { ChangePasswordPopUpComponent } from "src/app/setup/users/change-password-pop-up/change-password-pop-up.component";
+import { ChangeRolePopUpComponent } from "src/app/setup/users/change-role-pop-up/change-role-pop-up.component";
 const document: any = window.document;
 
 @Component({
@@ -270,6 +271,15 @@ export class HeaderComponent
       width: "465px",
   
     });
+  }
+
+  roleChange(){
+
+    const dialogRef = this.dialog.open(ChangeRolePopUpComponent, {
+      height: "270px",
+      width: "400px",
+    });
+
   }
 
   updatePassword() {
