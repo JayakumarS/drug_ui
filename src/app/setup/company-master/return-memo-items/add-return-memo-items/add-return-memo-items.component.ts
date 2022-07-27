@@ -20,6 +20,7 @@ import { ReturnMemoItemsService } from './../return-memo-items.service';
 })
 export class AddReturnMemoItemsComponent implements OnInit {
   docForm: FormGroup;
+  returnableAndRepackForm: FormGroup;
   hide3 = true;
   agree3 = false;
   dataarray=[];
@@ -30,6 +31,11 @@ export class AddReturnMemoItemsComponent implements OnInit {
   detailRowData = new DetailRowComponent;
   requestId: number;
   edit: boolean=false;
+  submitted: boolean=false;
+  defaultNDCUPC: boolean=true;
+  greenNDCUPC: boolean=false;
+  redNDCUPC: boolean=false;
+
   constructor( public commonService: CommonService,public dialogRef: MatDialogRef<AddReturnMemoItemsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,private fb: FormBuilder,private authService: AuthService,public router: Router,
     private returnMemoItemsService:ReturnMemoItemsService,private httpService: HttpServiceService
@@ -57,9 +63,15 @@ export class AddReturnMemoItemsComponent implements OnInit {
       description: [""],
       return: [""],
       returnMemoNo: [""],
+      repackagedProduct: [""],
       createdBy: this.tokenStorage.getUsername()
     });
 
+    
+    this.returnableAndRepackForm = this.fb.group({
+      returnable: false,
+      repackagedProduct: false
+    });
   }
   ngOnInit(): void {
 
@@ -95,7 +107,7 @@ this.fetchDetails(this.data.returnMemoItemsCode);
 
   }
   onSubmit() {
-    
+    this.submitted=true;
 if (this.docForm.valid) {
   
 
@@ -127,6 +139,22 @@ if (this.docForm.valid) {
       );
   }
 
+  checkDrugIsReturnable(){
+    this.httpService.post<any>(this.returnMemoItemsService.checkDrugIsReturnable, this.docForm.value).subscribe(
+      (data) => {
+        if(data.text=='YES'){
+        this.returnableAndRepackForm.patchValue({
+          'returnable': true,
+        })
+      }
+      },
+      (error: HttpErrorResponse) => {
+        console.log(error.name + " " + error.message);
+      }
+      );
+  }
+
+
   findAllDetailsByndcupcCode() {
     this.httpService.get(this.returnMemoItemsService.findAllDetailsByndcupcCode+"?drugInfoId="+this.docForm.value.ndcupcCode).subscribe((res: any)=> {
 
@@ -134,6 +162,7 @@ if (this.docForm.valid) {
       this.docForm.patchValue({
  
         'manufacturerBy': res.drugInfoMasterBean.manufacturerBy,
+        'returnTo': res.drugInfoMasterBean.manufacturerBy,
          'description': res.drugInfoMasterBean.description,
         'strength': res.drugInfoMasterBean.strength,
          'controlNo': res.drugInfoMasterBean.control,
@@ -151,7 +180,15 @@ if (this.docForm.valid) {
      
      })
 
-     
+     if(res.drugInfoMasterBean.control==2){
+this.defaultNDCUPC=false;
+this.greenNDCUPC=false;
+this.redNDCUPC=true;
+     }else{
+      this.defaultNDCUPC=false;
+      this.greenNDCUPC=true;
+      this.redNDCUPC=false;
+     }
 
       },
       (err: HttpErrorResponse) => {
@@ -174,7 +211,8 @@ if (this.docForm.valid) {
 'invoiceNo' : res.returnMemoItems.invoiceNo,
 'itemNo' : res.returnMemoItems.itemNo,
 'quantity' : res.returnMemoItems.quantity,
-'price' : res.returnMemoItems.price
+'price' : res.returnMemoItems.price,
+'repackagedProduct': res.returnMemoItems.repackagedProduct
      })
 
       },

@@ -18,6 +18,9 @@ import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
 
+declare var window: any;
+
+
 @Component({
   selector: 'app-list-company-master',
   templateUrl: './list-company-master.component.html',
@@ -38,6 +41,8 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
   index: number;
   id: number;
   companyMaster: CompanyMaster | null;
+  rowCompanyCode:any;
+  formModal: any;
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -45,7 +50,7 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
-    public router: Router,
+    public router: Router
   ) {
     super();
   }
@@ -54,19 +59,16 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
   @ViewChild(MatSort, { static: true }) sort: MatSort;
   @ViewChild("filter", { static: true }) filter: ElementRef;
   @ViewChild(MatMenuTrigger)
+ 
   contextMenu: MatMenuTrigger;
   contextMenuPosition = { x: "0px", y: "0px" };
   today = moment().format('YYYY-MM-DD');
-
+ 
   ngOnInit(): void {
     this.loadData();
-
-    // if (!localStorage.getItem('foo')) { 
-    //   localStorage.setItem('foo', 'no reload') 
-    //   location.reload() 
-    // } else {
-    //   localStorage.removeItem('foo') 
-    // }
+    this.formModal = new window.bootstrap.Modal(
+      document.getElementById('myModal')
+    );
   }
 
   refresh(){
@@ -118,40 +120,30 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
           "bottom",
           "center"
         );
-      
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
     });
 
   }
 
 
   returnMemo(row){
-    if(row.defExpirationDate<=this.today){
-      this.router.navigate(['/setup/companyMaster/addCompanyMaster/'+ row.companyCode]);
+    if(this.today<=row.defExpirationDate){
+      this.rowCompanyCode=row.companyCode;
+      this.formModal.show();
+    }else{
+      this.router.navigate(['/setup/debitMemo/listDebitMemo/'+ row.companyCode]);
     }
-    this.router.navigate(['/setup/debitMemo/listDebitMemo/'+ row.companyCode]);
-
   }
 
-  // calculator(){
+  companyDetailsUpdateNow() {
+    this.formModal.hide();
+    this.router.navigate(['/setup/companyMaster/addCompanyMaster/'+ this.rowCompanyCode]);
+   
+  }
 
-  //   const dialogRef = this.dialog.open(CalculatorCustomerComponent, {
-  //     height: "430px",
-  //     width: "390px",
-  
-  //   });
-  //   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-  
-  //   });
-    
-  // }
+  companyDetailsUpdateLater() {
+    this.formModal.hide();
+    this.router.navigate(['/setup/debitMemo/listDebitMemo/'+ this.rowCompanyCode]);   
+  }
 
   showNotification(colorName, text, placementFrom, placementAlign) {
     this.snackBar.open(text, "", {
@@ -258,4 +250,7 @@ export class ExampleDataSource extends DataSource<CompanyMaster> {
       );
     });
   }
+
+  
+
 }

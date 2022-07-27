@@ -36,7 +36,7 @@ export class ReturnMemoItemsService extends UnsubscribeOnDestroyAdapter{
   private deleteReturnMemoItems = `${this.serverUrl.apiServerAddress}api/auth/app/returnMemoItems/delete`;
   public findAllDetailsByndcupcCode = `${this.serverUrl.apiServerAddress}api/auth/app/drugInfoMaster/edit`;
   public fetchreturnMemoNamebyId= `${this.serverUrl.apiServerAddress}api/auth/app/returnMemoItems/fetchreturnMemoNamebyId`;
-  
+  public checkDrugIsReturnable= `${this.serverUrl.apiServerAddress}api/auth/app/returnMemoItems/checkDrugIsReturnable`;
 
   get data(): ReturnMemoItems[] {
     return this.dataChange.value;

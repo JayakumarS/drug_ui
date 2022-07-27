@@ -137,7 +137,7 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
       type:'Edit'
     }
     const dialogRef = this.dialog.open(AddReturnMemoItemsComponent, {
-      height: "80%",
+      height: "90%",
       width: "80%",
       data: obj,
       direction: tempDirection,
@@ -202,7 +202,7 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
     }
     
     const dialogRef = this.dialog.open(AddReturnMemoItemsComponent, {
-      height: "80%",
+      height: "90%",
       width: "80%",
       data: obj,
       direction: tempDirection,
