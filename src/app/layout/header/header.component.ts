@@ -43,6 +43,7 @@ export class HeaderComponent
   isOpenSidebar: boolean;
   userName:string; 
   roleName:string;
+  firstNameLastName:string;
   changePasswordForm: FormGroup;
   constructor(
     @Inject(DOCUMENT) private document: Document,
@@ -121,7 +122,8 @@ export class HeaderComponent
     const userRole = this.authService.currentUserValue.role;
     this.userImg =  this.token.getImgUrl();
     this.roleName = this.token.getDefaultRole();
-    this.userName = this.token.getUsername();
+    // this.userName = this.token.getUsername();
+    this.firstNameLastName = this.token.getFirstNameLastName();
     if (userRole === "Admin") {
       this.homePage = "admin/dashboard/main";
     } else if (userRole === "Client") {

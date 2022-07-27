@@ -7,8 +7,6 @@
       </div>
       <div class="row clearfix ">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
-        
-          
       <div class="body">
         <form class="m-1" [formGroup]="docForm">
           <div class="col-xl-12" >
@@ -16,9 +14,9 @@
               <div class="row" style="margin-left: 3%;margin-top: 1%;">
             
                <div class="col-xl-3" >
+                <mat-label class="lable">Company Name</mat-label>
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>Company Name</mat-label>
-                      <mat-select  formControlName="company"  (selectionChange)="debitMemoDropdownList($event.value)">
+                      <mat-select class="inputTxt" formControlName="company"  (selectionChange)="debitMemoDropdownList($event.value)">
                         <mat-option *ngFor="let title of companyList" [value]="title.id">
                           {{title.text}}
                         </mat-option>
@@ -26,11 +24,10 @@
                 </mat-form-field>
               </div>
              
-             
               <div class="col-xl-3">
-                <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>Debit Memo No</mat-label>
-                      <mat-select  formControlName="returnMemoNo">
+                <mat-label lass="lable" >Debit Memo No</mat-label>
+                <mat-form-field class="example-full-width form-control-sm" appearance="outline">                 
+                      <mat-select class="inputTxt" formControlName="returnMemoNo">
                         <mat-option *ngFor="let title of debitMemoList" [value]="title.id">
                           {{title.id}}
                         </mat-option>
@@ -38,19 +35,16 @@
                 </mat-form-field>
               </div>
           
-        
-
-          <div class="col-xl-3 example-full-width  form-control-sm">
+          <div class="col-xl-3 example-full-width  form-control-sm" style="margin-top: 2%;">
             <button (click) = "searchData()" class="btn-space" mat-raised-button
-            color="accent" style="background-color: #34d034;">Search</button>
+            color="accent" style="background-color: #307530;">Search</button>
             <button (click) = "reset()" class="btn-space" mat-raised-button
-            color="accent" style="background-color: #eb0202;">Reset</button>
+            color="accent" style="background-color: #1602eb;">Reset</button>
         </div>
         
-
-        <div style="text-align: right;" class="col-xl-3 example-full-width  form-control-sm right">
+        <div style="text-align: center;" class="col-xl-3 example-full-width  form-control-sm right">
           <button (click) = "addreturnMemo()" class="btn-space" mat-raised-button
-          color="accent" style="background-color: #2704a7;">Create New Return</button>
+          color="accent" style="background-color: #0c79f5; margin: 9% 8% 10% 10%;">Create New Return</button>
         
       </div>
       
@@ -61,7 +55,6 @@
         </form>
       </div>
     
- 
 </div>
 </div>
 <div class="row">
@@ -109,6 +102,5 @@
   </div>
 </div> 
 
-    
   </div>
   </section>

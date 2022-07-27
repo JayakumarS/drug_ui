@@ -126,7 +126,7 @@
                         {{title.text}}
                       </mat-option>
                     </mat-select>  -->
-                    <ng-multiselect-dropdown   class="inputTxt" formControlName="roles" 
+                    <ng-multiselect-dropdown class="inputTxt" formControlName="roles" 
                     [placeholder]="'Roles'"
                     [settings]="dropdownSettings"
                     [data]="dropdownList"
@@ -201,9 +201,9 @@
               <div style="margin-left: 15%; margin-top:-14px!important;" class="row" *ngIf="edit">
                 <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 ">
                   <mat-label class="lable">Company</mat-label>
-                  <mat-form-field  class="inputTxt"  class="example-full-width form-control-sm" appearance="outline">                 
+                  <mat-form-field class="example-full-width form-control-sm" appearance="outline">                 
   
-                    <mat-select formControlName="companyCode" >
+                    <mat-select  class="inputTxt" formControlName="companyCode" >
                       <mat-option *ngFor="let title of companyList" [value]="title.id">
                         {{title.text}}
                       </mat-option>
@@ -214,10 +214,10 @@
                     </mat-error>
                   </mat-form-field>
                 </div>
-                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 " style="margin: top 1%;">
+                <div class="col-xl-3 col-lg-6 col-md-12 col-sm-12 " style="margin-top: 1%;">
                   <!-- <mat-form-field class="example-full-width form-control-sm" appearance="outline"> -->
                     <mat-label class="lable">Roles</mat-label>
-                    <ng-multiselect-dropdown  class="inputTxt"  formControlName="roles" 
+                    <ng-multiselect-dropdown class="inputTxt"  formControlName="roles" 
                     [placeholder]="'Roles'"
                     [settings]="dropdownSettings"
                     [data]="dropdownList"

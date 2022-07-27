@@ -10,4 +10,5 @@ export class JwtResponse {
     defaultRole: string;
     companyCode:string;
     imgUrl:string;
+    firstNameLastName:string;
 }

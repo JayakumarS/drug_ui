@@ -2,7 +2,6 @@
   <div class="content-block">
     <div class="block-header">
       <!-- breadcrumb -->
-      <br>
       <app-breadcrumb [title]="'Schedule III V Report'" [items]="['Report']" [active_item]="'Controlled Substance'">
       </app-breadcrumb>
     </div>
@@ -13,13 +12,13 @@
           <div class="body">
             <form class="m-2" [formGroup]="docForm">
               <div class="col-md-12">
-                <div class="card" style="width:100%; height: 10%;">
+                <div class="card" style="width:100%; height: 10%;"><br>
                   <div class="row">
                   
              <div class="col-xl-3" >
+              <mat-label class="lable">Company Name</mat-label>
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <mat-label>Company Name</mat-label>
-                    <mat-select  formControlName="company"  (selectionChange)="debitMemoDropdownList($event.value)">
+                    <mat-select class="inputTxt" formControlName="company"  (selectionChange)="debitMemoDropdownList($event.value)">
                       <mat-option *ngFor="let title of companyList" [value]="title.id">
                         {{title.text}}
                       </mat-option>
@@ -29,9 +28,9 @@
            
            
             <div class="col-xl-3">
+              <mat-label class="lable">Debit Memo No</mat-label>
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <mat-label>Debit Memo No</mat-label>
-                    <mat-select  formControlName="returnMemoNo">
+                    <mat-select class="inputTxt" formControlName="returnMemoNo">
                       <mat-option *ngFor="let title of debitMemoList" [value]="title.id">
                         {{title.id}}
                       </mat-option>
@@ -43,19 +42,19 @@
             
                
                 <div class="col-md-3">
+                  <mat-label class="lable">Start Date</mat-label>
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>Start Date</mat-label>
-                    <input matInput [matDatepicker]="picker" formControlName="startDate">
-                    <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                    <input class="inputTxt" matInput [matDatepicker]="picker" formControlName="startDate">
+                    <mat-datepicker-toggle style="margin-top: -50px; position: absolute; margin-left: -29px;" matSuffix [for]="picker" ></mat-datepicker-toggle>
                     <mat-datepicker #picker></mat-datepicker>
                   </mat-form-field>
               </div>
             
               <div class="col-md-3">
+                <mat-label class="lable">End Date</mat-label>
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                  <mat-label>End Date</mat-label>
-                  <input matInput [matDatepicker]="picker1" formControlName="endDate">
-                  <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
+                  <input class="inputTxt" matInput [matDatepicker]="picker1" formControlName="endDate">
+                  <mat-datepicker-toggle style="margin-top: -50px; position: absolute; margin-left: -29px;" matSuffix [for]="picker1" ></mat-datepicker-toggle>
                   <mat-datepicker #picker1></mat-datepicker>
                 </mat-form-field>
               </div> 
@@ -78,7 +77,7 @@
               </div>
             </div>
            <br>
-           <div class="row"  style="margin-left: 5%;">  
+           <div class="row"  style="margin-left: 2%;">  
               <div class="col-md-12" style="margin-left: 75%;">
                   <button class="btn-space" mat-raised-button
                   color="accent" style="background-color: #34d034;" (click) = "searchData()" (click) = "hide()">Search</button>

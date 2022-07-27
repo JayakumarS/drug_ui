@@ -2,7 +2,6 @@
     <div class="content-block">
       <div class="block-header">
         <!-- breadcrumb -->
-        <br>
         <app-breadcrumb [title]="'DEA Form 41'" [items]="['Report']" [active_item]="'Controlled Substance'">
         </app-breadcrumb>
       </div>
@@ -13,12 +12,13 @@
             <div class="body">
               <form class="m-1" [formGroup]="docForm">
                 <div class="col-md-12" >
-                <div class="card" style="width:100%; height: 10%;">
+                <div class="card" style="width:100%; height: 10%;"><br>
                 <div class="row">
                      <div class="col-md-3" >
+                      <mat-label class="lable">Company Name</mat-label>
                         <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Company Name</mat-label>
-                              <mat-select formControlName="companyName" required>
+                         
+                              <mat-select  class="inputTxt"  formControlName="companyName" required>
                                 <mat-option *ngFor="let title of companyNameList" [value]="title.id">
                                   {{title.text}}
                                 </mat-option>
@@ -28,9 +28,9 @@
                    
                    
                     <div class="col-md-3">
+                      <mat-label class="lable">Debit Memo No</mat-label>
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Debit Memo No</mat-label>
-                        <mat-select formControlName="debitMemoNo" required>
+                        <mat-select class="inputTxt" formControlName="debitMemoNo" required>
                               <mat-option [value]="'1'">
                                 OMG062922 
                               </mat-option>
@@ -45,19 +45,19 @@
                 <div class="row" style="margin-left: 5%;"> -->
                  
                   <div class="col-md-3">
+                    <mat-label class="lable">Start Date</mat-label>
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Start Date</mat-label>
-                      <input matInput [matDatepicker]="picker" formControlName="startDate">
-                      <mat-datepicker-toggle matSuffix [for]="picker" ></mat-datepicker-toggle>
+                      <input class="inputTxt" matInput [matDatepicker]="picker" formControlName="startDate">
+                      <mat-datepicker-toggle style="margin-top: -50px; position: absolute; margin-left: -29px;" matSuffix [for]="picker" ></mat-datepicker-toggle>
                       <mat-datepicker #picker></mat-datepicker>
                     </mat-form-field>
                 </div>
               
                 <div class="col-md-3">
+                  <mat-label class="lable">End Date</mat-label>
                   <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                    <mat-label>End Date</mat-label>
-                    <input matInput [matDatepicker]="picker1" formControlName="endDate">
-                    <mat-datepicker-toggle matSuffix [for]="picker1" ></mat-datepicker-toggle>
+                    <input class="inputTxt" matInput [matDatepicker]="picker1" formControlName="endDate">
+                    <mat-datepicker-toggle style="margin-top: -50px; position: absolute; margin-left: -29px;" matSuffix [for]="picker1" ></mat-datepicker-toggle>
                     <mat-datepicker #picker1></mat-datepicker>
                   </mat-form-field>
                 </div> 
@@ -70,10 +70,10 @@
                                    for approval.
                         </mat-label>
                 </div>
-                <div class="col-md-2" style="margin-left: 9%;">
+                <div class="col-md-3  " style="margin-left: 11%;">
+                  <mat-label class="lable">Controlled Substance To Print</mat-label>
                      <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                          <mat-label>Controlled Substance To Print</mat-label>
-                          <mat-select formControlName="debitMemoNo" required>
+                          <mat-select class="inputTxt" formControlName="debitMemoNo" required>
                           <mat-option [value]="'1'">
                               All
                             </mat-option>
@@ -88,11 +88,11 @@
                   </div>
                 <div class="col-md-1" style="margin-left: 78%;">
                     <button (click) = "search()" class="btn-space" mat-raised-button
-                    color="accent" style="margin-left: 80%;background-color: #34d034;">Search</button>
+                    color="accent" style="margin-left: 55%;background-color: #327a32;">Search</button>
                     </div>
                <div class="col-md-1">
                   <button (click) = "print()" class="btn-space" mat-raised-button
-                  color="accent" style="margin-left: 80%;background-color: #34d034;">Print</button>
+                  color="accent" style="margin-left: 55%;background-color: #7c4dac;">Print</button>
                   <!-- <button class="btn btn-success btn-block" (click)="openPDF()"></button> -->
 
                 </div>
