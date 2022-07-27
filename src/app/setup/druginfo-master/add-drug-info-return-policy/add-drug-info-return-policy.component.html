@@ -5,43 +5,44 @@
         <app-breadcrumb [title]="'Add DrugInfo'" [items]="['DrugInfo']" [active_item]="'Add DrugInfo'">
         </app-breadcrumb>
       </div>
-      <div *ngIf="edit" class="row" style="padding-bottom: 1%;">
-				<div class="col-md-11">
-					<button class="btn btn-primary" type="button" (click) = "drugInfo()">Drug Info</button>&nbsp;
-					<button class="btn btn-info" type="button" >Return Policy</button>&nbsp;			
-				</div>
-			</div>
+    
       <div class="row clearfix ">
         <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12">
         <div class="box-shadow">
           <div class="card">
             <div class="body">
               <form class="m-4" [formGroup]="docForm">
+                <div *ngIf="edit" class="row" style="padding-bottom: 1%;">
+                  <div class="col-md-11">
+                    <button class="lable" color="primary" style="background-color: #3c2f9f;" type="button" (click) = "drugInfo()" mat-raised-button>Drug Info</button>&nbsp;
+                    <button class="lable" color="primary" style="background-color: #70288c;"type="button" mat-raised-button>Return Policy</button>&nbsp;			
+                  </div>
+                </div>
                 <div class="row" style="margin-left: 30%;">
                   <div class="col-md-4">
-
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label>Number of months before expiration </mat-label>
-                      <input matInput formControlName="noMonthsBeforeExpiration"   maxlength="15" (keypress)="keyPressNumberInt($event)" required>
+                    <mat-label class="lable">Number of months before expiration </mat-label>
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">                    
+                      <input class="inputTxt" class="inputTxt"matInput formControlName="noMonthsBeforeExpiration"   maxlength="15" (keypress)="keyPressNumberInt($event)" required>
                       <mat-error *ngIf="docForm.get('noMonthsBeforeExpiration').hasError('required')">
                         Number of months before expiration is required
                       </mat-error>
                     </mat-form-field>
                   </div>
                   <div class="col-md-4">
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label> Number of months after expiration </mat-label>
-                      <input matInput formControlName="noMonthsAfterExpiration" maxlength="15" (keypress)="keyPressNumberInt($event)" required>
+                    <mat-label class="lable"> Number of months after expiration </mat-label>
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline"> 
+                      <input class="inputTxt" matInput formControlName="noMonthsAfterExpiration" maxlength="15" (keypress)="keyPressNumberInt($event)" required>
                       <mat-error *ngIf="docForm.get('noMonthsAfterExpiration').hasError('required')">
                         Number of months after expiration is required
                       </mat-error>
                     </mat-form-field>
                   </div>
                 </div>
-                  <div class="row" style="margin-left: 30%;">
+                  <div class="row" style="margin-left: 30%;margin-top: -20px;">
                     
                   <div class="col-md-2">
-                    <mat-label style="margin-left: 4%;margin-top: 2%;white-space: nowrap;">Accept returns</mat-label><br>
+                    <mat-label class="lable" style="margin-left: 4%;margin-top: 2%;white-space: nowrap;">Accept returns</mat-label><br>
+                    <br>
                     <mat-radio-group formControlName="acceptReturns" style="margin-left: 4%;margin-top: 2%;">
                       <mat-radio-button value="true" >Yes</mat-radio-button>
                       <mat-radio-button value="false">No</mat-radio-button>
@@ -51,7 +52,8 @@
                     </mat-error> -->
                   </div>
                   <div class="col-md-2">
-                    <mat-label style="margin-left: 4%;margin-top: 2%;white-space: nowrap;"> Accept partial returns </mat-label><br>
+                    <mat-label class="lable" style="margin-left: 4%;margin-top: 2%;white-space: nowrap;"> Accept partial returns </mat-label><br>
+                    <br>
                     <mat-radio-group formControlName="acceptPartialReturns" style="margin-left: 4%;margin-top: 2%;">
                       <mat-radio-button value="true" >Yes</mat-radio-button>
                       <mat-radio-button value="false">No</mat-radio-button>
@@ -63,10 +65,10 @@
              
  
                 <div class="col-md-4">
-
-                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                      <mat-label> Accept percentage </mat-label>
-                      <input matInput formControlName="acceptpercentage"  maxlength="15" (keypress)="keyPressNumberDouble($event)" required>
+                  <mat-label class="lable"> Accept percentage </mat-label>
+                  <br>
+                    <mat-form-field class="example-full-width form-control-sm" appearance="outline">                    
+                      <input class="inputTxt" matInput formControlName="acceptpercentage"  maxlength="15" (keypress)="keyPressNumberDouble($event)" required>
                       <mat-error *ngIf="docForm.get('acceptpercentage').hasError('required')">
                         Accept percentage is required
                       </mat-error>
@@ -78,8 +80,9 @@
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                     <form [formGroup]="packageoriginalityForm">      
                       <section class="example-section">
-                        <p><mat-checkbox formControlName="checkPackageOriginality">Check package originality</mat-checkbox></p>
-                       
+                        <p><mat-checkbox formControlName="checkPackageOriginality">
+                          <mat-label class="lable">  Check package originality </mat-label>
+                        </mat-checkbox></p>
                     </section>
                     </form>
                   </div>
@@ -87,14 +90,13 @@
                 
                 <br>
                 <div class="row" style="margin-left: 10%;">
-
                   <div class="col-md-12">
                     <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
-                    color="accent" style="margin-left: 36%;background-color: #34d034;">Submit</button>
+                    color="accent" style="margin-left: 36%;background-color: #257725;">Submit</button>
                     <button *ngIf="edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
-                    color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
+                    color="accent" style="margin-left: 36%;background-color: #257725;">Update</button>
                       <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
-                    <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
+                    <button class="btn-space" color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
                   </div>
                 </div>
               </form>
