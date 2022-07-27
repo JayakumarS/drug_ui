@@ -32,6 +32,7 @@ export class SigninComponent
   errorMessage = '';
   roles: string[] = [];
   userName : string ='';
+  firstName: string='';
   userObj = {};
   login:boolean=false;
   forgot:boolean=false;
@@ -94,7 +95,7 @@ export class SigninComponent
       this.f.username.value, this.f.password.value,this.f.otpValue.value,this.f.userNameEmailId.value,this.f.recaptchaResponse.value);
 
       this.authService.attemptAuth(this.loginInfo).subscribe(
-      data => {        
+      data => {
 
         if (data) {
               if(data.success){
@@ -108,6 +109,7 @@ export class SigninComponent
                 this.tokenStorage.saveCustomerCompanyCode(data.companyCode);
                 this.tokenStorage.saveImgUrl(this.serverURL.apiServerAddress + data.imgUrl);
                 this.tokenStorage.saveRoleName(data.roles);
+                this.tokenStorage.saveFirstNameLastName(data.firstNameLastName);
                 this.loading = false;  
                 this.login=true; 
                 this.startTimer();            

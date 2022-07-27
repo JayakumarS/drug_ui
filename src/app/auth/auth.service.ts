@@ -55,6 +55,7 @@ public currentUser: Observable<User>;
           this.userObj["img"] = this.serverURL.apiServerAddress + user.imgUrl;
           this.userObj["defaultRoleId"] = user.defaultRoleId;
           this.userObj["companyCode"] = user.companyCode;
+          this.userObj['firstNameLastName'] = user.firstNameLastName;
           console.log(this.userObj);
           this.currentUserSubject.next(this.userObj);
           return user;

@@ -44,7 +44,8 @@
               </div>
               <div *ngIf="forgot" class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-2">
                 <mat-form-field class="example-full-width" appearance="outline">
-                   <mat-label>User Name/Email Id</mat-label>              
+                  <mat-label>User Name/Email Id</mat-label>  
+                  <input class="inputTxt" matInput formControlName="userNameEmailId"/>            
                   <mat-icon matSuffix style="margin-top: -50px; position: absolute; margin-left: -29px;">face</mat-icon>
                   <mat-error *ngIf="authForm.get('userNameEmailId').hasError('required')">
                     User Name/Email Id is required

@@ -2,7 +2,6 @@
     <div class="content-block">
       <div class="block-header">
         <!-- breadcrumb -->
-        <br>
         <app-breadcrumb [title]="'Packing Slips'" [items]="['Report']" [active_item]="'Packing Slips'">
         </app-breadcrumb>
       </div>
@@ -13,12 +12,12 @@
             <div class="body">
               <form class="m-2" [formGroup]="docForm">
                 <div class="col-xl-12" >
-                <div class="card" style="width:100%; height: 10%;">
+                <div class="card" style="width:100%; height: 10%;"><br>
                   <div class="row">
                     <div class="col-xl-3" >
+                      <mat-label class="lable">Company Name</mat-label>
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Company Name</mat-label>
-                            <mat-select  formControlName="company"  (selectionChange)="debitMemoDropdownList($event.value)">
+                            <mat-select class="inputTxt" formControlName="company"  (selectionChange)="debitMemoDropdownList($event.value)">
                               <mat-option *ngFor="let title of companyList" [value]="title.id">
                                 {{title.text}}
                               </mat-option>
@@ -28,9 +27,9 @@
                    
                    
                     <div class="col-xl-3">
+                      <mat-label class="lable">Debit Memo No</mat-label>
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                        <mat-label>Debit Memo No</mat-label>
-                            <mat-select  formControlName="returnMemoNo">
+                            <mat-select class="inputTxt" formControlName="returnMemoNo">
                               <mat-option *ngFor="let title of debitMemoList" [value]="title.id">
                                 {{title.id}}
                               </mat-option>
@@ -40,6 +39,7 @@
            
 
                   <div class="col-xl-3">
+                    <mat-label class="lable">Manufacturer Name</mat-label>    
                       <ng-multiselect-dropdown formControlName="manufactureName" 
                       [placeholder]="'Manufacturer Name'"
                       [settings]="dropdownSettings"
@@ -51,7 +51,7 @@
               </div> 
             <div class="row"  style="margin-left: 1%;">    
               <div class="col-md-2">
-                  <mat-label>Lable Category to Print :</mat-label>
+                  <mat-label class="lable">Lable Category to Print :</mat-label>
               </div>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
             <div class="card col-md-4">
           <br>
@@ -64,12 +64,13 @@
           </div>
         </div>
             <div class="row">
-            <div class="col-md-12" style="margin-left: 76%;">
+            <div class="col-md-12" style="margin-left: 75%;">
               <button class="btn-space" mat-raised-button
               color="accent" style="background-color: #34d034;" (click) = "searchData()" (click) = "hide()">Search</button>
               <button (click) = "reset()" class="btn-space" mat-raised-button
               color="accent" style="background-color: #eb0202;">Reset</button>
-              <button class="btn btn-success btn-block" (click)="openPDF()">Export Report</button>
+              <button class="btn-space" (click)="openPDF()" mat-raised-button
+              color="accent" style="background-color: #515bdd;">Export Report</button>
 
             </div>
           <br>

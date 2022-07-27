@@ -53,8 +53,9 @@
         <li class="nav-item user_profile btnUserDropdown" ngbDropdown>
           <div class="chip dropdown-toggle" ngbDropdownToggle class="nav-notification-icons pt-0" style="font-family: times new roman;font-style: italic;">
             <img src="{{userImg}}" class="user_img" width="32" height="32" >
-            <span>{{userName}} - {{roleName}}</span>
-            
+            <!-- <span>{{userName}} - {{roleName}}</span> -->
+            <span>{{firstNameLastName}}</span>
+
           </div>
           <div ngbDropdownMenu class="notification-dropdown pullDown" >
             <div class="noti-list" style="position: relative; max-width: 600px; max-height: 300px;" [perfectScrollbar]>
