@@ -1,3 +1,4 @@
+import { OverrideRepackagedProductPopUpComponent } from './override-repackaged-product-pop-up/override-repackaged-product-pop-up.component';
 import { FormBuilder, FormGroup, Validators } from "@angular/forms";
 import { DetailRowComponent } from 'src/app/crm/customer-master/detail-row/detail-row.component';
 import { AuthService } from 'src/app/auth/auth.service';
@@ -12,15 +13,17 @@ import { CommonService } from 'src/app/common-service/common.service';
 import { ReturnMemoCalculatorComponent } from "./return-memo-calculator/return-memo-calculator.component";
 import { ReturnMemoItems } from './../return-memo-items-model';
 import { ReturnMemoItemsService } from './../return-memo-items.service';
+import { UnsubscribeOnDestroyAdapter } from "src/app/shared/UnsubscribeOnDestroyAdapter";
+
 
 @Component({
   selector: 'app-add-return-memo-items',
   templateUrl: './add-return-memo-items.component.html',
   styleUrls: ['./add-return-memo-items.component.sass']
 })
-export class AddReturnMemoItemsComponent implements OnInit {
+export class AddReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
+
   docForm: FormGroup;
-  returnableAndRepackForm: FormGroup;
   hide3 = true;
   agree3 = false;
   dataarray=[];
@@ -36,10 +39,12 @@ export class AddReturnMemoItemsComponent implements OnInit {
   greenNDCUPC: boolean=false;
   redNDCUPC: boolean=false;
 
+
   constructor( public commonService: CommonService,public dialogRef: MatDialogRef<AddReturnMemoItemsComponent>,
     @Inject(MAT_DIALOG_DATA) public data: any,private fb: FormBuilder,private authService: AuthService,public router: Router,
     private returnMemoItemsService:ReturnMemoItemsService,private httpService: HttpServiceService
     ,private snackBar: MatSnackBar,public route: ActivatedRoute,public dialog: MatDialog, private tokenStorage: TokenStorageService) {
+      super();
     this.docForm = this.fb.group({
       returnMemoItemsCode: [""],
       entryNo: [""],
@@ -51,7 +56,7 @@ export class AddReturnMemoItemsComponent implements OnInit {
       itemNo: [""],
       quantity: ["", [Validators.required]],
       price: ["", [Validators.required]],
-      returnTo: [""],
+      
       manufacturerBy: [""],
       dosage: [""],
       estimatedValue: [""],
@@ -63,17 +68,20 @@ export class AddReturnMemoItemsComponent implements OnInit {
       description: [""],
       return: [""],
       returnMemoNo: [""],
-      repackagedProduct: [""],
-      createdBy: this.tokenStorage.getUsername()
+      createdBy: this.tokenStorage.getUsername(),
+     
+      returnTo: [""],
+      returnable: false,
+      fullParticalProduct: ["", [Validators.required]],
+      repackagedProduct: false,
+      overrideRepackagedProduct: false
     });
 
-    
-    this.returnableAndRepackForm = this.fb.group({
-      returnable: false,
-      repackagedProduct: false
-    });
   }
   ngOnInit(): void {
+
+
+   
 
   if(this.data.type=='Edit'){
       this.edit=true;
@@ -143,9 +151,18 @@ if (this.docForm.valid) {
     this.httpService.post<any>(this.returnMemoItemsService.checkDrugIsReturnable, this.docForm.value).subscribe(
       (data) => {
         if(data.text=='YES'){
-        this.returnableAndRepackForm.patchValue({
+        this.docForm.patchValue({
           'returnable': true,
         })
+      }else{
+        if(data.text!=null){
+        this.showNotification(
+          "snackbar-danger",
+          data.text,
+          "bottom",
+          "center"
+        );
+        }
       }
       },
       (error: HttpErrorResponse) => {
@@ -154,6 +171,7 @@ if (this.docForm.valid) {
       );
   }
 
+  
 
   findAllDetailsByndcupcCode() {
     this.httpService.get(this.returnMemoItemsService.findAllDetailsByndcupcCode+"?drugInfoId="+this.docForm.value.ndcupcCode).subscribe((res: any)=> {
@@ -212,7 +230,11 @@ this.redNDCUPC=true;
 'itemNo' : res.returnMemoItems.itemNo,
 'quantity' : res.returnMemoItems.quantity,
 'price' : res.returnMemoItems.price,
-'repackagedProduct': res.returnMemoItems.repackagedProduct
+      'returnTo': res.returnMemoItems.returnTo,
+      'returnable': this.getBoolean(res.returnMemoItems.returnable),
+      'fullParticalProduct': this.getBoolean(res.returnMemoItems.fullParticalProduct).toString(),
+      'repackagedProduct': this.getBoolean(res.returnMemoItems.repackagedProduct),
+      'overrideRepackagedProduct': this.getBoolean(res.returnMemoItems.overrideRepackagedProduct),
      })
 
       },
@@ -252,6 +274,34 @@ this.redNDCUPC=true;
     //this.router.navigate(['/setup/returnMemoItems/listreturnMemoItems']);
    }
   
+
+   repackagedProduct(){
+    
+    if(this.docForm.value.repackagedProduct==false){
+   
+   let tempDirection;
+   if (localStorage.getItem("isRtl") === "true") {
+     tempDirection = "rtl";
+   } else {
+     tempDirection = "ltr";
+   }
+   const dialogRef = this.dialog.open(OverrideRepackagedProductPopUpComponent, {
+     height: "270px",
+     width: "400px",
+     data: "22",
+     direction: tempDirection,
+   });
+   this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
+     
+    this.docForm.patchValue({
+      'repackagedProduct': data.data.overrideRepackagedProduct,
+    })
+   });
+   
+  }
+
+   }
+
 
 
 

@@ -1,0 +1,23 @@
+<div class="modal-header">
+                        <h5 class="modal-title headingValue">Manufacture Policy</h5>
+        
+                    </div>
+                  <!-- Modal body -->
+                    <div class="modal-body">
+                        As per the manufacture policy, by default repackaged products are non-returnable.
+                    </div>
+                    <!-- Modal footer -->
+                    <div class="modal-footer">
+                      <form  [formGroup]="overrideRepackagedProductForm">
+                        <div class="col-md-12">
+                       <input type="checkbox"  formControlName="overrideRepackagedProduct" >&nbsp; <b>Override this policy</b>
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+                       <button class="btn btn-lg btn-primary" (click)="checkOveridePolicyAndSetValue()">Ok</button>
+                    </div>
+                    </form>
+                    </div>
+                
+    
+    
+ 

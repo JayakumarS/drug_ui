@@ -30,6 +30,7 @@ import { AddReturnMemoItemsComponent } from './add-return-memo-items/add-return-
 import { ListReturnMemoItemsComponent } from './list-return-memo-items/list-return-memo-items.component';
 import { ReturnMemoCalculatorComponent } from './add-return-memo-items/return-memo-calculator/return-memo-calculator.component';
 import { DeleteReturnMemoItemsComponent } from './list-return-memo-items/delete-return-memo-items/delete-return-memo-items.component';
+import { OverrideRepackagedProductPopUpComponent } from './add-return-memo-items/override-repackaged-product-pop-up/override-repackaged-product-pop-up.component';
 
 
 @NgModule({
@@ -38,6 +39,7 @@ import { DeleteReturnMemoItemsComponent } from './list-return-memo-items/delete-
     ListReturnMemoItemsComponent,
     ReturnMemoCalculatorComponent,
     DeleteReturnMemoItemsComponent,
+    OverrideRepackagedProductPopUpComponent,
     
   ],
   imports: [

@@ -37,7 +37,7 @@ export class AddDruginfoMasterComponent implements OnInit {
       description: ["", [Validators.required]],
        strength: ["", [Validators.required]],
        control: ["", [Validators.required]],
-       department: ["", [Validators.required]],
+       department: [""],
       packageSize: ["", [Validators.required]],
       rxOtc: ["", [Validators.required]],
       unitPerPackage:["", [Validators.required]],

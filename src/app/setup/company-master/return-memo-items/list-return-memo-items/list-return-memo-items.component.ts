@@ -1,3 +1,4 @@
+import { async } from '@angular/core/testing';
 import { DeleteReturnMemoItemsComponent } from './delete-return-memo-items/delete-return-memo-items.component';
 import { ReturnMemoItems } from './../return-memo-items-model';
 import { ReturnMemoItemsService } from './../return-memo-items.service';
@@ -73,9 +74,11 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
   count: number = 0;
   tableSize: number = 10;
   tableSizes: any = [3, 6, 9, 12];
+  returnItemName:any;
   
   ngOnInit(): void {
-    
+   
+
     this.route.params.subscribe(params => {
       if(params.id!=undefined && params.id!=0){
        this.requestId = params.id;
@@ -85,7 +88,20 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
        
       }
      });
+
+
      setTimeout(() => {
+ 
+        this.httpService.get<any>(this.returnMemoItemsService.fetchreturnMemoNamebyId+"?returnMemoNo="+this.requestId).subscribe(
+          (data) => {
+            this.returnItemName=data.text;
+          },
+          (error: HttpErrorResponse) => {
+            console.log(error.name + " " + error.message);
+          }
+          );
+      
+    
       this.searchData();
     }, 700);
   }
