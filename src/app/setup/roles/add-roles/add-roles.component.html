@@ -11,7 +11,7 @@
           <div class="card ">
             <div class="body">
               <form class="m-4" [formGroup]="docForm" (ngSubmit)="onSubmit()">
-                <div class="row" style="margin-left: 193px;">
+                <div class="row" style="margin-left: 23%;">
                   <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 ">
                     <mat-label class="lable">Role Name</mat-label>
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">                    
@@ -23,10 +23,10 @@
                   </div>
                 <!-- </div> -->
                 <!-- <div class="row" style="margin-left: 193px;"> -->
-                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " style="margin-left: 35px;height: 90%!important; ">
+                    <div class="col-xl-4 col-lg-6 col-md-12 col-sm-12 " style="margin-left: 35px;height: 90%!important; margin-top: -3px;">
                       <mat-label class="lable">Remarks</mat-label>
-                        <mat-form-field  class="example-full-width form-control-sm" appearance="outline" >                         
-                          <textarea  class="textareaCss" class="inputTxt"  style="height: 90%!important;"  matInput formControlName="remarks" maxlength="256"></textarea>
+                        <mat-form-field  class="example-full-width form-control-sm" appearance="" >                         
+                          <textarea  class="textareaCss" class="inputTxt"  style="height: 90%!important; background: white; margin-top: -8px;"  matInput formControlName="remarks" maxlength="256"></textarea>
                         </mat-form-field>
                       </div>
                 </div>
@@ -34,10 +34,10 @@
                 <div class="row">
                   <div class="col-xl-12 col-lg-12 col-md-12 col-sm-12 mb-3">
                     <button *ngIf ="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button
-                      style="margin-left: 38%; color: aliceblue; background-color: green;">Submit</button>
+                      style="margin-left: 42%; color: aliceblue; background-color: green;">Submit</button>
 
                       <button *ngIf ="edit" (click) = "update()" class="btn-space" mat-raised-button 
-                      style="margin-left: 38%; color: aliceblue; background-color: green;">Update</button>
+                      style="margin-left: 42%; color: aliceblue; background-color: green;">Update</button>
 
                     <button color="warn"  class="btn-space" (click) = "onCancel()" type="button" mat-raised-button >Cancel</button>
                   </div>

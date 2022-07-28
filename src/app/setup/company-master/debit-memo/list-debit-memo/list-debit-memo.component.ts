@@ -179,7 +179,7 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
 
    const dialogRef = this.dialog.open(AddDebitMemoComponent, {
      height: "80%",
-     width: "80%",
+     width: "60%",
      data: obj,
      direction: tempDirection,
    });
