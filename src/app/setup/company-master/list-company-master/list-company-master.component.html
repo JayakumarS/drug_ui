@@ -46,23 +46,34 @@
                   #exporter="matTableExporter" [hiddenColumns]="[4]">
                   
                   <ng-container matColumnDef="companyName">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Company Name</mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Name</mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyName}}
                     </mat-cell>
                   </ng-container>
   
-                  <ng-container matColumnDef="companyEmailID">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>Email ID</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyEmailID}}</mat-cell>
+                  <ng-container matColumnDef="companyDba">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>DBA No</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyDba}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="companyState">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">State</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyState}}</mat-cell>
+
+                  <ng-container matColumnDef="companyCity">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">City</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyCity}}</mat-cell>
                   </ng-container>
                   
-                  <ng-container matColumnDef="companyCity">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header>City</mat-header-cell>
-                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyCity}}</mat-cell>
+                  <ng-container matColumnDef="companyState">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>State</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyState}}</mat-cell>
+                  </ng-container>
+
+                  <ng-container matColumnDef="companyPincode">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px">Zipcode</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyPincode}}</mat-cell>
+                  </ng-container>
+                  
+                  <ng-container matColumnDef="companyPhone">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header>Phone No</mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.companyPhone}}</mat-cell>
                   </ng-container>
                 
                  

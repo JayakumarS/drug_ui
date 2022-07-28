@@ -18,9 +18,9 @@
       </div>
     </div>
     <mat-dialog-actions align="end" class="mb-1">
-      <button mat-flat-button color="warn" [mat-dialog-close]="1" (click)="confirmDelete()">
+      <button mat-flat-button color="warn" [mat-dialog-close]="true" (click)="confirmDelete()">
         Delete
       </button>
-      <button mat-flat-button (click)="onNoClick()" tabindex="-1">Cancel</button>
+      <button mat-flat-button (click)="onNoClick()" [mat-dialog-close]="false" tabindex="-1">Cancel</button>
     </mat-dialog-actions>
   </div>

@@ -14,7 +14,7 @@ export class DeleteWholesalerMasterComponent implements OnInit {
     public wholesalerService: WholesalerService) { }
 
     onNoClick(): void {
-      this.dialogRef.close();
+      this.dialogRef.close(false);
     }
     confirmDelete(): void {
       this.wholesalerService.WholesalerMasterDelete(this.data.wholesalerCode);
