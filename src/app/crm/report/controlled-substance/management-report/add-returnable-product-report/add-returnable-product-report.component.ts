@@ -49,63 +49,10 @@ export class AddReturnableProductReportComponent implements OnInit {
 
   ngOnInit(): void {
     
-    this.route.params.subscribe(params => {
-      if(params.id!=undefined && params.id!=0){
-       this.requestId = params.id;
-      }
-     });
-
-
-    this.httpService.get<any>(this.commonService.getcompanyMasterDropdownList).subscribe(
-      (data) => {
-        this.companyList = data;
-        this.docForm.patchValue({
-          'company' : this.requestId,
-       })
-
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
-      }
-      );
-
-      this.httpService.get<any>(this.commonService.getdebitMemoDropdownList).subscribe(
-        (data) => {
-          this.debitMemoList = data;
-        },
-        (error: HttpErrorResponse) => {
-          console.log(error.name + " " + error.message);
-        }
-        );
-
-        setTimeout(() => {
-        this.searchData();
-      }, 700);
-
-      // this.getMemoList();
-      // this.getMemoInfo();
+   
   }
 
-  searchData(){
-    this.httpService.post<any>(this.deaformService.savedEAForm, this.docForm.value).subscribe(
-      (data) => {
-        this.searchList= data.listSearchBean;
-      },
-      (error: HttpErrorResponse) => {
-        console.log(error.name + " " + error.message);
-      }
-      );
-  }
-
-  calculator(){
-
-    const dialogRef = this.dialog.open(CalculatorReturnableComponent, {
-      height: "430px",
-      width: "390px",
-  
-    });
-    
-  }
+ 
 
 }
 

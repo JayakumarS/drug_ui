@@ -26,8 +26,13 @@ import { Router } from '@angular/router';
 export class ListDruginfoMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
    // "select",
+    "ndcupc",
+    "description",
     "manufacturerBy",
+    "strength",
+    "control",
     "rxOtc",
+    "dosage",
     "unitOfMeasure",
    
     "actions",

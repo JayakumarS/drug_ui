@@ -45,16 +45,36 @@
                 <mat-table #table matTableExporter [dataSource]="dataSource" matSort class="mat-cell"
                   #exporter="matTableExporter" [hiddenColumns]="[3]">
                   
-                  <ng-container matColumnDef="manufacturerBy">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header> Manufacturer Name </mat-header-cell>
+                  <ng-container matColumnDef="ndcupc">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> NDC/UPC </mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.ndcupc}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="description">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Description </mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.description}}</mat-cell>
+                  </ng-container>
+                      <ng-container matColumnDef="manufacturerBy">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Manufacture  </mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.manufacturerBy}}</mat-cell>
                   </ng-container>
-                  <ng-container matColumnDef="rxOtc">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> RX/OTC </mat-header-cell>
+                  <ng-container matColumnDef="strength">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header> Strength </mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.strength}}</mat-cell>
+                  </ng-container>
+                  <ng-container matColumnDef="control">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Control </mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.control}}</mat-cell>
+                  </ng-container>
+                      <ng-container matColumnDef="rxOtc">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Rx/OTC </mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.rxOtc}}</mat-cell>
                   </ng-container>
+                  <ng-container matColumnDef="dosage">
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Dosage </mat-header-cell>
+                    <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.dosage}}</mat-cell>
+                  </ng-container>
                       <ng-container matColumnDef="unitOfMeasure">
-                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> Unit of Measure </mat-header-cell>
+                    <mat-header-cell *matHeaderCellDef mat-sort-header fxLayoutGap="5px"> UOM </mat-header-cell>
                     <mat-cell *matCellDef="let row" (contextmenu)="onContextMenu($event, row)"> {{row.unitOfMeasure}}</mat-cell>
                   </ng-container>
                  
@@ -79,7 +99,7 @@
   
                   <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
                   <!-- <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row> -->
-                  <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="editCall(row)"
+                  <mat-row *matRowDef="let row; columns: displayedColumns;"
                     [style.cursor]="'pointer'" matRipple>
                   </mat-row>
                 </mat-table>

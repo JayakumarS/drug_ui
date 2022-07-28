@@ -29,9 +29,11 @@ declare var window: any;
 export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter implements OnInit {
   displayedColumns = [
     "companyName",
-    "companyEmailID",
+    "companyDba",
     "companyCity", 
     "companyState",
+    "companyPincode", 
+    "companyPhone",
     "actions"
   ];
 

@@ -251,19 +251,36 @@ export class AddscheduleIIComponent implements OnInit {
 
     //Export PDF
    
-    public openPDF(): void {
-      let DATA: any = document.getElementById('htmlData');
-      html2canvas(DATA).then((canvas) => {
-        let fileWidth = 208;
-        let fileHeight = (canvas.height * fileWidth) / canvas.width;
-        const FILEURI = canvas.toDataURL('image/png');
-        let PDF = new jsPDF('p', 'mm', 'a4');
-        let position = 0;
-        PDF.addImage(FILEURI, 'PNG', 0, position, fileWidth, fileHeight);
-        PDF.save('ScheduleII.pdf');
-      });
-    }
+    //  openPDF()
+    // {
+    //   this.httpService.post<any>(this.deaformService.getExportPDF, this.docForm.value).subscribe(
+    //     (data) => {
+    //       this.searchList= data.listSearchBean;
+    //     },
+    //     (error: HttpErrorResponse) => {
+    //       console.log(error.name + " " + error.message);
+    //     }
+    //     );
+    // }
 
+    openPDF() {
+            this.httpService.post<any>(this.deaformService.getExportPDF, this.docForm.value).subscribe(
+              (data) => {
+            var anchor = document.createElement('a');
+            let file = new Blob([data], { type: "application/pdf" });
+            anchor.href = URL.createObjectURL(file);
+  
+            anchor.download = 'SechuduleII.pdf';
+            document.body.appendChild(anchor); 
+            anchor.target = '_blank';
+            anchor.click();
+            document.body.removeChild(anchor);
+          }, error => {
+            console.log(error);
+            this.helper.errorMessage(error);
+          });
+    }
+    
 
     returnFilter()
     {

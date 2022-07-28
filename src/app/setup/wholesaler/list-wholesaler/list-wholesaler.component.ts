@@ -111,23 +111,23 @@ export class ListWholesalerComponent extends UnsubscribeOnDestroyAdapter impleme
       direction: tempDirection,
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
-      this.loadData();
+      if(data==true){
+        this.loadData();
         this.showNotification(
           "snackbar-success",
           "Delete Record Successfully...!!!",
           "bottom",
           "center"
         );
-      
-      // else{
-      //   this.showNotification(
-      //     "snackbar-danger",
-      //     "Error in Delete....",
-      //     "bottom",
-      //     "center"
-      //   );
-      // }
+      }
+      else{
+        this.showNotification(
+          "snackbar-danger",
+          "Error in Delete....",
+          "bottom",
+          "center"
+        );
+      }
     });
 
   }
