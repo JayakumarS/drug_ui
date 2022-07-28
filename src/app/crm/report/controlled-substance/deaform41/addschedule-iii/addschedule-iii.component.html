@@ -77,17 +77,16 @@
               </div>
             </div>
            <br>
-           <div class="row"  style="margin-left: 2%;">  
-              <div class="col-md-12" style="margin-left: 75%;">
+           <div class="row"  style="margin-left: 40%;">  
+              <div class="col-md-12">
                   <button class="btn-space" mat-raised-button
                   color="accent" style="background-color: #34d034;" (click) = "searchData()" (click) = "hide()">Search</button>
                   <button (click) = "reset()" class="btn-space" mat-raised-button
                   color="accent" style="background-color: #eb0202;">Reset</button>
                   <button class="btn btn-success btn-block" (click)="openPDF()">Export Report</button>
               </div>
-              
-              <br>
               </div>
+              <br>
             </div>
             </div>
             </form>
@@ -103,7 +102,7 @@
             <div class="row" style="overflow-x:auto;">
               <div class="col-md-12">
                   <div class="table-responsive-sm">
-                      <table class="table table-bordered table-hover">
+                      <!-- <table class="table table-bordered table-hover">
                           <thead class="theadRow thead-light" >
                               <tr *ngFor="let item of searchList;">
                                 <th style="text-align: center;">Return Name: {{item.name !== null ? item.name:'-'}}<br> Created: {{item.returnMemoDate !== null ? item.returnMemoDate:'-' | date:'dd-MM-yyyy HH:mm a'}}</th>
@@ -111,7 +110,7 @@
                                 <th style="text-align: center;">Debit Memo: {{item.returnMemoNo !== null ? item.returnMemoNo:'-'}}</th>
                               </tr>
                           </thead>
-                          </table>
+                          </table> -->
                           <table class="table table-bordered table-hover">
                           <thead class="theadRow thead-light" >
                             <tr>
@@ -126,7 +125,7 @@
                               <th style="text-align: center;"><b>Partial Qty</b></th>
 
                             </tr>
-                        </thead>
+                        <!-- </thead>
                         <thead>
                           <tr>
                             <td style="text-align:center;"colspan="9" *ngIf="nonReturnFlag"><b><u>Non Returnable</u></b></td>
@@ -149,7 +148,7 @@
                                           <th style="text-align: center;">{{item.partialQuantity  !== null ? item.partialQuantity:'-'}}</th>
 
                                         </tr>
-                                        </tbody> 
+                                        </tbody>  -->
 
                                         <thead>
                                           <tr>

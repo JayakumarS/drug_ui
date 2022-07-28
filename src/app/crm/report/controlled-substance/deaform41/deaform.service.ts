@@ -32,7 +32,7 @@ export class DeaformService extends UnsubscribeOnDestroyAdapter{
   public savedEAForm14 = `${this.serverUrl.apiServerAddress}api/auth/app/report/getNonReturnSearchList`;
   public sechduleIIUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSechduleIIUrl`;
   public sechduleIII_V_Url = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSechduleIII_V_Url`;
-
+  public getExportPDF = `${this.serverUrl.apiServerAddress}api/auth/app/report/getExportPDF`;
 
   get data(): DEAForm[] {
     return this.dataChange.value;
