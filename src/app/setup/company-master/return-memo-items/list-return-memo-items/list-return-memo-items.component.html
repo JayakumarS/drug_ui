@@ -16,23 +16,23 @@
             <div class="row" style="margin-left: 3%;margin-top: 1%;">
           
              <div class="col-xl-3" >
+              <mat-label class="lable">ndcupc Code</mat-label>
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <mat-label>ndcupc Code</mat-label>
-                <input matInput formControlName="ndcupcCode" maxlength="20">
+                <input class="inputTxt" matInput formControlName="ndcupcCode" maxlength="20">
               </mat-form-field>
             </div>
            
            
             <div class="col-xl-3">
+              <mat-label class="lable">lot No</mat-label>
               <mat-form-field class="example-full-width form-control-sm" appearance="outline">
-                <mat-label>lot No</mat-label>
-                <input matInput formControlName="lotNo" maxlength="20">
+                <input class="inputTxt" matInput formControlName="lotNo" maxlength="20">
               </mat-form-field>
             </div>
         
       
 
-        <div class="col-xl-3 example-full-width  form-control-sm">
+        <div style="margin-top: 2%;" class="col-xl-3 example-full-width  form-control-sm">
           <button (click) = "searchData()" class="btn-space" mat-raised-button
           color="accent" style="background-color: #34d034;">Search</button>
           <button (click) = "reset()" class="btn-space" mat-raised-button

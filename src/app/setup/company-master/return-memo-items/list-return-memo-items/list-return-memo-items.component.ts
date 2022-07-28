@@ -143,8 +143,9 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
       direction: tempDirection,
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-      
-      this.searchData();
+      setTimeout(() => {
+        this.searchData();
+      }, 100);
         this.showNotification(
           "snackbar-success",
           "Record Saved Successfully...!!!",
@@ -209,7 +210,9 @@ export class ListReturnMemoItemsComponent extends UnsubscribeOnDestroyAdapter im
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
       
-      this.searchData();
+      setTimeout(() => {
+        this.searchData();
+      }, 100);
         this.showNotification(
           "snackbar-success",
           "Record Saved Successfully...!!!",

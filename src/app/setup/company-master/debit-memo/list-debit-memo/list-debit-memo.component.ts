@@ -184,7 +184,10 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
      direction: tempDirection,
    });
    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
-     
+    setTimeout(() => {
+      this.debitMemoDropdownList(this.requestId);
+      this.searchData();
+    }, 100);
      
        this.showNotification(
          "snackbar-success",
@@ -192,8 +195,9 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
          "bottom",
          "center"
        );
-       this.debitMemoDropdownList(this.requestId);
-       this.searchData();
+      
+       
+   
        
    });
   }
@@ -214,7 +218,11 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
     });
     this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
       
-      this.searchData();
+      setTimeout(() => {
+        this.debitMemoDropdownList(this.requestId);
+        this.searchData();
+      }, 100);
+      
         this.showNotification(
           "snackbar-success",
           "Delete Record Successfully...!!!",
@@ -261,7 +269,11 @@ export class ListDebitMemoComponent extends UnsubscribeOnDestroyAdapter implemen
    });
    this.subs.sink = dialogRef.afterClosed().subscribe((data) => {
      
-     this.searchData();
+    setTimeout(() => {
+      this.debitMemoDropdownList(this.requestId);
+      this.searchData();
+    }, 100);
+
        this.showNotification(
          "snackbar-success",
          "Record Saved Successfully...!!!",
