@@ -282,6 +282,15 @@ if (this.docForm.valid) {
       event.preventDefault();
     }
   }
+
+  keyPressEmail(event: any) {
+    const pattern = /[A-Z,a-z 0-9. @]/;
+    const inputChar = String.fromCharCode(event.charCode);
+    if (event.keyCode != 8 && !pattern.test(inputChar)) {
+      event.preventDefault();
+    }
+  }
+
   keyPressNumberDouble(event: any) {
     const pattern = /[0-9.]/;
     const inputChar = String.fromCharCode(event.charCode);

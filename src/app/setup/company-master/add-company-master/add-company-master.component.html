@@ -44,7 +44,7 @@
                     <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                       <mat-label class="lable">Email ID</mat-label>
                       <mat-form-field class="example-full-width form-control-sm" appearance="outline">                       
-                        <input   class="inputTxt"matInput formControlName="wholesalerEmailID"  maxlength="40" (keypress)="keyPressName($event)" >
+                        <input   class="inputTxt"matInput formControlName="wholesalerEmailID"  maxlength="40" (keypress)="keyPressEmail($event)" >
                         <!-- <mat-error *ngIf="docForm.get('wholesalerEmailID').hasError('required')">
                           Email ID is required
                         </mat-error> -->
@@ -253,7 +253,7 @@
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
                     <mat-label class="lable">Email ID</mat-label>
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">                    
-                      <input  class="inputTxt" matInput formControlName="companyEmailID" maxlength="40" (keypress)="keyPressName($event)" required>
+                      <input  class="inputTxt" matInput formControlName="companyEmailID" maxlength="40" (keypress)="keyPressEmail($event)" required>
                       <mat-error *ngIf="docForm.get('companyEmailID').hasError('required')">
                        EmailID is required
                       </mat-error>
