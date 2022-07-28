@@ -82,10 +82,12 @@
                   <td> {{item.returnMemoName !== null ? item.returnMemoName:'-'}}</td>
                   <td> {{item.returnMemoNo !== null ? item.returnMemoNo:'-'}}</td>
                   <td style="text-align: center;" >
-                      
-                    <i class="fas fa-edit" title="Edit" (click)='editCall(item)' style="color:#0e92a1"></i>&nbsp;&nbsp;
-                    <i class="fas fa-trash"  title="Delete" (click)='deleteItem(item)' style="color: red;"></i>&nbsp;&nbsp;
-                    <i class="fas fa-arrow-right" title="Return Items" style="color:#74AEB5" (click)='returnMemoItems(item)'></i>
+                    <app-feather-icons [icon]="'log-in'" (click)='editCall(item)' [class]="'tbl-fav-edit'" ></app-feather-icons>&nbsp;
+                    <!-- <i class="fas fa-edit" title="Edit" (click)='editCall(item)' style="color:#0e92a1"></i>&nbsp;&nbsp; -->
+                    <app-feather-icons [icon]="'trash-2'" (click)='deleteItem(item)' [class]="'tbl-fav-delete'" ></app-feather-icons>&nbsp;
+                    <app-feather-icons [icon]="'arrow-right'" (click)='returnMemoItems(item)' [class]="'tbl-fav-edit'" ></app-feather-icons>&nbsp;
+                    <!-- <i class="fas fa-trash"  title="Delete" (click)='deleteItem(item)' style="color: red;"></i>&nbsp;&nbsp;
+                    <i class="fas fa-arrow-right" title="Return Items" style="color:#74AEB5" (click)='returnMemoItems(item)'></i> -->
                    </td>
                 </tr>
               </tbody>
