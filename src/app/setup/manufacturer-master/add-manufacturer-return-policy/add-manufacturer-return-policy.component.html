@@ -11,14 +11,15 @@
           <div class="card">
             <div class="body">
               <form class="m-4" [formGroup]="docForm">
-                <div class="row" style="padding-bottom: 1%;">
-                  <div class="col-md-11">
+                <div class="row" style="padding-bottom: 1%;margin-top:-21px;">
+                  <div class="col-md-9"></div>
+                  <div class="col-md-3">
                     <button class="lable" color="primary" style="background-color: #3c2f9f;" type="button" (click) = "manufacturer()" mat-raised-button> Manufacturer Info</button>&nbsp;
                    &nbsp;
                     <button class="lable" color="primary" style="background-color: #70288c;" type="button" mat-raised-button>Return Policy</button>&nbsp;			
                   </div>
                 </div>
-                <div class="row" style="margin-left: 30%;">
+                <div class="row" style="margin-left: 30%;margin-top:-20px;">
                   <div class="col-md-4">
                     <mat-label class="lable">Number of months before expiration </mat-label>
                     <mat-form-field class="example-full-width form-control-sm" appearance="outline">                     
@@ -38,7 +39,7 @@
                     </mat-form-field>
                   </div>
                 </div>
-                  <div class="row" style="margin-left: 30%;">
+                  <div class="row" style="margin-left: 30%;margin-top:-25px;">
                     
                   <div class="col-md-2">
                     <mat-label class="lable" style="margin-left: 4%;margin-top: 2%;white-space: nowrap;">Accept returns</mat-label><br>
@@ -74,7 +75,7 @@
                     </mat-form-field>
                   </div>
                 </div>
-                <div class="row" style="margin-left: 30.5%;">
+                <div class="row" style="margin-left: 30.5%;margin-top:-27px;">
                   <div class="col-xl-2 col-lg-2 col-md-12 col-sm-12">
                     <form [formGroup]="packageoriginalityForm">      
                       <section class="example-section">
@@ -85,7 +86,7 @@
                   </div>
                 </div>
                 <br>
-                <div class="row" style="margin-left: 10%;">
+                <div class="row" style="margin-left: 10%;margin-top:-21px;">
 
                   <div class="col-md-12">
                     <button *ngIf="!edit" (click) = "onSubmit()" class="btn-space" mat-raised-button

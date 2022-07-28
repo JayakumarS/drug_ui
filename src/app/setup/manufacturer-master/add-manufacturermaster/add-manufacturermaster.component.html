@@ -13,10 +13,11 @@
             <div class="body">
               <form class="m-4" [formGroup]="docForm">
                 <div class="row">
-                  <div *ngIf="edit" class="row" style="padding-bottom: 1%;">
-                    <div class="col-md-11">
-                      <button class="lable" color="primary" style="background-color: #3c2f9f;" type="button" mat-raised-button>Manufacturer Info</button>&nbsp;
-                      <button class="lable" color="primary" style="background-color: #70288c;" type="button" (click) = "returnPolicy()" mat-raised-button>Return Policy</button>&nbsp;			
+                  <div *ngIf="edit" class="row" style="padding-bottom: 1%;margin-top:-21px;">
+                    <div class="col-md-9"></div>
+                    <div class="col-md-3">
+                      <button class="lable" color="primary" style="background-color: #70288c;"  type="button" mat-raised-button>Manufacturer Info</button>&nbsp;
+                      <button class="lable" color="primary" style="background-color: #3c2f9f;" type="button" (click) = "returnPolicy()" mat-raised-button>Return Policy</button>&nbsp;			
                     </div>
                   </div>
                   <div class="col-xl-3 col-lg-3 col-md-12 col-sm-12">
