@@ -25,7 +25,8 @@
               </div>
              
               <div class="col-xl-3">
-                <mat-label lass="lable" >Debit Memo No</mat-label>
+                <mat-label class="lable">Debit Memo No</mat-label>
+   
                 <mat-form-field class="example-full-width form-control-sm" appearance="outline">                 
                       <mat-select class="inputTxt" formControlName="returnMemoNo">
                         <mat-option *ngFor="let title of debitMemoList" [value]="title.id">
@@ -63,11 +64,11 @@
           <table class="table table-bordered table-hover">
               <thead class="theadRow thead-light">
                 <tr>
-                  <th>Company</th>
-                  <th>Return Memo Date</th>
-                  <th>Return Memo Name</th>
-                  <th>Return Memo No</th>
-                  <th>Actions</th>
+                  <th style="text-align: left;">Company</th>
+                  <th style="text-align: left;">Return Memo Date</th>
+                  <th style="text-align: left;">Return Memo Name</th>
+                  <th style="text-align: left;">Return Memo No</th>
+                  <th style="text-align: left;">Actions</th>
                 </tr>
               </thead>
               <tbody>
@@ -82,10 +83,10 @@
                   <td> {{item.returnMemoName !== null ? item.returnMemoName:'-'}}</td>
                   <td> {{item.returnMemoNo !== null ? item.returnMemoNo:'-'}}</td>
                   <td style="text-align: center;" >
-                    <app-feather-icons [icon]="'log-in'" (click)='editCall(item)' [class]="'tbl-fav-edit'" ></app-feather-icons>&nbsp;
+                    <app-feather-icons [icon]="'edit'" (click)='editCall(item)' [class]="'tbl-fav-edit'" ></app-feather-icons>&nbsp;&nbsp;
                     <!-- <i class="fas fa-edit" title="Edit" (click)='editCall(item)' style="color:#0e92a1"></i>&nbsp;&nbsp; -->
-                    <app-feather-icons [icon]="'trash-2'" (click)='deleteItem(item)' [class]="'tbl-fav-delete'" ></app-feather-icons>&nbsp;
-                    <app-feather-icons [icon]="'arrow-right'" (click)='returnMemoItems(item)' [class]="'tbl-fav-edit'" ></app-feather-icons>&nbsp;
+                    <app-feather-icons [icon]="'trash-2'" (click)='deleteItem(item)' [class]="'tbl-fav-delete'" ></app-feather-icons>&nbsp;&nbsp;
+                    <app-feather-icons [icon]="'log-in'" (click)='returnMemoItems(item)' [class]="'tbl-fav-edit'" ></app-feather-icons>
                     <!-- <i class="fas fa-trash"  title="Delete" (click)='deleteItem(item)' style="color: red;"></i>&nbsp;&nbsp;
                     <i class="fas fa-arrow-right" title="Return Items" style="color:#74AEB5" (click)='returnMemoItems(item)'></i> -->
                    </td>

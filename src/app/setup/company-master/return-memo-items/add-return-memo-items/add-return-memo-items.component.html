@@ -51,13 +51,13 @@
                   <button color="primary" type="button" class="btn-space" mat-raised-button (click)="findAllDetailsByndcupcCode()"  >Find</button>
                   </div>
                   <div *ngIf="defaultNDCUPC" class="col-md-4">
-                    <input type="text" class="form-control" formControlName="description" readonly  maxlength="20">
+                    <input type="text" class="form-control" formControlName="description" readonly  >
                 </div>
                 <div *ngIf="greenNDCUPC" class="col-md-4">
-                  <input type="text" style="background-color: green;color:whitesmoke" class="form-control" formControlName="description" readonly  maxlength="20">
+                  <input type="text" style="background-color: green;color:whitesmoke" class="form-control" formControlName="description" readonly  >
               </div>
                   <div *ngIf="redNDCUPC" class="col-md-4">
-                      <input type="text" style="background-color: red;color:whitesmoke" class="form-control" formControlName="description" readonly  maxlength="20">
+                      <input type="text" style="background-color: red;color:whitesmoke" class="form-control" formControlName="description" readonly  >
                   </div>
                   </div>
                   <div class="row" style="margin-top: 1%;">
@@ -65,13 +65,13 @@
                       <mat-label class="lable">Unit/Package </mat-label>
                       </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" formControlName="unitPackage"  readonly maxlength="20">
+                        <input type="text" class="form-control" formControlName="unitPackage"  readonly >
                     </div>
                     <div  class="col-md-2">
                       <mat-label class="lable">Control No </mat-label>
                       </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" formControlName="controlNo"  readonly maxlength="20">
+                        <input type="text" class="form-control" formControlName="controlNo"  readonly >
                     </div>
                   </div>
                   <div class="row" style="margin-top: 1%;">
@@ -79,13 +79,13 @@
                       <mat-label class="lable">Package Size </mat-label>
                       </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" formControlName="packageSize"  readonly maxlength="20">
+                        <input type="text" class="form-control" formControlName="packageSize"  readonly >
                     </div>
                     <div  class="col-md-2">
                       <mat-label class="lable">Available Via</mat-label>
                       </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" formControlName="availableVia"  readonly maxlength="20">
+                        <input type="text" class="form-control" formControlName="availableVia"  readonly >
                     </div>
                   </div>
                   <div class="row" style="margin-top: 1%;">
@@ -165,14 +165,14 @@
                       <mat-label class="lable">Item No </mat-label>
                       </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" formControlName="itemNo"  readonly maxlength="20">
+                        <input type="text" class="form-control" formControlName="itemNo"  readonly >
                     </div>
                     <div  class="col-md-2">
                       <mat-label class="lable">Exp Date <span class="errorColor">*</span> </mat-label>
                      
                     </div>
                     <div class="col-md-4">
-                        <input type="date" class="form-control" formControlName="expDate"   maxlength="20">
+                        <input type="date" class="form-control" formControlName="expDate" >
                         <mat-error *ngIf="submitted && docForm.get('expDate').hasError('required')">
                           Exp Date is required
                       </mat-error>   
@@ -205,32 +205,27 @@
                       <mat-label class="lable">Entry No </mat-label>
                       </div>
                     <div class="col-md-4">
-                        <input type="text" class="form-control" formControlName="entryNo" readonly maxlength="20">
+                        <input type="text" class="form-control" formControlName="entryNo" readonly >
                     </div>
                   
                     <div class="col-md-3">
-                      <form [formGroup]="returnableAndRepackForm">      
-                        <section class="example-section">
-                          <p><mat-checkbox formControlName="returnable" disabled></mat-checkbox>&nbsp; <b>Returnable</b></p>
-                      </section>
-                      </form>
+                      <p><input type="checkbox"  formControlName="returnable" disabled>&nbsp; <b>Returnable</b></p>
                     </div>
                   </div>         
-                  <div class="row">
+                  <div class="row" style="margin-top: 2%;" >
                     <div class="col-md-3">
                      
-                      <mat-radio-group formControlName="repackagedProduct" style="margin-left: 4%;margin-top: 4%;" (click)="checkDrugIsReturnable()">
+                      <mat-radio-group formControlName="fullParticalProduct" style="margin-left: 4%;margin-top: 4%;" (click)="checkDrugIsReturnable()">
                         <mat-radio-button  value="true" >Full Quantity</mat-radio-button>
                         <mat-radio-button  value="false">Number of</mat-radio-button>
                       </mat-radio-group>
-                  
+                      <mat-error style="margin-left: 4%;margin-top: 4%;" *ngIf="submitted && docForm.get('fullParticalProduct').hasError('required')">
+                        Full or Partical Quantity is required
+                    </mat-error> 
+
                     </div>
                     <div class="col-md-3">
-                      <form [formGroup]="returnableAndRepackForm">      
-                        <section class="example-section" >
-                          <p><mat-checkbox formControlName="repackagedProduct" style="margin-bottom: 14%;">Repackaged Product</mat-checkbox></p>
-                      </section>
-                      </form>
+                      <p><input type="checkbox" (click)="repackagedProduct()" formControlName="repackagedProduct" style="margin-bottom: 14%;">&nbsp; <b>Repackaged Product</b></p>
                     </div>
                   </div>    
 <br>
@@ -242,7 +237,7 @@
                     <button *ngIf="edit" (click) = "update()" class="btn-space" mat-raised-button
                     color="accent" style="margin-left: 36%;background-color: #34d034;">Update</button>
                     <button color="primary" type="button" class="btn-space" (click)="reset()" mat-raised-button>Reset</button>
-                    <button color="warn" type="button" (click)="onCancel()" mat-raised-button>Cancel</button>
+                    <button color="warn" type="button" class="btn-space"  (click)="onCancel()" mat-raised-button>Cancel</button>
                   </div>
                 </div>
               </form>
@@ -253,4 +248,3 @@
       </div>
     </div>
   </section>
-
