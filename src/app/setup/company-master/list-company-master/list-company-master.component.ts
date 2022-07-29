@@ -17,6 +17,7 @@ import { serverLocations } from 'src/app/auth/serverLocations';
 import { HttpServiceService } from 'src/app/auth/http-service.service';
 import { Router } from '@angular/router';
 import * as moment from 'moment';
+import { TokenStorageService } from 'src/app/auth/token-storage.service';
 
 declare var window: any;
 
@@ -41,10 +42,13 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
   exampleDatabase: CompanyMasterService | null;
   selection = new SelectionModel<CompanyMaster>(true, []);
   index: number;
+  
   id: number;
   companyMaster: CompanyMaster | null;
   rowCompanyCode:any;
   formModal: any;
+  
+
   constructor(
     public httpClient: HttpClient,
     public dialog: MatDialog,
@@ -52,7 +56,8 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
     private snackBar: MatSnackBar,
     private serverUrl:serverLocations,
     private httpService:HttpServiceService,
-    public router: Router
+    public router: Router,
+    private tokenStorage: TokenStorageService,
   ) {
     super();
   }
@@ -65,8 +70,22 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
   contextMenu: MatMenuTrigger;
   contextMenuPosition = { x: "0px", y: "0px" };
   today = moment().format('YYYY-MM-DD');
- 
+ // roleList:this.tokenStorage.getAuthorities();
+ roleList:any;
+ isRoleAdmin:boolean;
+
   ngOnInit(): void {
+  
+    this.roleList = this.tokenStorage.getAuthorities();
+    for(let i=0;i<this.roleList.length; i++){
+      if(this.roleList[i].roleId==1){
+        this.isRoleAdmin = true;
+        break;
+      }else{
+        this.isRoleAdmin = false;
+      }
+    }
+    this.tokenStorage.getCustomerCompanyCode();
     this.loadData();
     this.formModal = new window.bootstrap.Modal(
       document.getElementById('myModal')

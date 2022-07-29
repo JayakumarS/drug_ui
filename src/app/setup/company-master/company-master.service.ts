@@ -19,7 +19,10 @@ const httpOptions = {
 })
 export class CompanyMasterService extends UnsubscribeOnDestroyAdapter{
 
-
+  roleList:any;
+  isRoleAdmin:boolean;
+ 
+   
   isTblLoading = true;
   dataChange: BehaviorSubject<CompanyMaster[]> = new BehaviorSubject<CompanyMaster[]>(
     []
@@ -29,6 +32,19 @@ export class CompanyMasterService extends UnsubscribeOnDestroyAdapter{
   constructor(private httpClient: HttpClient,private serverUrl:serverLocations,private httpService:HttpServiceService) {
     super();
   }
+  // ngOnInit(): void {
+   
+  //   this.roleList = this.tokenStorage.getAuthorities();
+  //   for(let i=0;i<this.roleList.length; i++){
+  //     if(this.roleList[i].roleId==1){
+  //       this.isRoleAdmin = true;
+  //       break;
+  //     }else{
+  //       this.isRoleAdmin = false;
+  //     }
+  //   }
+  //  }
+
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/companyMaster/getList`;
   private saveCompanyMaster = `${this.serverUrl.apiServerAddress}api/auth/app/companyMaster/save`;
   public editCompanyMaster = `${this.serverUrl.apiServerAddress}api/auth/app/companyMaster/edit`;
