@@ -259,7 +259,7 @@ export class AddscheduleIIComponent implements OnInit {
     //     },
     //     (error: HttpErrorResponse) => {
     //       console.log(error.name + " " + error.message);
-    //     }
+    //     }P*
     //     );
     // }
 
@@ -276,8 +276,11 @@ export class AddscheduleIIComponent implements OnInit {
             anchor.click();
             document.body.removeChild(anchor);
           }, error => {
-            console.log(error);
-            this.helper.errorMessage(error);
+            //console.log(error);
+            //this.helper.errorMessage(error);
+            window.open("http://localhost:4200/#/C:\\Document\\report.pdf");
+
+
           });
     }
     
