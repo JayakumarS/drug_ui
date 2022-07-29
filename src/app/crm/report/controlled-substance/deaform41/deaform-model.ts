@@ -16,7 +16,7 @@ export class DEAForm{
     partialQuantity: string;
     price: string;
     estValue: string;
-   
+    controlClass: string;
    
 	
 	//for search
