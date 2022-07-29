@@ -29,21 +29,9 @@ export class CompanyMasterService extends UnsubscribeOnDestroyAdapter{
   );
   // Temporarily stores data from dialogs
   dialogData: any;
-  constructor(private httpClient: HttpClient,private serverUrl:serverLocations,private httpService:HttpServiceService) {
+  constructor(private httpClient: HttpClient,private serverUrl:serverLocations,private httpService:HttpServiceService,private tokenStorage: TokenStorageService) {
     super();
   }
-  // ngOnInit(): void {
-   
-  //   this.roleList = this.tokenStorage.getAuthorities();
-  //   for(let i=0;i<this.roleList.length; i++){
-  //     if(this.roleList[i].roleId==1){
-  //       this.isRoleAdmin = true;
-  //       break;
-  //     }else{
-  //       this.isRoleAdmin = false;
-  //     }
-  //   }
-  //  }
 
   private getAllMasters = `${this.serverUrl.apiServerAddress}api/auth/app/companyMaster/getList`;
   private saveCompanyMaster = `${this.serverUrl.apiServerAddress}api/auth/app/companyMaster/save`;
@@ -62,8 +50,18 @@ export class CompanyMasterService extends UnsubscribeOnDestroyAdapter{
   }
   /** CRUD METHODS */
   getAllCompany(): void {
-    
-        this.subs.sink = this.httpService.get<CompanyMasterResultBean>(this.getAllMasters).subscribe(
+    this.roleList = this.tokenStorage.getAuthorities();
+    for(let i=0;i<this.roleList.length; i++){
+      if(this.roleList[i].roleId==1){
+        this.isRoleAdmin = true;
+        break;
+      }else{
+        this.isRoleAdmin = false;
+      }
+    }
+
+
+        this.subs.sink = this.httpService.get<CompanyMasterResultBean>(this.getAllMasters+"?company="+this.tokenStorage.getCustomerCompanyCode()+'&isRoleAdmin='+this.isRoleAdmin).subscribe(
           (data) => {
             this.isTblLoading = false;
             this.dataChange.next(data.listCompanyMaster);

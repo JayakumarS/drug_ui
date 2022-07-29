@@ -85,7 +85,7 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
         this.isRoleAdmin = false;
       }
     }
-    this.tokenStorage.getCustomerCompanyCode();
+    
     this.loadData();
     this.formModal = new window.bootstrap.Modal(
       document.getElementById('myModal')
@@ -97,7 +97,7 @@ export class ListCompanyMasterComponent extends UnsubscribeOnDestroyAdapter impl
   }
 
   public loadData() {
-    this.exampleDatabase = new CompanyMasterService(this.httpClient,this.serverUrl,this.httpService);
+    this.exampleDatabase = new CompanyMasterService(this.httpClient,this.serverUrl,this.httpService,this.tokenStorage);
     this.dataSource = new ExampleDataSource(
       this.exampleDatabase,
       this.paginator,
