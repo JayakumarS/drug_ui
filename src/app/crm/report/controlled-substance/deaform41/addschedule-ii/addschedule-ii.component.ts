@@ -265,23 +265,14 @@ export class AddscheduleIIComponent implements OnInit {
 
     openPDF() {
             this.httpService.post<any>(this.deaformService.getExportPDF, this.docForm.value).subscribe(
-              (data) => {
-            var anchor = document.createElement('a');
-            let file = new Blob([data], { type: "application/pdf" });
-            anchor.href = URL.createObjectURL(file);
-  
-            anchor.download = 'SechuduleII.pdf';
-            document.body.appendChild(anchor); 
-            anchor.target = '_blank';
-            anchor.click();
-            document.body.removeChild(anchor);
-          }, error => {
-            //console.log(error);
-            //this.helper.errorMessage(error);
-            window.open("http://localhost:4200/#/C:\\Document\\report.pdf");
-
-
-          });
+              (result) => {
+                var blob = result;
+                var fileURL = URL.createObjectURL(blob);
+                window.open(fileURL);
+              }, error => {
+                
+                console.log(error);
+              });
     }
     
 
