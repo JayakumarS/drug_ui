@@ -85,6 +85,8 @@
                   color="accent" style="background-color: #eb0202;">Reset</button>
                   <button class="btn-space" (click)="openPDF()" mat-raised-button
                   color="accent" style="background-color: #515bdd;">Export Report</button>
+                  <button class="btn-space" (click)="exportexcel()" mat-raised-button
+                  color="accent" style="background-color: #515bdd;">Export To Excel</button>
               </div>
               </div>
               <br>
@@ -112,7 +114,7 @@
                               </tr>
                           </thead>
                           </table> -->
-                          <table class="table table-bordered table-hover">
+                          <table id="excel-table" class="table table-bordered table-hover">
                           <thead class="theadRow thead-light" >
                             <tr>
                               <th style="text-align: center;"><b>NDC/UPC</b></th>
