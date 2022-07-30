@@ -31,6 +31,7 @@ export class InventoryformService extends UnsubscribeOnDestroyAdapter{
   public savedEAForm = `${this.serverUrl.apiServerAddress}api/auth/app/report/getSearchList`;
   public savedEAForm14 = `${this.serverUrl.apiServerAddress}api/auth/app/report/getNonReturnSearchList`;
   public inventoryUrl = `${this.serverUrl.apiServerAddress}api/auth/app/report/getInventory`;
+  public exportPDF = `${this.serverUrl.apiServerAddress}api/auth/app/report/getExportString`;
 
 
 
