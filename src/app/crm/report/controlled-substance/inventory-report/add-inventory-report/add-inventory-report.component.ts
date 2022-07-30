@@ -7,7 +7,6 @@ import { InventoryformService } from '../../inventory-report/inventory-service';
 import { InventoryFormBean } from '../../inventory-report/inventory-result-bean';
 import { PackingFormService } from '../../packing-slip/packingSlip-service';
 import { CommonService } from 'src/app/common-service/common.service';
-import jsPDF from 'jspdf';
 import html2canvas from 'html2canvas';
 import { DebitmemoService } from 'src/app/setup/company-master/debit-memo/debitmemo.service';
 import { MatPaginator } from '@angular/material/paginator';
@@ -16,6 +15,14 @@ import { MatMenuTrigger } from '@angular/material/menu';
 import { DeaformService } from '../../deaform41/deaform.service';
 import { DEAForm } from '../../deaform41/deaform-model';
 import { takeUntil } from 'rxjs/operators';
+
+
+import jsPDF from 'jspdf';
+import pdfMake from 'pdfmake/build/pdfmake';
+import pdfFonts from 'pdfmake/build/vfs_fonts';
+pdfMake.vfs = pdfFonts.pdfMake.vfs;
+import htmlToPdfmake from 'html-to-pdfmake';
+    
 
 @Component({
   selector: 'app-add-inventory-report',
@@ -26,7 +33,7 @@ export class AddInventoryReportComponent implements OnInit {
   [x: string]: any;
 
   @ViewChild('htmlData') htmlData!: ElementRef;
-
+  @ViewChild('pdfTable') pdfTable: ElementRef;
   docForm: FormGroup;
   exampleDatabase: DeaformService | null;
   dEAForm:DEAForm;
@@ -260,23 +267,35 @@ export class AddInventoryReportComponent implements OnInit {
 
 //     //Export PDF
     openPDF() {    
-    if(this.searchList.length !== 0) {
-    // this.entiymasterid = sessionStorage.getItem('entityId-usec'); 
     
+    // this.entiymasterid = sessionStorage.getItem('entityId-usec'); 
     this.httpService.post<any>(this.inventoryformService.exportPDF, this.docForm.value).subscribe(
-           (data) => {
-        let file = new Blob([data], { type: "application/pdf" });
-        var fileURL = URL.createObjectURL(file);
-        window.open(fileURL);
+      (data) => {
+        // let file = new Blob([data], { type: "application/pdf" });
+        // var fileURL = URL.createObjectURL(file);
+        // window.open(fileURL);
+        // const doc = new jsPDF();
+    
+        // const pdfTable = this.pdfTable.nativeElement;
+        
+        // var html = htmlToPdfmake(pdfTable.innerHTML);
+          
+        // const documentDefinition = { content: html };
+        // pdfMake.createPdf(documentDefinition).open();
+        const doc = new jsPDF();
+    
+    //const pdfTable = this.pdfTable.nativeElement;
+    
+    var html = htmlToPdfmake(data.exportPDF);
+      
+    const documentDefinition = { content: html };
+    pdfMake.createPdf(documentDefinition).open(); 
+
       }, error => {
         console.log(error);
         this.helper.errorMessage(error);
       });
-  } else {
-    this.tostar.error('No Record Found', 'Error', {
-      timeOut: 2000
-    });
-  }
+ 
 
 }
 
