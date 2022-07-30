@@ -18,6 +18,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatMenuTrigger } from '@angular/material/menu';
 import { takeUntil } from 'rxjs/internal/operators/takeUntil';
+import * as XLSX from 'xlsx';
 
 @Component({
   selector: 'app-addschedule-ii',
@@ -38,6 +39,7 @@ export class AddscheduleIIComponent implements OnInit {
   companyList = [];
   debitMemoList = [];
   hideFlag = false;
+  fileName= 'ExcelSheet.xlsx';
 
   constructor(private fb: FormBuilder,public router: Router,private inventoryformService:InventoryformService,
     private httpService: HttpServiceService,public deaformService:DeaformService,private packingFormService:PackingFormService,
@@ -322,6 +324,20 @@ export class AddscheduleIIComponent implements OnInit {
    {
     this.hideFlag=true;
 
+   }
+
+   exportexcel(): void{
+     /* pass here the table id */
+     let element = document.getElementById('excel-table');
+     const ws: XLSX.WorkSheet =XLSX.utils.table_to_sheet(element);
+  
+     /* generate workbook and add the worksheet */
+     const wb: XLSX.WorkBook = XLSX.utils.book_new();
+     XLSX.utils.book_append_sheet(wb, ws, 'Sheet1');
+  
+     /* save to file */  
+     XLSX.writeFile(wb, this.fileName);
+  
    }
 
 //     //Export PDF
